@@ -1,0 +1,53 @@
+{
+    "name": "lara-zeus/bolt",
+    "description": "laravel package to create and manage forms",
+    "keywords": [
+        "laravel",
+        "lara-zeus",
+        "bolt",
+        "bolt",
+        "form",
+        "forms",
+        "generator",
+        "maker"
+    ],
+    "homepage": "https://github.com/lara-zeus",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ashraf Monshi",
+            "email": "wh7r.com@gmail.com",
+            "role": "Owner"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "lara-zeus/core": "dev-main",
+        "codeat3/blade-clarity-icons": "^1.7"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaraZeus\\Bolt\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaraZeus\\Bolt\\BoltServiceProvider"
+            ]
+        }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../core"
+        }
+    ]
+}
