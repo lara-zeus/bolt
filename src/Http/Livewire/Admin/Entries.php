@@ -25,7 +25,7 @@ class Entries extends BoltCrudBase
         'delete' => true,
         'show' => true,
     ];
-    public $setListView = 'zeus-bolt::entries';
+    public $setListView = 'zeus-bolt::forms.entries';
     public $form;
 
     public function init()

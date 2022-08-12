@@ -2,12 +2,16 @@
 
 namespace LaraZeus\Bolt\Http\Livewire\Admin;
 
+use Filament\Notifications\Notification;
+use Filament\Pages\Page;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Models\Form;
-use Livewire\Component;
 
-class CreateForms extends Component
+class CreateForms extends Page
 {
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static string $view = 'zeus-bolt::forms.create-forms';
+
     use UsesBlankData;
 
     public Form $form;
@@ -29,7 +33,8 @@ class CreateForms extends Component
 
     public function mount($formId = null)
     {
-        //$this->notify('Please select some rows first', 'error');
+        //Notification::make()->title(__('Please select some rows first'))->danger()->send();
+
         $this->formId = $formId;
 
         if ($formId === null) {
@@ -79,21 +84,16 @@ class CreateForms extends Component
 
     public function store()
     {
-        $this->notify('saving...');
+        Notification::make()->title(__('saving...'))->send();
 
         try {
             $this->validate();
         } catch (\Illuminate\Validation\ValidationException $e) {
-            $this->notify('validation error...', 'error');
+            Notification::make()->title(__('validation error...'))->danger()->send();
             throw $e;
         }
 
         $this->form->save();
         $this->emit('formSaved', $this->form->id);
-    }
-
-    public function render()
-    {
-        return view('zeus-bolt::forms.create-forms')->layout('zeus::components.layouts.app');
     }
 }

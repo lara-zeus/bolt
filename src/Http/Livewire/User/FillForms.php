@@ -72,7 +72,7 @@ class FillForms extends Component
             FieldResponse::create($item);
         }
 
-        return redirect()->route('bolt.user.bolt.submitted',['slug'=>$this->form->slug]);
+        return redirect()->route('bolt.user.submitted',['slug'=>$this->form->slug]);
     }
 
     public function updated($propertyName)
@@ -82,6 +82,6 @@ class FillForms extends Component
 
     public function render()
     {
-        return view('zeus-bolt::fill-forms')->layout('zeus-bolt::components.app', ['withoutSideNav' => true]);
+        return view('zeus-bolt::forms.fill-forms')->layout('zeus::components.app', ['withoutSideNav' => true]);
     }
 }

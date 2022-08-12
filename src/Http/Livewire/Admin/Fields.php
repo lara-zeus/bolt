@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Http\Livewire\Admin;
 
 use Filament\Forms;
+use Filament\Notifications\Notification;
 use LaraZeus\Bolt\Models\Collection;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\Form;
@@ -13,7 +14,7 @@ class Fields extends Component implements Forms\Contracts\HasForms
     use UsesBlankData;
     use Forms\Concerns\InteractsWithForms;
 
-    public $title;
+    /*public $title;
     public $content;
 
     protected function getForms() : array
@@ -29,7 +30,7 @@ class Fields extends Component implements Forms\Contracts\HasForms
             Forms\Components\TextInput::make('title')->required(),
             Forms\Components\MarkdownEditor::make('content'),
         ];
-    }
+    }*/
 
     public $fields;
     public $sec;
@@ -122,7 +123,7 @@ class Fields extends Component implements Forms\Contracts\HasForms
             }
         }
 
-        $this->notify('your form has been saved!');
+        Notification::make()->title(__('your form has been saved!'))->success()->send();
 
         return redirect()->route('bolt.admin.form.edit', [ 'formId' => $form ]);
     }

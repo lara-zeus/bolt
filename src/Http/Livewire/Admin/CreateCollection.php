@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Http\Livewire\Admin;
 
+use Illuminate\Support\Facades\Schema;
 use LaraZeus\Bolt\Models\Collection;
 use Livewire\Component;
 
@@ -67,7 +68,7 @@ class CreateCollection extends Component
         $this->validate(
             [
                 'collection.values' => 'required',
-                'collection.values.*.itemKey' => 'required|slug',
+                'collection.values.*.itemKey' => 'required',
                 'collection.values.*.itemValue' => 'required',
                 'collection.values.*.itemIsDefault' => 'sometimes',
                 'collection.name' => 'required',
@@ -77,7 +78,9 @@ class CreateCollection extends Component
                 'collection.values.*.itemKey.slug' => 'the key should not have spaces!',
             ]
         );
-        $this->collection->user_id = auth()->user()->id ?? 0;
+        if (Schema::hasColumn($this->collection->getTable(), 'user_id')) {
+            $this->collection->user_id = auth()->user()->id ?? 0;
+        }
         $this->collection->save();
 
         $this->emit('collectionSaved', $this->collection->id, $this->fld);
@@ -85,7 +88,7 @@ class CreateCollection extends Component
         $this->initCollection();
 
         if (!$this->options) {
-            return redirect()->route('bolt.admin.collections');
+            return redirect()->route('admin.collections.create');
         }
     }
 
@@ -106,7 +109,9 @@ class CreateCollection extends Component
         })->toArray();
 
         $this->collection->values = $newOrderdValues;
-        $this->collection->user_id = auth()->user()->id ?? 0;
+        if (Schema::hasColumn($this->collection->getTable(), 'user_id')) {
+            $this->collection->user_id = auth()->user()->id ?? 0;
+        }
         $this->collection->save();
     }
 

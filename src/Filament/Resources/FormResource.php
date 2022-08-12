@@ -3,13 +3,15 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions\LinkAction;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
@@ -58,6 +60,19 @@ class FormResource extends Resource
                 Textarea::make('options')->maxLength(65535),
                 DateTimePicker::make('start_date'),
                 DateTimePicker::make('end_date'),
+
+                Repeater::make('sections')
+                    ->schema([
+                        TextInput::make('name')->required(),
+
+                        Repeater::make('fields')
+                            ->schema([
+                                TextInput::make('name')->required(),
+                            ])
+                            ->columnSpan(2)
+
+                    ])
+                    ->columnSpan(2)
             ]);
     }
 
@@ -72,18 +87,14 @@ class FormResource extends Resource
                 TextColumn::make('start_date')->dateTime(),
                 TextColumn::make('end_date')->dateTime(),
             ])
-            ->filters([
-                //
-            ])
-            //
-            ->pushActions([
-                LinkAction::make('open')
+            ->appendActions([
+                Action::make('open')
                     ->icon('heroicon-o-external-link')
                     ->tooltip('Show the Form')
                     ->url(fn(ZeusForm $record) : string => route('bolt.user.form.show', $record))
                     ->openUrlInNewTab(),
 
-                LinkAction::make('entries')
+                Action::make('entries')
                     ->icon('heroicon-o-external-link')
                     ->tooltip('View All Entries')
                     ->url(fn(ZeusForm $record) : string => url('admin/responses?form_id=' . $record->id)),

@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt;
 
+use Filament\Facades\Filament;
 use Filament\PluginServiceProvider;
 use LaraZeus\Bolt\Console\PublishCommand;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
@@ -28,9 +29,16 @@ class BoltServiceProvider extends PluginServiceProvider
 {
     public static string $name = 'zeus-bolt';
 
-    protected array $styles = [
-        //'zeus-bolt-styles' => __DIR__ . '/../../core/resources/assets/app.css',
-    ];
+    /*protected array $styles = [
+        'zeus-bolt-styles' => __DIR__ . '/../resources/dist/app.css',
+    ];*/
+
+    /*protected function getStyles() : array
+    {
+        return [
+            'zeus-bolt-styles' => 'https://demo.test/vendor/zeus-bolt/app.css',
+        ];
+    }*/
 
     protected array $beforeCoreScripts = [
         //'zeus-bolt-popperjs' => 'https://unpkg.com/@popperjs/core@2',
@@ -52,11 +60,6 @@ class BoltServiceProvider extends PluginServiceProvider
 
     public function boot()
     {
-        /*Livewire::component('contact', Contacts::class);
-        Livewire::component('bolt.submitted', Submitted::class);
-        Livewire::component('bolt.fill-form', FillForms::class);
-        Livewire::component('bolt.list-forms', ListForms::class);*/
-
         Livewire::component('bolt.create-section', Section::class);
         Livewire::component('bolt.create-field', Fields::class);
         Livewire::component('bolt.submitted', Submitted::class);
@@ -67,9 +70,7 @@ class BoltServiceProvider extends PluginServiceProvider
         Livewire::component('crud.bolt', Forms::class);
         Livewire::component('crud.manage-entries', Entries::class);
         Livewire::component('crud.collections', Collections::class);
-
         Livewire::component('forms.create-collection', CreateCollection::class);
-
 
         if ($this->app->runningInConsole()) {
             $this->publishes([

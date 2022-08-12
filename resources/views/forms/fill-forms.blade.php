@@ -34,7 +34,6 @@
                 @endif
             </div>
         </x-zeus::box>
-
         @if($form->sections->count() !== 0)
             @foreach($form->sections as $section)
                 <x-zeus::box class="max-w-4xl mx-auto">
@@ -51,7 +50,6 @@
                                 </h2>
                             @endif
                         </span>
-
                         @foreach($form->fields as $field)
                             @if($section->id === $field->section_id)
                                 <div class="p-4">
@@ -59,12 +57,8 @@
                                     @if(isset($field->description) && !empty($field->description))
                                         <cite class="block italic">{{ $field->description }}</cite>
                                     @endif
-                                    {{--@if($fieldResponse[$field->id]['response'] == 1)
-                                        111111
-                                    @endif--}}
-
                                     <div>
-                                        @includeif('zeus::fields.'.$field->type)
+                                        @includeif('zeus-bolt::fields.'.$field->type)
                                     </div>
                                     @error('fieldResponse.'.$field['id'].'.response')
                                     <div class="mt-3 text-red-500 text-sm">{{ $message }}</div> @enderror

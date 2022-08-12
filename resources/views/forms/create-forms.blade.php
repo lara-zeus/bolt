@@ -1,5 +1,5 @@
 {{--<x-filament::page>--}}
-    <div x-data x-init="tippy('[data-tippy-content]', {animation: 'perspective',});">
+    <div x-data x-init="tippy('[data-tippy-content]', {animation: 'perspective'});">
 
         @include('zeus-bolt::forms.modals.options')
         @include('zeus-bolt::forms.modals.texts')
@@ -101,4 +101,6 @@
             <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
         @endpush
     </div>
-{{--</x-filament::page>--}}
+{{--
+</x-filament::page>
+--}}

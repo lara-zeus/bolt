@@ -50,9 +50,9 @@ class CollectionResource extends Resource
                 Forms\Components\Repeater::make('values')
                     ->label(__('zeus-bolt::common.collections.values'))
                     ->schema([
-                        TextInput::make('key')->required(),
-                        TextInput::make('value')->required(),
-                        Toggle::make('default'),
+                        TextInput::make('itemKey')->required(),
+                        TextInput::make('itemValue')->required(),
+                        Toggle::make('itemIsDefault'),
                     ])->columnSpan(2)->columns(3)
             ]);
     }
