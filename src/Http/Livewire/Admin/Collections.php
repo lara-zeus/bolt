@@ -7,7 +7,7 @@ use LaraZeus\Bolt\Models\Collection;
 class Collections extends BoltCrudBase
 {
     public $model = Collection::class;
-    public $title = 'Manage Collections';
+    protected static ?string $title = 'Manage Collections';
     public $titleSingular = 'collection';
     public $breadcrumbTitle = 'Collections';
     public $createRoute = 'COMPONENT';

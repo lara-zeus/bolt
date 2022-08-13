@@ -1,7 +1,6 @@
-<div class="flex-col space-y-4">
-    <x-zeus::box>
+<x-filament::page>
+    <x-filament::card>
         @forelse ($rows as $row)
-            @dump($row)
             <x-slot name="header">
                 <div>
                     <p>
@@ -15,12 +14,10 @@
                 </div>
             </x-slot>
 
-
             <div wire:key="row-{{ $row->id }}">
-
-                <div class="divide-y divide-gray-200 {{--gap-4--}} flex flex-col">
+                <div class="divide-y divide-gray-200 flex flex-col">
                     @foreach($fields->where('inShow',true) as $field)
-                        <div class="{{--border-b border-gray-200--}} py-2">
+                        <div class="py-2">
                             {{ $field['label'] }}:
                             @if(\Illuminate\Support\Str::contains($field['id'],'.'))
                                 {{ ($flattenedRows[$loop->parent->index.'.'.$field['id']]) ?? '' }}
@@ -35,22 +32,16 @@
                     @endforeach
 
                     @foreach($row->fieldsResponses as $resp)
-                        <div class="{{--border-b border-gray-200--}} py-2">
+                        <div class="py-2">
                             {{ $resp->field->name }}:{{ $resp->response ?? ''}}
                         </div>
                     @endforeach
                 </div>
-
-
-                {{--<x-zeus::elements.link wire:click="$toggle('showDeleteModal')"> todo
-                    <x-heroicon-o-trash class="h-5 w-5 text-gray-400" />
-                </x-zeus::elements.link>--}}
             </div>
-
         @empty
             <div class="flex justify-center items-center space-x-2">
                 <x-heroicon-o-inbox class="h-8 w-8 text-gray-400"/>
-                <span class="font-medium py-8 text-gray-400 text-xl">No {{ $breadcrumbTitle }} found...</span>
+                <span class="font-medium py-8 text-gray-400 text-xl">No {{ $title }} found...</span>
             </div>
         @endforelse
 
@@ -59,5 +50,5 @@
                 {{ $rows->links() }}
             </x-slot>
         @endif
-    </x-zeus::box>
-</div>
+    </x-filament::card>
+</x-filament::page>

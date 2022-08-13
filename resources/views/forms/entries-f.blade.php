@@ -1,7 +1,6 @@
 <div class="flex-col space-y-4">
     <x-zeus::box>
         @forelse ($rows as $row)
-            @dump($row)
             <x-slot name="header">
                 <div>
                     <p>
@@ -14,7 +13,6 @@
                     </p>
                 </div>
             </x-slot>
-
 
             <div wire:key="row-{{ $row->id }}">
 
@@ -41,12 +39,43 @@
                     @endforeach
                 </div>
 
+                @if($oprations['edit'])
+                    @if(isset($editRoute) && $editRoute !== null)
+                        <x-zeus::elements.link href="{{ route($editRoute, ['formId' => $row->id]) }}" data-tippy-content="Edit item">
+                            <x-heroicon-o-pencil-alt class="h-5 w-5 text-gray-400"/>
+                        </x-zeus::elements.link>
+                    @else
+                        <x-zeus::elements.link wire:click="edit({{ $row->id }})" data-tippy-content="Edit item">
+                            <x-heroicon-o-pencil-alt class="h-5 w-5 text-gray-400"/>
+                        </x-zeus::elements.link>
+                    @endif
+                @endif
 
+                @if($buttons !== null)
+                    @foreach($buttons as $id => $button)
+                        @if(\Illuminate\Support\Str::contains($button['link'],':'))
+                            <?php
+                            $linkURI = explode(':', $button['link']);
+                            $link = $linkURI[1] ?? '';
+                            ?>
+                            <x-zeus::elements.link href="{{ route($linkURI[0],[$link=>$row->{$link}]) }}" target="{{ $button['target'] ?? '_self' }}" data-tippy-content="{{ $button['title'] ?? '' }}">
+                                @if(isset($button['icon']))
+                                    {{ svg($button['icon'])->class('h-5 w-5 text-gray-400') }}
+                                @endif
+                            </x-zeus::elements.link>
+                        @else
+                            <x-zeus::elements.link href="{{ route($button['link']) }}" target="{{ $button['target'] ?? '_self' }}" data-tippy-content="{{ $button['title'] ?? '' }}">
+                                @if(isset($button['icon']))
+                                    {{ svg($button['icon'])->class('h-5 w-5 text-gray-400') }}
+                                @endif
+                            </x-zeus::elements.link>
+                        @endif
+                    @endforeach
+                @endif
                 {{--<x-zeus::elements.link wire:click="$toggle('showDeleteModal')"> todo
                     <x-heroicon-o-trash class="h-5 w-5 text-gray-400" />
                 </x-zeus::elements.link>--}}
             </div>
-
         @empty
             <div class="flex justify-center items-center space-x-2">
                 <x-heroicon-o-inbox class="h-8 w-8 text-gray-400"/>

@@ -2,11 +2,11 @@
 
 namespace LaraZeus\Bolt\Http\Livewire\Admin;
 
-use Livewire\Component;
+use Filament\Resources\Pages\Page;
 
-class BoltCrudBase extends Component
+class BoltCrudBase extends Page
 {
-    use WithPerPagePagination, WithSorting, WithBulkActions;
+    use  WithSorting, WithBulkActions;
 
     public $desc;
     public $fields;
@@ -22,7 +22,6 @@ class BoltCrudBase extends Component
         'search' => '',
         'amount-min' => null,
     ];
-
     public $searchFields;
     public $flattenedRows;
     public $filterFields;
@@ -38,7 +37,6 @@ class BoltCrudBase extends Component
         'show' => true,
     ];
     public $setListView;
-
     protected $queryString = ['sorts'];
 
     public function rules()
@@ -73,7 +71,7 @@ class BoltCrudBase extends Component
         $this->resetPage();
     }
 
-    public function exportSelected()
+   /* public function exportSelected()
     {
         $count = $this->selectedRowsQuery->count();
         if ($count === 0) {
@@ -86,9 +84,9 @@ class BoltCrudBase extends Component
         return response()->streamDownload(function () {
             echo $this->selectedRowsQuery->toCsv();
         }, $this->model->getTable().'.csv');
-    }
+    }*/
 
-    public function deleteSelected()
+    /*public function deleteSelected()
     {
         $count = $this->selectedRowsQuery->count();
 
@@ -104,7 +102,7 @@ class BoltCrudBase extends Component
         $this->modals['showDeleteModal'] = false;
 
         $this->notify('You\'ve deleted '.$count.' rows');
-    }
+    }*/
 
     public function makeBlankRow()
     {
@@ -163,7 +161,6 @@ class BoltCrudBase extends Component
     public function show($modelId)
     {
         $getModelRow = $this->model::find($modelId);
-
         if ($this->model->isNot($getModelRow)) {
             $this->model = $getModelRow;
         }
@@ -172,7 +169,7 @@ class BoltCrudBase extends Component
         $this->modals['showDetails'] = true;
     }
 
-    public function getRowsQueryProperty()
+    public function getAllRows()
     {
         $getFilters = collect($this->filters)->forget('search')->keys()->toArray();
 
@@ -205,18 +202,18 @@ class BoltCrudBase extends Component
 
         $this->flattenedRows = \Illuminate\Support\Arr::dot($query->get()->toArray());
 
-        return $this->applySorting($query);
+        foreach ($this->sorts as $field => $direction) {
+            $query->orderBy($field, $direction);
+        }
+
+        return $query->simplePaginate($this->perPage);
     }
 
-    public function getRowsProperty()
+    /*public function render(): View
     {
-        return $this->applyPagination($this->rowsQuery);
-    }
-
-    public function render()
-    {
-        return view('zeus-bolt::crud.base')
-            ->layout('zeus::components.layouts.app')
-            ->with('rows', $this->rows);
-    }
+        return view('zeus-bolt::forms.entries')
+            ->layout('filament::components.layouts.app')
+            ->with('rows', $this->rows)
+            ;
+    }*/
 }
