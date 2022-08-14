@@ -88,7 +88,7 @@ class CreateCollection extends Component
         $this->initCollection();
 
         if (!$this->options) {
-            return redirect()->route('admin.collections.create');
+            return redirect()->route('filament.resources.collections.create');
         }
     }
 

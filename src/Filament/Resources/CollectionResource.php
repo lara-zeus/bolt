@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
@@ -16,29 +15,32 @@ use Filament\Tables;
 class CollectionResource extends Resource
 {
     protected static ?string $model = Collection::class;
-
     protected static ?string $navigationIcon = 'clarity-list-line';
-
     protected static ?int $navigationSort = 3;
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return (string) Collection::query()->count();
+    }
 
     protected static function getNavigationGroup() : ?string
     {
         return __('Bolt');
     }
 
-    public static function getLabel() : string
+    public static function getLabel(): string
     {
-        return __('zeus-bolt::common.collections.label');
+        return __('Collection');
     }
 
-    public static function getPluralLabel() : string
+    public static function getPluralLabel(): string
     {
-        return __('zeus-bolt::common.collections.plural');
+        return __('Collections');
     }
 
-    protected static function getNavigationLabel() : string
+    protected static function getNavigationLabel(): string
     {
-        return __('zeus-bolt::common.collections.nav_label');
+        return __('Collections');
     }
 
     public static function form(Form $form): Form

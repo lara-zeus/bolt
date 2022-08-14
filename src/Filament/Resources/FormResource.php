@@ -4,7 +4,6 @@ namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -25,24 +24,29 @@ class FormResource extends Resource
     protected static ?string $navigationIcon = 'clarity-form-line';
     protected static ?int $navigationSort = 1;
 
-    protected static function getNavigationGroup() : ?string
+    protected static function getNavigationBadge(): ?string
+    {
+        return (string) ZeusForm::query()->count();
+    }
+
+    protected static function getNavigationGroup(): ?string
     {
         return __('Bolt');
     }
 
-    public static function getLabel() : string
+    public static function getLabel(): string
     {
-        return __('zeus-bolt::common.form');
+        return __('Form');
     }
 
-    public static function getPluralLabel() : string
+    public static function getPluralLabel(): string
     {
-        return __('zeus-bolt::common.forms');
+        return __('Forms');
     }
 
-    protected static function getNavigationLabel() : string
+    protected static function getNavigationLabel(): string
     {
-        return __('zeus-bolt::common.forms');
+        return __('Forms');
     }
 
     public static function form(Form $form) : Form

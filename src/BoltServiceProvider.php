@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt;
 
-use Filament\Facades\Filament;
 use Filament\PluginServiceProvider;
 use LaraZeus\Bolt\Console\PublishCommand;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
@@ -11,12 +10,10 @@ use LaraZeus\Bolt\Filament\Resources\FieldResponseResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Filament\Resources\SectionResource;
-use LaraZeus\Bolt\Http\Livewire\Admin\Collections;
 use LaraZeus\Bolt\Http\Livewire\Admin\CreateCollection;
 use LaraZeus\Bolt\Http\Livewire\Admin\CreateForms;
 use LaraZeus\Bolt\Http\Livewire\Admin\Entries;
 use LaraZeus\Bolt\Http\Livewire\Admin\Fields;
-use LaraZeus\Bolt\Http\Livewire\Admin\Forms;
 use LaraZeus\Bolt\Http\Livewire\Admin\Section;
 use LaraZeus\Bolt\Http\Livewire\User\FillForms;
 use LaraZeus\Bolt\Http\Livewire\User\ListEntries;
@@ -50,11 +47,8 @@ class BoltServiceProvider extends PluginServiceProvider
     {
         return [
             CollectionResource::class,
-            FieldResource::class,
-            FieldResponseResource::class,
             FormResource::class,
             ResponseResource::class,
-            SectionResource::class,
         ];
     }
 
@@ -67,9 +61,7 @@ class BoltServiceProvider extends PluginServiceProvider
         Livewire::component('bolt.fill-form', FillForms::class);
         Livewire::component('bolt.list-forms', ListForms::class);
         Livewire::component('bolt.manage-entries', ListEntries::class);
-        Livewire::component('crud.bolt', Forms::class);
         Livewire::component('crud.manage-entries', Entries::class);
-        Livewire::component('crud.collections', Collections::class);
         Livewire::component('forms.create-collection', CreateCollection::class);
 
         if ($this->app->runningInConsole()) {

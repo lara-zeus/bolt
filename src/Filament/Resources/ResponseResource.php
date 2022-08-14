@@ -5,7 +5,6 @@ namespace LaraZeus\Bolt\Filament\Resources;
 use Filament\Tables\Filters\SelectFilter;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\RelationManagers\FieldsResponsesRelationManager;
-use LaraZeus\Bolt\Http\Livewire\Admin\Entries;
 use LaraZeus\Bolt\Models\Response;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -16,19 +15,32 @@ use Filament\Tables;
 class ResponseResource extends Resource
 {
     protected static ?string $model = Response::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-
     protected static ?int $navigationSort = 2;
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return (string) Response::query()->count();
+    }
 
     protected static function getNavigationGroup() : ?string
     {
         return __('Bolt');
     }
 
-    protected static function shouldRegisterNavigation() : bool
+    public static function getLabel(): string
     {
-        return true; //todo
+        return __('Response');
+    }
+
+    public static function getPluralLabel(): string
+    {
+        return __('Responses');
+    }
+
+    protected static function getNavigationLabel(): string
+    {
+        return __('Responses');
     }
 
     public static function form(Form $form): Form

@@ -3,7 +3,7 @@
         <x-heroicon-o-plus class="h-5 w-5 text-green-600 mt-1" />
     </x-zeus::elements.link>
 
-    <x-zeus::elements.link target="_blank" href="{{ route('admin.collections.create') }}" data-tippy-content="Manage Lists">
+    <x-zeus::elements.link target="_blank" href="{{ route('filament.resources.collections.create') }}" data-tippy-content="Manage Lists">
         <x-heroicon-o-cog class="h-5 w-5 text-green-600 mt-1" />
     </x-zeus::elements.link>
     <x-zeus::modal.dialog wire:model.defer="showCollectionModals" x-cloak>

@@ -33,8 +33,6 @@ class CreateForms extends Page
 
     public function mount($formId = null)
     {
-        //Notification::make()->title(__('Please select some rows first'))->danger()->send();
-
         $this->formId = $formId;
 
         if ($formId === null) {

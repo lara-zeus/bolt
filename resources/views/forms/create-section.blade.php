@@ -7,7 +7,6 @@
             Add Section
         </x-zeus::elements.link>
     </div>
-
     @foreach($sections as $key => $value)
 
         <x-zeus::box shadowless>
@@ -36,8 +35,7 @@
                     </div>
                 </div>
             </x-slot>
-
-            @livewire('bolt.create-field',['formId' => $value->form_id, 'sec'=>$key],key($key))
+            @livewire('bolt.create-field',['formId' => $value->form_id, 'sec'=>($value->id) ?: $key],key($key))
 
         </x-zeus::box>
     @endforeach

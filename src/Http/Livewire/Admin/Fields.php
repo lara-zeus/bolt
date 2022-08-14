@@ -2,35 +2,16 @@
 
 namespace LaraZeus\Bolt\Http\Livewire\Admin;
 
-use Filament\Forms;
 use Filament\Notifications\Notification;
+use Illuminate\Validation\ValidationException;
 use LaraZeus\Bolt\Models\Collection;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
 
-class Fields extends Component implements Forms\Contracts\HasForms
+class Fields extends Component
 {
     use UsesBlankData;
-    use Forms\Concerns\InteractsWithForms;
-
-    /*public $title;
-    public $content;
-
-    protected function getForms() : array
-    {
-        return [
-            'postForm' => $this->makeForm()->schema($this->getFormSchema()),
-        ];
-    }
-
-    protected function getFormSchema() : array
-    {
-        return [
-            Forms\Components\TextInput::make('title')->required(),
-            Forms\Components\MarkdownEditor::make('content'),
-        ];
-    }*/
 
     public $fields;
     public $sec;
@@ -39,21 +20,20 @@ class Fields extends Component implements Forms\Contracts\HasForms
     public $formId;
     public $allCollection;
     protected $listeners = [ 'addField', 'collectionSaved', 'sectionSaved' => 'store' ];
+    protected $validationAttributes = [
+            'fields.*.*.type' => 'field type',
+            'fields.*.*.name' => 'field name',
+        ];
 
     public function addCollection($collectionId)
     {
         $this->emit('addCollection', $collectionId);
     }
 
-    protected $validationAttributes
-        = [
-            'fields.*.*.type' => 'field type',
-            'fields.*.*.name' => 'field name',
-        ];
-
     public function collectionSaved($collectionID, $fld)
     {
-        $this->allCollection                                     = Collection::orderBy('id', 'desc')->get();
+        $this->allCollection = Collection::orderBy('id', 'desc')->get();
+
         $this->fields[$this->sec][$fld]['options']['dataSource'] = $collectionID;
     }
 
@@ -67,7 +47,7 @@ class Fields extends Component implements Forms\Contracts\HasForms
             $this->fields[$this->sec][]       = $this->fieldData($this->sec);
             $this->fieldsModals[$this->sec][] = $this->fieldsModalsItems; // in edit? todo
         } else {
-            $this->fields[$this->sec]       = Form::find($formId)->fields->toArray();
+            $this->fields[$this->sec]       = Form::find($formId)->fields->where('section_id', $this->sec)->toArray();
             $this->fieldsModals[$this->sec] = array_fill(0, count($this->fields[$this->sec]), $this->fieldsModalsItems); // in edit? todo
         }
     }
@@ -105,7 +85,13 @@ class Fields extends Component implements Forms\Contracts\HasForms
 
     public function store($form, $section)
     {
-        $this->validate();
+        try {
+            $this->validate();
+        } catch (ValidationException $e) {
+            Notification::make()->title(__('validation error...'))->danger()->send();
+            throw $e;
+        }
+
         foreach ($this->fields as $sec => $fields) {
             foreach ($fields as $field) {
                 $setField                  = Field::firstOrNew([ 'html_id' => $field['html_id'] ]);
@@ -125,7 +111,7 @@ class Fields extends Component implements Forms\Contracts\HasForms
 
         Notification::make()->title(__('your form has been saved!'))->success()->send();
 
-        return redirect()->route('bolt.admin.form.edit', [ 'formId' => $form ]);
+        return redirect()->route('admin.form.edit', [ 'formId' => $form ]);
     }
 
     public function updated($propertyName)
