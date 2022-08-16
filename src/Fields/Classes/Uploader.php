@@ -1,9 +1,8 @@
 <?php
 
-namespace LaraZeus\Bolt\Classes\Fields\Classes;
+namespace LaraZeus\Bolt\Fields\Classes;
 
-use LaraZeus\Bolt\Classes\Fields\FieldsContract;
-
+use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Uploader extends FieldsContract
 {

@@ -72,6 +72,11 @@ class Fields extends Component
         $this->fieldsModals[$this->sec][] = $this->fieldsModalsItems;
     }
 
+    public function addRule($fld)
+    {
+        $this->fields[$this->sec][$fld]['rules'] = ['rule','options'];
+    }
+
     public function openFieldModals($index, $type)
     {
         $this->fieldsModals[$this->sec][$index][$type] = true;

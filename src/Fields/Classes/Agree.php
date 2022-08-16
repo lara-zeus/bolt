@@ -1,8 +1,8 @@
 <?php
 
-namespace LaraZeus\Bolt\Classes\Fields\Classes;
+namespace LaraZeus\Bolt\Fields\Classes;
 
-use LaraZeus\Bolt\Classes\Fields\FieldsContract;
+use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Agree extends FieldsContract
 {
@@ -23,7 +23,7 @@ class Agree extends FieldsContract
     {
         $out = '';
         if ($ans->response == 1) {
-            $out .= trans('Frontend/App/Forms.agree');
+            $out .= trans('forms.agree');
         } else {
             $out .= $ans->response;
         }

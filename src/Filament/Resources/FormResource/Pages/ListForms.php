@@ -23,7 +23,7 @@ class ListForms extends ListRecords
                 ->label('create form')
                 ->icon('heroicon-o-plus')
                 ->tooltip('Create New Form')
-                ->url(fn() : string => route('admin.zeus.form.create')),
+                ->url(fn() : string => route('admin.form.create')),
         ];
     }
 

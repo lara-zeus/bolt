@@ -17,6 +17,6 @@ Route::prefix(config('zeus-bolt.path'))->name('bolt.')->middleware('web')->group
 });
 
 Route::prefix(config('filament.path'))->name('admin.')->group(function () {
-    Route::get('create-form', CreateForms::class)->name('zeus.form.create');
+    Route::get('create-form', CreateForms::class)->name('form.create');
     Route::get('edit-form/{formId}', CreateForms::class)->name('form.edit');
 });

@@ -42,7 +42,10 @@
         "laravel": {
             "providers": [
                 "LaraZeus\\Bolt\\BoltServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Bolt": "LaraZeus\\Bolt\\Facades\\Bolt"
+            }
         }
     },
     "repositories": [

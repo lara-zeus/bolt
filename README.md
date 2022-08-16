@@ -1,19 +1,21 @@
 <h1 align="center">Lara Zeus Bolt</h1>
 
-<p align="center">
-<a href="https://larazeus.com"><img src="https://larazeus.com/images/bolt-banner.png" /></a>
-</p>
+<h4 align="center">Lara-zeus bolt is a form builder for your users, with so many use cases.</h3>
 
-<p align="center">
-<a href="https://packagist.org/packages/lara-zeus/bolt"><img src="https://img.shields.io/packagist/v/lara-zeus/bolt?style=flat-square" /></a>
-<a href="https://github.styleci.io/repos/475187095?branch=main"><img src="https://github.styleci.io/repos/438676758/shield?branch=main" alt="StyleCI"></a>
-<a href="https://packagist.org/packages/lara-zeus/bolt"><img src="https://img.shields.io/packagist/dt/lara-zeus/bolt?style=flat-square" /></a>
-<a href="https://github.com/lara-zeus/bolt"><img src="https://img.shields.io/github/stars/lara-zeus/bolt?style=flat-square" /></a>
-<a href="https://www.codefactor.io/repository/github/lara-zeus/bolt"><img src="https://www.codefactor.io/repository/github/lara-zeus/bolt/badge" alt="CodeFactor" /></a>
-</p>
+<h1 align="center" style="color: red">
+🚧🚧 Still under devloplment 🚧🚧
+</h1>
 
-Lara-zeus bolt is a form builder for your users, with so many use cases.
->small tasks can be time-consuming, let us build these for you,
+### this package was extracted from a client project, working on making it stable.
+if you think this has potential, star the project to let me know :)
+
+### todo:
+- [ ] use filament as possible
+- [ ] more flexibility on adding custom fields
+- [ ] enable users
+- [ ] add Categories
+- [ ] integrate with shield or other solution for permissions
+- [ ] use blade icons and replace SVGs
 
 ## Support Filament
 
@@ -25,7 +27,7 @@ Lara-zeus bolt is a form builder for your users, with so many use cases.
 - 🔥 built with [TALL stack](https://tallstack.dev/)
 - 🔥 using [filament](https://filamentadmin.com) as an admin panel
 - 🔥 FrontEnd scaffolding, highly customizable.
-
+- 🔥 Collections.
 
 and more in the way.
 
@@ -33,17 +35,6 @@ and more in the way.
 
 > visit our demo site: https://demo.larazeus.com
 
-> visit our website to get the full documentation: https://larazeus.com/bolt
-
-## Installation
-
-You can install the package via composer:
-
-```bash
-composer require lara-zeus/bolt
-```
-
-> more coming soon
 
 ## Full Documentation
 

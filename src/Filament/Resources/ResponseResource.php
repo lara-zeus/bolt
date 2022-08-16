@@ -43,6 +43,11 @@ class ResponseResource extends Resource
         return __('Responses');
     }
 
+    protected static function shouldRegisterNavigation() : bool
+    {
+        return false;
+    }
+
     public static function form(Form $form): Form
     {
         return $form

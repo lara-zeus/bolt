@@ -31,9 +31,10 @@
                         </div>
                     @endforeach
 
+
                     @foreach($row->fieldsResponses as $resp)
                         <div class="py-2">
-                            {{ $resp->field->name }}:{{ $resp->response ?? ''}}
+                            {{ $resp->field->name }}:<span class="font-semibold">{{ $resp->response ?? ''}}</span>
                         </div>
                     @endforeach
                 </div>

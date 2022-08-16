@@ -10,24 +10,24 @@ use LaraZeus\Bolt\Models\Response;
 
 class BrowseResponses extends Page implements Tables\Contracts\HasTable
 {
+    use Tables\Concerns\InteractsWithTable;
+
     protected static string $resource = ResponseResource::class;
     protected static string $view = 'zeus-bolt::filament.resources.response-resource.pages.browse-responses';
     protected static ?string $navigationIcon = 'heroicon-o-eye';
     protected static ?string $title = 'Responses';
 
-    use Tables\Concerns\InteractsWithTable;
     protected function getTableQuery(): Builder
     {
-        return Response::query();
+        return Response::query()->where('form_id',request('form_id'));
     }
+
     protected function getTableColumns(): array
     {
         return [
             Tables\Columns\TextColumn::make('title')
         ];
     }
-
-
 
     protected function getViewData() : array
     {

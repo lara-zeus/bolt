@@ -10,16 +10,7 @@
     </x-slot>
 
     <x-slot name="content">
-
-
-        <div class="bord my-32">
-            aaa
-        </div>
-
-
-
         <div class="space-y-10">
-
             <x-zeus::input.group for="category_id" inline label="Category">
                 <x-zeus::input.select id="category_id" wire:model="form.category_id">
                     <option value="">Select Category...</option>

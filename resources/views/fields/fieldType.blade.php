@@ -1,5 +1,5 @@
 <div class="space-y-4">
-    @php $availableFields = \LaraZeus\Bolt\Classes\Helpers::availableFields(); @endphp
+    @php $availableFields = \LaraZeus\Bolt\Facades\Bolt::availableFields(); @endphp
     <x-zeus::input.group for="field-type-{{ $fld }}" inline label="Field Type" :error="$errors->first('fields.'.$sec . '.'. $fld.'.type')">
         <x-zeus::input.select id="field-type-{{ $fld }}" wire:model="fields.{{ $sec }}.{{ $fld }}.type" x-ref="fieldType" x-on:change="showOptionsFor = $refs.fieldType.value">
             <option disabled value="0">Select Type...</option>
@@ -28,7 +28,7 @@
                     <button @click="isCollapsed = !isCollapsed" type="button" class="px-2 bg-gray-200 text-sm text-gray-500 focus:outline-none focus:ring-0 focus:ring-offset-0">
                         <span x-show="isCollapsed" x-cloak>
                             <svg class="inline align-text-bottom -ml-1.5 mr-1 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6"/>
                             </svg>
                             <span class="align-top">Show less</span>
                         </span>

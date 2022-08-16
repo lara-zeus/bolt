@@ -44,7 +44,7 @@
                                     <i class="fa fa-indent "></i> {!! $section->name !!}
                                     @if (isset($options['sectionsToPages']) && $options['sectionsToPages'] == 1)
                                         <span class="float-{{ trans('Common.left') }}">
-                                            {{ trans('Frontend/App/Forms.step') }} {{ $secNo }} {{ trans('Frontend/App/Forms.from') }} {{ $form->sections->count() }}
+                                            {{ trans('forms.step') }} {{ $secNo }} {{ trans('forms.from') }} {{ $form->sections->count() }}
                                         </span>
                                     @endif
                                 </h2>

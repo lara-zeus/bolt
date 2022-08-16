@@ -85,23 +85,27 @@ class FormResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name'),
-                //TextColumn::make('slug'),
                 TextColumn::make('ordering'),
                 BooleanColumn::make('is_active'),
                 TextColumn::make('start_date')->dateTime(),
                 TextColumn::make('end_date')->dateTime(),
             ])
             ->appendActions([
-                Action::make('open')
-                    ->icon('heroicon-o-external-link')
-                    ->tooltip('Show the Form')
-                    ->url(fn(ZeusForm $record) : string => route('bolt.user.form.show', $record))
-                    ->openUrlInNewTab(),
+                Action::make('edit')
+                    ->icon('heroicon-o-pencil')
+                    ->tooltip('edit Form')
+                    ->url(fn(ZeusForm $record) : string => route('admin.form.edit', $record->id)),
 
                 Action::make('entries')
                     ->icon('heroicon-o-external-link')
                     ->tooltip('View All Entries')
                     ->url(fn(ZeusForm $record) : string => url('admin/responses?form_id=' . $record->id)),
+
+                Action::make('open')
+                    ->icon('heroicon-o-external-link')
+                    ->tooltip('Show the Form')
+                    ->url(fn(ZeusForm $record) : string => route('bolt.user.form.show', $record))
+                    ->openUrlInNewTab(),
             ]);
     }
 
@@ -117,8 +121,6 @@ class FormResource extends Resource
     {
         return [
             'index'  => Pages\ListForms::route('/'),
-            'create' => Pages\CreateForm::route('/create'),
-            'edit'   => Pages\EditForm::route('/{record}/edit'),
             'view'   => Pages\ViewForm::route('/{record}'),
         ];
     }
