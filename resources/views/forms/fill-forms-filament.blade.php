@@ -18,6 +18,20 @@
             @endif
         </div>
 
+        <div>
+            @if (app()->isLocal() && $errors->any())
+                <div class="mt-5">
+                    <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>
+                    <p class="text-gray-400 text-xs">this shown for dev only!</p>
+                    <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
+
         <div class="container mx-auto my-10">
             {{ $this->form }}
         </div>
