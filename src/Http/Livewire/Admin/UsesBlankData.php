@@ -22,7 +22,7 @@ trait UsesBlankData
                     'options'=>'',
                 ]
             ],
-            'type' => 0, //listValues
+            'type' => 'listValues', //listValues
             'options' => [
                 'dataType' => 'single',
                 'showAs' => 'select',

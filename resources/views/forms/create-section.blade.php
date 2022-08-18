@@ -7,13 +7,15 @@
             Add Section
         </x-zeus::elements.link>
     </div>
-    @foreach($sections as $key => $value)
-
+    @foreach($sections->mapWithKeys(function ($item, $key) {
+                return [($item['id']) ?? $key => $item];
+            }) as $key => $value)
         <x-zeus::box shadowless>
+
             <x-slot name="header">
-                <div class="flex justify-between" x-data x-init="{{--$refs.sectionName.focus()--}}">
+                <div class="flex justify-between" x-data>
                     <div class="flex items-center">
-                        <div class="text-xs">section #<span>{{ $key + 1 }}</span></div>
+                        <div class="text-xs">section #<span>{{ $key }}</span></div>
                         <div>
                             <label class="sr-only" for="section-name-{{ $key }}"></label>
                             <x-zeus::input.text-clear id="section-name-{{ $key }}" wire:model.lazy="sections.{{ $key }}.name" x-ref="sectionName" placeholder="section name" />

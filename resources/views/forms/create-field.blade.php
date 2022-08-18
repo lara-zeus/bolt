@@ -12,27 +12,20 @@
 
     <div class="mt-4 grid grid-cols-3 gap-6">
         @foreach($fields[$sec] as $fld => $value)
-            <div x-data="{ isCollapsed: false, showOptionsFor: false }" x-init="showOptionsFor = '{{ $fields[$sec][$fld]['type'] ?? '' }}', $refs.fieldName.focus()">
-                <div>
-                    @include('zeus-bolt::forms.modals.fieldsModals')
-                </div>
+            <div x-data="{ isCollapsed: false, showOptionsFor: false }" x-init="showOptionsFor = '{{ $fields[$sec][$fld]['type'] ?? '' }}'">
                 <div class="mb-4 p-4 transition ease-in-out duration-500 shadow-md group rounded-2xl hover:shadow-lg border-t-8 border-green-400 hover:border-green-500 bg-gray-200">
                     <div class="text-gray-600 flex justify-between">
-                        <div class="text-xs">field #<span>{{ $fld + 1 }}</span></div>
+                        <div class="text-xs">field #<span>{{ $fld }}</span></div>
                         <div class="space-x-2">
                             @if(count($fields[$sec]) > 1)
-                                <x-zeus::elements.link>
+                                <x-zeus::elements.link wire:click="orderField({{$sec}},{{$fld}})" data-tippy-content="Fields Options">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                                     </svg>
                                 </x-zeus::elements.link>
                             @endif
 
-                            <x-zeus::elements.link wire:click="openFieldModals({{$fld}},'settings')" data-tippy-content="Fields Options">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                                </svg>
-                            </x-zeus::elements.link>
+                            @include('zeus-bolt::forms.modals.fieldsModals')
 
                             <x-zeus::elements.link wire:click.prevent="removeField({{ $fld }})" data-tippy-content="Delete Field">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

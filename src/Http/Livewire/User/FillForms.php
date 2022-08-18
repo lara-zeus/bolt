@@ -99,11 +99,11 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $response->save();
 
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
-            $save['response']    = $value ?? '';
-            $save['response_id'] = $response->id;
-            $save['form_id']     = $this->zeusForm->id;
-            $save['field_id']    = $field;
-            FieldResponse::create($save);
+            $fieldResponse['response']    = $value ?? '';
+            $fieldResponse['response_id'] = $response->id;
+            $fieldResponse['form_id']     = $this->zeusForm->id;
+            $fieldResponse['field_id']    = $field;
+            FieldResponse::create($fieldResponse);
         }
 
         return redirect()->route('bolt.user.submitted', [ 'slug' => $this->zeusForm->slug ]);

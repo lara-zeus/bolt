@@ -47,7 +47,19 @@ class Section extends Component
 
     public function removeSection($index)
     {
-        unset($this->sections[$index]);
+        //$this->sections->where('id',$index)->forget();
+        $this->sections->where('id',$index)->first()->delete();
+
+        if ($this->formId === null) {
+            // todo
+        } else {
+            $this->sections = Form::find($this->formId)->sections;
+        }
+    }
+
+    public function loadSections()
+    {
+        //
     }
 
     public function addField($index)
@@ -68,7 +80,6 @@ class Section extends Component
             $this->notify('validation error...', 'error');
             throw $e;
         }
-
         foreach ($this->sections as $section) {
             $section->form_id = $form;
             $section->save();

@@ -10,7 +10,7 @@
 if you think this has potential, star the project to let me know :)
 
 ### todo:
-- [ ] use filament as possible
+- [ ] use filament as possible and replace zeus components
 - [ ] more flexibility on adding custom fields
 - [ ] enable users
 - [ ] add Categories

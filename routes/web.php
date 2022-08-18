@@ -7,12 +7,13 @@ use LaraZeus\Bolt\Http\Livewire\User\ListEntries;
 use LaraZeus\Bolt\Http\Livewire\User\ListForms;
 use LaraZeus\Bolt\Http\Livewire\User\Submitted;
 
+
 Route::prefix(config('zeus-bolt.path'))->name('bolt.')->middleware('web')->group(function () {
     Route::name('user.')->middleware(config('zeus-bolt.middleware'))->group(function () {
-        Route::get('list', ListForms::class)->name('list');
+        Route::view('/', 'zeus-bolt::forms.list-forms')->name('forms.list');
         Route::get('submitted/{slug}', Submitted::class)->name('submitted');
         Route::get('entries', ListEntries::class)->name('entries.list');
-        Route::get('form/{slug}', FillForms::class)->name('form.show');
+        Route::get('{slug}', FillForms::class)->name('form.show');
     });
 });
 

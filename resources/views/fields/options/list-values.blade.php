@@ -1,7 +1,4 @@
 <div class="space-y-4">
-
-    {{ $sec }}.{{ $fld }}
-
     <x-zeus::input.group for="dataSource-{{ $fld }}" inline label="Data Source">
         <x-slot name="labelIcon">
             @livewire('forms.create-collection', ['fld'=>$fld])

@@ -11,8 +11,8 @@ class Text extends FieldsContract
     public function __construct()
     {
         $this->definition = [
-            'type' => 'text',
-            'title' => 'Text',
+            'type' => 'TextInput',
+            'title' => 'Text Input',
             'icon' => 'fa-text-width',
             'order' => 1,
         ];

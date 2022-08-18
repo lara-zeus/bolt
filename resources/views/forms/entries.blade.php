@@ -40,11 +40,6 @@
                         </div>
                     @endforeach
                 </div>
-
-
-                {{--<x-zeus::elements.link wire:click="$toggle('showDeleteModal')"> todo
-                    <x-heroicon-o-trash class="h-5 w-5 text-gray-400" />
-                </x-zeus::elements.link>--}}
             </div>
 
         @empty
