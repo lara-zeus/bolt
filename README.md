@@ -3,7 +3,7 @@
 <h4 align="center">Lara-zeus bolt is a form builder for your users, with so many use cases.</h3>
 
 <h1 align="center" style="color: red">
-🚧🚧 Still under devloplment 🚧🚧
+🚧🚧 Still under development 🚧🚧
 </h1>
 
 ### this package was extracted from a client project, working on making it stable.
