@@ -13,7 +13,7 @@
 <p align="center">
 <a href="https://packagist.org/packages/lara-zeus/bolt"><img src="https://img.shields.io/packagist/v/lara-zeus/bolt?style=flat-square" /></a>
 <a href="https://github.styleci.io/repos/395815802?branch=main"><img src="https://github.styleci.io/repos/395815802/shield?branch=main" alt="StyleCI"></a>
-<a href="https://www.codefactor.io/repository/github/lara-zeus/bolt"><img src="https://www.codefactor.io/repository/github/lara-zeus/bolt/badge" alt="CodeFactor" /></a>
+<a href="https://packagist.org/packages/lara-zeus/bolt"><img src="https://img.shields.io/packagist/dt/lara-zeus/bolt?style=flat-square" /></a>
 <a href="https://github.com/lara-zeus/bolt"><img src="https://img.shields.io/github/stars/lara-zeus/bolt?style=flat-square" /></a>
 <a href="https://www.codefactor.io/repository/github/lara-zeus/bolt"><img src="https://www.codefactor.io/repository/github/lara-zeus/bolt/badge" alt="CodeFactor" /></a>
 </p>
