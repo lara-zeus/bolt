@@ -49,7 +49,7 @@ class FormResource extends Resource
         return __('Forms');
     }
 
-    public static function form(Form $form) : Form
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -73,14 +73,14 @@ class FormResource extends Resource
                             ->schema([
                                 TextInput::make('name')->required(),
                             ])
-                            ->columnSpan(2)
+                            ->columnSpan(2),
 
                     ])
-                    ->columnSpan(2)
+                    ->columnSpan(2),
             ]);
     }
 
-    public static function table(Table $table) : Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -94,22 +94,22 @@ class FormResource extends Resource
                 Action::make('edit')
                     ->icon('heroicon-o-pencil')
                     ->tooltip('edit Form')
-                    ->url(fn(ZeusForm $record) : string => route('admin.form.edit', $record->id)),
+                    ->url(fn (ZeusForm $record): string => route('admin.form.edit', $record->id)),
 
                 Action::make('entries')
                     ->icon('heroicon-o-external-link')
                     ->tooltip('View All Entries')
-                    ->url(fn(ZeusForm $record) : string => url('admin/responses?form_id=' . $record->id)),
+                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id='.$record->id)),
 
                 Action::make('open')
                     ->icon('heroicon-o-external-link')
                     ->tooltip('Show the Form')
-                    ->url(fn(ZeusForm $record) : string => route('bolt.user.form.show', $record))
+                    ->url(fn (ZeusForm $record): string => route('bolt.user.form.show', $record))
                     ->openUrlInNewTab(),
             ]);
     }
 
-    public static function getRelations() : array
+    public static function getRelations(): array
     {
         return [
             ResponsesRelationManager::class,
@@ -117,7 +117,7 @@ class FormResource extends Resource
         ];
     }
 
-    public static function getPages() : array
+    public static function getPages(): array
     {
         return [
             'index'  => Pages\ListForms::route('/'),

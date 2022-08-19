@@ -61,8 +61,7 @@ class BoltSeeder extends Seeder
                                 'response_id' => $response->id,
                                 'field_id' => $field->id,
                             ];
-                        })
-                    , 'fieldsResponses')
+                        }), 'fieldsResponses')
                 ->create();
         });
     }

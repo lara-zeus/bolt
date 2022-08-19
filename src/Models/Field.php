@@ -13,7 +13,7 @@ class Field extends Model
     use HasFactory;
 
     protected $fillable = [
-        'ordering', 'section_id', 'name', 'type', 'form_id', 'html_id', 'description', 'rules', 'options'
+        'ordering', 'section_id', 'name', 'type', 'form_id', 'html_id', 'description', 'rules', 'options',
     ];
     protected $casts = [
         'options' => 'array',

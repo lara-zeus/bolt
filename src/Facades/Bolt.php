@@ -11,7 +11,7 @@ use Symfony\Component\Finder\Finder;
 
 class Bolt extends Facade
 {
-    protected static function getFacadeAccessor() : string
+    protected static function getFacadeAccessor(): string
     {
         return 'bolt';
     }
@@ -23,16 +23,16 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
-            $appFields  = Bolt::appFields();
+            $appFields = Bolt::appFields();
             $coreFields = Bolt::coreFields();
 
             $fields = collect();
 
-            if (!$coreFields->isEmpty()) {
+            if (! $coreFields->isEmpty()) {
                 $fields = $fields->merge($coreFields);
             }
 
-            if (!$appFields->isEmpty()) {
+            if (! $appFields->isEmpty()) {
                 $fields = $fields->merge($appFields);
             }
 
@@ -42,11 +42,11 @@ class Bolt extends Facade
 
     public static function coreFields()
     {
-        $path = __DIR__ . '/../Fields/Classes';
-        if (!is_dir($path)) {
+        $path = __DIR__.'/../Fields/Classes';
+        if (! is_dir($path)) {
             return collect();
         }
-        $classes   = Bolt::loadClasses($path, 'LaraZeus\\Bolt\\Fields\\Classes\\');
+        $classes = Bolt::loadClasses($path, 'LaraZeus\\Bolt\\Fields\\Classes\\');
         $allFields = Bolt::setFields($classes, true);
 
         return collect($allFields);
@@ -55,10 +55,10 @@ class Bolt extends Facade
     public static function appFields()
     {
         $path = app_path('Zeus/Fields');
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return collect();
         }
-        $classes   = Bolt::loadClasses($path, 'App\\Zeus\\Fields\\');
+        $classes = Bolt::loadClasses($path, 'App\\Zeus\\Fields\\');
         $allFields = Bolt::setFields($classes, false);
 
         return collect($allFields);
@@ -69,9 +69,9 @@ class Bolt extends Facade
         $allFields = [];
         foreach ($classes as $class) {
             $fieldClass = new $class();
-            if (!$fieldClass->disabled) {
+            if (! $fieldClass->disabled) {
                 $fieldClass->definition['isZeus'] = $isZeus;
-                $allFields[]                      = $fieldClass->definition;
+                $allFields[] = $fieldClass->definition;
             }
         }
 
@@ -81,10 +81,10 @@ class Bolt extends Facade
     public static function loadClasses($path, $namespace)
     {
         $classes = [];
-        $path    = array_unique(Arr::wrap($path));
+        $path = array_unique(Arr::wrap($path));
 
         foreach (( new Finder() )->in($path)->files() as $className) {
-            $classes[] = $namespace . $className->getFilenameWithoutExtension();
+            $classes[] = $namespace.$className->getFilenameWithoutExtension();
         }
 
         return $classes;
@@ -137,6 +137,7 @@ class Bolt extends Facade
         return collect($rules)
             ->mapWithKeys(function ($item) {
                 $rule = (Str::contains($item, ':')) ? explode(':', $item)[0] : $item;
+
                 return [$rule => str_replace('_', ' ', $rule)];
             })
             /*->transform(function ($item) {
@@ -152,5 +153,4 @@ class Bolt extends Facade
             })*/
             ->toArray();
     }
-
 }

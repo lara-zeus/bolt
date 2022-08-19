@@ -2,10 +2,10 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
-use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
+use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 
 class ListResponses extends ListRecords
 {

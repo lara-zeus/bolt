@@ -31,6 +31,7 @@ class Collection extends Model
                 ->join(' ');
         }
         $more = ($someValuesCount > 5) ? '...' : '';
+
         return $someValues.$more;
     }
 

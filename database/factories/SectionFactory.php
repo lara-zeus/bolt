@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use LaraZeus\Bolt\Models\Field;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SectionFactory extends Factory
 {
@@ -26,7 +25,7 @@ class SectionFactory extends Factory
         return [
             'name'  => $this->faker->words(3, true),
             'form_id' => Form::factory(),
-            'ordering' => $this->faker->numberBetween(1,10),
+            'ordering' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
-use LaraZeus\Bolt\Filament\Resources\FormResource;
 use Filament\Resources\Pages\ViewRecord;
+use LaraZeus\Bolt\Filament\Resources\FormResource;
 
 class ViewForm extends ViewRecord
 {

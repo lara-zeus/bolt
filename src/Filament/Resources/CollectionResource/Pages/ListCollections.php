@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
 
-use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use Filament\Resources\Pages\ListRecords;
+use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 
 class ListCollections extends ListRecords
 {

@@ -3,9 +3,9 @@
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
 use Filament\Resources\Pages\Page;
-use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Response;
 
 class BrowseResponses extends Page implements Tables\Contracts\HasTable
@@ -19,17 +19,17 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Response::query()->where('form_id',request('form_id'));
+        return Response::query()->where('form_id', request('form_id'));
     }
 
     protected function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('title')
+            Tables\Columns\TextColumn::make('title'),
         ];
     }
 
-    protected function getViewData() : array
+    protected function getViewData(): array
     {
         return [
             'rows'   => $this->getModel()::where('user_id', auth()->user()->id)->simplePaginate(1),

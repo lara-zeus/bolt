@@ -12,7 +12,7 @@ class ResponsesRelationManager extends HasManyRelationManager
     protected static string $relationship = 'responses';
     protected static ?string $recordTitleAttribute = 'form_id';
 
-    public static function form(Form $form) : Form
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -22,7 +22,7 @@ class ResponsesRelationManager extends HasManyRelationManager
             ]);
     }
 
-    public static function table(Table $table) : Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([

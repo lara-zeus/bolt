@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ResponseFactory extends Factory
 {

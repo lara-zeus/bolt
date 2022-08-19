@@ -5,9 +5,9 @@ namespace LaraZeus\Bolt\Fields;
 abstract class FieldsContract implements Fields
 {
     public $definition = [];
-    public $disabled   = false;
+    public $disabled = false;
 
-    public function showResponse($field, $ans) : string
+    public function showResponse($field, $ans): string
     {
         return $ans->response;
     }

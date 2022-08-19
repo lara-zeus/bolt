@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FieldResponseFactory extends Factory
 {

@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
-use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use Filament\Resources\Pages\CreateRecord;
+use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 
 class CreateResponse extends CreateRecord
 {

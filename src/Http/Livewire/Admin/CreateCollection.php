@@ -87,7 +87,7 @@ class CreateCollection extends Component
         $this->showCollectionModals = false;
         $this->initCollection();
 
-        if (!$this->options) {
+        if (! $this->options) {
             return redirect()->route('filament.resources.collections.create');
         }
     }

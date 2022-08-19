@@ -2,9 +2,9 @@
 
 namespace LaraZeus\Bolt\Http\Livewire\Admin;
 
+use Illuminate\Support\Str;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section;
-use Illuminate\Support\Str;
 
 trait UsesBlankData
 {
@@ -20,7 +20,7 @@ trait UsesBlankData
                 [
                     'rule'=>'',
                     'options'=>'',
-                ]
+                ],
             ],
             'type' => 'listValues', //listValues
             'options' => [
