@@ -2,9 +2,21 @@
 
 <h4 align="center">Lara-zeus bolt is a form builder for your users, with so many use cases.</h3>
 
+<p align="center">
+<a href="https://larazeus.com"><img src="https://larazeus.com/images/bolt-banner.png" /></a>
+</p>
+
 <h1 align="center" style="color: red">
 🚧🚧 Still under development 🚧🚧
 </h1>
+
+<p align="center">
+<a href="https://packagist.org/packages/lara-zeus/sky"><img src="https://img.shields.io/packagist/v/lara-zeus/sky?style=flat-square" /></a>
+<a href="https://github.styleci.io/repos/475187095?branch=main"><img src="https://github.styleci.io/repos/438676758/shield?branch=main" alt="StyleCI"></a>
+<a href="https://packagist.org/packages/lara-zeus/sky"><img src="https://img.shields.io/packagist/dt/lara-zeus/sky?style=flat-square" /></a>
+<a href="https://github.com/lara-zeus/sky"><img src="https://img.shields.io/github/stars/lara-zeus/sky?style=flat-square" /></a>
+<a href="https://www.codefactor.io/repository/github/lara-zeus/sky"><img src="https://www.codefactor.io/repository/github/lara-zeus/sky/badge" alt="CodeFactor" /></a>
+</p>
 
 ### this package was extracted from a client project, working on making it stable.
 if you think this has potential, star the project to let me know :)
