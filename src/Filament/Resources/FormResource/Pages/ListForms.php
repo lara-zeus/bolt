@@ -3,9 +3,8 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
 use Filament\Pages\Actions\Action;
-use Filament\Pages\Actions\CreateAction;
-use LaraZeus\Bolt\Filament\Resources\FormResource;
 use Filament\Resources\Pages\ListRecords;
+use LaraZeus\Bolt\Filament\Resources\FormResource;
 
 class ListForms extends ListRecords
 {
@@ -23,8 +22,7 @@ class ListForms extends ListRecords
                 ->label('create form')
                 ->icon('heroicon-o-plus')
                 ->tooltip('Create New Form')
-                ->url(fn() : string => route('admin.form.create')),
+                ->url(fn (): string => route('admin.form.create')),
         ];
     }
-
 }

@@ -2,15 +2,15 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
-use Filament\Tables\Filters\SelectFilter;
-use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
-use LaraZeus\Bolt\Filament\Resources\ResponseResource\RelationManagers\FieldsResponsesRelationManager;
-use LaraZeus\Bolt\Models\Response;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
+use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
+use LaraZeus\Bolt\Filament\Resources\ResponseResource\RelationManagers\FieldsResponsesRelationManager;
+use LaraZeus\Bolt\Models\Response;
 
 class ResponseResource extends Resource
 {
@@ -23,7 +23,7 @@ class ResponseResource extends Resource
         return (string) Response::query()->count();
     }
 
-    protected static function getNavigationGroup() : ?string
+    protected static function getNavigationGroup(): ?string
     {
         return __('Bolt');
     }
@@ -43,7 +43,7 @@ class ResponseResource extends Resource
         return __('Responses');
     }
 
-    protected static function shouldRegisterNavigation() : bool
+    protected static function shouldRegisterNavigation(): bool
     {
         return false;
     }
@@ -75,7 +75,7 @@ class ResponseResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('form')->relationship('form', 'name')
-                ->default(request('form_id', null))
+                ->default(request('form_id', null)),
             ]);
     }
 

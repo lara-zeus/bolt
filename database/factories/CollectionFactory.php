@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use LaraZeus\Bolt\Models\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use LaraZeus\Bolt\Models\Collection;
 
 class CollectionFactory extends Factory
 {
@@ -18,6 +18,7 @@ class CollectionFactory extends Factory
      * Define the model's default state.
      *
      * @return array
+     *
      * @throws \JsonException
      */
     public function definition()

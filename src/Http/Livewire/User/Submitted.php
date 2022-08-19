@@ -14,7 +14,6 @@ class Submitted extends Component
     {
         $this->slug = $slug;
         $this->form = Form::whereSlug($slug)->firstOrFail();
-
     }
 
     public function render()

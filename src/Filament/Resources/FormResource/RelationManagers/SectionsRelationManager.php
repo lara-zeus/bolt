@@ -13,7 +13,7 @@ class SectionsRelationManager extends HasManyRelationManager
     protected static string $relationship = 'sections';
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function form(Form $form) : Form
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -22,7 +22,7 @@ class SectionsRelationManager extends HasManyRelationManager
             ]);
     }
 
-    public static function table(Table $table) : Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([

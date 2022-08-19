@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use LaraZeus\Bolt\Models\Form;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LaraZeus\Bolt\Models\Section;
+use LaraZeus\Bolt\Models\Form;
 
 class FormFactory extends Factory
 {
@@ -25,8 +24,8 @@ class FormFactory extends Factory
         return [
             'name'  => $this->faker->words(3, true),
             'user_id' => config('auth.providers.users.model')::factory(),
-            'layout' => $this->faker->numberBetween(1,2),
-            'ordering' => $this->faker->numberBetween(1,20),
+            'layout' => $this->faker->numberBetween(1, 2),
+            'ordering' => $this->faker->numberBetween(1, 20),
             'desc' => $this->faker->text(),
             'slug' => $this->faker->slug(),
             'is_active' => 1,

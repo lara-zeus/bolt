@@ -2,15 +2,15 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
+use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
-use LaraZeus\Bolt\Models\Collection;
-use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
+use LaraZeus\Bolt\Models\Collection;
 
 class CollectionResource extends Resource
 {
@@ -23,7 +23,7 @@ class CollectionResource extends Resource
         return (string) Collection::query()->count();
     }
 
-    protected static function getNavigationGroup() : ?string
+    protected static function getNavigationGroup(): ?string
     {
         return __('Bolt');
     }
@@ -55,7 +55,7 @@ class CollectionResource extends Resource
                         TextInput::make('itemKey')->required(),
                         TextInput::make('itemValue')->required(),
                         Toggle::make('itemIsDefault'),
-                    ])->columnSpan(2)->columns(3)
+                    ])->columnSpan(2)->columns(3),
             ]);
     }
 

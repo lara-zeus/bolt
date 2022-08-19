@@ -2,8 +2,6 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Carbon\Carbon;
-
 trait HasActive
 {
     public function getIsActiveDescAttribute()

@@ -21,7 +21,7 @@ class Form extends Model
 
     protected $fillable = [
         'name', 'is_active', 'user_id', 'name', 'layout', 'ordering', 'is_active', 'desc', 'options',
-        'start_date', 'end_date','slug'
+        'start_date', 'end_date', 'slug',
     ];
 
     protected $casts = [

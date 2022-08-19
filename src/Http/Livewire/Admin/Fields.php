@@ -19,7 +19,7 @@ class Fields extends Component
     //public $fieldsModalsItems = [ 'settings' => false ];
     public $formId;
     public $allCollection;
-    protected $listeners = [ 'addField', 'collectionSaved', 'sectionSaved' => 'store' ];
+    protected $listeners = ['addField', 'collectionSaved', 'sectionSaved' => 'store'];
     protected $validationAttributes
         = [
             'fields.*.*.type' => 'field type',
@@ -41,12 +41,12 @@ class Fields extends Component
     public function mount($formId, $sec)
     {
         $this->allCollection = Collection::orderBy('id', 'desc')->get();
-        $this->formId        = $formId;
-        $this->sec           = $sec;
+        $this->formId = $formId;
+        $this->sec = $sec;
 
         if ($formId === null) {
             $this->fields[$this->sec][] = $this->fieldData($this->sec);
-            //$this->fieldsModals[$this->sec][] = $this->fieldsModalsItems;
+        //$this->fieldsModals[$this->sec][] = $this->fieldsModalsItems;
         } else {
             $this->fields[$this->sec] = Form::find($formId)
                 ->fields()
@@ -55,7 +55,7 @@ class Fields extends Component
                 ->get()/*->mapWithKeys(function ($item, $key) {
                     return [$item['id'] => $item];
                 })*/
-            ;
+;
             /*foreach ($this->fields[$this->sec] as $field) {
                 $this->fieldsModals[$this->sec][$field['id']] = $this->fieldsModalsItems;
             }*/
@@ -84,7 +84,7 @@ class Fields extends Component
 
     public function addRule($fld)
     {
-        $this->fields[$this->sec][$fld]['rules'] = [ 'rule', 'options' ];
+        $this->fields[$this->sec][$fld]['rules'] = ['rule', 'options'];
     }
 
     /*public function openFieldModals($index, $type)
@@ -113,23 +113,23 @@ class Fields extends Component
         }
 
         foreach ($this->fields[$this->sec] as $field) {
-            $setField                  = Field::firstOrNew([ 'html_id' => $field['html_id'] ]);
-            $setField->form_id         = $form;
-            $setField->section_id      = $this->sec;
-            $setField->name            = $field['name'];
-            $setField->description     = $field['description'] ?? null;
-            $setField->type            = $field['type'];
-            $setField->options         = $field['options'];
-            $setField->rules           = $field['rules'];
+            $setField = Field::firstOrNew(['html_id' => $field['html_id']]);
+            $setField->form_id = $form;
+            $setField->section_id = $this->sec;
+            $setField->name = $field['name'];
+            $setField->description = $field['description'] ?? null;
+            $setField->type = $field['type'];
+            $setField->options = $field['options'];
+            $setField->rules = $field['rules'];
             $setField->layout_position = $field['layout_position'] ?? 1;
-            $setField->ordering        = $field['ordering'];
+            $setField->ordering = $field['ordering'];
 
             $setField->save();
         }
 
         Notification::make()->title(__('your form has been saved!'))->success()->send();
 
-        return redirect()->route('admin.form.edit', [ 'formId' => $form ]);
+        return redirect()->route('admin.form.edit', ['formId' => $form]);
     }
 
     public function updated($propertyName)

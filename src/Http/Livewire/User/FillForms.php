@@ -2,11 +2,11 @@
 
 namespace LaraZeus\Bolt\Http\Livewire\User;
 
+use Filament\Forms;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
-use Filament\Forms;
 
 class FillForms extends Component implements Forms\Contracts\HasForms
 {
@@ -15,19 +15,19 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     public Form $zeusForm;
     public $zeusData = [];
 
-    protected function getFormSchema() : array
+    protected function getFormSchema(): array
     {
         $sections = [];
         foreach ($this->zeusForm->sections as $section) {
             $fields = [];
             foreach ($section->fields as $field) {
-                $class    = '\Filament\Forms\Components\\' . $field->type;
+                $class = '\Filament\Forms\Components\\'.$field->type;
                 $fields[] = Forms\Components\Card::make()->schema([
-                    $class::make('zeusData.' . $field->id)
+                    $class::make('zeusData.'.$field->id)
                         ->label($field->name)
                         ->helperText($field->description)
                         ->id($field->html_id)
-                        ->rules(collect($field->rules)->pluck('rule')->toArray())
+                        ->rules(collect($field->rules)->pluck('rule')->toArray()),
                     //->extraAttributes(['title' => 'Text input'])
                     //->default()
                     //->hint('[Forgotten your password?](forgotten-password)')
@@ -42,14 +42,14 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         return $sections;
     }
 
-    protected function getFormModel() : Form
+    protected function getFormModel(): Form
     {
         return $this->zeusForm;
     }
 
     public function mount($slug)
     {
-        $this->zeusForm = Form::with([ 'sections', 'fields' ])->whereSlug($slug)->firstOrFail();
+        $this->zeusForm = Form::with(['sections', 'fields'])->whereSlug($slug)->firstOrFail();
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
@@ -92,21 +92,21 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $this->validate();
         $response = Response::make([
             'form_id' => $this->zeusForm->id,
-            'user_id' => ( auth()->check() ) ? auth()->user()->id : 0,
+            'user_id' => (auth()->check()) ? auth()->user()->id : 0,
             'status'  => 'NEW',
             'notes'   => '',
         ]);
         $response->save();
 
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
-            $fieldResponse['response']    = $value ?? '';
+            $fieldResponse['response'] = $value ?? '';
             $fieldResponse['response_id'] = $response->id;
-            $fieldResponse['form_id']     = $this->zeusForm->id;
-            $fieldResponse['field_id']    = $field;
+            $fieldResponse['form_id'] = $this->zeusForm->id;
+            $fieldResponse['field_id'] = $field;
             FieldResponse::create($fieldResponse);
         }
 
-        return redirect()->route('bolt.user.submitted', [ 'slug' => $this->zeusForm->slug ]);
+        return redirect()->route('bolt.user.submitted', ['slug' => $this->zeusForm->slug]);
     }
 
     public function render()

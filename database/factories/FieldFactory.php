@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FieldFactory extends Factory
 {
@@ -28,10 +28,10 @@ class FieldFactory extends Factory
             'type'  => $this->faker->words(1, true),
             'form_id' => Form::factory(),
             'section_id' => Section::factory(),
-            'layout_position' => $this->faker->numberBetween(1,2),
-            'ordering' => $this->faker->numberBetween(1,20),
-            'html_id' => $this->faker->realTextBetween(1,10),
-            'html_name' => $this->faker->realTextBetween(1,10),
+            'layout_position' => $this->faker->numberBetween(1, 2),
+            'ordering' => $this->faker->numberBetween(1, 20),
+            'html_id' => $this->faker->realTextBetween(1, 10),
+            'html_name' => $this->faker->realTextBetween(1, 10),
         ];
     }
 }

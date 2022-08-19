@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Route;
 use LaraZeus\Bolt\Http\Livewire\Admin\CreateForms;
 use LaraZeus\Bolt\Http\Livewire\User\FillForms;
 use LaraZeus\Bolt\Http\Livewire\User\ListEntries;
-use LaraZeus\Bolt\Http\Livewire\User\ListForms;
 use LaraZeus\Bolt\Http\Livewire\User\Submitted;
-
 
 Route::prefix(config('zeus-bolt.path'))->name('bolt.')->middleware('web')->group(function () {
     Route::name('user.')->middleware(config('zeus-bolt.middleware'))->group(function () {
