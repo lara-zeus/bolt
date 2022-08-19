@@ -47,12 +47,10 @@ class Section extends Component
 
     public function removeSection($index)
     {
-        //$this->sections->where('id',$index)->forget();
-        $this->sections->where('id', $index)->first()->delete();
-
         if ($this->formId === null) {
-            // todo
+            $this->sections->forget($index);
         } else {
+            $this->sections->where('id', $index)->first()->delete();
             $this->sections = Form::find($this->formId)->sections;
         }
     }
