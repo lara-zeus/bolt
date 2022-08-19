@@ -11,7 +11,7 @@ class Uploader extends FieldsContract
     public function __construct()
     {
         $this->definition = [
-            'type' => 'uploader',
+            'type' => 'FileUpload',
             'title' => 'FileUpload',
             'icon' => 'fa-cloud-upload',
             'settings_view' => 'file-upload',

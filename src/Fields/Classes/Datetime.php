@@ -11,7 +11,7 @@ class Datetime extends FieldsContract
     public function __construct()
     {
         $this->definition = [
-            'type' => 'datetime',
+            'type' => 'DateTimePicker',
             'title' => 'DateTime',
             'icon' => 'fa-calendar',
             'settings_view' => 'date-time',
