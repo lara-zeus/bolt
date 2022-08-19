@@ -1746,7 +1746,7 @@ trix-editor .attachment__metadata .attachment__size {
 .trix-content .attachment--file {
   color: #333;
   line-height: 1;
-  margin: 0 2px 2px 2px;
+  margin: 0 2px 2px;
   padding: 0.4em 1em;
   border: 1px solid #bbb;
   border-radius: 5px;
