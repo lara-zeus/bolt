@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use LaraZeus\Bolt\Classes\Fields\Classes\EvoTools;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class ListValues extends FieldsContract
@@ -12,7 +11,7 @@ class ListValues extends FieldsContract
     public function __construct()
     {
         $this->definition = [
-            'type' => 'listValues',
+            'type' => 'Select',
             'title' => 'List Values',
             'icon' => 'fa-check',
             'settings_view' => 'list-values',
