@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.4 - 2022-08-20
+
+### What's Changed
+
+- Apply fixes from StyleCI by @atmonshi in https://github.com/lara-zeus/bolt/pull/7
+- clean up and add beta note widget by @atmonshi in https://github.com/lara-zeus/bolt/pull/6
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.3...0.0.4
+
 ## 0.0.3 - 2022-08-19
 
 ### What's Changed
