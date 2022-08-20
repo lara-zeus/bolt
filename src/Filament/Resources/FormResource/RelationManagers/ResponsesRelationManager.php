@@ -3,11 +3,11 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\RelationManagers;
 
 use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\HasManyRelationManager;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
 
-class ResponsesRelationManager extends HasManyRelationManager
+class ResponsesRelationManager extends RelationManager
 {
     protected static string $relationship = 'responses';
     protected static ?string $recordTitleAttribute = 'form_id';
@@ -28,9 +28,6 @@ class ResponsesRelationManager extends HasManyRelationManager
             ->columns([
                 TextColumn::make('user_id'),
                 TextColumn::make('status'),
-            ])
-            ->filters([
-                //
             ]);
     }
 }

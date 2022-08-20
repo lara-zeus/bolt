@@ -22,9 +22,9 @@ class BoltServiceProvider extends PluginServiceProvider
 {
     public static string $name = 'zeus-bolt';
 
-    /*protected array $styles = [
-        'zeus-bolt-styles' => __DIR__ . '/../resources/dist/app.css',
-    ];*/
+    protected array $styles = [
+        'zeus-bolt-styles' => __DIR__.'/../resources/dist/app.css',
+    ];
 
     /*protected function getStyles() : array
     {

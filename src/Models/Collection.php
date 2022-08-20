@@ -23,9 +23,10 @@ class Collection extends Model
         $someValues = '';
         $someValuesCount = 0;
         if ($this->values !== null) {
-            $someValuesCount = collect($this->values)->count();
-            $someValues = collect($this->values)
-                ->take(5)->map(function (&$item) {
+            $allValues = collect($this->values);
+            $someValuesCount = $allValues->count();
+            $someValues = $allValues->take(5)
+                ->map(function ($item) {
                     return $item['itemValue'] = '<span class="tager text-xs text-gray-700 font-semibold px-1.5 py-0.5 rounded-md">'.$item['itemValue'].'</span>';
                 })
                 ->join(' ');
@@ -38,11 +39,6 @@ class Collection extends Model
     protected static function newFactory()
     {
         return CollectionFactory::new();
-    }
-
-    public function fields()
-    {
-        return $this->belongsToMany(Field::class);
     }
 
     public function user()

@@ -10,6 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Models\Collection;
 
 class CollectionResource extends Resource
@@ -47,14 +48,14 @@ class CollectionResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->label(__('zeus-bolt::common.collections.name'))->required()->maxLength(255)->columnSpan(2),
+                TextInput::make('name')->label(__('Collections Name'))->required()->maxLength(255)->columnSpan(2),
 
                 Forms\Components\Repeater::make('values')
-                    ->label(__('zeus-bolt::common.collections.values'))
+                    ->label(__('Collections Values'))
                     ->schema([
-                        TextInput::make('itemKey')->required(),
-                        TextInput::make('itemValue')->required(),
-                        Toggle::make('itemIsDefault'),
+                        TextInput::make('itemKey')->required()->label(__('Key')),
+                        TextInput::make('itemValue')->required()->label(__('Value')),
+                        Toggle::make('itemIsDefault')->label(__('selected by default')),
                     ])->columnSpan(2)->columns(3),
             ]);
     }
@@ -63,15 +64,9 @@ class CollectionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('name')->label(__('Name')),
+                Tables\Columns\TextColumn::make('values-list')->html()->label(__('Values')),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array
@@ -80,6 +75,13 @@ class CollectionResource extends Resource
             'index' => Pages\ListCollections::route('/'),
             'create' => Pages\CreateCollection::route('/create'),
             'edit' => Pages\EditCollection::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            BetaNote::class,
         ];
     }
 }

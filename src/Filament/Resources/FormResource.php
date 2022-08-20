@@ -16,6 +16,7 @@ use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\FormResource\RelationManagers\ResponsesRelationManager;
 use LaraZeus\Bolt\Filament\Resources\FormResource\RelationManagers\SectionsRelationManager;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class FormResource extends Resource
@@ -121,7 +122,13 @@ class FormResource extends Resource
     {
         return [
             'index'  => Pages\ListForms::route('/'),
-            'view'   => Pages\ViewForm::route('/{record}'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            BetaNote::class,
         ];
     }
 }

@@ -8,6 +8,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\RelationManagers\FieldsResponsesRelationManager;
 use LaraZeus\Bolt\Models\Response;
@@ -88,12 +89,15 @@ class ResponseResource extends Resource
 
     public static function getPages(): array
     {
-        //
         return [
             'index' => Pages\BrowseResponses::route('/'),
-            //'index' => Pages\ListResponses::route('/'),
-            'create' => Pages\CreateResponse::route('/create'),
-            'edit' => Pages\EditResponse::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            BetaNote::class,
         ];
     }
 }
