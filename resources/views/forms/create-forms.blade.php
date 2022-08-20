@@ -1,4 +1,7 @@
 <div x-data x-init="tippy('[data-tippy-content]', {animation: 'perspective'});">
+
+    @livewire(\Livewire\Livewire::getAlias(\LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote::class))
+
     <x-zeus::box shadowless class="bg-gray-50 mb-10 shadow-sm">
         <div class="flex-grow">
             <div class="flex items-center justify-between gap-4">

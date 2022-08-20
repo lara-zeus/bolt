@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Response;
 
@@ -16,6 +17,13 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
     protected static string $view = 'zeus-bolt::filament.resources.response-resource.pages.browse-responses';
     protected static ?string $navigationIcon = 'heroicon-o-eye';
     protected static ?string $title = 'Responses';
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            BetaNote::class,
+        ];
+    }
 
     protected function getTableQuery(): Builder
     {
