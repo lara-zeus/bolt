@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.5 - 2022-08-21
+
+### What's Changed
+
+- Apply fixes from StyleCI by @atmonshi in https://github.com/lara-zeus/bolt/pull/9
+- convert to filament by @atmonshi in https://github.com/lara-zeus/bolt/pull/8
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.4...0.0.5
+
 ## 0.0.4 - 2022-08-20
 
 ### What's Changed
