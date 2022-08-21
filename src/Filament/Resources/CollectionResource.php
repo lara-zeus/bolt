@@ -49,7 +49,6 @@ class CollectionResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->label(__('Collections Name'))->required()->maxLength(255)->columnSpan(2),
-
                 Forms\Components\Repeater::make('values')
                     ->label(__('Collections Values'))
                     ->schema([

@@ -4778,10 +4778,6 @@ select{
   white-space: nowrap;
 }
 
-.whitespace-pre-wrap{
-  white-space: pre-wrap;
-}
-
 .break-words{
   overflow-wrap: break-word;
 }
@@ -4909,6 +4905,10 @@ select{
   border-right-width: 1px;
 }
 
+.border-solid{
+  border-style: solid;
+}
+
 .border-gray-100{
   --tw-border-opacity: 1;
   border-color: rgb(245 245 244 / var(--tw-border-opacity));
@@ -4936,6 +4936,11 @@ select{
 .border-green-400{
   --tw-border-opacity: 1;
   border-color: rgb(74 222 128 / var(--tw-border-opacity));
+}
+
+.border-red-500{
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .border-gray-200{
@@ -5049,6 +5054,21 @@ select{
 .bg-primary-500{
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
+.bg-danger-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(244 63 94 / var(--tw-bg-opacity));
+}
+
+.bg-success-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
+}
+
+.bg-warning-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
 
 .bg-success-600{
@@ -6967,8 +6987,13 @@ span.highlight{
     background-color: rgb(168 162 158 / 0.2);
   }
 
-  .dark\:hover\:hover\:bg-gray-500\/20:hover:hover{
+  .dark\:hover\:bg-gray-500\/20:hover{
     background-color: rgb(120 113 108 / 0.2);
+  }
+
+  .dark\:hover\:bg-gray-700:hover{
+    --tw-bg-opacity: 1;
+    background-color: rgb(68 64 60 / var(--tw-bg-opacity));
   }
 
   .dark\:hover\:bg-gray-300\/5:hover{
@@ -6981,11 +7006,6 @@ span.highlight{
 
   .dark\:hover\:bg-gray-400\/5:hover{
     background-color: rgb(168 162 158 / 0.05);
-  }
-
-  .dark\:hover\:bg-gray-700:hover{
-    --tw-bg-opacity: 1;
-    background-color: rgb(68 64 60 / var(--tw-bg-opacity));
   }
 
   .dark\:hover\:text-primary-500:hover{
@@ -7719,12 +7739,12 @@ span.highlight{
     padding-right: 2rem;
   }
 
-  .lg\:pl-\[var\(--sidebar-width\)\]{
-    padding-left: var(--sidebar-width);
-  }
-
   .lg\:pl-\[5\.4rem\]{
     padding-left: 5.4rem;
+  }
+
+  .lg\:pl-\[var\(--sidebar-width\)\]{
+    padding-left: var(--sidebar-width);
   }
 
   .lg\:transition{
@@ -7760,12 +7780,12 @@ span.highlight{
     padding-left: 0px;
   }
 
-  [dir="rtl"] .rtl\:lg\:pr-\[var\(--sidebar-width\)\]{
-    padding-right: var(--sidebar-width);
-  }
-
   [dir="rtl"] .rtl\:lg\:pr-\[5\.4rem\]{
     padding-right: 5.4rem;
+  }
+
+  [dir="rtl"] .rtl\:lg\:pr-\[var\(--sidebar-width\)\]{
+    padding-right: var(--sidebar-width);
   }
 }
 

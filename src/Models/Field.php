@@ -12,9 +12,7 @@ class Field extends Model
     use SoftDeletes;
     use HasFactory;
 
-    protected $fillable = [
-        'ordering', 'section_id', 'name', 'type', 'form_id', 'html_id', 'description', 'rules', 'options',
-    ];
+    protected $guarded = [];
     protected $casts = [
         'options' => 'array',
         'rules' => 'array',
@@ -32,9 +30,14 @@ class Field extends Model
         return FieldFactory::new();
     }
 
-    public function form()
+    /*public function form()
     {
         return $this->belongsTo(Form::class);
+    }*/
+
+    public function section()
+    {
+        return $this->belongsToMany(Section::class);
     }
 
     public function fieldResponses()

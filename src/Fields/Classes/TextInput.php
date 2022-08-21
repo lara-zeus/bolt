@@ -4,7 +4,7 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use LaraZeus\Bolt\Fields\FieldsContract;
 
-class Text extends FieldsContract
+class TextInput extends FieldsContract
 {
     public $disabled = false;
 

@@ -4,7 +4,7 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use LaraZeus\Bolt\Fields\FieldsContract;
 
-class Uploader extends FieldsContract
+class FileUpload extends FieldsContract
 {
     public $disabled = false;
 
@@ -12,7 +12,7 @@ class Uploader extends FieldsContract
     {
         $this->definition = [
             'type' => 'FileUpload',
-            'title' => 'FileUpload',
+            'title' => 'File Upload',
             'icon' => 'fa-cloud-upload',
             'settings_view' => 'file-upload',
             'order' => 7,

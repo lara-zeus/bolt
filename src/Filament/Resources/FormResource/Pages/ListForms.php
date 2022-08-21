@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
 use Filament\Pages\Actions\Action;
+use Filament\Pages\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
@@ -21,11 +22,12 @@ class ListForms extends ListRecords
     protected function getActions(): array
     {
         return [
-            Action::make('create-zeus')
+            CreateAction::make('create'),
+            /*Action::make('create-zeus')
                 ->label('create form')
                 ->icon('heroicon-o-plus')
                 ->tooltip('Create New Form')
-                ->url(fn (): string => route('admin.form.create')),
+                ->url(fn (): string => route('admin.form.create')),*/
         ];
     }
 }

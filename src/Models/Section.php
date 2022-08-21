@@ -12,8 +12,7 @@ class Section extends Model
     use SoftDeletes;
     use HasFactory;
 
-    protected $connection = 'mysql';
-    protected $fillable = ['ordering'];
+    protected $guarded = [];
 
     protected static function newFactory()
     {
@@ -23,5 +22,10 @@ class Section extends Model
     public function fields()
     {
         return $this->hasMany(Field::class, 'section_id', 'id')->orderBy('ordering');
+    }
+
+    public function form()
+    {
+        return $this->belongsTo(Form::class);
     }
 }
