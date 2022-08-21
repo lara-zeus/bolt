@@ -15,7 +15,7 @@ class EditForm extends EditRecord
         dd($this->data);
     }*/
 
-    protected function getHeaderWidgets() : array
+    protected function getHeaderWidgets(): array
     {
         return [
             BetaNote::class,

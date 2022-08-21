@@ -24,7 +24,7 @@ class Select extends FieldsContract
     public static function getOptions()
     {
         return [
-            FilamentSelect::make('options.dataSource')->required()->options(Collection::pluck('name','id')),
+            FilamentSelect::make('options.dataSource')->required()->options(Collection::pluck('name', 'id')),
         ];
     }
 }

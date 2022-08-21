@@ -29,32 +29,32 @@ class FormResource extends Resource
     protected static ?string $navigationIcon = 'clarity-form-line';
     protected static ?int $navigationSort = 1;
 
-    protected static function getNavigationBadge() : ?string
+    protected static function getNavigationBadge(): ?string
     {
         return (string) ZeusForm::query()->count();
     }
 
-    protected static function getNavigationGroup() : ?string
+    protected static function getNavigationGroup(): ?string
     {
         return __('Bolt');
     }
 
-    public static function getLabel() : string
+    public static function getLabel(): string
     {
         return __('Form');
     }
 
-    public static function getPluralLabel() : string
+    public static function getPluralLabel(): string
     {
         return __('Forms');
     }
 
-    protected static function getNavigationLabel() : string
+    protected static function getNavigationLabel(): string
     {
         return __('Forms');
     }
 
-    public static function form(Form $form) : Form
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -93,7 +93,8 @@ class FormResource extends Resource
                                 Fieldset::make('Options')
                                     ->label('Options')
                                     ->schema(function (\Closure $get) {
-                                        $classNmae = '\LaraZeus\Bolt\Fields\Classes\\' . $get('type') ?? 'TextInput';
+                                        $classNmae = '\LaraZeus\Bolt\Fields\Classes\\'.$get('type') ?? 'TextInput';
+
                                         return $classNmae::getOptions();
                                     }),
                             ])
@@ -107,7 +108,7 @@ class FormResource extends Resource
                                 'md'      => 2,
                             ])
                             ->label('')
-                            ->itemLabel(fn(array $state) : ?string => $state['name'] ?? null)
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                             ->createItemButtonLabel('Add field'),
                     ])
                     ->relationship()
@@ -115,12 +116,12 @@ class FormResource extends Resource
                     ->createItemButtonLabel('Add Section')
                     ->cloneable()
                     ->collapsible()
-                    ->itemLabel(fn(array $state) : ?string => $state['name'] ?? null)
+                    ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                     ->columnSpan(2),
             ]);
     }
 
-    public static function table(Table $table) : Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -140,24 +141,24 @@ class FormResource extends Resource
                 Action::make('entries')
                     ->icon('heroicon-o-external-link')
                     ->tooltip('View All Entries')
-                    ->url(fn(ZeusForm $record) : string => url('admin/responses?form_id=' . $record->id)),
+                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id='.$record->id)),
 
                 Action::make('open')
                     ->icon('heroicon-o-external-link')
                     ->tooltip('Show the Form')
-                    ->url(fn(ZeusForm $record) : string => route('bolt.user.form.show', $record))
+                    ->url(fn (ZeusForm $record): string => route('bolt.user.form.show', $record))
                     ->openUrlInNewTab(),
             ]);
     }
 
-    public static function getRelations() : array
+    public static function getRelations(): array
     {
         return [
             ResponsesRelationManager::class,
         ];
     }
 
-    public static function getPages() : array
+    public static function getPages(): array
     {
         return [
             'index'  => Pages\ListForms::route('/'),
@@ -166,7 +167,7 @@ class FormResource extends Resource
         ];
     }
 
-    public static function getWidgets() : array
+    public static function getWidgets(): array
     {
         return [
             BetaNote::class,
