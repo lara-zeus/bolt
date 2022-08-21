@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt;
 
 use Filament\PluginServiceProvider;
 use LaraZeus\Bolt\Console\PublishCommand;
+use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
@@ -45,6 +46,7 @@ class BoltServiceProvider extends PluginServiceProvider
             CollectionResource::class,
             FormResource::class,
             ResponseResource::class,
+            CategoryResource::class,
         ];
     }
 
@@ -93,6 +95,7 @@ class BoltServiceProvider extends PluginServiceProvider
                 'create_fields_table',
                 'create_responses_table',
                 'create_field_responses_table',
+                'create_categories_table',
             ])
             ->hasTranslations()
             ->hasCommand(PublishCommand::class)

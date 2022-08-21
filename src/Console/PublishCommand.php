@@ -11,7 +11,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'wind:publish {--force : Overwrite any existing files}';
+    protected $signature = 'bolt:publish {--force : Overwrite any existing files}';
     /**
      * The console command description.
      *
@@ -26,7 +26,7 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        // art vendor:publish --tag=zeus-wind-migrations
+        // art vendor:publish --tag=zeus-bolt-migrations
         // publish Wind files
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-config', '--force' => $this->option('force') ?? false]);
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-views', '--force' => $this->option('force') ?? false]);

@@ -2,20 +2,24 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
-use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Str;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\FormResource\RelationManagers\ResponsesRelationManager;
-use LaraZeus\Bolt\Filament\Resources\FormResource\RelationManagers\SectionsRelationManager;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
 
@@ -54,29 +58,65 @@ class FormResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('user_id')->required(),
-                TextInput::make('name')->required()->maxLength(255),
-                TextInput::make('slug')->required()->maxLength(255),
-                TextInput::make('layout')->required()->maxLength(255),
-                TextInput::make('ordering')->required(),
-                Toggle::make('is_active')->required(),
-                Textarea::make('desc')->maxLength(65535),
-                Textarea::make('details')->maxLength(65535),
-                Textarea::make('options')->maxLength(65535),
-                DateTimePicker::make('start_date'),
-                DateTimePicker::make('end_date'),
+                Card::make()
+                    ->schema([
+                        ViewField::make('')->view('zeus-bolt::filament.resources.form-resource.components.fields-options')->columnSpan(5),
+                        TextInput::make('name')->required()->maxLength(255)->columnSpan(2)->reactive()
+                            ->afterStateUpdated(function (\Closure $set, $state, $context) {
+                                if ($context === 'edit') {
+                                    return;
+                                }
+
+                                $set('slug', Str::slug($state));
+                            }),
+                        TextInput::make('slug')->required()->maxLength(255)->columnSpan(2)->rules(['alpha_dash'])->unique(ignoreRecord: true),
+                        TextInput::make('ordering')->required()->columnSpan(1),
+                    ])->columns(5),
+
+                Hidden::make('user_id')->required()->default(auth()->user()->id),
+                Hidden::make('layout')->default(1),
+
+                Card::make()
+                    ->schema([
+                        Placeholder::make('Sections-title')->helperText('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form'),
+                    ]),
 
                 Repeater::make('sections')
+                    ->label('')
                     ->schema([
-                        TextInput::make('name')->required(),
-
+                        TextInput::make('name')->required()->lazy(),
+                        Placeholder::make('Fields'),
                         Repeater::make('fields')
                             ->schema([
-                                TextInput::make('name')->required(),
-                            ])
-                            ->columnSpan(2),
+                                TextInput::make('name')->required()->lazy(),
+                                Select::make('type')->required()->options(Bolt::availableFields()->pluck('title', 'type'))->reactive()->default('Select'),
+                                Fieldset::make('Options')
+                                    ->label('Options')
+                                    ->schema(function (\Closure $get) {
+                                        $classNmae = '\LaraZeus\Bolt\Fields\Classes\\'.$get('type') ?? 'TextInput';
 
+                                        return $classNmae::getOptions();
+                                    }),
+                            ])
+                            ->relationship()
+                            ->label('')
+                            ->orderable('ordering')
+                            ->cloneable()
+                            ->collapsible()
+                            ->grid([
+                                'default' => 1,
+                                'md'      => 2,
+                            ])
+                            ->label('')
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                            ->createItemButtonLabel('Add field'),
                     ])
+                    ->relationship()
+                    ->orderable('ordering')
+                    ->createItemButtonLabel('Add Section')
+                    ->cloneable()
+                    ->collapsible()
+                    ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                     ->columnSpan(2),
             ]);
     }
@@ -86,16 +126,17 @@ class FormResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name'),
+                TextColumn::make('category.name'),
                 TextColumn::make('ordering'),
                 BooleanColumn::make('is_active'),
                 TextColumn::make('start_date')->dateTime(),
                 TextColumn::make('end_date')->dateTime(),
             ])
             ->appendActions([
-                Action::make('edit')
+                /*Action::make('edit-zeus')
                     ->icon('heroicon-o-pencil')
                     ->tooltip('edit Form')
-                    ->url(fn (ZeusForm $record): string => route('admin.form.edit', $record->id)),
+                    ->url(fn(ZeusForm $record) : string => route('admin.form.edit', $record->id)),*/
 
                 Action::make('entries')
                     ->icon('heroicon-o-external-link')
@@ -114,7 +155,6 @@ class FormResource extends Resource
     {
         return [
             ResponsesRelationManager::class,
-            SectionsRelationManager::class,
         ];
     }
 
@@ -122,6 +162,8 @@ class FormResource extends Resource
     {
         return [
             'index'  => Pages\ListForms::route('/'),
+            'create' => Pages\CreateForm::route('/create'),
+            'edit'   => Pages\EditForm::route('/{record}/edit'),
         ];
     }
 

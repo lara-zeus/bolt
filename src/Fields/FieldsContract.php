@@ -2,6 +2,8 @@
 
 namespace LaraZeus\Bolt\Fields;
 
+use Filament\Forms\Components\Placeholder;
+
 abstract class FieldsContract implements Fields
 {
     public $definition = [];
@@ -20,5 +22,12 @@ abstract class FieldsContract implements Fields
     public function apiResponse($response)
     {
         return $response->response;
+    }
+
+    public static function getOptions()
+    {
+        return [
+            Placeholder::make('No options available'),
+        ];
     }
 }

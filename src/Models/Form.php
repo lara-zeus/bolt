@@ -19,9 +19,10 @@ class Form extends Model
         return 'slug';
     }
 
+    protected $guarded = [];
+
     protected $fillable = [
-        'name', 'is_active', 'user_id', 'name', 'layout', 'ordering', 'is_active', 'desc', 'options',
-        'start_date', 'end_date', 'slug',
+        'name', 'is_active', 'user_id', 'name', 'layout', 'ordering', 'is_active', 'desc', 'options', 'start_date', 'end_date', 'slug',
     ];
 
     protected $casts = [
@@ -40,14 +41,19 @@ class Form extends Model
         return $this->belongsTo(config('auth.providers.users.model'));
     }
 
-    public function fields()
+    public function category()
     {
-        return $this->hasMany(Field::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function sections()
     {
         return $this->hasMany(Section::class);
+    }
+
+    public function fields()
+    {
+        return $this->hasManyThrough(Field::class, Section::class);
     }
 
     public function responses()

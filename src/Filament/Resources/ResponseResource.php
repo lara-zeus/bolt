@@ -44,24 +44,14 @@ class ResponseResource extends Resource
         return __('Responses');
     }
 
-    protected static function shouldRegisterNavigation(): bool
-    {
-        return false;
-    }
-
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('form_id')
-                    ->required(),
-                Forms\Components\TextInput::make('user_id')
-                    ->required(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('notes')
-                    ->maxLength(65535),
+                Forms\Components\TextInput::make('form_id')->required(),
+                Forms\Components\TextInput::make('user_id')->required(),
+                Forms\Components\TextInput::make('status')->required()->maxLength(255),
+                Forms\Components\Textarea::make('notes')->maxLength(65535),
             ]);
     }
 
@@ -91,6 +81,7 @@ class ResponseResource extends Resource
     {
         return [
             'index' => Pages\BrowseResponses::route('/'),
+            //'brows' => Pages\BrowseResponses::route('/brows'),
         ];
     }
 
