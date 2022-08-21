@@ -27,7 +27,7 @@ abstract class FieldsContract implements Fields
     public static function getOptions()
     {
         return [
-            Placeholder::make('No options available')
+            Placeholder::make('No options available'),
         ];
     }
 }

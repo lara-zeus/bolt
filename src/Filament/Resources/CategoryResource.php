@@ -14,8 +14,8 @@ use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
-use LaraZeus\Bolt\Models\Category;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages;
+use LaraZeus\Bolt\Models\Category;
 
 class CategoryResource extends Resource
 {
