@@ -96,13 +96,17 @@ class FormResource extends Resource
                         Repeater::make('fields')
                             ->schema([
                                 TextInput::make('name')->required()->lazy()->label(__('Field Name')),
-                                Select::make('type')->required()->options(Bolt::availableFields()->pluck('title', 'type'))->reactive()->default('Select')->label(__('Field Type')),
+                                Select::make('type')
+                                    ->required()
+                                    ->options(Bolt::availableFields()->pluck('title', 'class'))
+                                    ->reactive()
+                                    ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
+                                    ->label(__('Field Type')),
+
                                 Fieldset::make('Options')
                                     ->label(__('Field Options'))
                                     ->schema(function (\Closure $get) {
-                                        $classNmae = '\LaraZeus\Bolt\Fields\Classes\\'.$get('type') ?? 'TextInput';
-
-                                        return $classNmae::getOptions();
+                                        return $get('type')::getOptions();
                                     }),
                             ])
                             ->relationship()

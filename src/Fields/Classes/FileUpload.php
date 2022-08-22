@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class FileUpload extends FieldsContract
@@ -11,19 +12,17 @@ class FileUpload extends FieldsContract
     public function __construct()
     {
         $this->definition = [
-            'type' => 'FileUpload',
+            'type' => '\Filament\Forms\Components\FileUpload',
             'title' => __('File Upload'),
-            'icon' => 'fa-cloud-upload',
-            'settings_view' => 'file-upload',
-            'order' => 7,
+            'order' => 11,
         ];
     }
 
-    public function showResponse($field, $ans): string
+    public static function getOptions()
     {
-        $out = '<a class="show-for-print" target="_blank" href="'.$ans->response.'">'.$ans->response.'</a>';
-        $out .= '<a class="hide-for-print" target="_blank" href="'.$ans->response.'">'.trans('Crud.show').'</a>';
-
-        return $out;
+        return [
+            Toggle::make('options.is_required')->label(__('Is Required')),
+            Toggle::make('options.is_multiple')->label(__('Allow Multiple')),
+        ];
     }
 }

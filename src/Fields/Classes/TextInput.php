@@ -13,9 +13,8 @@ class TextInput extends FieldsContract
     public function __construct()
     {
         $this->definition = [
-            'type' => 'TextInput',
+            'type' => '\Filament\Forms\Components\TextInput',
             'title' => __('Text Input'),
-            'icon' => 'fa-text-width',
             'order' => 1,
         ];
     }
@@ -24,11 +23,13 @@ class TextInput extends FieldsContract
     {
         return [
             Select::make('options.dateType')->required()->options([
+                'text'=>'text',
                 'email'=>'email',
                 'numeric'=>'numeric',
                 'tel'=>'tel',
                 'url'=>'url',
-            ]),
+            ])->default('text'),
+
             Toggle::make('options.is_required')->label(__('Is Required')),
 
             \Filament\Forms\Components\TextInput::make('options.prefix'),

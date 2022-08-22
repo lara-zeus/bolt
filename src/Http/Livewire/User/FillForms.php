@@ -22,16 +22,28 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->zeusForm->sections as $section) {
             $fields = [];
             foreach ($section->fields as $field) {
-                $class = '\Filament\Forms\Components\\'.$field->type;
-                $setField = $class::make('zeusData.'.$field->id)
+                $class = $field->type;
+                $ff = (new $class)->definition['type'];
+                $setField = $ff::make('zeusData.'.$field->id)
                     ->label($field->name)
                     ->helperText($field->description)
                     ->id($field->html_id)
-                    ->rules(collect($field->rules)->pluck('rule')->toArray());
+                //    ->rules(collect($field->rules)->pluck('rule'))
+                ;
 
-                if ($field->type === 'Select') {
-                    $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey')->toArray());
+                if ($field->type === 'Select') { // todo change
+                    $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
                 }
+
+                /*if(isset($field->options['dateType']) && $field->options['dateType'] !== null){
+                    if($field->options['dateType'] === 'date'){
+                        $setField = $setField->date();
+                    } else if($field->options['dateType'] === 'date'){
+                        $setField = $setField->time();
+                    } else {
+                        $setField = $setField->datetime();
+                    }
+                }*/
 
                 $fields[] = Forms\Components\Card::make()->schema([$setField]);
             }

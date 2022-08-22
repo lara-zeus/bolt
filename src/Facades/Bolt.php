@@ -71,10 +71,10 @@ class Bolt extends Facade
             $fieldClass = new $class();
             if (! $fieldClass->disabled) {
                 $fieldClass->definition['isZeus'] = $isZeus;
+                $fieldClass->definition['class'] = $fieldClass->getClass();
                 $allFields[] = $fieldClass->definition;
             }
         }
-
         return $allFields;
     }
 

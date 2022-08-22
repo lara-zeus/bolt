@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
@@ -13,25 +12,16 @@ class DateTimePicker extends FieldsContract
     public function __construct()
     {
         $this->definition = [
-            'type' => 'DateTimePicker',
-            'title' => __('Date Time'),
-            'icon' => 'fa-calendar',
-            'settings_view' => 'date-time',
-            'order' => 6,
+            'type' => '\Filament\Forms\Components\DateTimePicker',
+            'title' => __('Date Time Picker'),
+            'order' => 7,
         ];
     }
 
     public static function getOptions()
     {
         return [
-            Select::make('options.dateType')->label(__('Date Type'))->required()->options([
-                'date'=>'date',
-                'datetime'=>'datetime',
-                'time'=>'time',
-            ]),
             Toggle::make('options.is_required')->label(__('Is Required')),
-            Toggle::make('options.is_searchable')->label(__('Is Searchable')),
-
         ];
     }
 }

@@ -24,6 +24,11 @@ abstract class FieldsContract implements Fields
         return $response->response;
     }
 
+    public function getClass()
+    {
+        return get_class($this);
+    }
+
     public static function getOptions()
     {
         return [
