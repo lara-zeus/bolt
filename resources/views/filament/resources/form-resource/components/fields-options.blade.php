@@ -11,11 +11,11 @@
     <div class="flex items-center justify-between">
     <div class="flex-1">
             <h5 class="text-lg font-bold tracking-tight">
-                Form details
+                {{ __('Form details') }}
             </h5>
 
             <p class="text-gray-500">
-                Name, slug, and other options
+                {{ __('Name, slug, and other options') }}
             </p>
     </div>
         <div class="flex justify-end gap-2" x-data="{ state: $wire.entangle('{{ $getStatePath() }}') }">

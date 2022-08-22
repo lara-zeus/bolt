@@ -17,7 +17,7 @@ class Select extends FieldsContract
     {
         $this->definition = [
             'type' => 'Select',
-            'title' => 'Select Menu',
+            'title' => __('Select Menu'),
             'icon' => 'fa-check',
             'settings_view' => 'list-values',
             'order' => 3,

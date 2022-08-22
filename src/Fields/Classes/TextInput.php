@@ -14,7 +14,7 @@ class TextInput extends FieldsContract
     {
         $this->definition = [
             'type' => 'TextInput',
-            'title' => 'Text Input',
+            'title' => __('Text Input'),
             'icon' => 'fa-text-width',
             'order' => 1,
         ];

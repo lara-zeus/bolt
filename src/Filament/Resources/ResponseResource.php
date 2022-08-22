@@ -16,7 +16,7 @@ use LaraZeus\Bolt\Models\Response;
 class ResponseResource extends Resource
 {
     protected static ?string $model = Response::class;
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'clarity-data-cluster-line';
     protected static ?int $navigationSort = 2;
 
     protected static function getNavigationBadge(): ?string
@@ -85,10 +85,4 @@ class ResponseResource extends Resource
         ];
     }
 
-    public static function getWidgets(): array
-    {
-        return [
-            BetaNote::class,
-        ];
-    }
 }

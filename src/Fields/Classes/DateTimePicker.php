@@ -14,7 +14,7 @@ class DateTimePicker extends FieldsContract
     {
         $this->definition = [
             'type' => 'DateTimePicker',
-            'title' => 'Date Time',
+            'title' => __('Date Time'),
             'icon' => 'fa-calendar',
             'settings_view' => 'date-time',
             'order' => 6,
@@ -24,7 +24,7 @@ class DateTimePicker extends FieldsContract
     public static function getOptions()
     {
         return [
-            Select::make('options.dateType')->required()->options([
+            Select::make('options.dateType')->label(__('Date Type'))->required()->options([
                 'date'=>'date',
                 'datetime'=>'datetime',
                 'time'=>'time',
