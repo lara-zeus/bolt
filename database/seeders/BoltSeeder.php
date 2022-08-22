@@ -13,17 +13,8 @@ class BoltSeeder extends Seeder
 {
     public function run()
     {
-        $user = config('auth.providers.users.model')::factory()
-            ->state([
-                'name' => 'admin',
-                'email' => 'admin@admin.com',
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            ])
-            ->create();
-
         $form = Form::factory()
             ->count(1)
-            ->state(['user_id' => $user->id])
             ->has(
                 Section::factory()
                     ->count(3)
@@ -37,7 +28,6 @@ class BoltSeeder extends Seeder
                             ->count(2)
                             ->state(function (array $attributes, Section $section) {
                                 return [
-                                    'form_id' => $section->form_id,
                                     'section_id' => $section->id,
                                 ];
                             })
@@ -45,12 +35,12 @@ class BoltSeeder extends Seeder
             )
             ->create();
 
-        $form->first()->fields->each(function ($field) use ($user) {
+        $form->first()->fields->each(function ($field){
             Response::factory()
                 ->count(2)
                 ->state([
-                    'form_id' => $field->form_id,
-                    'user_id' => $user->id,
+                    'form_id' => 1,
+                    'user_id' => 1,
                 ])
                 ->has(
                     FieldResponse::factory()
