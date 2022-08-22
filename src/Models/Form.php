@@ -21,10 +21,6 @@ class Form extends Model
 
     protected $guarded = [];
 
-    protected $fillable = [
-        'name', 'is_active', 'user_id', 'name', 'layout', 'ordering', 'is_active', 'desc', 'options', 'start_date', 'end_date', 'slug',
-    ];
-
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',

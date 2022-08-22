@@ -42,7 +42,7 @@
         @empty
             <div class="flex justify-center items-center space-x-2">
                 <x-heroicon-o-inbox class="h-8 w-8 text-gray-400"/>
-                <span class="font-medium py-8 text-gray-400 text-xl">No {{ $title }} found...</span>
+                <span class="font-medium py-8 text-gray-400 text-xl">No responses found...</span>
             </div>
         @endforelse
 
