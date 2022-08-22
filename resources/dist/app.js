@@ -3213,20 +3213,218 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "NotificationComponentAlpinePlugin": () => (/* binding */ notification_default),
 /* harmony export */   "default": () => (/* binding */ js_default)
 /* harmony export */ });
-// packages/notifications/resources/js/components/notification.js
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+// node_modules/alpinejs/src/mutation.js
+var onAttributeAddeds = [];
+var onElRemoveds = [];
+var onElAddeds = [];
+
+function cleanupAttributes(el, names) {
+  if (!el._x_attributeCleanups) return;
+  Object.entries(el._x_attributeCleanups).forEach(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        name = _ref2[0],
+        value = _ref2[1];
+
+    if (names === void 0 || names.includes(name)) {
+      value.forEach(function (i) {
+        return i();
+      });
+      delete el._x_attributeCleanups[name];
+    }
+  });
+}
+
+var observer = new MutationObserver(onMutate);
+var currentlyObserving = false;
+
+function startObservingMutations() {
+  observer.observe(document, {
+    subtree: true,
+    childList: true,
+    attributes: true,
+    attributeOldValue: true
+  });
+  currentlyObserving = true;
+}
+
+function stopObservingMutations() {
+  flushObserver();
+  observer.disconnect();
+  currentlyObserving = false;
+}
+
+var recordQueue = [];
+var willProcessRecordQueue = false;
+
+function flushObserver() {
+  recordQueue = recordQueue.concat(observer.takeRecords());
+
+  if (recordQueue.length && !willProcessRecordQueue) {
+    willProcessRecordQueue = true;
+    queueMicrotask(function () {
+      processRecordQueue();
+      willProcessRecordQueue = false;
+    });
+  }
+}
+
+function processRecordQueue() {
+  onMutate(recordQueue);
+  recordQueue.length = 0;
+}
+
+function mutateDom(callback) {
+  if (!currentlyObserving) return callback();
+  stopObservingMutations();
+  var result = callback();
+  startObservingMutations();
+  return result;
+}
+
+var isCollecting = false;
+var deferredMutations = [];
+
+function onMutate(mutations) {
+  if (isCollecting) {
+    deferredMutations = deferredMutations.concat(mutations);
+    return;
+  }
+
+  var addedNodes = [];
+  var removedNodes = [];
+  var addedAttributes = new Map();
+  var removedAttributes = new Map();
+
+  for (var i = 0; i < mutations.length; i++) {
+    if (mutations[i].target._x_ignoreMutationObserver) continue;
+
+    if (mutations[i].type === "childList") {
+      mutations[i].addedNodes.forEach(function (node) {
+        return node.nodeType === 1 && addedNodes.push(node);
+      });
+      mutations[i].removedNodes.forEach(function (node) {
+        return node.nodeType === 1 && removedNodes.push(node);
+      });
+    }
+
+    if (mutations[i].type === "attributes") {
+      (function () {
+        var el = mutations[i].target;
+        var name = mutations[i].attributeName;
+        var oldValue = mutations[i].oldValue;
+
+        var add = function add() {
+          if (!addedAttributes.has(el)) addedAttributes.set(el, []);
+          addedAttributes.get(el).push({
+            name: name,
+            value: el.getAttribute(name)
+          });
+        };
+
+        var remove = function remove() {
+          if (!removedAttributes.has(el)) removedAttributes.set(el, []);
+          removedAttributes.get(el).push(name);
+        };
+
+        if (el.hasAttribute(name) && oldValue === null) {
+          add();
+        } else if (el.hasAttribute(name)) {
+          remove();
+          add();
+        } else {
+          remove();
+        }
+      })();
+    }
+  }
+
+  removedAttributes.forEach(function (attrs, el) {
+    cleanupAttributes(el, attrs);
+  });
+  addedAttributes.forEach(function (attrs, el) {
+    onAttributeAddeds.forEach(function (i) {
+      return i(el, attrs);
+    });
+  });
+
+  var _loop = function _loop() {
+    var node = _removedNodes[_i2];
+    if (addedNodes.includes(node)) return "continue";
+    onElRemoveds.forEach(function (i) {
+      return i(node);
+    });
+
+    if (node._x_cleanups) {
+      while (node._x_cleanups.length) {
+        node._x_cleanups.pop()();
+      }
+    }
+  };
+
+  for (var _i2 = 0, _removedNodes = removedNodes; _i2 < _removedNodes.length; _i2++) {
+    var _ret = _loop();
+
+    if (_ret === "continue") continue;
+  }
+
+  addedNodes.forEach(function (node) {
+    node._x_ignoreSelf = true;
+    node._x_ignore = true;
+  });
+
+  var _loop2 = function _loop2() {
+    var node = _addedNodes[_i3];
+    if (removedNodes.includes(node)) return "continue";
+    if (!node.isConnected) return "continue";
+    delete node._x_ignoreSelf;
+    delete node._x_ignore;
+    onElAddeds.forEach(function (i) {
+      return i(node);
+    });
+    node._x_ignore = true;
+    node._x_ignoreSelf = true;
+  };
+
+  for (var _i3 = 0, _addedNodes = addedNodes; _i3 < _addedNodes.length; _i3++) {
+    var _ret2 = _loop2();
+
+    if (_ret2 === "continue") continue;
+  }
+
+  addedNodes.forEach(function (node) {
+    delete node._x_ignoreSelf;
+    delete node._x_ignore;
+  });
+  addedNodes = null;
+  removedNodes = null;
+  addedAttributes = null;
+  removedAttributes = null;
+} // packages/notifications/resources/js/components/notification.js
+
+
 var notification_default = function notification_default(Alpine) {
-  Alpine.data("notificationComponent", function (_ref) {
-    var $wire = _ref.$wire,
-        notification = _ref.notification;
+  Alpine.data("notificationComponent", function (_ref3) {
+    var notification = _ref3.notification;
     return {
-      phase: "enter-start",
+      isShown: false,
       computedStyle: null,
-      hasTransitionLeaveAttribute: false,
       init: function init() {
         var _this = this;
 
         this.computedStyle = window.getComputedStyle(this.$el);
-        this.hasTransitionLeaveAttribute = this.$el.hasAttribute("x-transition:leave") || this.$el.hasAttribute("x-transition:leave-start") || this.$el.hasAttribute("x-transition:leave-end");
+        this.configureTransitions();
         this.configureAnimations();
 
         if (notification.duration !== null) {
@@ -3235,12 +3433,36 @@ var notification_default = function notification_default(Alpine) {
           }, notification.duration);
         }
 
-        this.$nextTick(function () {
-          return _this.phase = "enter-end";
+        this.isShown = true;
+      },
+      configureTransitions: function configureTransitions() {
+        var _this2 = this;
+
+        var display = this.computedStyle.display;
+
+        var show = function show() {
+          mutateDom(function () {
+            return _this2.$el.style.setProperty("display", display);
+          });
+          _this2.$el._x_isShown = true;
+        };
+
+        var hide = function hide() {
+          mutateDom(function () {
+            _this2.$el._x_isShown ? _this2.$el.style.setProperty("visibility", "hidden") : _this2.$el.style.setProperty("display", "none");
+          });
+        };
+
+        var toggle = function toggle(value) {
+          _this2.$el._x_toggleAndCascadeWithTransitions(_this2.$el, value, show, hide);
+        };
+
+        Alpine.effect(function () {
+          return toggle(_this2.isShown);
         });
       },
       configureAnimations: function configureAnimations() {
-        var _this2 = this;
+        var _this3 = this;
 
         var animation;
         Livewire.hook("message.received", function (_, component) {
@@ -3248,22 +3470,24 @@ var notification_default = function notification_default(Alpine) {
             return;
           }
 
-          var oldTop = _this2.getTop();
+          var getTop = function getTop() {
+            return _this3.$el.getBoundingClientRect().top;
+          };
+
+          var oldTop = getTop();
 
           animation = function animation() {
-            var newTop = _this2.getTop();
-
-            _this2.$el.animate([{
-              transform: "translateY(".concat(oldTop - newTop, "px)")
+            _this3.$el.animate([{
+              transform: "translateY(".concat(oldTop - getTop(), "px)")
             }, {
               transform: "translateY(0px)"
             }], {
-              duration: _this2.getTransitionDuration(),
-              easing: _this2.computedStyle.transitionTimingFunction
+              duration: _this3.getTransitionDuration(),
+              easing: _this3.computedStyle.transitionTimingFunction
             });
           };
 
-          _this2.$el.getAnimations().forEach(function (animation2) {
+          _this3.$el.getAnimations().forEach(function (animation2) {
             return animation2.finish();
           });
         });
@@ -3272,7 +3496,7 @@ var notification_default = function notification_default(Alpine) {
             return;
           }
 
-          if (_this2.phase.startsWith("leave-")) {
+          if (!_this3.isShown) {
             return;
           }
 
@@ -3280,18 +3504,10 @@ var notification_default = function notification_default(Alpine) {
         });
       },
       close: function close() {
-        var _this3 = this;
-
-        this.phase = "leave-start";
-        this.$nextTick(function () {
-          setTimeout(function () {
-            return $wire.close(notification.id);
-          }, _this3.hasTransitionLeaveAttribute ? _this3.getTransitionDuration() : 0);
-          _this3.phase = "leave-end";
-        });
-      },
-      getTop: function getTop() {
-        return this.$el.getBoundingClientRect().top;
+        this.isShown = false;
+        setTimeout(function () {
+          return Livewire.emit("notificationClosed", notification.id);
+        }, this.getTransitionDuration());
       },
       getTransitionDuration: function getTransitionDuration() {
         return parseFloat(this.computedStyle.transitionDuration) * 1e3;

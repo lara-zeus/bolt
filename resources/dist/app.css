@@ -2005,7 +2005,7 @@ trix-editor .attachment__metadata .attachment__size {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 75ms;
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
-  background-position: right .5rem center;
+  background-position: right 0.5rem center;
   background-size: 1.5em 1.5em;
 }
 
@@ -2019,7 +2019,7 @@ trix-editor .attachment__metadata .attachment__size {
 }
 
 [dir=rtl] .choices__inner {
-  background-position: left .5rem center;
+  background-position: left 0.5rem center;
 }
 
 .is-focused .choices__inner, .is-open .choices__inner{
@@ -4905,10 +4905,6 @@ select{
   border-right-width: 1px;
 }
 
-.border-solid{
-  border-style: solid;
-}
-
 .border-gray-100{
   --tw-border-opacity: 1;
   border-color: rgb(245 245 244 / var(--tw-border-opacity));
@@ -4936,11 +4932,6 @@ select{
 .border-green-400{
   --tw-border-opacity: 1;
   border-color: rgb(74 222 128 / var(--tw-border-opacity));
-}
-
-.border-red-500{
-  --tw-border-opacity: 1;
-  border-color: rgb(239 68 68 / var(--tw-border-opacity));
 }
 
 .border-gray-200{

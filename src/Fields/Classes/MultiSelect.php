@@ -9,14 +9,14 @@ use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Collection;
 
-class Select extends FieldsContract
+class MultiSelect extends FieldsContract
 {
     public $disabled = false;
 
     public function __construct()
     {
         $this->definition = [
-            'type' => 'Select',
+            'type' => 'MultiSelect',
             'title' => 'Select Menu',
             'icon' => 'fa-check',
             'settings_view' => 'list-values',

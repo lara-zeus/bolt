@@ -6,7 +6,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
-class TextInput extends FieldsContract
+class Checkbox extends FieldsContract
 {
     public $disabled = false;
 
