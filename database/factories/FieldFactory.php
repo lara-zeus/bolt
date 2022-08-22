@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use LaraZeus\Bolt\Models\Field;
-use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section;
 
 class FieldFactory extends Factory
@@ -25,8 +24,7 @@ class FieldFactory extends Factory
     {
         return [
             'name'  => $this->faker->words(3, true),
-            'type'  => $this->faker->words(1, true),
-            'form_id' => Form::factory(),
+            'type'  => 'TextInput',
             'section_id' => Section::factory(),
             'layout_position' => $this->faker->numberBetween(1, 2),
             'ordering' => $this->faker->numberBetween(1, 20),

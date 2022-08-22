@@ -6,8 +6,6 @@
             </p>
             <p>
                 thank you 🙏🏽 for testing Bolt.
-                <br>
-                this package was extracted from a client project, working on making it stable inside filament :)
             </p>
         </div>
     </x-filament::card>
