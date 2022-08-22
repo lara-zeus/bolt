@@ -16,7 +16,7 @@ use LaraZeus\Bolt\Models\Collection;
 class CollectionResource extends Resource
 {
     protected static ?string $model = Collection::class;
-    protected static ?string $navigationIcon = 'clarity-list-line';
+    protected static ?string $navigationIcon = 'clarity-tags-line';
     protected static ?int $navigationSort = 3;
 
     protected static function getNavigationBadge(): ?string

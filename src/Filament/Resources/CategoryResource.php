@@ -15,13 +15,14 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Models\Category;
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
     protected static ?string $navigationIcon = 'heroicon-o-document-duplicate';
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {
@@ -89,5 +90,12 @@ class CategoryResource extends Resource
     protected static function getNavigationGroup(): ?string
     {
         return __('Bolt');
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            BetaNote::class,
+        ];
     }
 }
