@@ -12,7 +12,7 @@ class FileUpload extends FieldsContract
     {
         $this->definition = [
             'type' => 'FileUpload',
-            'title' => 'File Upload',
+            'title' => __('File Upload'),
             'icon' => 'fa-cloud-upload',
             'settings_view' => 'file-upload',
             'order' => 7,
