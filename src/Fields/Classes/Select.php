@@ -14,7 +14,7 @@ class Select extends FieldsContract
     {
         $this->definition = [
             'type' => 'Select',
-            'title' => 'Select Menu',
+            'title' => __('Select Menu'),
             'icon' => 'fa-check',
             'settings_view' => 'list-values',
             'order' => 3,
@@ -24,7 +24,7 @@ class Select extends FieldsContract
     public static function getOptions()
     {
         return [
-            FilamentSelect::make('options.dataSource')->required()->options(Collection::pluck('name', 'id')),
+            FilamentSelect::make('options.dataSource')->required()->options(Collection::pluck('name', 'id'))->label(__('Data Source')),
         ];
     }
 }

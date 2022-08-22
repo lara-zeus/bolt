@@ -28,6 +28,12 @@ class FormResource extends Resource
     protected static ?string $model = ZeusForm::class;
     protected static ?string $navigationIcon = 'clarity-form-line';
     protected static ?int $navigationSort = 1;
+    protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name','slug'];
+    }
 
     protected static function getNavigationBadge(): ?string
     {
@@ -62,6 +68,7 @@ class FormResource extends Resource
                     ->schema([
                         ViewField::make('')->view('zeus-bolt::filament.resources.form-resource.components.fields-options')->columnSpan(5),
                         TextInput::make('name')->required()->maxLength(255)->columnSpan(2)->reactive()
+                            ->label(__('Form Name'))
                             ->afterStateUpdated(function (\Closure $set, $state, $context) {
                                 if ($context === 'edit') {
                                     return;
@@ -69,29 +76,29 @@ class FormResource extends Resource
 
                                 $set('slug', Str::slug($state));
                             }),
-                        TextInput::make('slug')->required()->maxLength(255)->columnSpan(2)->rules(['alpha_dash'])->unique(ignoreRecord: true),
-                        TextInput::make('ordering')->required()->columnSpan(1),
+                        TextInput::make('slug')->required()->maxLength(255)->columnSpan(2)->rules(['alpha_dash'])->unique(ignoreRecord: true)->label(__('Form Slug')),
+                        TextInput::make('ordering')->required()->columnSpan(1)->label(__('Form Order')),
                     ])->columns(5),
 
-                Hidden::make('user_id')->required()->default(auth()->user()->id),
-                Hidden::make('layout')->default(1),
+                Hidden::make('user_id')->required()->default(auth()->user()->id), //todo
+                Hidden::make('layout')->default(1), //todo
 
                 Card::make()
                     ->schema([
-                        Placeholder::make('Sections-title')->helperText('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form'),
+                        Placeholder::make('Sections-title')->label(__('Sections title'))->helperText(__('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form')),
                     ]),
 
                 Repeater::make('sections')
                     ->label('')
                     ->schema([
-                        TextInput::make('name')->required()->lazy(),
-                        Placeholder::make('Fields'),
+                        TextInput::make('name')->required()->lazy()->label(__('Section Name')),
+                        Placeholder::make('Fields')->label(__('Section Fields')),
                         Repeater::make('fields')
                             ->schema([
-                                TextInput::make('name')->required()->lazy(),
-                                Select::make('type')->required()->options(Bolt::availableFields()->pluck('title', 'type'))->reactive()->default('Select'),
+                                TextInput::make('name')->required()->lazy()->label(__('Field Name')),
+                                Select::make('type')->required()->options(Bolt::availableFields()->pluck('title', 'type'))->reactive()->default('Select')->label(__('Field Type')),
                                 Fieldset::make('Options')
-                                    ->label('Options')
+                                    ->label(__('Field Options'))
                                     ->schema(function (\Closure $get) {
                                         $classNmae = '\LaraZeus\Bolt\Fields\Classes\\'.$get('type') ?? 'TextInput';
 
@@ -109,11 +116,11 @@ class FormResource extends Resource
                             ])
                             ->label('')
                             ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
-                            ->createItemButtonLabel('Add field'),
+                            ->createItemButtonLabel(__('Add field')),
                     ])
                     ->relationship()
                     ->orderable('ordering')
-                    ->createItemButtonLabel('Add Section')
+                    ->createItemButtonLabel(__('Add Section'))
                     ->cloneable()
                     ->collapsible()
                     ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
@@ -125,27 +132,24 @@ class FormResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
-                TextColumn::make('category.name'),
-                TextColumn::make('ordering'),
-                BooleanColumn::make('is_active'),
-                TextColumn::make('start_date')->dateTime(),
-                TextColumn::make('end_date')->dateTime(),
+                TextColumn::make('name')->searchable()->sortable()->label(__('Form Name')),
+                TextColumn::make('category.name')->label(__('Category'))->sortable(),
+                TextColumn::make('ordering')->label(__('Ordering'))->sortable(),
+                BooleanColumn::make('is_active')->label(__('Is Active'))->sortable(),
+                TextColumn::make('start_date')->dateTime()->searchable()->sortable()->label(__('Start Date')),
+                TextColumn::make('end_date')->dateTime()->searchable()->sortable()->label(__('End Date')),
             ])
             ->appendActions([
-                /*Action::make('edit-zeus')
-                    ->icon('heroicon-o-pencil')
-                    ->tooltip('edit Form')
-                    ->url(fn(ZeusForm $record) : string => route('admin.form.edit', $record->id)),*/
-
                 Action::make('entries')
-                    ->icon('heroicon-o-external-link')
-                    ->tooltip('View All Entries')
+                    ->label(__('Entries'))
+                    ->icon('clarity-data-cluster-line')
+                    ->tooltip(__('view all entries'))
                     ->url(fn (ZeusForm $record): string => url('admin/responses?form_id='.$record->id)),
 
                 Action::make('open')
+                    ->label(__('Open'))
                     ->icon('heroicon-o-external-link')
-                    ->tooltip('Show the Form')
+                    ->tooltip(__('open form'))
                     ->url(fn (ZeusForm $record): string => route('bolt.user.form.show', $record))
                     ->openUrlInNewTab(),
             ]);

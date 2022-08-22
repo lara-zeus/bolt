@@ -30,8 +30,6 @@
                             @endif
                         </div>
                     @endforeach
-
-
                     @foreach($row->fieldsResponses as $resp)
                         <div class="py-2">
                             {{ $resp->field->name }}:<span class="font-semibold">{{ $resp->response ?? ''}}</span>
@@ -41,7 +39,7 @@
             </div>
         @empty
             <div class="flex justify-center items-center space-x-2">
-                <x-heroicon-o-inbox class="h-8 w-8 text-gray-400"/>
+                <x-clarity-data-cluster-line class="h-8 w-8 text-gray-400"/>
                 <span class="font-medium py-8 text-gray-400 text-xl">No responses found...</span>
             </div>
         @endforelse
