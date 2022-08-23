@@ -5,14 +5,14 @@ namespace LaraZeus\Bolt\Fields\Classes;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
-class DateTimePicker extends FieldsContract
+class RichEditor extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\DateTimePicker';
-    public $sort = 7;
+    public $renderClass = '\Filament\Forms\Components\RichEditor';
+    public $sort = 10;
 
     public function title()
     {
-        return __('Date Time Picker');
+        return __('Rich Editor');
     }
 
     public static function getOptions()

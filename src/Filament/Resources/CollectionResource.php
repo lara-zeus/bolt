@@ -9,6 +9,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
 use LaraZeus\Bolt\Models\Collection;
 
@@ -73,8 +74,8 @@ class CollectionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->label(__('Collections Name'))->searchable(),
-                Tables\Columns\TextColumn::make('values-list')->html()->label(__('Collections Values'))->searchable(['values']),
+                TextColumn::make('name')->label(__('Collections Name'))->searchable(),
+                TextColumn::make('values-list')->html()->label(__('Collections Values'))->searchable(['values']),
             ]);
     }
 

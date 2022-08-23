@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Http\Livewire\User;
+namespace LaraZeus\Bolt\Http\Livewire;
 
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
@@ -39,10 +39,6 @@ class ListEntries extends Component
                 'label' => 'status',
                 'sortable' => true,
             ],
-            /*[
-                'id' => 'notes',
-                'label' => 'notes',
-            ],*/
         ]);
     }
 }

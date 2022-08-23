@@ -2,32 +2,45 @@
 
 namespace LaraZeus\Bolt\Fields;
 
-use Filament\Forms\Components\Placeholder;
+use Illuminate\Contracts\Support\Arrayable;
 
-abstract class FieldsContract implements Fields
+abstract class FieldsContract implements Fields, Arrayable
 {
-    public $definition = [];
     public $disabled = false;
+    public $renderClass;
+    public $code;
+    public $sort;
 
-    public function showResponse($field, $ans): string
-    {
-        return $ans->response;
-    }
-
-    public function exportResponse($response)
-    {
-        return $response->response;
-    }
-
-    public function apiResponse($response)
-    {
-        return $response->response;
-    }
-
-    public static function getOptions()
+    public function toArray()
     {
         return [
-            Placeholder::make('No options available'),
+            'disabled' => $this->disabled,
+            'class' => $this->getClass(),
+            'renderClass' => $this->renderClass,
+            'hasOptions' => $this->hasOptions(),
+            'code' => $this->getCode(),
+            'sort' => $this->sort,
+            'title' => $this->title(),
         ];
+    }
+
+    public function getCode()
+    {
+        return class_basename($this);
+    }
+
+    public function title()
+    {
+        return __(class_basename($this));
+    }
+
+    public function getClass()
+    {
+        return '\\'.get_called_class();
+    }
+
+    public function hasOptions() : bool
+    {
+        return method_exists(get_called_class(),'getOptions');
     }
 }

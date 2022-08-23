@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Http\Livewire\User;
+namespace LaraZeus\Bolt\Http\Livewire;
 
 use Filament\Forms;
 use LaraZeus\Bolt\Models\Collection;
@@ -22,16 +22,26 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->zeusForm->sections as $section) {
             $fields = [];
             foreach ($section->fields as $field) {
-                $class = '\Filament\Forms\Components\\'.$field->type;
-                $setField = $class::make('zeusData.'.$field->id)
+                $setField = (new $field->type)->renderClass::make('zeusData.'.$field->id)
                     ->label($field->name)
                     ->helperText($field->description)
                     ->id($field->html_id)
-                    ->rules(collect($field->rules)->pluck('rule')->toArray());
+                //    ->rules(collect($field->rules)->pluck('rule'))
+                ;
 
-                if ($field->type === 'Select') {
-                    $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey')->toArray());
+                if ($field->type === 'Select') { // todo change
+                    $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
                 }
+
+                /*if(isset($field->options['dateType']) && $field->options['dateType'] !== null){
+                    if($field->options['dateType'] === 'date'){
+                        $setField = $setField->date();
+                    } else if($field->options['dateType'] === 'date'){
+                        $setField = $setField->time();
+                    } else {
+                        $setField = $setField->datetime();
+                    }
+                }*/
 
                 $fields[] = Forms\Components\Card::make()->schema([$setField]);
             }
@@ -52,33 +62,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
-            /*$this->fieldResponse[$field->id] = FieldResponse::make([
-                'form_id'     => $this->zeusForm->id,
-                'field_id'    => $field->id,
-                'response_id' => $this->response->id,
-                'response'    => '',
-            ]);*/
         }
 
         $rules = $validationAttributes = [];
-        /*foreach ($this->zeusForm->fields as $field) {
-            $rules['fieldResponse.' . $field->id . '.response']                = $field->rules;
-            $validationAttributes['fieldResponse.' . $field->id . '.response'] = $field->name;
-        }*/
-
-        /*$rules['response.form_id'] = 'sometimes';
-        $rules['response.status']  = 'sometimes';
-        $rules['response.notes']   = 'sometimes';
-        $rules['response.user_id'] = 'sometimes';*/
-
-        /*$rules['fieldResponse.*.user_id']     = 'sometimes';
-        $rules['fieldResponse.*.form_id']     = 'sometimes';
-        $rules['fieldResponse.*.field_id']    = 'sometimes';
-        $rules['fieldResponse.*.response_id'] = 'sometimes';
-        $rules['fieldResponse.*.response']    = 'sometimes';*/
-
-        //$this->rules                = $rules;
-        // $this->validationAttributes = $validationAttributes;
     }
 
     public function resetAll()

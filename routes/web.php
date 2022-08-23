@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use LaraZeus\Bolt\Http\Livewire\Admin\CreateForms;
-use LaraZeus\Bolt\Http\Livewire\User\FillForms;
-use LaraZeus\Bolt\Http\Livewire\User\ListEntries;
-use LaraZeus\Bolt\Http\Livewire\User\Submitted;
+use LaraZeus\Bolt\Http\Livewire\FillForms;
+use LaraZeus\Bolt\Http\Livewire\ListEntries;
+use LaraZeus\Bolt\Http\Livewire\Submitted;
 
 Route::prefix(config('zeus-bolt.path'))->name('bolt.')->middleware('web')->group(function () {
     Route::name('user.')->middleware(config('zeus-bolt.middleware'))->group(function () {
@@ -13,9 +12,4 @@ Route::prefix(config('zeus-bolt.path'))->name('bolt.')->middleware('web')->group
         Route::get('entries', ListEntries::class)->name('entries.list');
         Route::get('{slug}', FillForms::class)->name('form.show');
     });
-});
-
-Route::prefix(config('filament.path'))->name('admin.')->group(function () {
-    Route::get('create-form', CreateForms::class)->name('form.create');
-    Route::get('edit-form/{formId}', CreateForms::class)->name('form.edit');
 });

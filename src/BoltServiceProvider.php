@@ -8,14 +8,10 @@ use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
-use LaraZeus\Bolt\Http\Livewire\Admin\CreateCollection;
-use LaraZeus\Bolt\Http\Livewire\Admin\CreateForms;
-use LaraZeus\Bolt\Http\Livewire\Admin\Fields;
-use LaraZeus\Bolt\Http\Livewire\Admin\Section;
-use LaraZeus\Bolt\Http\Livewire\User\FillForms;
-use LaraZeus\Bolt\Http\Livewire\User\ListEntries;
-use LaraZeus\Bolt\Http\Livewire\User\ListForms;
-use LaraZeus\Bolt\Http\Livewire\User\Submitted;
+use LaraZeus\Bolt\Http\Livewire\FillForms;
+use LaraZeus\Bolt\Http\Livewire\ListEntries;
+use LaraZeus\Bolt\Http\Livewire\ListForms;
+use LaraZeus\Bolt\Http\Livewire\Submitted;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 
@@ -27,17 +23,8 @@ class BoltServiceProvider extends PluginServiceProvider
         'zeus-bolt-styles' => __DIR__.'/../resources/dist/app.css',
     ];
 
-    /*protected function getStyles() : array
-    {
-        return [
-            'zeus-bolt-styles' => 'https://demo.test/vendor/zeus-bolt/app.css',
-        ];
-    }*/
-
-    protected array $beforeCoreScripts = [
-        //'zeus-bolt-popperjs' => 'https://unpkg.com/@popperjs/core@2',
-        //'zeus-bolt-tippy' => 'https://unpkg.com/tippy.js@6',
-        //'zeus-bolt-sortable' => 'https://cdn.jsdelivr.net/gh/livewire/sortable@v0.x.x/dist/livewire-sortable.js',
+    protected array $scripts = [
+        'zeus-bolt-admin' => __DIR__.'/../resources/dist/admin.js',
     ];
 
     protected function getResources(): array
@@ -52,14 +39,10 @@ class BoltServiceProvider extends PluginServiceProvider
 
     public function boot()
     {
-        Livewire::component('bolt.create-section', Section::class);
-        Livewire::component('bolt.create-field', Fields::class);
         Livewire::component('bolt.submitted', Submitted::class);
-        Livewire::component('bolt.create-forms', CreateForms::class);
         Livewire::component('bolt.fill-form', FillForms::class);
         Livewire::component('bolt.list-forms', ListForms::class);
-        Livewire::component('bolt.manage-entries', ListEntries::class);
-        Livewire::component('forms.create-collection', CreateCollection::class);
+        Livewire::component('bolt.list-entries', ListEntries::class);
 
         if ($this->app->runningInConsole()) {
             $this->publishes([

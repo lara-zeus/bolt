@@ -10,10 +10,25 @@ class EditForm extends EditRecord
 {
     protected static string $resource = FormResource::class;
 
-    /*protected function beforeSave(): void
+    public function mount($record): void
     {
-        dd($this->data);
-    }*/
+        parent::mount($record);
+
+        // todo @by atm: this is ugly, redo
+        $unsetFieldsData = [
+            'start_date' => null,
+            'end_date' => null,
+            'details' => null,
+            'is_active' => false,
+            'options' => [
+                'requireLogin' => false,
+                'oneEntryPerUser' => false,
+                'sectionsToPages' => false,
+            ],
+        ];
+
+        $this->form->fill(array_merge($this->form->getLivewire()->data, $unsetFieldsData));
+    }
 
     protected function getHeaderWidgets(): array
     {

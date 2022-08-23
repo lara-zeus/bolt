@@ -7,14 +7,14 @@ use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Collection;
 
-class Select extends FieldsContract
+class MultiSelect extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\Select';
-    public $sort = 2;
+    public $renderClass = '\Filament\Forms\Components\MultiSelect';
+    public $sort = 3;
 
     public function title()
     {
-        return __('Select Menu');
+        return __('Multi Select Menu');
     }
 
     public static function getOptions()
