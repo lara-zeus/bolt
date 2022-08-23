@@ -7,15 +7,12 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class FileUpload extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\FileUpload';
+    public $sort = 11;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\FileUpload',
-            'title' => __('File Upload'),
-            'order' => 11,
-        ];
+        return __('File Upload');
     }
 
     public static function getOptions()

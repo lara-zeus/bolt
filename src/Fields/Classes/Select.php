@@ -9,15 +9,12 @@ use LaraZeus\Bolt\Models\Collection;
 
 class Select extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\Select';
+    public $sort = 2;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\Select',
-            'title' => __('Select Menu'),
-            'order' => 2,
-        ];
+        return __('Select Menu');
     }
 
     public static function getOptions()

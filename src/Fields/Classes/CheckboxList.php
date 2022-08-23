@@ -9,15 +9,12 @@ use LaraZeus\Bolt\Models\Collection;
 
 class CheckboxList extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\CheckboxList';
+    public $sort = 6;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\CheckboxList',
-            'title' => __('Checkbox List'),
-            'order' => 6,
-        ];
+        return __('Checkbox List');
     }
 
     public static function getOptions()

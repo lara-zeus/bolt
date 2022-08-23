@@ -105,6 +105,10 @@ class FormResource extends Resource
 
                                 Fieldset::make('Options')
                                     ->label(__('Field Options'))
+                                    ->visible(function (\Closure $get){
+                                        $class = $get('type');
+                                        return (new $class)->hasOptions();
+                                    })
                                     ->schema(function (\Closure $get) {
                                         return $get('type')::getOptions();
                                     }),

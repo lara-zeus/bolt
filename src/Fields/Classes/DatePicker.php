@@ -7,15 +7,12 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class DatePicker extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\DatePicker';
+    public $sort = 8;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\DatePicker',
-            'title' => __('Date Picker'),
-            'order' => 8,
-        ];
+        return __('Date Picker');
     }
 
     public static function getOptions()

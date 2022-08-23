@@ -7,15 +7,12 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class RichEditor extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\RichEditor';
+    public $sort = 10;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\RichEditor',
-            'title' => __('Rich Editor'),
-            'order' => 10,
-        ];
+        return __('Rich Editor');
     }
 
     public static function getOptions()

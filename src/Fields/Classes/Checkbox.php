@@ -7,15 +7,12 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Checkbox extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\Checkbox';
+    public $sort = 5;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\Checkbox',
-            'title' => __('Checkboxs'),
-            'order' => 5,
-        ];
+        return __('Checkboxs');
     }
 
     public static function getOptions()

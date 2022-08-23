@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Http\Livewire\User;
+namespace LaraZeus\Bolt\Http\Livewire;
 
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;

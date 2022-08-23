@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Http\Livewire\User;
+namespace LaraZeus\Bolt\Http\Livewire;
 
 use Filament\Forms;
 use LaraZeus\Bolt\Models\Collection;
@@ -22,9 +22,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->zeusForm->sections as $section) {
             $fields = [];
             foreach ($section->fields as $field) {
-                $class = $field->type;
-                $ff = (new $class)->definition['type'];
-                $setField = $ff::make('zeusData.'.$field->id)
+                $setField = (new $field->type)->renderClass::make('zeusData.'.$field->id)
                     ->label($field->name)
                     ->helperText($field->description)
                     ->id($field->html_id)
@@ -64,33 +62,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
-            /*$this->fieldResponse[$field->id] = FieldResponse::make([
-                'form_id'     => $this->zeusForm->id,
-                'field_id'    => $field->id,
-                'response_id' => $this->response->id,
-                'response'    => '',
-            ]);*/
         }
 
         $rules = $validationAttributes = [];
-        /*foreach ($this->zeusForm->fields as $field) {
-            $rules['fieldResponse.' . $field->id . '.response']                = $field->rules;
-            $validationAttributes['fieldResponse.' . $field->id . '.response'] = $field->name;
-        }*/
-
-        /*$rules['response.form_id'] = 'sometimes';
-        $rules['response.status']  = 'sometimes';
-        $rules['response.notes']   = 'sometimes';
-        $rules['response.user_id'] = 'sometimes';*/
-
-        /*$rules['fieldResponse.*.user_id']     = 'sometimes';
-        $rules['fieldResponse.*.form_id']     = 'sometimes';
-        $rules['fieldResponse.*.field_id']    = 'sometimes';
-        $rules['fieldResponse.*.response_id'] = 'sometimes';
-        $rules['fieldResponse.*.response']    = 'sometimes';*/
-
-        //$this->rules                = $rules;
-        // $this->validationAttributes = $validationAttributes;
     }
 
     public function resetAll()

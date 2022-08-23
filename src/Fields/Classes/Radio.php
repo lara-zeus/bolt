@@ -9,15 +9,12 @@ use LaraZeus\Bolt\Models\Collection;
 
 class Radio extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\Radio';
+    public $sort = 4;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\Radio',
-            'title' => __('Radio'),
-            'order' => 4,
-        ];
+        return __('Radio');
     }
 
     public static function getOptions()

@@ -8,15 +8,12 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class TextInput extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\TextInput';
+    public $sort = 1;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\TextInput',
-            'title' => __('Text Input'),
-            'order' => 1,
-        ];
+        return __('Text Input');
     }
 
     public static function getOptions()

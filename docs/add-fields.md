@@ -23,14 +23,18 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Rating extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Yepsua\Filament\Forms\Components\Rating';
+    public $sort = 8;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Yepsua\Filament\Forms\Components\Rating',
-            'title' => __('Rating'),
-            'order' => 4,
+        return __('Rating');
+    }
+
+    public static function getOptions()
+    {
+        return [
+            Toggle::make('options.is_required')->label(__('Is Required')),
         ];
     }
 }

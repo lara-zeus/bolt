@@ -7,15 +7,12 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class TimePicker extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\TimePicker';
+    public $sort = 8;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\TimePicker',
-            'title' => __('Time Picker'),
-            'order' => 8,
-        ];
+        return __('Time Picker');
     }
 
     public static function getOptions()

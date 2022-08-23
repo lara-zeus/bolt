@@ -9,15 +9,12 @@ use LaraZeus\Bolt\Models\Collection;
 
 class MultiSelect extends FieldsContract
 {
-    public $disabled = false;
+    public $renderClass = '\Filament\Forms\Components\MultiSelect';
+    public $sort = 3;
 
-    public function __construct()
+    public function title()
     {
-        $this->definition = [
-            'type' => '\Filament\Forms\Components\MultiSelect',
-            'title' => __('Multi Select Menu'),
-            'order' => 3,
-        ];
+        return __('Multi Select Menu');
     }
 
     public static function getOptions()
