@@ -14,8 +14,11 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
     use Tables\Concerns\InteractsWithTable;
 
     protected static string $resource = ResponseResource::class;
+
     protected static string $view = 'zeus-bolt::filament.resources.response-resource.pages.browse-responses';
+
     protected static ?string $navigationIcon = 'heroicon-o-eye';
+
     protected static ?string $title = 'Responses';
 
     protected function getHeaderWidgets(): array
@@ -40,7 +43,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
     protected function getViewData(): array
     {
         return [
-            'rows'   => $this->getModel()::where('user_id', auth()->user()->id)->simplePaginate(1),
+            'rows' => $this->getModel()::where('user_id', auth()->user()->id)->simplePaginate(1),
             'fields' => $this->fields(),
         ];
     }
@@ -49,25 +52,25 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
     {
         return collect([
             [
-                'id'       => 'form.name',
-                'label'    => 'Form Name',
+                'id' => 'form.name',
+                'label' => 'Form Name',
                 'sortable' => true,
-                'inShow'   => false,
-            ],
-            [
-                'id'     => 'user.name',
-                'label'  => 'user',
                 'inShow' => false,
             ],
             [
-                'id'       => 'status',
-                'label'    => 'status',
-                'sortable' => true,
-                'inShow'   => true,
+                'id' => 'user.name',
+                'label' => 'user',
+                'inShow' => false,
             ],
             [
-                'id'     => 'notes',
-                'label'  => 'notes',
+                'id' => 'status',
+                'label' => 'status',
+                'sortable' => true,
+                'inShow' => true,
+            ],
+            [
+                'id' => 'notes',
+                'label' => 'notes',
                 'inShow' => true,
             ],
         ]);

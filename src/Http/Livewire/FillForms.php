@@ -14,6 +14,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     use Forms\Concerns\InteractsWithForms;
 
     public Form $zeusForm;
+
     public $zeusData = [];
 
     protected function getFormSchema(): array
@@ -27,7 +28,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                     ->helperText($field->description)
                     ->id($field->html_id)
                 //    ->rules(collect($field->rules)->pluck('rule'))
-                ;
+;
 
                 if ($field->type === 'Select') { // todo change
                     $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
@@ -78,8 +79,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $response = Response::make([
             'form_id' => $this->zeusForm->id,
             'user_id' => (auth()->check()) ? auth()->user()->id : 0,
-            'status'  => 'NEW',
-            'notes'   => '',
+            'status' => 'NEW',
+            'notes' => '',
         ]);
         $response->save();
 

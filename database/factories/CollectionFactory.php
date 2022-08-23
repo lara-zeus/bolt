@@ -24,7 +24,7 @@ class CollectionFactory extends Factory
     public function definition()
     {
         return [
-            'name'  => $this->faker->words(3, true),
+            'name' => $this->faker->words(3, true),
             'user_id' => config('auth.providers.users.model')::factory(),
             'values' => 'abc',
         ];

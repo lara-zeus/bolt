@@ -10,6 +10,7 @@ use LaraZeus\Bolt\Models\Collection;
 class Radio extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\Radio';
+
     public $sort = 4;
 
     public function title()

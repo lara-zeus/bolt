@@ -8,7 +8,6 @@ use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
 use LaraZeus\Bolt\Models\Collection;
@@ -16,13 +15,16 @@ use LaraZeus\Bolt\Models\Collection;
 class CollectionResource extends Resource
 {
     protected static ?string $model = Collection::class;
+
     protected static ?string $navigationIcon = 'clarity-folder-open-outline-badged';
+
     protected static ?int $navigationSort = 3;
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name','values'];
+        return ['name', 'values'];
     }
 
     protected static function getNavigationBadge(): ?string
@@ -58,8 +60,8 @@ class CollectionResource extends Resource
                 Repeater::make('values')
                     ->grid([
                         'default' => 1,
-                        'md'      => 2,
-                        'lg'      => 3,
+                        'md' => 2,
+                        'lg' => 3,
                     ])
                     ->label(__('Collections Values'))
                     ->schema([

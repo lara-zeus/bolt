@@ -8,6 +8,7 @@ use Livewire\Component;
 class Submitted extends Component
 {
     public $slug;
+
     public $form;
 
     public function mount($slug)

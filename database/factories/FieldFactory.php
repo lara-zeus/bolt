@@ -23,8 +23,8 @@ class FieldFactory extends Factory
     public function definition()
     {
         return [
-            'name'  => $this->faker->words(3, true),
-            'type'  => 'TextInput',
+            'name' => $this->faker->words(3, true),
+            'type' => 'TextInput',
             'section_id' => Section::factory(),
             'layout_position' => $this->faker->numberBetween(1, 2),
             'ordering' => $this->faker->numberBetween(1, 20),

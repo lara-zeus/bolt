@@ -14,6 +14,7 @@ class Response extends Model
     use HasUpdates;
 
     protected $with = ['form', 'user'];
+
     protected $fillable = ['form_id', 'status', 'notes', 'user_id'];
 
     protected static function newFactory()

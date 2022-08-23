@@ -9,6 +9,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 class TextInput extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\TextInput';
+
     public $sort = 1;
 
     public function title()
@@ -20,11 +21,11 @@ class TextInput extends FieldsContract
     {
         return [
             Select::make('options.dateType')->required()->options([
-                'text'=>'text',
-                'email'=>'email',
-                'numeric'=>'numeric',
-                'tel'=>'tel',
-                'url'=>'url',
+                'text' => 'text',
+                'email' => 'email',
+                'numeric' => 'numeric',
+                'tel' => 'tel',
+                'url' => 'url',
             ])->default('text'),
 
             Toggle::make('options.is_required')->label(__('Is Required')),

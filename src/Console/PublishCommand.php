@@ -12,6 +12,7 @@ class PublishCommand extends Command
      * @var string
      */
     protected $signature = 'bolt:publish {--force : Overwrite any existing files}';
+
     /**
      * The console command description.
      *

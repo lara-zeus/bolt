@@ -28,7 +28,7 @@ class FieldResponseFactory extends Factory
             'form_id' => Form::factory(),
             'field_id' => Field::factory(),
             'response_id' => Response::factory(),
-            'response'  => $this->faker->words(3, true),
+            'response' => $this->faker->words(3, true),
         ];
     }
 }

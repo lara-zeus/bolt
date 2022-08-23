@@ -10,6 +10,7 @@ use LaraZeus\Bolt\Models\Collection;
 class Select extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\Select';
+
     public $sort = 2;
 
     public function title()

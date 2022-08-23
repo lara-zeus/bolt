@@ -8,6 +8,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 class FileUpload extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\FileUpload';
+
     public $sort = 11;
 
     public function title()

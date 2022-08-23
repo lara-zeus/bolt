@@ -8,6 +8,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 class DatePicker extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\DatePicker';
+
     public $sort = 8;
 
     public function title()

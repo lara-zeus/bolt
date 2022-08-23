@@ -10,6 +10,7 @@ use LaraZeus\Bolt\Models\Collection;
 class MultiSelect extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\MultiSelect';
+
     public $sort = 3;
 
     public function title()

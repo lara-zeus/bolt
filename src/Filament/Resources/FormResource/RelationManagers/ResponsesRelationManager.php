@@ -10,6 +10,7 @@ use Filament\Tables\Columns\TextColumn;
 class ResponsesRelationManager extends RelationManager
 {
     protected static string $relationship = 'responses';
+
     protected static ?string $recordTitleAttribute = 'form_id';
 
     public static function form(Form $form): Form

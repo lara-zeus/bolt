@@ -23,7 +23,7 @@ class SectionFactory extends Factory
     public function definition()
     {
         return [
-            'name'  => $this->faker->words(3, true),
+            'name' => $this->faker->words(3, true),
             'form_id' => Form::factory(),
             'ordering' => $this->faker->numberBetween(1, 10),
         ];

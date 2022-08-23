@@ -7,8 +7,11 @@ use Illuminate\Contracts\Support\Arrayable;
 abstract class FieldsContract implements Fields, Arrayable
 {
     public $disabled = false;
+
     public $renderClass;
+
     public $code;
+
     public $sort;
 
     public function toArray()
@@ -39,8 +42,8 @@ abstract class FieldsContract implements Fields, Arrayable
         return '\\'.get_called_class();
     }
 
-    public function hasOptions() : bool
+    public function hasOptions(): bool
     {
-        return method_exists(get_called_class(),'getOptions');
+        return method_exists(get_called_class(), 'getOptions');
     }
 }

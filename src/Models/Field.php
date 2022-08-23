@@ -13,6 +13,7 @@ class Field extends Model
     use HasFactory;
 
     protected $guarded = [];
+
     protected $casts = [
         'options' => 'array',
         'rules' => 'array',

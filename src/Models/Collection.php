@@ -14,6 +14,7 @@ class Collection extends Model
     use HasUpdates;
 
     protected $fillable = ['name', 'values', 'user_id'];
+
     protected $casts = [
         'values' => 'array',
     ];

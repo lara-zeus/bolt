@@ -23,8 +23,11 @@ use LaraZeus\Bolt\Models\Category;
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
+
     protected static ?string $navigationIcon = 'clarity-tags-line';
+
     protected static ?int $navigationSort = 4;
+
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static function getNavigationBadge(): ?string

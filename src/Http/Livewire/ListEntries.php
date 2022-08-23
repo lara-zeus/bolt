@@ -8,14 +8,20 @@ use Livewire\Component;
 class ListEntries extends Component
 {
     public $model = Response::class;
+
     public $title = 'My Entries';
+
     public $titleSingular = 'entry';
+
     public $breadcrumbTitle = 'Entries';
+
     public $forUserOnly = true;
+
     public $filters = [
         'search' => '',
         'name' => '',
     ];
+
     public $oprations = [
         'search' => false,
         'filters' => false,

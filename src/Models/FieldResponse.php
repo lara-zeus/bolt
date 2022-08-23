@@ -13,6 +13,7 @@ class FieldResponse extends Model
     use HasFactory;
 
     protected $with = ['field'];
+
     protected $fillable = ['form_id', 'field_id', 'response_id', 'response'];
 
     protected static function newFactory()

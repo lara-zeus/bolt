@@ -8,6 +8,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 class DateTimePicker extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\DateTimePicker';
+
     public $sort = 7;
 
     public function title()

@@ -8,6 +8,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 class RichEditor extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\RichEditor';
+
     public $sort = 10;
 
     public function title()

@@ -8,7 +8,6 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\RelationManagers\FieldsResponsesRelationManager;
 use LaraZeus\Bolt\Models\Response;
@@ -16,7 +15,9 @@ use LaraZeus\Bolt\Models\Response;
 class ResponseResource extends Resource
 {
     protected static ?string $model = Response::class;
+
     protected static ?string $navigationIcon = 'clarity-data-cluster-line';
+
     protected static ?int $navigationSort = 2;
 
     protected static function getNavigationBadge(): ?string
@@ -84,5 +85,4 @@ class ResponseResource extends Resource
             //'brows' => Pages\BrowseResponses::route('/brows'),
         ];
     }
-
 }

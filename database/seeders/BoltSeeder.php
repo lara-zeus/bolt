@@ -35,7 +35,7 @@ class BoltSeeder extends Seeder
             )
             ->create();
 
-        $form->first()->fields->each(function ($field){
+        $form->first()->fields->each(function ($field) {
             Response::factory()
                 ->count(2)
                 ->state([

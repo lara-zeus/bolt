@@ -2,10 +2,10 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages;
 
-use LaraZeus\Bolt\Filament\Resources\CategoryResource;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ManageRecords;
+use LaraZeus\Bolt\Filament\Resources\CategoryResource;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 
 class ListCategories extends ManageRecords
 {

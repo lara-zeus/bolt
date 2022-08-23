@@ -10,6 +10,7 @@ use LaraZeus\Bolt\Models\Collection;
 class CheckboxList extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\CheckboxList';
+
     public $sort = 6;
 
     public function title()

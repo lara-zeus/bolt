@@ -26,13 +26,16 @@ use LaraZeus\Bolt\Models\Form as ZeusForm;
 class FormResource extends Resource
 {
     protected static ?string $model = ZeusForm::class;
+
     protected static ?string $navigationIcon = 'clarity-form-line';
+
     protected static ?int $navigationSort = 1;
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name','slug'];
+        return ['name', 'slug'];
     }
 
     protected static function getNavigationBadge(): ?string
@@ -105,8 +108,9 @@ class FormResource extends Resource
 
                                 Fieldset::make('Options')
                                     ->label(__('Field Options'))
-                                    ->visible(function (\Closure $get){
+                                    ->visible(function (\Closure $get) {
                                         $class = $get('type');
+
                                         return (new $class)->hasOptions();
                                     })
                                     ->schema(function (\Closure $get) {
@@ -120,7 +124,7 @@ class FormResource extends Resource
                             ->collapsible()
                             ->grid([
                                 'default' => 1,
-                                'md'      => 2,
+                                'md' => 2,
                             ])
                             ->label('')
                             ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
@@ -173,9 +177,9 @@ class FormResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListForms::route('/'),
+            'index' => Pages\ListForms::route('/'),
             'create' => Pages\CreateForm::route('/create'),
-            'edit'   => Pages\EditForm::route('/{record}/edit'),
+            'edit' => Pages\EditForm::route('/{record}/edit'),
         ];
     }
 

@@ -23,7 +23,7 @@ class FormFactory extends Factory
     public function definition()
     {
         return [
-            'name'  => $this->faker->words(3, true),
+            'name' => $this->faker->words(3, true),
             'user_id' => config('auth.providers.users.model')::factory(),
             'layout' => $this->faker->numberBetween(1, 2),
             'ordering' => $this->faker->numberBetween(1, 20),
