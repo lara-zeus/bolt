@@ -24,7 +24,7 @@ class FieldFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'type' => 'TextInput',
+            'type' => '\LaraZeus\Bolt\Fields\Classes\TextInput',
             'section_id' => Section::factory(),
             'layout_position' => $this->faker->numberBetween(1, 2),
             'ordering' => $this->faker->numberBetween(1, 20),
