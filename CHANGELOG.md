@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.8 - 2022-08-24
+
+### What's Changed
+
+- update composer and assets by @atmonshi in https://github.com/lara-zeus/bolt/pull/13
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.7...0.0.8
+
 ## 0.0.7 - 2022-08-23
 
 ### What's Changed
