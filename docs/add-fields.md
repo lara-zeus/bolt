@@ -1,6 +1,6 @@
 ---
 title: add custom fields
-weight: 2
+weight: 10
 ---
 
 ## Composer
