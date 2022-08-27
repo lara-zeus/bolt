@@ -16,7 +16,7 @@ class CreateFieldsTable extends Migration
         Schema::create('fields', function (Blueprint $table) {
             $table->id();
             $table->foreignId('section_id')->constrained('sections');
-            $table->string('name');
+            $table->text('name');
             $table->text('description')->nullable();
             $table->string('type');
             $table->integer('layout_position')->default(1);
