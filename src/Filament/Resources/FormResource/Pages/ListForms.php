@@ -23,11 +23,6 @@ class ListForms extends ListRecords
     {
         return [
             CreateAction::make('create'),
-            /*Action::make('create-zeus')
-                ->label('create form')
-                ->icon('heroicon-o-plus')
-                ->tooltip('Create New Form')
-                ->url(fn (): string => route('admin.form.create')),*/
         ];
     }
 }

@@ -17,14 +17,14 @@ class CreateFormsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('category_id')->constrained('categories');
-            $table->string('name');
+            $table->text('name');
             $table->string('slug');
             $table->string('layout');
             $table->integer('ordering');
             $table->boolean('is_active');
             $table->text('desc')->nullable();
-            $table->text('details')->nullable();
-            $table->text('options')->nullable();
+            $table->longText('details')->nullable();
+            $table->longText('options')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->timestamps();

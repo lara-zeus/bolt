@@ -78,7 +78,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $this->validate();
         $response = Response::make([
             'form_id' => $this->zeusForm->id,
-            'user_id' => (auth()->check()) ? auth()->user()->id : 0,
+            'user_id' => (auth()->check()) ? auth()->user()->id : null,
             'status' => 'NEW',
             'notes' => '',
         ]);

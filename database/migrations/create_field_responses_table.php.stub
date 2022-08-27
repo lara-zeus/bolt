@@ -18,7 +18,7 @@ class CreateFieldResponsesTable extends Migration
             $table->foreignId('form_id')->constrained('forms');
             $table->foreignId('field_id')->constrained('fields');
             $table->foreignId('response_id')->constrained('responses');
-            $table->text('response');
+            $table->longText('response');
             $table->timestamps();
             $table->softDeletes();
         });

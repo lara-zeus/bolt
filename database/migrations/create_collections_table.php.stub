@@ -15,8 +15,8 @@ class CreateCollectionsTable extends Migration
     {
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('values')->nullable();
+            $table->text('name');
+            $table->longText('values')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

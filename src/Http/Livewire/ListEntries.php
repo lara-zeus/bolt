@@ -47,4 +47,9 @@ class ListEntries extends Component
             ],
         ]);
     }
+
+    public function render()
+    {
+        return view('zeus-bolt::forms.entries')->layout('zeus::components.app');
+    }
 }

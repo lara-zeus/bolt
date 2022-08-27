@@ -3,31 +3,32 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
 use Filament\Resources\Pages\EditRecord;
+use Filament\Pages\Actions\Action;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
+use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class EditForm extends EditRecord
 {
     protected static string $resource = FormResource::class;
 
-    public function mount($record): void
+    protected function getActions(): array
     {
-        parent::mount($record);
+        return [
+            Action::make('entries')
+                ->label(__('Entries'))
+                ->icon('clarity-data-cluster-line')
+                ->tooltip(__('view all entries'))
+                ->url(fn() => url('admin/responses?form_id=' . $this->record->id)),
 
-        // todo @by atm: this is ugly, redo
-        $unsetFieldsData = [
-            'start_date' => null,
-            'end_date' => null,
-            'details' => null,
-            'is_active' => false,
-            'options' => [
-                'requireLogin' => false,
-                'oneEntryPerUser' => false,
-                'sectionsToPages' => false,
-            ],
+            Action::make('open')
+                ->label(__('Open'))
+                ->icon('heroicon-o-external-link')
+                ->tooltip(__('open form'))
+                ->color('warning')
+                ->url(fn() => route('bolt.user.form.show', $this->record))
+                ->openUrlInNewTab(),
         ];
-
-        $this->form->fill(array_merge($this->form->getLivewire()->data, $unsetFieldsData));
     }
 
     protected function getHeaderWidgets(): array
