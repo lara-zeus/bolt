@@ -13,16 +13,21 @@ included a UI for the frontend bilt with filament
 - 🔥 built with [TALL stack](https://tallstack.dev/)
 - 🔥 using [filament](https://filamentadmin.com) as an admin panel
 - 🔥 FrontEnd scaffolding, highly customizable.
-- 🔥 group the feilds with section, with the option to display them as pages
-- 🔥 Catogries to orgnize your forms
+- 🔥 group the fields with section, with the option to display them as pages
+- 🔥 Categories to organize your forms
 - 🔥 option for start starting the submissions and when to end
-- 🔥 email notfications per form
+- 🔥 email notifications per form
 - 🔥 Send form data to external URL upon submission
-  - 🔥 add custom html id and name to easilly catch them on the webhook
+  - 🔥 add custom html id and name to easily catch them on the webhook
 - 🔥 confirmation message after submission
 - 🔥 option to requiring login per form
-- 🔥 limit submissions with one entery for a user
+- 🔥 limit submissions with one entry for a user
+- 🔥 Fields options (inline, is required, searchable, hijri date (soon), file size and type, ):
 - 🔥 Available Fields:
+  - view field (soon)
+  - dynamic dataset (soon)
+  - user selector (soon)
+  - range (from to) (soon)
   - Text Input
   - Select Menu
   - Multi Select Menu
@@ -40,9 +45,20 @@ included a UI for the frontend bilt with filament
 - 🔥 all the options for filaiments fields are available and validation rules
 - 🔥 collections for datasets
 - 🔥 multi lang (coming soon)
-- 🔥 option to ask users to set title for submittions, usfull for tickting system
-- 🔥 option to ask users to set title for submittions, usfull for tickting system
-- 
+- 🔥 option to ask users to set title for submissions, useful for ticketing system
+- 🔥 ACL manager (soon)
+- 🔥 form layout (soon)
+- 🔥 show responses for each form with searching and filtering on the dynamic fields (soon)
+- 🔥 set status for each response
+- 🔥 exporting (soon)
+- 🔥 clone form (soon)
+- 🔥 form stats (soon)
+- 🔥 form reports (soon)
+- 🔥 exam module (set correct answer, the mark for each question, auto correction for all responses, send the mark to the user, and display the result) (soon)
+- 🔥 poll module (custom layout to show the form as a poll, and display the result as chart) (soon)
+- 🔥 multiple events ready to listen to (soon)
+- 🔥 show the entries for the users (soon)
+- 🔥 List all forms for the users
 
 
 ## Support
