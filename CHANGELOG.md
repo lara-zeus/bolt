@@ -2,15 +2,26 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.10 - 2022-09-01
+
+### What's Changed
+
+- improvements by @atmonshi in https://github.com/lara-zeus/bolt/pull/15
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.9...0.0.10
+
 ## 0.0.9 - 2022-08-27
 
 ### What's Changed
 
 - Settings by @atmonshi in https://github.com/lara-zeus/bolt/pull/14
-
+- 
 - form settings better UI
+- 
 - update migrations
+- 
 - delete unused files
+- 
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.8...0.0.9
 
