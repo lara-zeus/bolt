@@ -16,11 +16,11 @@ class CreateFormsTable extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('category_id')->nullable()->constrained('categories');
             $table->text('name');
             $table->string('slug');
             $table->string('layout');
-            $table->integer('ordering');
+            $table->integer('ordering')->default(1);
             $table->boolean('is_active');
             $table->text('desc')->nullable();
             $table->longText('details')->nullable();

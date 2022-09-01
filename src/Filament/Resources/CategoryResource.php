@@ -8,7 +8,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -20,7 +19,7 @@ use Illuminate\Support\Str;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\ListCategories;
 use LaraZeus\Bolt\Models\Category;
 
-class CategoryResource extends Resource
+class CategoryResource extends BoltResource
 {
     protected static ?string $model = Category::class;
 

@@ -2,14 +2,15 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
-use Filament\Pages\Actions\Action;
-use Filament\Pages\Actions\CreateAction;
+use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 
 class ListForms extends ListRecords
 {
+    use ListRecords\Concerns\Translatable;
+
     protected static string $resource = FormResource::class;
 
     protected function getHeaderWidgets(): array
@@ -22,7 +23,13 @@ class ListForms extends ListRecords
     protected function getActions(): array
     {
         return [
-            CreateAction::make('create'),
+            Actions\LocaleSwitcher::make(),
+            Actions\CreateAction::make('create'),
         ];
+    }
+
+    protected function getTableReorderColumn(): ?string
+    {
+        return 'ordering';
     }
 }

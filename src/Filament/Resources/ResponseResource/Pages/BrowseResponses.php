@@ -19,7 +19,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 
-    protected static ?string $title = 'Responses';
+    protected static ?string $title = 'Entries';
 
     protected function getHeaderWidgets(): array
     {
@@ -36,43 +36,22 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
     protected function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('title'),
+            Tables\Columns\ViewColumn::make('response')
+                ->view('zeus-bolt::filament.resources.response-resource.components.view-responses')
+                ->label('')
         ];
     }
 
     protected function getViewData(): array
     {
-        return [
-            'rows' => $this->getModel()::where('user_id', auth()->user()->id)->simplePaginate(1),
-            'fields' => $this->fields(),
-        ];
-    }
+        $form = $this->getModel()::query();
+        if (request()->filled('form_id')) {
+            $form = $form->where('form_id', request('form_id'));
+        }
+        $form = $form->paginate(1);
 
-    public function fields()
-    {
-        return collect([
-            [
-                'id' => 'form.name',
-                'label' => 'Form Name',
-                'sortable' => true,
-                'inShow' => false,
-            ],
-            [
-                'id' => 'user.name',
-                'label' => 'user',
-                'inShow' => false,
-            ],
-            [
-                'id' => 'status',
-                'label' => 'status',
-                'sortable' => true,
-                'inShow' => true,
-            ],
-            [
-                'id' => 'notes',
-                'label' => 'notes',
-                'inShow' => true,
-            ],
-        ]);
+        return [
+            'rows' => $form,
+        ];
     }
 }

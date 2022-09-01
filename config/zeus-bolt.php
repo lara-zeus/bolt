@@ -38,4 +38,9 @@ return [
         'disk' => 'public',
         'directory' => 'logos',
     ],
+
+    /**
+     * available locales, this currently used only in tags manager.
+     */
+    'translatable_Locales' => ['en', 'ar'],
 ];

@@ -2,19 +2,22 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
+use Filament\Pages\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Pages\Actions\Action;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
-use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class EditForm extends EditRecord
 {
+    use EditRecord\Concerns\Translatable;
+
     protected static string $resource = FormResource::class;
 
     protected function getActions(): array
     {
         return [
+            LocaleSwitcher::make(),
             Action::make('entries')
                 ->label(__('Entries'))
                 ->icon('clarity-data-cluster-line')

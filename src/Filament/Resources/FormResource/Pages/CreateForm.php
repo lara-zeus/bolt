@@ -8,6 +8,8 @@ use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 
 class CreateForm extends CreateRecord
 {
+    use CreateRecord\Concerns\Translatable;
+
     protected static string $resource = FormResource::class;
 
     protected function getHeaderWidgets(): array

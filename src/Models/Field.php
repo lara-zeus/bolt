@@ -6,11 +6,15 @@ use Database\Factories\FieldFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
 
 class Field extends Model
 {
     use SoftDeletes;
     use HasFactory;
+    use HasTranslations;
+
+    public $translatable = ['name'];
 
     protected $guarded = [];
 
@@ -31,10 +35,10 @@ class Field extends Model
         return FieldFactory::new();
     }
 
-    /*public function form()
+    public function form()
     {
         return $this->belongsTo(Form::class);
-    }*/
+    }
 
     public function section()
     {
@@ -43,6 +47,6 @@ class Field extends Model
 
     public function fieldResponses()
     {
-        return $this->hasMany(FieldResponse::class);
+        return $this->hasOne(FieldResponse::class);
     }
 }
