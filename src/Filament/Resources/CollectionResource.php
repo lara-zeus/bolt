@@ -6,13 +6,12 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
 use LaraZeus\Bolt\Models\Collection;
 
-class CollectionResource extends Resource
+class CollectionResource extends BoltResource
 {
     protected static ?string $model = Collection::class;
 

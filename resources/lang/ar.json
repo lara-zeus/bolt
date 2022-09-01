@@ -85,7 +85,7 @@
   "User must be logged in or create an account before can submit a new entry": "اجبار المستخدمين على تسجيل الدخول قبل تعبئة النموذج",
   "One Entry Per User": "ادخال واحد فقط لكل مستخدم",
   "to check if the user already submitted an entry in this form": "يتم منع المستخدمين من اكمال النموذج عدة مرات",
-  "Sections To Pages": "عرض الاقسام كصفحات",
+  "Show As Wizard": "عرض كخظوات",
   "instead of showing all section in one page, separate them in multiple pages with next and previous buttons": "عوضا عن عرض كافة الاقسام في صفحة واحدة هذا الخيار يعرض النموذج في صفحات منفضلة مع عرض التالي والسابق",
   "Form Name": "عنوان النموذج",
   "Form Slug": "الرابط المختصر",

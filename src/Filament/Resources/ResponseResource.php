@@ -2,17 +2,15 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
-use Filament\Forms;
+use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
-use LaraZeus\Bolt\Filament\Resources\ResponseResource\RelationManagers\FieldsResponsesRelationManager;
 use LaraZeus\Bolt\Models\Response;
 
-class ResponseResource extends Resource
+class ResponseResource extends BoltResource
 {
     protected static ?string $model = Response::class;
 
@@ -20,9 +18,11 @@ class ResponseResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    protected static ?string $slug = 'responses';
+
     protected static function getNavigationBadge(): ?string
     {
-        return (string) Response::query()->count();
+        return (string)Response::query()->count();
     }
 
     protected static function getNavigationGroup(): ?string
@@ -32,57 +32,55 @@ class ResponseResource extends Resource
 
     public static function getLabel(): string
     {
-        return __('Response');
+        return __('Entries');
     }
 
     public static function getPluralLabel(): string
     {
-        return __('Responses');
+        return __('Entries');
     }
 
     protected static function getNavigationLabel(): string
     {
-        return __('Responses');
+        return __('Entries');
     }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('form_id')->required(),
-                Forms\Components\TextInput::make('user_id')->required(),
-                Forms\Components\TextInput::make('status')->required()->maxLength(255),
-                Forms\Components\Textarea::make('notes')->maxLength(65535),
+                ViewField::make('response')->view('zeus-bolt::filament.resources.response-resource.components.view-responses')
+                    ->label('')
+                    ->columnSpan(2)
             ]);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('form_id'),
-                Tables\Columns\TextColumn::make('user_id'),
-                Tables\Columns\TextColumn::make('status'),
-                Tables\Columns\TextColumn::make('notes'),
-            ])
-            ->filters([
-                SelectFilter::make('form')->relationship('form', 'name')
-                ->default(request('form_id', null)),
-            ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            FieldsResponsesRelationManager::class,
+        $mainColumns = [
+            TextColumn::make('user.name')->label(__('User')),
+            TextColumn::make('status')->label(__('Status')),
+            TextColumn::make('notes')->label(__('Notes')),
+            TextColumn::make('created_at')->label(__('Created Date')),
         ];
+
+        if (!request()->filled('form_id')) {
+            TextColumn::make('form.name')->label(__('form'));
+        }
+
+        return $table
+            ->columns($mainColumns)
+            ->filters([
+                SelectFilter::make('form')->relationship('form', 'name')->default(request('form_id', null)),
+            ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\BrowseResponses::route('/'),
-            //'brows' => Pages\BrowseResponses::route('/brows'),
+            'brows' => Pages\BrowseResponses::route('/brows'),
+            'index' => Pages\ListResponses::route('/'),
+            'view' => Pages\ViewResponse::route('/{record}'),
         ];
     }
 }
