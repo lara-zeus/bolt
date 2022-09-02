@@ -16,7 +16,7 @@ class Form extends Model
     use HasActive;
     use HasTranslations;
 
-    public $translatable = ['name'];
+    public $translatable = ['name', 'desc', 'details'/*, 'options.confirmation-message'*/];
 
     public function getRouteKeyName()
     {

@@ -19,7 +19,7 @@ class CreateFormsTable extends Migration
             $table->foreignId('category_id')->nullable()->constrained('categories');
             $table->text('name');
             $table->string('slug');
-            $table->string('layout');
+            $table->string('layout')->nullable();
             $table->integer('ordering')->default(1);
             $table->boolean('is_active');
             $table->text('desc')->nullable();
