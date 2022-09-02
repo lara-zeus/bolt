@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.11 - 2022-09-02
+
+### What's Changed
+
+- improve responses view by @atmonshi in https://github.com/lara-zeus/bolt/pull/16
+- Please republish the database migration
+- updated the default bolt seeder
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.10...0.0.11
+
 ## 0.0.10 - 2022-09-01
 
 ### What's Changed
