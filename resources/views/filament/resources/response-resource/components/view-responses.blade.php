@@ -15,7 +15,11 @@
                 <x-filament::card.heading>User Details</x-filament::card.heading>
                 <p>
                     <span class="text-base font-light">{{ __('By') }}</span>:
-                    {{ ($getRecord()->user->name) ?? '' }}
+                    @if($getRecord()->user_id === null)
+                        {{ __('Visitor') }}
+                    @else
+                        {{ ($getRecord()->user->name) ?? '' }}
+                    @endif
                 </p>
                 <p>
                     <span class="text-base font-light">{{ __('created at') }}</span>:
@@ -34,8 +38,8 @@
             @foreach($getRecord()->fieldsResponses as $resp)
                 <div class="py-2">
                     <p>{{ $resp->field->name }}</p>
-                    <p class="font-semibold mb-2">{{ $resp->response ?? ''}}</p>
-                    <x-filament::hr />
+                    <p class="font-semibold mb-2">{{ ( new $resp->field->type )->getResponse($resp->field, $resp) }}</p>
+                    <x-filament::hr/>
                 </div>
             @endforeach
         </x-filament::card>

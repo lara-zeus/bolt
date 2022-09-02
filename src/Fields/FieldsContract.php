@@ -46,4 +46,9 @@ abstract class FieldsContract implements Fields, Arrayable
     {
         return method_exists(get_called_class(), 'getOptions');
     }
+
+    public function getResponse($field, $resp): string
+    {
+        return $resp->response;
+    }
 }

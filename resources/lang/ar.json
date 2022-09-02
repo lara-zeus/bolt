@@ -122,5 +122,6 @@
   "selected by default": "محدد بشكل افتراضي",
   "Logo": "الصورة",
   "Name": "الإسم",
+  "Translatable": "قابل للترجمة",
   "sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form": "الاقسام تساعدك على ترتيب الحقول وتجميعها ليسهل على المستخدم تعبئة النموذج، في حالة وجود قسم واحد فقط لن يتم اظهاره في النموذج"
 }

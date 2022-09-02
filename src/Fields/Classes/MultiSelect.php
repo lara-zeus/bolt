@@ -25,4 +25,15 @@ class MultiSelect extends FieldsContract
             Toggle::make('options.is_required')->label(__('Is Required')),
         ];
     }
+
+    public function getResponse($field, $resp): string
+    {
+        if (!empty($resp->response)) {
+            $col = Collection::find($field->options['dataSource']);
+
+            return collect($col->values)->where('itemKey', $resp->response)->first()['itemValue'];
+        }
+
+        return '';
+    }
 }

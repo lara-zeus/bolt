@@ -29,8 +29,17 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                     ->id($field->html_id)
                     //->rules(collect($field->rules)->pluck('rule'))
                 ;
-                if ($field->type === '\LaraZeus\Bolt\Fields\Classes\Select') { // todo change
+
+                // todo change
+                $haseDataSource = [
+                    '\LaraZeus\Bolt\Fields\Classes\Select',
+                    '\LaraZeus\Bolt\Fields\Classes\Radio',
+                ];
+                if (in_array($field->type,$haseDataSource)) {
                     $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
+                    if(isset($field->options['is_inline']) && $field->options['is_inline']){
+                        $setField->inline();
+                    }
                 }
 
                 /*if(isset($field->options['dateType']) && $field->options['dateType'] !== null){
@@ -46,14 +55,14 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                 $fields[] = Forms\Components\Card::make()->schema([ $setField ]);
             }
 
-            if ($this->zeusForm->options['show-as-wizard']) {
+            if (optional($this->zeusForm->options)['show-as-wizard']) {
                 $sections[] = Wizard\Step::make($section->name)->schema($fields);
             } else {
                 $sections[] = Forms\Components\Section::make($section->name)->schema($fields);
             }
         }
 
-        if ($this->zeusForm->options['show-as-wizard']) {
+        if (optional($this->zeusForm->options)['show-as-wizard']) {
             return [ Wizard::make($sections) ];
         }
 
@@ -69,7 +78,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         $this->zeusForm = Form::with([ 'sections', 'sections.fields' ])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
-        abort_if($this->zeusForm->options['require-login'] && !auth()->check(), 401);
+        abort_if(optional($this->zeusForm->options)['require-login'] && !auth()->check(), 401);
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';

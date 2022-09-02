@@ -26,4 +26,15 @@ class CheckboxList extends FieldsContract
             \Filament\Forms\Components\TextInput::make('options.columns')->numeric()->required()->default(1),
         ];
     }
+
+    public function getResponse($field, $resp): string
+    {
+        if (!empty($resp->response)) {
+            $col = Collection::find($field->options['dataSource']);
+
+            return collect($col->values)->where('itemKey', $resp->response)->first()['itemValue'];
+        }
+
+        return '';
+    }
 }
