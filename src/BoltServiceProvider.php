@@ -54,15 +54,6 @@ class BoltServiceProvider extends PluginServiceProvider
             ], 'zeus-bolt-factories');
         }
 
-        seo()
-            ->site(config('app.name', 'Laravel'))
-            ->title(config('zeus-bolt.site_title'))
-            ->description(config('zeus-bolt.site_description'))
-            ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="'.asset('favicon/favicon.ico').'">')
-            ->rawTag('<meta name="theme-color" content="'.config('zeus-bolt.site_color').'" />')
-            ->withUrl()
-            ->twitter();
-
         return parent::boot();
     }
 
