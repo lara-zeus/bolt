@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Http\Livewire;
 
 use Filament\Forms;
 use Filament\Forms\Components\Wizard;
+use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Models\Collection;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Form;
@@ -83,6 +84,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
         }
+
+        event(new FormMounted($this->zeusForm));
 
         //$rules = $validationAttributes = [];
     }
