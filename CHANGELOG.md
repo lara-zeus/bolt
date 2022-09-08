@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.12 - 2022-09-08
+
+### What's Changed
+
+- add event by @atmonshi in https://github.com/lara-zeus/bolt/pull/17
+- check if class exist by @atmonshi in https://github.com/lara-zeus/bolt/pull/18
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.11...0.0.12
+
 ## 0.0.11 - 2022-09-02
 
 ### What's Changed
