@@ -195,8 +195,10 @@ trait Schemata
                 ->label(__('Field Options'))
                 ->visible(function (\Closure $get) {
                     $class = $get('type');
-
-                    return (new $class)->hasOptions();
+                    if (class_exists($class)) {
+                        return (new $class)->hasOptions();
+                    }
+                    return false;
                 })
                 ->schema(function (\Closure $get) {
                     return $get('type')::getOptions();
