@@ -26,32 +26,34 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             foreach ($section->fields()->orderBy('ordering')->get() as $field) {
                 $setField = ( new $field->type )->renderClass::make('zeusData.' . $field->id)
                     ->label($field->name)
-                    ->helperText($field->description)
-                    ->id($field->html_id)
-                    //->rules(collect($field->rules)->pluck('rule'))
+                    ->id($field->html_id)//->rules(collect($field->rules)->pluck('rule'))
                 ;
 
-                // todo change
+                // todo so ugly change!
+                if (isset($field->description)) {
+                    $setField = $setField->helperText($field->description);
+                }
+                if (isset($field->options['prefix'])) {
+                    $setField = $setField->prefix($field->options['prefix']);
+                }
+                if (isset($field->options['suffix'])) {
+                    $setField = $setField->suffix($field->options['suffix']);
+                }
+                if (isset($field->options['is_required']) && $field->options['is_required']) {
+                    $setField = $setField->required();
+                }
+
                 $haseDataSource = [
                     '\LaraZeus\Bolt\Fields\Classes\Select',
                     '\LaraZeus\Bolt\Fields\Classes\Radio',
                 ];
-                if (in_array($field->type,$haseDataSource)) {
+                if (in_array($field->type, $haseDataSource)) {
                     $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
-                    if(isset($field->options['is_inline']) && $field->options['is_inline']){
+                    if (isset($field->options['is_inline']) && $field->options['is_inline']) {
                         $setField->inline();
                     }
                 }
-
-                /*if(isset($field->options['dateType']) && $field->options['dateType'] !== null){
-                    if($field->options['dateType'] === 'date'){
-                        $setField = $setField->date();
-                    } else if($field->options['dateType'] === 'date'){
-                        $setField = $setField->time();
-                    } else {
-                        $setField = $setField->datetime();
-                    }
-                }*/
+                // todo so ugly change!
 
                 $fields[] = Forms\Components\Card::make()->schema([ $setField ]);
             }
@@ -86,7 +88,6 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         }
 
         event(new FormMounted($this->zeusForm));
-
         //$rules = $validationAttributes = [];
     }
 
