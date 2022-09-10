@@ -10,7 +10,6 @@ use LaraZeus\Bolt\Models\Collection;
 class Select extends FieldsContract
 {
     public $renderClass = '\Filament\Forms\Components\Select';
-
     public $sort = 2;
 
     public function title()
@@ -26,14 +25,27 @@ class Select extends FieldsContract
         ];
     }
 
-    public function getResponse($field, $resp): string
+    public function getResponse($field, $resp) : string
     {
-        if (!empty($resp->response)) {
-            $col = Collection::find($field->options['dataSource']);
-
-            return collect($col->values)->where('itemKey', $resp->response)->first()['itemValue'];
+        if (empty($resp->response)) {
+            return '';
         }
 
-        return '';
+        $collection = Collection::find($field->options['dataSource']);
+        if ($collection === null) {
+            return $resp->response;
+        }
+
+        $getResponFromCollection = collect($collection->values)->where('itemKey', $resp->response)->first();
+
+        if ($getResponFromCollection === null) {
+            return $resp->response;
+        }
+
+        if (!isset($getResponFromCollection['itemValue'])) {
+            return $resp->response;
+        }
+
+        return $getResponFromCollection['itemValue'];
     }
 }

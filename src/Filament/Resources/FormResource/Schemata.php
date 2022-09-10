@@ -24,10 +24,9 @@ trait Schemata
     public static function getMainFormSchema(): array
     {
         return [
-            Hidden::make('user_id')
-                ->default(auth()->user()->id ?? null),
-            Hidden::make('layout')
-                ->default(1),
+            Hidden::make('user_id')->default(auth()->user()->id ?? null),
+            Hidden::make('layout')->default(1),
+            Hidden::make('ordering')->default(1),
 
             Tabs::make('Name')
                 ->tabs(static::getTabsSchema())
@@ -181,28 +180,44 @@ trait Schemata
     public static function getFieldsSchema(): array
     {
         return [
-            TextInput::make('name')
-                ->required()
-                ->lazy()
-                ->label(__('Field Name')),
-            Select::make('type')
-                ->required()
-                ->options(Bolt::availableFields()->pluck('title', 'class'))
-                ->reactive()
-                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
-                ->label(__('Field Type')),
-            Fieldset::make('Options')
-                ->label(__('Field Options'))
-                ->visible(function (\Closure $get) {
-                    $class = $get('type');
-                    if (class_exists($class)) {
-                        return (new $class)->hasOptions();
-                    }
-                    return false;
-                })
-                ->schema(function (\Closure $get) {
-                    return $get('type')::getOptions();
-                }),
+
+            Tabs::make('fields')
+                ->tabs([
+                    Tabs\Tab::make('type-text')
+                        ->icon('heroicon-o-menu-alt-2')
+                        ->label('Type & title')
+                        ->schema([
+                            TextInput::make('name')
+                                ->required()
+                                ->lazy()
+                                ->label(__('Field Name')),
+                            Textarea::make('description')
+                                ->label(__('Field Description')),
+                            Select::make('type')
+                                ->required()
+                                ->options(Bolt::availableFields()->pluck('title', 'class'))
+                                ->reactive()
+                                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
+                                ->label(__('Field Type')),
+                        ]),
+                    Tabs\Tab::make('options')
+                        ->label('Options')
+                        ->icon('heroicon-o-cog')
+                        ->schema([
+                            Grid::make()
+                                ->label(__('Field Options'))
+                                ->visible(function (\Closure $get) {
+                                    $class = $get('type');
+                                    if (class_exists($class)) {
+                                        return (new $class)->hasOptions();
+                                    }
+                                    return false;
+                                })
+                                ->schema(function (\Closure $get) {
+                                    return $get('type')::getOptions();
+                                }),
+                        ]),
+                ]),
         ];
     }
 }
