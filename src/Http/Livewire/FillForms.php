@@ -18,16 +18,16 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     public Form $zeusForm;
     public $zeusData = [];
 
-    protected function getFormSchema() : array
+    protected function getFormSchema(): array
     {
         $sections = [];
         foreach ($this->zeusForm->sections()->orderBy('ordering')->get() as $section) {
             $fields = [];
             foreach ($section->fields()->orderBy('ordering')->get() as $field) {
-                $setField = ( new $field->type )->renderClass::make('zeusData.' . $field->id)
+                $setField = ( new $field->type )->renderClass::make('zeusData.'.$field->id)
                     ->label($field->name)
                     ->id($field->html_id)//->rules(collect($field->rules)->pluck('rule'))
-                ;
+;
 
                 // todo so ugly change!
                 if (isset($field->description)) {
@@ -54,14 +54,14 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                     }
                 }
 
-                if($field->type == '\LaraZeus\Bolt\Fields\Classes\FileUpload'){
+                if ($field->type == '\LaraZeus\Bolt\Fields\Classes\FileUpload') {
                     $setField
                         ->disk(config('zeus-bolt.uploads.disk'))
                         ->directory(config('zeus-bolt.uploads.directory'));
                 }
                 // todo so ugly change!
 
-                $fields[] = Forms\Components\Card::make()->schema([ $setField ]);
+                $fields[] = Forms\Components\Card::make()->schema([$setField]);
             }
 
             if (optional($this->zeusForm->options)['show-as-wizard']) {
@@ -72,22 +72,22 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         }
 
         if (optional($this->zeusForm->options)['show-as-wizard']) {
-            return [ Wizard::make($sections) ];
+            return [Wizard::make($sections)];
         }
 
         return $sections;
     }
 
-    protected function getFormModel() : Form
+    protected function getFormModel(): Form
     {
         return $this->zeusForm;
     }
 
     public function mount($slug)
     {
-        $this->zeusForm = Form::with([ 'sections', 'sections.fields' ])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
+        $this->zeusForm = Form::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
-        abort_if(optional($this->zeusForm->options)['require-login'] && !auth()->check(), 401);
+        abort_if(optional($this->zeusForm->options)['require-login'] && ! auth()->check(), 401);
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
@@ -107,21 +107,21 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $this->validate();
         $response = Response::make([
             'form_id' => $this->zeusForm->id,
-            'user_id' => ( auth()->check() ) ? auth()->user()->id : null,
+            'user_id' => (auth()->check()) ? auth()->user()->id : null,
             'status'  => 'NEW',
             'notes'   => '',
         ]);
         $response->save();
 
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
-            $fieldResponse['response']    = $value ?? '';
+            $fieldResponse['response'] = $value ?? '';
             $fieldResponse['response_id'] = $response->id;
-            $fieldResponse['form_id']     = $this->zeusForm->id;
-            $fieldResponse['field_id']    = $field;
+            $fieldResponse['form_id'] = $this->zeusForm->id;
+            $fieldResponse['field_id'] = $field;
             FieldResponse::create($fieldResponse);
         }
 
-        return redirect()->route('bolt.user.submitted', [ 'slug' => $this->zeusForm->slug ]);
+        return redirect()->route('bolt.user.submitted', ['slug' => $this->zeusForm->slug]);
     }
 
     public function render()

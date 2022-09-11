@@ -25,7 +25,7 @@ class Select extends FieldsContract
         ];
     }
 
-    public function getResponse($field, $resp) : string
+    public function getResponse($field, $resp): string
     {
         if (empty($resp->response)) {
             return '';
@@ -42,7 +42,7 @@ class Select extends FieldsContract
             return $resp->response;
         }
 
-        if (!isset($getResponFromCollection['itemValue'])) {
+        if (! isset($getResponFromCollection['itemValue'])) {
             return $resp->response;
         }
 

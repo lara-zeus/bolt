@@ -8,11 +8,11 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Schemata;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
-use Illuminate\Database\Eloquent\Builder;
 
 class FormResource extends BoltResource
 {
@@ -23,42 +23,42 @@ class FormResource extends BoltResource
     protected static ?int $navigationSort = 1;
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function getGloballySearchableAttributes() : array
+    public static function getGloballySearchableAttributes(): array
     {
-        return [ 'name', 'slug' ];
+        return ['name', 'slug'];
     }
 
-    protected static function getNavigationBadge() : ?string
+    protected static function getNavigationBadge(): ?string
     {
         return (string) ZeusForm::query()->count();
     }
 
-    protected static function getNavigationGroup() : ?string
+    protected static function getNavigationGroup(): ?string
     {
         return __('Bolt');
     }
 
-    public static function getLabel() : string
+    public static function getLabel(): string
     {
         return __('Form');
     }
 
-    public static function getPluralLabel() : string
+    public static function getPluralLabel(): string
     {
         return __('Forms');
     }
 
-    protected static function getNavigationLabel() : string
+    protected static function getNavigationLabel(): string
     {
         return __('Forms');
     }
 
-    public static function form(Form $form) : Form
+    public static function form(Form $form): Form
     {
         return $form->schema(static::getMainFormSchema());
     }
 
-    public static function table(Table $table) : Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -75,13 +75,13 @@ class FormResource extends BoltResource
                     ->label(__('Entries'))
                     ->icon('clarity-data-cluster-line')
                     ->tooltip(__('view all entries'))
-                    ->url(fn(ZeusForm $record) : string => url('admin/responses?form_id=' . $record->id)),
+                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id='.$record->id)),
 
                 Action::make('open')
                     ->label(__('Open'))
                     ->icon('heroicon-o-external-link')
                     ->tooltip(__('open form'))
-                    ->url(fn(ZeusForm $record) : string => route('bolt.user.form.show', $record))
+                    ->url(fn (ZeusForm $record): string => route('bolt.user.form.show', $record))
                     ->openUrlInNewTab(),
             ])->filters([
                 Filter::make('is_active')
@@ -91,7 +91,7 @@ class FormResource extends BoltResource
             ]);
     }
 
-    public static function getPages() : array
+    public static function getPages(): array
     {
         return [
             'index'  => Pages\ListForms::route('/'),
@@ -100,7 +100,7 @@ class FormResource extends BoltResource
         ];
     }
 
-    public static function getWidgets() : array
+    public static function getWidgets(): array
     {
         return [
             BetaNote::class,

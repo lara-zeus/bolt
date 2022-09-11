@@ -2,10 +2,10 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
+use Filament\Pages\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
-use Filament\Pages\Actions;
 
 class CreateForm extends CreateRecord
 {

@@ -22,7 +22,7 @@ class ResponseResource extends BoltResource
 
     protected static function getNavigationBadge(): ?string
     {
-        return (string)Response::query()->count();
+        return (string) Response::query()->count();
     }
 
     protected static function getNavigationGroup(): ?string
@@ -51,7 +51,7 @@ class ResponseResource extends BoltResource
             ->schema([
                 ViewField::make('response')->view('zeus-bolt::filament.resources.response-resource.components.view-responses')
                     ->label('')
-                    ->columnSpan(2)
+                    ->columnSpan(2),
             ]);
     }
 
@@ -64,7 +64,7 @@ class ResponseResource extends BoltResource
             TextColumn::make('created_at')->label(__('Created Date')),
         ];
 
-        if (!request()->filled('form_id')) {
+        if (! request()->filled('form_id')) {
             TextColumn::make('form.name')->label(__('form'));
         }
 

@@ -39,10 +39,10 @@ class TextInput extends FieldsContract
             //\Filament\Forms\Components\TextInput::make('options.minLength')->visible(fn(\Closure $get) :bool => $get('options.dateType') === 'numeric'),
             //\Filament\Forms\Components\TextInput::make('options.maxLength')->visible(fn(\Closure $get) :bool => $get('options.dateType') === 'numeric'),
 
-            \Filament\Forms\Components\TextInput::make('options.minValue')->visible(fn(\Closure $get) : bool => $get('options.dateType') === 'numeric'),
-            \Filament\Forms\Components\TextInput::make('options.maxValue')->visible(fn(\Closure $get) : bool => $get('options.dateType') === 'numeric'),
+            \Filament\Forms\Components\TextInput::make('options.minValue')->visible(fn (\Closure $get): bool => $get('options.dateType') === 'numeric'),
+            \Filament\Forms\Components\TextInput::make('options.maxValue')->visible(fn (\Closure $get): bool => $get('options.dateType') === 'numeric'),
 
-            \Filament\Forms\Components\TextInput::make('options.length')->hidden(fn(\Closure $get) : bool => in_array($get('options.dateType'), [ 'email', 'url' ])),
+            \Filament\Forms\Components\TextInput::make('options.length')->hidden(fn (\Closure $get): bool => in_array($get('options.dateType'), ['email', 'url'])),
         ];
     }
 }

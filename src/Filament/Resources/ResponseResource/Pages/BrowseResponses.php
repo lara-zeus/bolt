@@ -38,7 +38,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
         return [
             Tables\Columns\ViewColumn::make('response')
                 ->view('zeus-bolt::filament.resources.response-resource.components.view-responses')
-                ->label('')
+                ->label(''),
         ];
     }
 
