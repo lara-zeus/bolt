@@ -53,6 +53,12 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                         $setField->inline();
                     }
                 }
+
+                if($field->type == '\LaraZeus\Bolt\Fields\Classes\FileUpload'){
+                    $setField
+                        ->disk(config('zeus-bolt.uploads.disk'))
+                        ->directory(config('zeus-bolt.uploads.directory'));
+                }
                 // todo so ugly change!
 
                 $fields[] = Forms\Components\Card::make()->schema([ $setField ]);
@@ -120,6 +126,6 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public function render()
     {
-        return view('zeus-bolt::forms.fill-forms')->layout('zeus::components.app');
+        return view('zeus-bolt::forms.fill-forms')->layout(config('zeus-bolt.layout'));
     }
 }
