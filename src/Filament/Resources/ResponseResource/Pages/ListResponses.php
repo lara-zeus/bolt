@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
-use Filament\Resources\Pages\ListRecords;
 use Filament\Pages\Actions\Action;
+use Filament\Resources\Pages\ListRecords;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 
@@ -23,7 +23,7 @@ class ListResponses extends ListRecords
         return [
             Action::make('brows')
                 ->label(__('Brows Entries'))
-                ->url(fn (): string => 'responses/brows?form_id='.request('form_id'))
+                ->url(fn (): string => 'responses/brows?form_id='.request('form_id')),
         ];
     }
 }

@@ -29,7 +29,7 @@ class Radio extends FieldsContract
 
     public function getResponse($field, $resp): string
     {
-        if (!empty($resp->response)) {
+        if (! empty($resp->response)) {
             $col = Collection::find($field->options['dataSource']);
 
             return collect($col->values)->where('itemKey', $resp->response)->first()['itemValue'];

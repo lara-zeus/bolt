@@ -3,7 +3,6 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Toggle;
-use Illuminate\Support\Facades\Storage;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class FileUpload extends FieldsContract
@@ -28,8 +27,8 @@ class FileUpload extends FieldsContract
     public function getResponse($field, $resp): string
     {
         return view('zeus-bolt::fields.file-upload')
-            ->with('resp',$resp)
-            ->with('field',$field)
+            ->with('resp', $resp)
+            ->with('field', $field)
             ->render();
     }
 }

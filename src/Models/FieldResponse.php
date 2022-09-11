@@ -28,7 +28,7 @@ class FieldResponse extends Model
 
     public function parentResponse()
     {
-        return $this->belongsTo(Response::class,'response_id','id');
+        return $this->belongsTo(Response::class, 'response_id', 'id');
     }
 
     public function form()

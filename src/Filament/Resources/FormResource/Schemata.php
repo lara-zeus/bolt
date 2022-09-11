@@ -4,7 +4,6 @@ namespace LaraZeus\Bolt\Filament\Resources\FormResource;
 
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
@@ -46,7 +45,7 @@ trait Schemata
                 ->createItemButtonLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -171,7 +170,7 @@ trait Schemata
                     'md' => 2,
                 ])
                 ->label('')
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->createItemButtonLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];
@@ -211,6 +210,7 @@ trait Schemata
                                     if (class_exists($class)) {
                                         return (new $class)->hasOptions();
                                     }
+
                                     return false;
                                 })
                                 ->schema(function (\Closure $get) {
