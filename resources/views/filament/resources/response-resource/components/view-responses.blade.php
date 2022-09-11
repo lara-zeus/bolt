@@ -38,7 +38,7 @@
             @foreach($getRecord()->fieldsResponses as $resp)
                 <div class="py-2">
                     <p>{{ $resp->field->name }}</p>
-                    <p class="font-semibold mb-2">{{ ( new $resp->field->type )->getResponse($resp->field, $resp) }}</p>
+                    <p class="font-semibold mb-2">{!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}</p>
                     <x-filament::hr/>
                 </div>
             @endforeach
