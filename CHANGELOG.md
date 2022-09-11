@@ -2,16 +2,32 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.14 - 2022-09-11
+
+### What's Changed
+
+- small fixes by @atmonshi in https://github.com/lara-zeus/bolt/pull/20
+- Apply fixes from StyleCI by @atmonshi in https://github.com/lara-zeus/bolt/pull/21
+
+set upload disk and dir
+set the layout from the config
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.13...0.0.14
+
 ## 0.0.13 - 2022-09-10
 
 ### What's Changed
 
 - updates by @atmonshi in https://github.com/lara-zeus/bolt/pull/19
-
+- 
 - update core
+- 
 - improve the fields options using tabs
+- 
 - fix small bugs
+- 
 - enable the required option
+- 
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.12...0.0.13
 
