@@ -23,7 +23,6 @@ class CheckboxList extends FieldsContract
         return [
             Select::make('options.dataSource')->required()->options(Collection::pluck('name', 'id'))->label(__('Data Source'))->columnSpan(2),
             Toggle::make('options.is_required')->label(__('Is Required')),
-            \Filament\Forms\Components\TextInput::make('options.columns')->numeric()->required()->default(1),
         ];
     }
 
