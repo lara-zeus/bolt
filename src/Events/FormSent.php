@@ -18,7 +18,6 @@ class FormSent
         $this->response = $response;
     }
 
-
     /**
      * Get the channels the event should broadcast on.
      *

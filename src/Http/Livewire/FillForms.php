@@ -17,6 +17,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     use Forms\Concerns\InteractsWithForms;
 
     public Form $zeusForm;
+
     public $zeusData = [];
 
     protected function getFormSchema(): array
@@ -112,8 +113,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $response = Response::make([
             'form_id' => $this->zeusForm->id,
             'user_id' => (auth()->check()) ? auth()->user()->id : null,
-            'status'  => 'NEW',
-            'notes'   => '',
+            'status' => 'NEW',
+            'notes' => '',
         ]);
         $response->save();
 
