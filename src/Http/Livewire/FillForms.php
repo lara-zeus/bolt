@@ -46,6 +46,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                 $haseDataSource = [
                     '\LaraZeus\Bolt\Fields\Classes\Select',
                     '\LaraZeus\Bolt\Fields\Classes\Radio',
+                    '\LaraZeus\Bolt\Fields\Classes\CheckboxList',
+                    '\LaraZeus\Bolt\Fields\Classes\MultiSelect',
                 ];
                 if (in_array($field->type, $haseDataSource)) {
                     $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
