@@ -4,12 +4,15 @@
         <p class="text-gray-400 text-mdd my-4">{{ $zeusForm->desc ?? '' }}</p>
     </x-slot>
 
-    {{ \Filament\Facades\Filament::renderHook('zeus-form.before') }}
 
     <form wire:submit.prevent="store">
+
+        {{ \Filament\Facades\Filament::renderHook('zeus-form.before') }}
+
         <div class="my-10">
             {!! nl2br($zeusForm->details) !!}
         </div>
+
         <div class="text-gray-400 text-sm">
             @if($zeusForm->start_date !== null)
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -9,4 +9,9 @@ class BetaNote extends Widget
     protected int|string|array $columnSpan = 'full';
 
     protected static string $view = 'zeus-bolt::filament.resources.form-resource.widgets.beta-note';
+
+    public static function canView(): bool
+    {
+        return config('app.zeus-demo', false);
+    }
 }

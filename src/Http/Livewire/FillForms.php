@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Http\Livewire;
 use Filament\Forms;
 use Filament\Forms\Components\Wizard;
 use LaraZeus\Bolt\Events\FormMounted;
+use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Models\Collection;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Form;
@@ -104,6 +105,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public function store()
     {
+        //dd(11, request()->all(), request('office'));
         $this->validate();
         $response = Response::make([
             'form_id' => $this->zeusForm->id,
@@ -120,6 +122,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $fieldResponse['field_id'] = $field;
             FieldResponse::create($fieldResponse);
         }
+
+        event(new FormSent($response));
 
         return redirect()->route('bolt.user.submitted', ['slug' => $this->zeusForm->slug]);
     }
