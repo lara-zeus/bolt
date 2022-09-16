@@ -19,8 +19,11 @@ class FormResource extends BoltResource
     use Schemata;
 
     protected static ?string $model = ZeusForm::class;
+
     protected static ?string $navigationIcon = 'clarity-form-line';
+
     protected static ?int $navigationSort = 1;
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function getGloballySearchableAttributes(): array
@@ -94,9 +97,9 @@ class FormResource extends BoltResource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListForms::route('/'),
+            'index' => Pages\ListForms::route('/'),
             'create' => Pages\CreateForm::route('/create'),
-            'edit'   => Pages\EditForm::route('/{record}/edit'),
+            'edit' => Pages\EditForm::route('/{record}/edit'),
         ];
     }
 

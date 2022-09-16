@@ -255,8 +255,11 @@ module.exports = (colors.__esModule ? colors : { default: colors }).default
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-exports["default"] = void 0;
-var _log = _interopRequireDefault(__webpack_require__(/*! ../util/log */ "./node_modules/tailwindcss/lib/util/log.js"));
+Object.defineProperty(exports, "default", ({
+    enumerable: true,
+    get: ()=>_default
+}));
+const _log = /*#__PURE__*/ _interopRequireDefault(__webpack_require__(/*! ../util/log */ "./node_modules/tailwindcss/lib/util/log.js"));
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -268,7 +271,7 @@ function warn({ version , from , to  }) {
         "Update your configuration file to silence this warning.", 
     ]);
 }
-var _default = {
+const _default = {
     inherit: "inherit",
     current: "currentColor",
     transparent: "transparent",
@@ -579,7 +582,6 @@ var _default = {
         return this.slate;
     }
 };
-exports["default"] = _default;
 
 
 /***/ }),
@@ -596,9 +598,17 @@ exports["default"] = _default;
 Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
-exports.dim = dim;
-exports["default"] = void 0;
-var _picocolors = _interopRequireDefault(__webpack_require__(/*! picocolors */ "./node_modules/picocolors/picocolors.browser.js"));
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    dim: ()=>dim,
+    default: ()=>_default
+});
+const _picocolors = /*#__PURE__*/ _interopRequireDefault(__webpack_require__(/*! picocolors */ "./node_modules/picocolors/picocolors.browser.js"));
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -606,17 +616,16 @@ function _interopRequireDefault(obj) {
 }
 let alreadyShown = new Set();
 function log(type, messages, key) {
-    if (process.env.JEST_WORKER_ID !== undefined) return;
+    if (typeof process !== "undefined" && process.env.JEST_WORKER_ID) return;
     if (key && alreadyShown.has(key)) return;
     if (key) alreadyShown.add(key);
     console.warn("");
-    messages.forEach((message)=>console.warn(type, "-", message)
-    );
+    messages.forEach((message)=>console.warn(type, "-", message));
 }
 function dim(input) {
     return _picocolors.default.dim(input);
 }
-var _default = {
+const _default = {
     info (key, messages) {
         log(_picocolors.default.bold(_picocolors.default.cyan("info")), ...Array.isArray(key) ? [
             key
@@ -642,7 +651,6 @@ var _default = {
         ]);
     }
 };
-exports["default"] = _default;
 
 
 /***/ })

@@ -5,10 +5,12 @@ namespace LaraZeus\Bolt\Http\Livewire;
 use Filament\Forms;
 use Filament\Forms\Components\Wizard;
 use LaraZeus\Bolt\Events\FormMounted;
+use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Models\Collection;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
+use LaraZeus\Thunder\Models\Office;
 use Livewire\Component;
 
 class FillForms extends Component implements Forms\Contracts\HasForms
@@ -16,11 +18,22 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     use Forms\Concerns\InteractsWithForms;
 
     public Form $zeusForm;
+
+    public $item;
+
+    public $itemData;
+
     public $zeusData = [];
 
     protected function getFormSchema(): array
     {
         $sections = [];
+
+        // todo bolt should not know about the predefiend fields for any extintion
+        if ($this->item !== null) {
+            $sections[] = Forms\Components\TextInput::make('itemData.title')->label(__('Ticket Title'))->required();
+        }
+
         foreach ($this->zeusForm->sections()->orderBy('ordering')->get() as $section) {
             $fields = [];
             foreach ($section->fields()->orderBy('ordering')->get() as $field) {
@@ -85,8 +98,15 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         return $this->zeusForm;
     }
 
-    public function mount($slug)
+    // todo $itemSlug is temp solution, refactor later
+    // bot shuld not care about other extintions
+    public function mount($slug, $itemSlug = null)
     {
+        if ($itemSlug !== null) {
+            // todo dynamic checks for ext 'preShowHook'
+            $this->item = Office::whereSlug($itemSlug)->firstOrFail();
+        }
+
         $this->zeusForm = Form::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
         abort_if(optional($this->zeusForm->options)['require-login'] && ! auth()->check(), 401);
@@ -107,13 +127,13 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     public function store()
     {
         $this->validate();
-        $response = Response::make([
+
+        $response = Response::create([
             'form_id' => $this->zeusForm->id,
             'user_id' => (auth()->check()) ? auth()->user()->id : null,
-            'status'  => 'NEW',
-            'notes'   => '',
+            'status' => 'NEW',
+            'notes' => '',
         ]);
-        $response->save();
 
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
             $fieldResponse['response'] = $value ?? '';
@@ -122,6 +142,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $fieldResponse['field_id'] = $field;
             FieldResponse::create($fieldResponse);
         }
+
+        event(new FormSent($response, $this->item, $this->form->getState()['itemData']));
 
         return redirect()->route('bolt.user.submitted', ['slug' => $this->zeusForm->slug]);
     }
