@@ -20,6 +20,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     public Form $zeusForm;
 
     public $item;
+
     public $itemData;
 
     public $zeusData = [];
@@ -29,7 +30,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $sections = [];
 
         // todo bolt should not know about the predefiend fields for any extintion
-        if($this->item !== null){
+        if ($this->item !== null) {
             $sections[] = Forms\Components\TextInput::make('itemData.title')->label(__('Ticket Title'))->required();
         }
 
@@ -101,7 +102,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     // bot shuld not care about other extintions
     public function mount($slug, $itemSlug = null)
     {
-        if($itemSlug !== null){
+        if ($itemSlug !== null) {
             // todo dynamic checks for ext 'preShowHook'
             $this->item = Office::whereSlug($itemSlug)->firstOrFail();
         }

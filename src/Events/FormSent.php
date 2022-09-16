@@ -12,7 +12,9 @@ class FormSent
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $response;
+
     public $item;
+
     public $data;
 
     public function __construct($response, $item, $data)
