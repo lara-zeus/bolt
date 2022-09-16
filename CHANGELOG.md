@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.16 - 2022-09-16
+
+### What's Changed
+
+- hello Thunder ⛈ by @atmonshi in https://github.com/lara-zeus/bolt/pull/24
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.15...0.0.16
+
 ## 0.0.15 - 2022-09-14
 
 ### What's Changed
