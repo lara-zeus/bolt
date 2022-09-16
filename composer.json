@@ -26,7 +26,7 @@
         "codeat3/blade-clarity-icons": "^1.7",
         "filament/notifications": "^2.0",
         "filament/spatie-laravel-translatable-plugin": "^2.0",
-        "lara-zeus/core": "dev-main"
+        "lara-zeus/core": "^2.2"
     },
     "require-dev": {
         "laravel/pint": "^1.1",
@@ -49,11 +49,5 @@
                 "Bolt": "LaraZeus\\Bolt\\Facades\\Bolt"
             }
         }
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../core"
-        }
-    ]
+    }
 }
