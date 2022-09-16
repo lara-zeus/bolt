@@ -10,6 +10,6 @@ Route::prefix(config('zeus-bolt.path'))->name('bolt.')->middleware('web')->group
         Route::view('/', 'zeus-bolt::forms.list-forms')->name('forms.list');
         Route::get('submitted/{slug}', Submitted::class)->name('submitted');
         Route::get('entries', ListEntries::class)->name('entries.list');
-        Route::get('{slug}', FillForms::class)->name('form.show');
+        Route::get('{slug}/{itemSlug?}', FillForms::class)->name('form.show');
     });
 });
