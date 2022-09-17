@@ -9,7 +9,9 @@ use Illuminate\Queue\SerializesModels;
 
 class FormMounted
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * Get the channels the event should broadcast on.

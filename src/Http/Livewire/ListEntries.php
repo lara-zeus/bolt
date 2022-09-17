@@ -50,6 +50,6 @@ class ListEntries extends Component
 
     public function render()
     {
-        return view(app('bolt-theme').'.entries')->layout(config('zeus-bolt.layout'));
+        return view(app('bolt-theme') . '.entries')->layout(config('zeus-bolt.layout'));
     }
 }

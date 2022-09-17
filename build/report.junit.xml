@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.134673">
+    <testsuite name="P\Tests\ExampleTest" file="/Users/john/Sites/zeus/bolt-pkg/vendor/pestphp/pest/src/Factories/TestCaseFactory.php(223) : eval()'d code" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.134673">
+      <testcase name="it can test" assertions="1" time="0.134673"/>
+    </testsuite>
+  </testsuite>
+</testsuites>

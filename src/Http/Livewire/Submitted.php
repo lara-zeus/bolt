@@ -19,6 +19,6 @@ class Submitted extends Component
 
     public function render()
     {
-        return view(app('theme').'.submitted')->layout(config('zeus-bolt.layout'));
+        return view(app('theme') . '.submitted')->layout(config('zeus-bolt.layout'));
     }
 }

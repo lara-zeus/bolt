@@ -37,7 +37,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->zeusForm->sections()->orderBy('ordering')->get() as $section) {
             $fields = [];
             foreach ($section->fields()->orderBy('ordering')->get() as $field) {
-                $setField = ( new $field->type )->renderClass::make('zeusData.'.$field->id)
+                $setField = ( new $field->type )->renderClass::make('zeusData.' . $field->id)
                     ->label($field->name)
                     ->id($field->html_id)//->rules(collect($field->rules)->pluck('rule'))
 ;
@@ -150,6 +150,6 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public function render()
     {
-        return view(app('bolt-theme').'.fill-forms')->layout(config('zeus-bolt.layout'));
+        return view(app('bolt-theme') . '.fill-forms')->layout(config('zeus-bolt.layout'));
     }
 }

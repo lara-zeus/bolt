@@ -23,7 +23,7 @@ class ListResponses extends ListRecords
         return [
             Action::make('brows')
                 ->label(__('Brows Entries'))
-                ->url(fn (): string => 'responses/brows?form_id='.request('form_id')),
+                ->url(fn (): string => 'responses/brows?form_id=' . request('form_id')),
         ];
     }
 }

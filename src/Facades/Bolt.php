@@ -22,7 +22,7 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
-            $coreFields = Bolt::collectFields(__DIR__.'/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            $coreFields = Bolt::collectFields(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Bolt::collectFields(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
 
             $fields = collect();
@@ -69,7 +69,7 @@ class Bolt extends Facade
         $path = array_unique(Arr::wrap($path));
 
         foreach (( new Finder() )->in($path)->files() as $className) {
-            $classes[] = $namespace.$className->getFilenameWithoutExtension();
+            $classes[] = $namespace . $className->getFilenameWithoutExtension();
         }
 
         return $classes;

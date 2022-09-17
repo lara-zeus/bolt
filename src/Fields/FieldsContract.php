@@ -39,7 +39,7 @@ abstract class FieldsContract implements Fields, Arrayable
 
     public function getClass()
     {
-        return '\\'.get_called_class();
+        return '\\' . get_called_class();
     }
 
     public function hasOptions(): bool

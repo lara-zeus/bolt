@@ -78,7 +78,7 @@ class FormResource extends BoltResource
                     ->label(__('Entries'))
                     ->icon('clarity-data-cluster-line')
                     ->tooltip(__('view all entries'))
-                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id='.$record->id)),
+                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
 
                 Action::make('open')
                     ->label(__('Open'))

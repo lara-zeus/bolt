@@ -33,10 +33,10 @@ class BoltServiceProvider extends PluginServiceProvider
 
     public function boot()
     {
-        View::share('bolt-theme', 'zeus-bolt::themes.'.config('zeus-bolt.theme', 'zeus'));
+        View::share('bolt-theme', 'zeus-bolt::themes.' . config('zeus-bolt.theme', 'zeus'));
 
         App::singleton('bolt-theme', function () {
-            return 'zeus-bolt::themes.'.config('zeus-bolt.theme', 'zeus');
+            return 'zeus-bolt::themes.' . config('zeus-bolt.theme', 'zeus');
         });
 
         Livewire::component('bolt.submitted', Submitted::class);
@@ -46,11 +46,11 @@ class BoltServiceProvider extends PluginServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../database/seeders' => database_path('seeders'),
+                __DIR__ . '/../database/seeders' => database_path('seeders'),
             ], 'zeus-bolt-seeder');
 
             $this->publishes([
-                __DIR__.'/../database/factories' => database_path('factories'),
+                __DIR__ . '/../database/factories' => database_path('factories'),
             ], 'zeus-bolt-factories');
         }
 
