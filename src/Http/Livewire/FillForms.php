@@ -107,6 +107,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $this->item = Office::whereSlug($itemSlug)->firstOrFail();
         }
 
+        /** @phpstan-ignore-next-line */
         $this->zeusForm = Form::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
         abort_if(optional($this->zeusForm->options)['require-login'] && ! auth()->check(), 401);

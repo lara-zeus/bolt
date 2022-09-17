@@ -13,6 +13,11 @@ class FormMounted
     use InteractsWithSockets;
     use SerializesModels;
 
+    public function __construct()
+    {
+        //
+    }
+
     /**
      * Get the channels the event should broadcast on.
      *
