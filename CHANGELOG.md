@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.17 - 2022-09-17
+
+- improve skeleton and add tests and dark mode
+- separate the CSS for frontend and filament
+- update .github workflows
+- add phpstan and pint
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.16...0.0.17
+
 ## 0.0.16 - 2022-09-16
 
 ### What's Changed
