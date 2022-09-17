@@ -32,7 +32,7 @@
         <div id="result"></div>
 
         <div class="p-4 text-center">
-            <x-zeus::elements.button type="submit">Save</x-zeus::elements.button>
+            <x-zeus::button type="submit">Save</x-zeus::button>
         </div>
     </form>
 </div>

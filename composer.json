@@ -26,19 +26,46 @@
         "codeat3/blade-clarity-icons": "^1.7",
         "filament/notifications": "^2.0",
         "filament/spatie-laravel-translatable-plugin": "^2.0",
-        "lara-zeus/core": "^2.2"
+        "lara-zeus/core": "dev-main"
     },
     "require-dev": {
-        "laravel/pint": "^1.1",
-        "orchestra/testbench": "^6.0 || ^7.0"
+        "orchestra/testbench": "^6.0 || ^7.0",
+        "laravel/pint": "^1.0",
+        "nunomaduro/larastan": "^2.0.1",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.1",
+        "pestphp/pest-plugin-livewire": "^1.0",
+        "pestphp/pest-plugin-parallel": "^0.3",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpstan/phpstan-phpunit": "^1.0",
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
             "LaraZeus\\Bolt\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "LaraZeus\\Bolt\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "pint": "vendor/bin/pint",
+        "test:pest": "vendor/bin/pest --parallel",
+        "test:phpstan": "vendor/bin/phpstan analyse",
+        "test": [
+            "@test:pest",
+            "@test:phpstan"
+        ]
+    },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {
@@ -49,5 +76,11 @@
                 "Bolt": "LaraZeus\\Bolt\\Facades\\Bolt"
             }
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../core"
+        }
+    ]
 }

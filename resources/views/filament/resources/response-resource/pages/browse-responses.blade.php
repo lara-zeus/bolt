@@ -23,7 +23,7 @@
             @foreach($row->fieldsResponses as $resp)
                 <x-filament::card>
                     <p>{{ $resp->field->name }}</p>
-                    <p class="font-semibold mb-2">{{ $resp->response ?? ''}}</p>
+                    <p class="font-semibold mb-2">{!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}</p>
                 </x-filament::card>
             @endforeach
         </div>

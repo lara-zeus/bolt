@@ -9,12 +9,8 @@ class ListForms extends Component
 {
     public function render()
     {
-        $forms = Form::query()->whereIsActive(1)->get();
-
-        $viewName = 'zeus-bolt::list-forms';
-
-        return view($viewName)
-            ->with('forms', $forms)
-            ->layout('zeus-bolt::components.app');
+        return view(app('bolt-theme').'.list-forms')
+            ->with('forms', Form::query()->whereIsActive(1)->get())
+            ->layout(config('zeus-bolt.layout'));
     }
 }

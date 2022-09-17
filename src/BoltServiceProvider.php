@@ -3,6 +3,8 @@
 namespace LaraZeus\Bolt;
 
 use Filament\PluginServiceProvider;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use LaraZeus\Bolt\Console\PublishCommand;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
@@ -19,14 +21,6 @@ class BoltServiceProvider extends PluginServiceProvider
 {
     public static string $name = 'zeus-bolt';
 
-    protected array $styles = [
-        'zeus-bolt-styles' => __DIR__.'/../resources/dist/app.css',
-    ];
-
-    protected array $scripts = [
-        'zeus-bolt-admin' => __DIR__.'/../resources/dist/admin.js',
-    ];
-
     protected function getResources(): array
     {
         return [
@@ -39,6 +33,12 @@ class BoltServiceProvider extends PluginServiceProvider
 
     public function boot()
     {
+        View::share('bolt-theme', 'zeus-bolt::themes.'.config('zeus-bolt.theme', 'zeus'));
+
+        App::singleton('bolt-theme', function () {
+            return 'zeus-bolt::themes.'.config('zeus-bolt.theme', 'zeus');
+        });
+
         Livewire::component('bolt.submitted', Submitted::class);
         Livewire::component('bolt.fill-form', FillForms::class);
         Livewire::component('bolt.list-forms', ListForms::class);

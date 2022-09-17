@@ -102,6 +102,7 @@ trait Schemata
                 ->schema([
                     Toggle::make('is_active')
                         ->label(__('is_active'))
+                        ->default(1)
                         ->helperText(__('Activate the form and let users start submissions')),
                     Toggle::make('options.show-as-wizard')
                         ->label(__('Show As Wizard'))

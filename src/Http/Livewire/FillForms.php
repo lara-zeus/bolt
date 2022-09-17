@@ -143,13 +143,13 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             FieldResponse::create($fieldResponse);
         }
 
-        event(new FormSent($response, $this->item, $this->form->getState()['itemData']));
+        event(new FormSent($response, $this->item, $this->form->getState()['itemData'] ?? null));
 
         return redirect()->route('bolt.user.submitted', ['slug' => $this->zeusForm->slug]);
     }
 
     public function render()
     {
-        return view('zeus-bolt::forms.fill-forms')->layout(config('zeus-bolt.layout'));
+        return view(app('bolt-theme').'.fill-forms')->layout(config('zeus-bolt.layout'));
     }
 }
