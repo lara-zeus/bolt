@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.18 - 2022-09-18
+
+### What's Changed
+
+- improve responsive layout by @atmonshi in https://github.com/lara-zeus/bolt/pull/25
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.17...0.0.18
+
 ## 0.0.17 - 2022-09-17
 
 - improve skeleton and add tests and dark mode
