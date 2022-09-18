@@ -152,7 +152,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     public function render()
     {
         seo()
-            ->title($this->zeusForm->name .' '. config('zeus-bolt.site_title', 'Laravel'))
+            ->title($this->zeusForm->name . ' ' . config('zeus-bolt.site_title', 'Laravel'))
             ->description($this->zeusForm->desc . ' ' . config('zeus-bolt.site_description', 'Laravel'))
             ->site(config('zeus-bolt.site_title', 'Laravel'))
             ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
