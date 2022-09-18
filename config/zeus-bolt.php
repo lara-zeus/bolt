@@ -2,13 +2,13 @@
 
 return [
     /**
-     * set the default path for the blogs homepage.
+     * set the default path for the forms homepage.
      */
     'path' => 'bolt',
 
     /**
-     * the middleware you want to apply on all the blogs routes
-     * for example if you want to make your blog for users only, add the middleware 'auth'.
+     * the middleware you want to apply on all the forms routes
+     * for example if you want to make your form for users only, add the middleware 'auth'.
      */
     'middleware' => ['web'],
 
@@ -22,12 +22,12 @@ return [
     /**
      * this will be setup the default seo site title. read more about it in 'laravel-seo'.
      */
-    'site_title' => config('app.name', 'Laravel') . ' | Blogs',
+    'site_title' => config('app.name', 'Laravel') . ' | Forms',
 
     /**
      * this will be setup the default seo site description. read more about it in 'laravel-seo'.
      */
-    'site_description' => 'All about ' . config('app.name', 'Laravel') . ' Blogs',
+    'site_description' => 'All about ' . config('app.name', 'Laravel') . ' Forms',
 
     /**
      * this will be setup the default seo site color theme. read more about it in 'laravel-seo'.
