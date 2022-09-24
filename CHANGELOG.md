@@ -2,6 +2,25 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.19 - 2022-09-24
+
+### What's Changed
+
+- Support ext by @atmonshi in https://github.com/lara-zeus/bolt/pull/26
+- composer core update by @atmonshi in https://github.com/lara-zeus/bolt/pull/27
+
+- add features and roadmap
+- add zeus render hooks
+- list all user entries and show entry details
+- small changes to the UI
+- refactor all fields classes
+- improvements in all resources
+- use the new table layout in forms and entries
+- refactor filling the form component
+- add form status sushi model
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.18...0.0.19
+
 ## 0.0.18 - 2022-09-18
 
 ### What's Changed
