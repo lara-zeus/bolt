@@ -92,7 +92,7 @@ class Bolt extends Facade
 
             $fields[] = static::renderHook('zeus-form-section.before');
 
-            if($item !== null && $countSections === 1){
+            if ($item !== null && $countSections === 1) {
                 // todo adding title comment if there is an extension, extensions should define their own fields somehow
                 $fields[] = TextInput::make('itemData.title')->label(__('Ticket Title'))->required();
             }
