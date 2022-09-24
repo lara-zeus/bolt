@@ -9,9 +9,9 @@ use LaraZeus\Bolt\Models\Collection;
 
 class Radio extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\Radio';
+    public string $renderClass = '\Filament\Forms\Components\Radio';
 
-    public $sort = 4;
+    public int $sort = 4;
 
     public function title()
     {
@@ -36,5 +36,17 @@ class Radio extends FieldsContract
         }
 
         return '';
+    }
+
+    public function appendFilamentComponentsOptions($component, $zeusField)
+    {
+        parent::appendFilamentComponentsOptions($component, $zeusField);
+
+        $component = $component->options(collect(Collection::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
+        if (isset($zeusField->options['is_inline']) && $zeusField->options['is_inline']) {
+            $component->inline();
+        }
+
+        return $component;
     }
 }

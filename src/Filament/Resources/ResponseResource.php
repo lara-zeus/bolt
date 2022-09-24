@@ -5,6 +5,10 @@ namespace LaraZeus\Bolt\Filament\Resources;
 use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\Layout\Panel;
+use Filament\Tables\Columns\Layout\Split;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
@@ -57,19 +61,36 @@ class ResponseResource extends BoltResource
 
     public static function table(Table $table): Table
     {
-        $mainColumns = [
-            TextColumn::make('user.name')->label(__('User')),
-            TextColumn::make('status')->label(__('Status')),
-            TextColumn::make('notes')->label(__('Notes')),
-            TextColumn::make('created_at')->label(__('Created Date')),
-        ];
-
-        if (! request()->filled('form_id')) {
-            TextColumn::make('form.name')->label(__('form'));
-        }
-
         return $table
-            ->columns($mainColumns)
+            ->columns([
+                Split::make([
+                    Stack::make([
+                        ImageColumn::make('user.avatar')->label(__('User avatar')),
+                        TextColumn::make('user.name')->label(__('User Name'))->searchable(),
+                        TextColumn::make('user.email')
+                            ->searchable()
+                            ->label(__('User Email'))
+                            ->wrap()
+                            ->extraAttributes(['class' => 'text-gray-400'])
+                            ->size('sm')
+                            ->weight('medium')
+                            ->icon('heroicon-s-mail'),
+                    ]),
+                ]),
+                TextColumn::make('form.name')->label(__('form'))->searchable()->visible(! request()->filled('form_id')),
+                Panel::make([
+                    Stack::make([
+                        TextColumn::make('status')->label(__('Status'))->searchable(),
+                        TextColumn::make('notes')->label(__('Notes'))->searchable(),
+                        TextColumn::make('created_at')->label(__('Created Date'))->dateTime()->sortable()->searchable(),
+                    ]),
+                ])->collapsible(),
+            ])
+            ->contentGrid([
+                'md' => 2,
+                'xl' => 3,
+            ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('form')->relationship('form', 'name')->default(request('form_id', null)),
             ]);

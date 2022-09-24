@@ -2,6 +2,12 @@
 
 namespace LaraZeus\Bolt\Facades;
 
+use Filament\Facades\Filament;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
@@ -68,10 +74,71 @@ class Bolt extends Facade
         $classes = [];
         $path = array_unique(Arr::wrap($path));
 
-        foreach (( new Finder() )->in($path)->files() as $className) {
+        foreach ((new Finder())->in($path)->files() as $className) {
             $classes[] = $namespace . $className->getFilenameWithoutExtension();
         }
 
         return $classes;
+    }
+
+    public static function prepareFieldsAndSectionToRender($zeusForm, $item): array
+    {
+        $sections = [];
+        $zeusSections = $zeusForm->sections()->orderBy('ordering')->get();
+        $countSections = 0;
+        foreach ($zeusSections as $section) {
+            $countSections++;
+            $fields = [];
+
+            $fields[] = static::renderHook('zeus-form-section.before');
+
+            if($item !== null && $countSections === 1){
+                // todo adding title comment if there is an extension, extensions should define their own fields somehow
+                $fields[] = TextInput::make('itemData.title')->label(__('Ticket Title'))->required();
+            }
+
+            foreach ($section->fields()->orderBy('ordering')->get() as $zeusField) {
+                $fields[] = static::renderHook('zeus-form-field.before');
+
+                $fieldClass = new $zeusField->type;
+                $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
+
+                $fields[] = Card::make()
+                    ->schema([
+                        $fieldClass->appendFilamentComponentsOptions($component, $zeusField),
+                    ]);
+
+                $fields[] = static::renderHook('zeus-form-field.after');
+            }
+
+            $fields[] = static::renderHook('zeus-form-section.after');
+
+            if (optional($zeusForm->options)['show-as-wizard']) {
+                $sections[] = Wizard\Step::make($section->name)->schema($fields);
+            } else {
+                $sections[] = Section::make($section->name)->schema($fields);
+            }
+        }
+
+        if (optional($zeusForm->options)['show-as-wizard']) {
+            return [Wizard::make($sections)];
+        }
+
+        return $sections;
+    }
+
+    public static function renderHook($hook)
+    {
+        return Placeholder::make('placeholder-' . $hook)
+            ->label('')
+            ->content(Filament::renderHook($hook))
+            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
+    }
+
+    public static function renderHookBlade($hook)
+    {
+        if (! empty(Filament::renderHook($hook)->toHtml())) {
+            return Filament::renderHook($hook);
+        }
     }
 }

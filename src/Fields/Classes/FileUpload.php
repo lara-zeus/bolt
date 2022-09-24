@@ -7,9 +7,9 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class FileUpload extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\FileUpload';
+    public string $renderClass = '\Filament\Forms\Components\FileUpload';
 
-    public $sort = 11;
+    public int $sort = 11;
 
     public function title()
     {
@@ -30,5 +30,15 @@ class FileUpload extends FieldsContract
             ->with('resp', $resp)
             ->with('field', $field)
             ->render();
+    }
+
+    public function appendFilamentComponentsOptions($component, $zeusField)
+    {
+        parent::appendFilamentComponentsOptions($component, $zeusField);
+
+        $component->disk(config('zeus-bolt.uploads.disk'))
+            ->directory(config('zeus-bolt.uploads.directory'));
+
+        return $component;
     }
 }

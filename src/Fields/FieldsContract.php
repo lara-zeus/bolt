@@ -6,13 +6,13 @@ use Illuminate\Contracts\Support\Arrayable;
 
 abstract class FieldsContract implements Fields, Arrayable
 {
-    public $disabled = false;
+    public bool $disabled = false;
 
-    public $renderClass;
+    public string $renderClass;
 
-    public $code;
+    public string $code;
 
-    public $sort;
+    public int $sort;
 
     public function toArray()
     {
@@ -50,5 +50,27 @@ abstract class FieldsContract implements Fields, Arrayable
     public function getResponse($field, $resp): string
     {
         return $resp->response;
+    }
+
+    public function appendFilamentComponentsOptions($component, $zeusField)
+    {
+        $component
+            ->label($zeusField->name)
+            ->id($zeusField->html_id)
+            ->helperText($zeusField->description);
+
+        if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {
+            $component = $component->prefix($zeusField->options['prefix']);
+        }
+
+        if (isset($zeusField->options['suffix']) && $zeusField->options['suffix'] !== null) {
+            $component = $component->suffix($zeusField->options['suffix']);
+        }
+
+        if (isset($zeusField->options['is_required']) && $zeusField->options['is_required']) {
+            $component = $component->required();
+        }
+
+        return $component;
     }
 }

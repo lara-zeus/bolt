@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Http\Livewire;
 
+use LaraZeus\Bolt\Models\Category;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
 
@@ -20,6 +21,7 @@ class ListForms extends Component
 
         return view(app('bolt-theme') . '.list-forms')
             ->with('forms', Form::query()->whereIsActive(1)->get())
+            ->with('categories', Category::has('forms')->where('is_active', 1)->orderBy('ordering')->get())
             ->layout(config('zeus-bolt.layout'));
     }
 }

@@ -9,9 +9,9 @@ use LaraZeus\Bolt\Models\Collection;
 
 class Select extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\Select';
+    public string $renderClass = '\Filament\Forms\Components\Select';
 
-    public $sort = 2;
+    public int $sort = 2;
 
     public function title()
     {
@@ -48,5 +48,12 @@ class Select extends FieldsContract
         }
 
         return $getResponFromCollection['itemValue'];
+    }
+
+    public function appendFilamentComponentsOptions($component, $zeusField)
+    {
+        parent::appendFilamentComponentsOptions($component, $zeusField);
+
+        return $component->options(collect(Collection::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
     }
 }

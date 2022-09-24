@@ -16,11 +16,22 @@
         @endif
     </x-slot>
 
+    <x-slot name="breadcrumps">
+        <li class="flex items-center">
+            <a href="{{ route('bolt.user.forms.list') }}">Forms</a>
+            <x-iconpark-rightsmall-o class="fill-current w-4 h-4 mx-3" />
+        </li>
+
+        <li class="flex items-center">
+            {{ $zeusForm->name }}
+        </li>
+    </x-slot>
+
     <form wire:submit.prevent="store">
 
-        {{ \Filament\Facades\Filament::renderHook('zeus-form.before') }}
+        {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
 
-        @if($zeusForm->details !== null)
+        @if(!empty($zeusForm->details))
             <div class="m-4">
                 <x-zeus::box>
                     {!! nl2br($zeusForm->details) !!}
@@ -39,5 +50,8 @@
                 {{ __('Save') }}
             </x-filament::button>
         </div>
+
+        {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
+
     </form>
 </div>

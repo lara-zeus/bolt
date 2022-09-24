@@ -7,9 +7,9 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class TimePicker extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\TimePicker';
+    public string $renderClass = '\Filament\Forms\Components\TimePicker';
 
-    public $sort = 8;
+    public int $sort = 8;
 
     public function title()
     {

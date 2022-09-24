@@ -80,10 +80,10 @@ class FormResource extends BoltResource
                     ->tooltip(__('view all entries'))
                     ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
 
-                Action::make('open')
-                    ->label(__('Open'))
+                Action::make('view')
+                    ->label(__('View'))
                     ->icon('heroicon-o-external-link')
-                    ->tooltip(__('open form'))
+                    ->tooltip(__('view form'))
                     ->url(fn (ZeusForm $record): string => route('bolt.user.form.show', $record))
                     ->openUrlInNewTab(),
             ])->filters([

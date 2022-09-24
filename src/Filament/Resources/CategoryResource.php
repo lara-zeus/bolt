@@ -16,6 +16,8 @@ use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
+use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\CreateCategory;
+use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\EditCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\ListCategories;
 use LaraZeus\Bolt\Models\Category;
 
@@ -56,7 +58,7 @@ class CategoryResource extends BoltResource
                     }),
                 TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                 TextInput::make('ordering')->required()->numeric()->label(__('ordering')),
-                Toggle::make('is_active')->label(__('is_active')),
+                Toggle::make('is_active')->label(__('is_active'))->default(1),
                 Textarea::make('desc')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
                 FileUpload::make('logo')
                     ->disk(config('zeus-bolt.uploads.disk', 'public'))
@@ -70,12 +72,12 @@ class CategoryResource extends BoltResource
     {
         return $table
             ->columns([
+                ImageColumn::make('logo')->disk(config('zeus-bolt.uploads.disk', 'public'))->label(__('Logo')),
                 TextColumn::make('name')->label(__('Name'))->sortable()->searchable(),
                 TextColumn::make('desc')->label(__('Description')),
-                TextColumn::make('ordering')->sortable()->label(__('Ordering')),
                 BooleanColumn::make('is_active')->sortable()->label(__('Is Active')),
-                ImageColumn::make('logo')->disk(config('zeus-bolt.uploads.disk', 'public'))->label(__('Logo')),
             ])
+            ->reorderable('ordering')
             ->defaultSort('id', 'desc')
             ->actions([
                 EditAction::make(),
@@ -90,6 +92,8 @@ class CategoryResource extends BoltResource
     {
         return [
             'index' => ListCategories::route('/'),
+            'create' => CreateCategory::route('/create'),
+            'edit' => EditCategory::route('/{record}/edit'),
         ];
     }
 

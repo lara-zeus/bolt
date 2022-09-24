@@ -9,9 +9,9 @@ use LaraZeus\Bolt\Models\Collection;
 
 class MultiSelect extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\MultiSelect';
+    public string $renderClass = '\Filament\Forms\Components\MultiSelect';
 
-    public $sort = 3;
+    public int $sort = 3;
 
     public function title()
     {
@@ -35,5 +35,12 @@ class MultiSelect extends FieldsContract
         }
 
         return '';
+    }
+
+    public function appendFilamentComponentsOptions($component, $zeusField)
+    {
+        parent::appendFilamentComponentsOptions($component, $zeusField);
+
+        return $component->options(collect(Collection::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
     }
 }
