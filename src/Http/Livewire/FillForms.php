@@ -3,10 +3,9 @@
 namespace LaraZeus\Bolt\Http\Livewire;
 
 use Filament\Forms;
-use Filament\Forms\Components\Wizard;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
-use LaraZeus\Bolt\Models\Collection;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
@@ -27,70 +26,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     protected function getFormSchema(): array
     {
-        $sections = [];
-
-        // todo bolt should not know about the predefiend fields for any extintion
-        if ($this->item !== null) {
-            $sections[] = Forms\Components\TextInput::make('itemData.title')->label(__('Ticket Title'))->required();
-        }
-
-        foreach ($this->zeusForm->sections()->orderBy('ordering')->get() as $section) {
-            $fields = [];
-            foreach ($section->fields()->orderBy('ordering')->get() as $field) {
-                $setField = ( new $field->type )->renderClass::make('zeusData.' . $field->id)
-                    ->label($field->name)
-                    ->id($field->html_id)//->rules(collect($field->rules)->pluck('rule'))
-;
-
-                // todo so ugly change!
-                if (isset($field->description)) {
-                    $setField = $setField->helperText($field->description);
-                }
-                if (isset($field->options['prefix'])) {
-                    $setField = $setField->prefix($field->options['prefix']);
-                }
-                if (isset($field->options['suffix'])) {
-                    $setField = $setField->suffix($field->options['suffix']);
-                }
-                if (isset($field->options['is_required']) && $field->options['is_required']) {
-                    $setField = $setField->required();
-                }
-
-                $haseDataSource = [
-                    '\LaraZeus\Bolt\Fields\Classes\Select',
-                    '\LaraZeus\Bolt\Fields\Classes\Radio',
-                    '\LaraZeus\Bolt\Fields\Classes\CheckboxList',
-                    '\LaraZeus\Bolt\Fields\Classes\MultiSelect',
-                ];
-                if (in_array($field->type, $haseDataSource)) {
-                    $setField = $setField->options(collect(Collection::find($field->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
-                    if (isset($field->options['is_inline']) && $field->options['is_inline']) {
-                        $setField->inline();
-                    }
-                }
-
-                if ($field->type == '\LaraZeus\Bolt\Fields\Classes\FileUpload') {
-                    $setField
-                        ->disk(config('zeus-bolt.uploads.disk'))
-                        ->directory(config('zeus-bolt.uploads.directory'));
-                }
-                // todo so ugly change!
-
-                $fields[] = Forms\Components\Card::make()->schema([$setField]);
-            }
-
-            if (optional($this->zeusForm->options)['show-as-wizard']) {
-                $sections[] = Wizard\Step::make($section->name)->schema($fields);
-            } else {
-                $sections[] = Forms\Components\Section::make($section->name)->schema($fields);
-            }
-        }
-
-        if (optional($this->zeusForm->options)['show-as-wizard']) {
-            return [Wizard::make($sections)];
-        }
-
-        return $sections;
+        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm, $this->item);
     }
 
     protected function getFormModel(): Form
@@ -99,7 +35,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     }
 
     // todo $itemSlug is temp solution, refactor later
-    // bot shuld not care about other extintions
+    // todo Bolt should not care about other extension
     public function mount($slug, $itemSlug = null)
     {
         if ($itemSlug !== null) {
@@ -145,6 +81,18 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         }
 
         event(new FormSent($response, $this->item, $this->form->getState()['itemData'] ?? null));
+
+        /* todo
+         * issues:
+         * api tokes?
+         * events is better
+         */
+        /*if(isset($this->zeusForm->options['web-hook']) && !empty($this->zeusForm->options['web-hook'])){
+            $post = Http::post($this->zeusForm->options['web-hook'], [
+                'form_id' => $this->zeusForm->id,
+                'response' => $response,
+            ]);
+        }*/
 
         return redirect()->route('bolt.user.submitted', ['slug' => $this->zeusForm->slug]);
     }

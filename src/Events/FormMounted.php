@@ -13,9 +13,11 @@ class FormMounted
     use InteractsWithSockets;
     use SerializesModels;
 
-    public function __construct()
+    public $form;
+
+    public function __construct($form)
     {
-        //
+        $this->form = $form;
     }
 
     /**

@@ -9,20 +9,19 @@ included a UI for the frontend bilt with filament
 
 **[Demo](https://demo.larazeus.com) · [Github](https://github.com/lara-zeus/bolt)**
 
-## features
+## features and roadmap
 - 🔥 built with [TALL stack](https://tallstack.dev/)
 - 🔥 using [filament](https://filamentadmin.com) as an admin panel
-- 🔥 FrontEnd scaffolding, highly customizable.
-- 🔥 group the fields with section, with the option to display them as pages
+- 🔥 Frontend scaffolding, highly customizable.
+- 🔥 group the fields with sections, with the option to display them as a wizard
 - 🔥 Categories to organize your forms
-- 🔥 option for start starting the submissions and when to end
+- 🔥 control the starting and ending dates for submissions
 - 🔥 email notifications per form
 - 🔥 Send form data to external URL upon submission
-  - 🔥 add custom html id and name to easily catch them on the webhook
-- 🔥 confirmation message after submission
-- 🔥 option to requiring login per form
-- 🔥 limit submissions with one entry for a user
-- 🔥 Fields options (inline, is required, searchable, hijri date (soon), file size and type, ):
+  - 🔥 add custom html id and name to easily catch them on the webhook (soon)
+- 🔥 confirmation message after submission per form
+- 🔥 option for requiring login per form
+- 🔥 limit submissions with one entry for a user (if auth is required only)
 - 🔥 Available Fields:
   - view field (soon)
   - dynamic dataset (soon)
@@ -32,27 +31,28 @@ included a UI for the frontend bilt with filament
   - Select Menu
   - Multi Select Menu
   - Radio
-  - Checkboxs
   - Checkbox List
   - Date Time Picker
   - Date Picker
   - Time Picker
   - Rich Editor
   - File Upload
-  - Rating
+  - Toggle
 - 🔥 add any field from filament plugins
 - 🔥 create your won field
-- 🔥 all the options for filaiments fields are available and validation rules
+- 🔥 all the options for filament fields are available
+- 🔥 validation rules (soon)
 - 🔥 collections for datasets
 - 🔥 multi lang (coming soon)
-- 🔥 option to ask users to set title for submissions, useful for ticketing system
 - 🔥 ACL manager (soon)
+  - planing to use spatie Laravel-permission
 - 🔥 form layout (soon)
+- 🔥 form themes (soon)
 - 🔥 show responses for each form with searching and filtering on the dynamic fields (soon)
 - 🔥 set status for each response
 - 🔥 exporting (soon)
 - 🔥 clone form (soon)
-- 🔥 form stats (soon)
+- 🔥 form stats and charts (soon)
 - 🔥 form reports (soon)
 - 🔥 exam module (set correct answer, the mark for each question, auto correction for all responses, send the mark to the user, and display the result) (soon)
 - 🔥 poll module (custom layout to show the form as a poll, and display the result as chart) (soon)

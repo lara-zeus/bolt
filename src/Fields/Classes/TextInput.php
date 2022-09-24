@@ -8,9 +8,9 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class TextInput extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\TextInput';
+    public string $renderClass = '\Filament\Forms\Components\TextInput';
 
-    public $sort = 1;
+    public int $sort = 1;
 
     public function title()
     {

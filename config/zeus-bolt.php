@@ -2,7 +2,7 @@
 
 return [
     /**
-     * set the default path for the forms homepage.
+     * set the default path for the forms' homepage.
      */
     'path' => 'bolt',
 

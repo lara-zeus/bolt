@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
 use Filament\Pages\Actions;
+use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
@@ -25,6 +26,13 @@ class ListForms extends ListRecords
         return [
             Actions\LocaleSwitcher::make(),
             Actions\CreateAction::make('create'),
+            Action::make('view')
+                ->label(__('View'))
+                ->icon('heroicon-o-external-link')
+                ->tooltip(__('view all forms'))
+                ->color('warning')
+                ->url(fn () => route('bolt.user.forms.list'))
+                ->openUrlInNewTab(),
         ];
     }
 

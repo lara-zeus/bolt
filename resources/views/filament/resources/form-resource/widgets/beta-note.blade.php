@@ -5,7 +5,7 @@
                 🚧🚧 Still Under Development 🚧🚧
             </p>
             <p>
-                thank you 🙏🏽 for testing Bolt.
+                thank you 🙏🏽 for testing.
             </p>
         </div>
     </x-filament::card>

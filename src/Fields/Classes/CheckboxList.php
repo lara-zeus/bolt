@@ -9,9 +9,9 @@ use LaraZeus\Bolt\Models\Collection;
 
 class CheckboxList extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\CheckboxList';
+    public string $renderClass = '\Filament\Forms\Components\CheckboxList';
 
-    public $sort = 6;
+    public int $sort = 6;
 
     public function title()
     {
@@ -35,5 +35,12 @@ class CheckboxList extends FieldsContract
         }
 
         return '';
+    }
+
+    public function appendFilamentComponentsOptions($component, $zeusField)
+    {
+        parent::appendFilamentComponentsOptions($component, $zeusField);
+
+        return $component->options(collect(Collection::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
     }
 }

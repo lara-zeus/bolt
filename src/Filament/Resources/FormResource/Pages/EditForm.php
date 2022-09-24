@@ -24,10 +24,10 @@ class EditForm extends EditRecord
                 ->tooltip(__('view all entries'))
                 ->url(fn () => url('admin/responses?form_id=' . $this->record->id)),
 
-            Action::make('open')
-                ->label(__('Open'))
+            Action::make('view')
+                ->label(__('View'))
                 ->icon('heroicon-o-external-link')
-                ->tooltip(__('open form'))
+                ->tooltip(__('view form'))
                 ->color('warning')
                 ->url(fn () => route('bolt.user.form.show', $this->record))
                 ->openUrlInNewTab(),

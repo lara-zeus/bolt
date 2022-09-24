@@ -6,9 +6,9 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Toggle extends FieldsContract
 {
-    public $renderClass = '\Filament\Forms\Components\Toggle';
+    public string $renderClass = \Filament\Forms\Components\Toggle::class;
 
-    public $sort = 5;
+    public int $sort = 5;
 
     public function title()
     {

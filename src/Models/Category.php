@@ -3,8 +3,10 @@
 namespace LaraZeus\Bolt\Models;
 
 use Database\Factories\CategoryFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Translatable\HasTranslations;
 
 class Category extends Model
@@ -25,5 +27,12 @@ class Category extends Model
     public function forms()
     {
         return $this->hasMany(Form::class);
+    }
+
+    protected function logoUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => Storage::disk(config('zeus-wind.uploads.disk', 'public'))->url($this->logo),
+        );
     }
 }
