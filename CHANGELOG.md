@@ -2,22 +2,49 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.20 - 2023-04-10
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.3 to 1.3.4 by @dependabot in https://github.com/lara-zeus/bolt/pull/28
+- Bump dependabot/fetch-metadata from 1.3.4 to 1.3.5 by @dependabot in https://github.com/lara-zeus/bolt/pull/29
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/lara-zeus/bolt/pull/32
+- support laravel 10 by @atmonshi in https://github.com/lara-zeus/bolt/pull/34
+- Bump aglipanci/laravel-pint-action from 1.0.0 to 2.2.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/33
+- Bump ramsey/composer-install from 1 to 2 by @dependabot in https://github.com/lara-zeus/bolt/pull/30
+
+### New Contributors
+
+- @dependabot made their first contribution in https://github.com/lara-zeus/bolt/pull/28
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.19...0.0.20
+
 ## 0.0.19 - 2022-09-24
 
 ### What's Changed
 
 - Support ext by @atmonshi in https://github.com/lara-zeus/bolt/pull/26
+- 
 - composer core update by @atmonshi in https://github.com/lara-zeus/bolt/pull/27
-
+- 
 - add features and roadmap
+- 
 - add zeus render hooks
+- 
 - list all user entries and show entry details
+- 
 - small changes to the UI
+- 
 - refactor all fields classes
+- 
 - improvements in all resources
+- 
 - use the new table layout in forms and entries
+- 
 - refactor filling the form component
+- 
 - add form status sushi model
+- 
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.18...0.0.19
 
