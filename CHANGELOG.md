@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.21 - 2023-05-20
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/35
+- remove lang files for now
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.20...0.0.21
+
 ## 0.0.20 - 2023-04-10
 
 ### What's Changed
