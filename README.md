@@ -77,7 +77,7 @@ If you discover any security related issues, please email wh7r.com@gmail.com ins
 
 ## Credits
 
--   [Ashraf Monshi](https://github.com/atmonshi)
+-   [php coder](https://github.com/atmonshi)
 -   [All Contributors](../../contributors)
 
 ## License
