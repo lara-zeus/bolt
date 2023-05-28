@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.23 - 2023-05-28
+
+### What's Changed
+
+🔥 Adding `Filament Plugin Purge` for better and thinner CSS file.
+
+🚩 The component `<x-zeus::box>` is retired, and now we using `<x-filament::card>` instead.
+
+🟢 Always add `@php artisan vendor:publish --tag=zeus-assets --ansi --force` to `post-update-cmd` in your composer file.
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.22...0.0.23
+
 ## 0.0.22 - 2023-05-28
 
 ### What's Changed
