@@ -3,17 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\Response;
 
 class ResponseFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
+     * @return string
      */
-    protected $model = Response::class;
+    public function getModel(): string
+    {
+        return config('zeus-bolt.models.Response');
+    }
 
     /**
      * Define the model's default state.
@@ -23,7 +22,7 @@ class ResponseFactory extends Factory
     public function definition()
     {
         return [
-            'form_id' => Form::factory(),
+            'form_id' => config('zeus-bolt.models.Form')::factory(),
             'status' => 'NEW',
             'user_id' => 1,
             'notes' => $this->faker->text(),

@@ -43,26 +43,26 @@ class Form extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(config('zeus-bolt.models.Category'));
     }
 
     public function sections()
     {
-        return $this->hasMany(Section::class);
+        return $this->hasMany(config('zeus-bolt.models.Section'));
     }
 
     public function fields()
     {
-        return $this->hasManyThrough(Field::class, Section::class);
+        return $this->hasManyThrough(config('zeus-bolt.models.Field'), config('zeus-bolt.models.Section'));
     }
 
     public function responses()
     {
-        return $this->hasMany(Response::class);
+        return $this->hasMany(config('zeus-bolt.models.Response'));
     }
 
     public function fieldsResponses()
     {
-        return $this->hasMany(FieldResponse::class);
+        return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
     }
 }

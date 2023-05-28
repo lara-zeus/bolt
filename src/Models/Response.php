@@ -24,7 +24,7 @@ class Response extends Model
 
     public function fieldsResponses()
     {
-        return $this->hasMany(FieldResponse::class);
+        return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
     }
 
     public function user()
@@ -34,6 +34,6 @@ class Response extends Model
 
     public function form()
     {
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(config('zeus-bolt.models.Form'));
     }
 }

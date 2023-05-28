@@ -9,11 +9,13 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
-use LaraZeus\Bolt\Models\Collection;
 
 class CollectionResource extends BoltResource
 {
-    protected static ?string $model = Collection::class;
+    public static function getModel(): string
+    {
+        return config('zeus-bolt.models.Collection');
+    }
 
     protected static ?string $navigationIcon = 'clarity-folder-open-outline-badged';
 
@@ -28,12 +30,7 @@ class CollectionResource extends BoltResource
 
     protected static function getNavigationBadge(): ?string
     {
-        return (string) Collection::query()->count();
-    }
-
-    protected static function getNavigationGroup(): ?string
-    {
-        return __('Bolt');
+        return (string) config('zeus-bolt.models.Collection')::query()->count();
     }
 
     public static function getLabel(): string

@@ -3,16 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LaraZeus\Bolt\Models\Collection;
 
 class CollectionFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
+     * @return string
      */
-    protected $model = Collection::class;
+    public function getModel(): string
+    {
+        return config('zeus-bolt.models.Collection');
+    }
 
     /**
      * Define the model's default state.

@@ -5,7 +5,6 @@ namespace LaraZeus\Bolt\Http\Livewire;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Illuminate\Database\Eloquent\Builder;
-use LaraZeus\Bolt\Models\FormsStatus;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
 
@@ -15,7 +14,7 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Response::query()->where('user_id', auth()->user()->id);
+        return config('zeus-bolt.models.Response')::query()->where('user_id', auth()->user()->id);
     }
 
     protected function getTableColumns(): array
@@ -23,9 +22,9 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
         return [
             Tables\Columns\TextColumn::make('form.name'),
             Tables\Columns\BadgeColumn::make('status')
-                ->enum(FormsStatus::pluck('label', 'key')->toArray())
-                ->colors(FormsStatus::pluck('key', 'color')->toArray())
-                ->icons(FormsStatus::pluck('key', 'icon')->toArray()),
+                ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
+                ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
+                ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray()),
 
             Tables\Columns\TextColumn::make('updated_at')->dateTime(),
         ];
@@ -56,7 +55,7 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
             ->twitter();
 
         return view(app('bolt-theme') . '.list-entries')
-            ->with('tickets', Response::where('user_id', auth()->user()->id)->get())
+            ->with('tickets', config('zeus-bolt.models.Response')::where('user_id', auth()->user()->id)->get())
             ->layout(config('zeus-bolt.layout'));
     }
 }

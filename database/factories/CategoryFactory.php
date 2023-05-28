@@ -3,16 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LaraZeus\Bolt\Models\Category;
 
 class CategoryFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
+     * @return string
      */
-    protected $model = Category::class;
+    public function getModel(): string
+    {
+        return config('zeus-bolt.models.Category');
+    }
 
     /**
      * Define the model's default state.

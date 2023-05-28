@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Http\Livewire;
 
-use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
 
 class Submitted extends Component
@@ -14,7 +13,7 @@ class Submitted extends Component
     public function mount($slug)
     {
         $this->slug = $slug;
-        $this->form = Form::whereSlug($slug)->firstOrFail();
+        $this->form = config('zeus-bolt.models.Form')::whereSlug($slug)->firstOrFail();
     }
 
     public function render()

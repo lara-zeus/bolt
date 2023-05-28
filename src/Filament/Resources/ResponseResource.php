@@ -12,11 +12,13 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
-use LaraZeus\Bolt\Models\Response;
 
 class ResponseResource extends BoltResource
 {
-    protected static ?string $model = Response::class;
+    public static function getModel(): string
+    {
+        return config('zeus-bolt.models.Response');
+    }
 
     protected static ?string $navigationIcon = 'clarity-data-cluster-line';
 
@@ -26,12 +28,7 @@ class ResponseResource extends BoltResource
 
     protected static function getNavigationBadge(): ?string
     {
-        return (string) Response::query()->count();
-    }
-
-    protected static function getNavigationGroup(): ?string
-    {
-        return __('Bolt');
+        return (string) config('zeus-bolt.models.Response')::query()->count();
     }
 
     public static function getLabel(): string

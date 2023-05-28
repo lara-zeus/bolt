@@ -16,7 +16,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Facades\Bolt;
-use LaraZeus\Bolt\Models\Category;
 
 trait Schemata
 {
@@ -122,7 +121,7 @@ trait Schemata
                     Select::make('category_id')
                         ->label(__('Category'))
                         ->helperText(__('optional, organize your forms into categories'))
-                        ->options(Category::pluck('name', 'id')),
+                        ->options(config('zeus-bolt.models.Category')::pluck('name', 'id')),
                     Grid::make()
                         ->columns(2)
                         ->schema([

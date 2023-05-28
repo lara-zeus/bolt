@@ -6,10 +6,7 @@ use Filament\Forms;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Facades\Bolt;
-use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\Response;
-use LaraZeus\Thunder\Models\Office;
 use Livewire\Component;
 
 class FillForms extends Component implements Forms\Contracts\HasForms
@@ -38,13 +35,13 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     // todo Bolt should not care about other extension
     public function mount($slug, $itemSlug = null)
     {
-        if ($itemSlug !== null) {
-            // todo dynamic checks for ext 'preShowHook'
+        // todo dynamic checks for ext 'preShowHook'
+        /*if ($itemSlug !== null) {
             $this->item = Office::whereSlug($itemSlug)->firstOrFail();
-        }
+        }*/
 
         /** @phpstan-ignore-next-line */
-        $this->zeusForm = Form::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
+        $this->zeusForm = config('zeus-bolt.models.Form')::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
         abort_if(optional($this->zeusForm->options)['require-login'] && ! auth()->check(), 401);
 
@@ -65,7 +62,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         $this->validate();
 
-        $response = Response::create([
+        $response = config('zeus-bolt.models.Response')::create([
             'form_id' => $this->zeusForm->id,
             'user_id' => (auth()->check()) ? auth()->user()->id : null,
             'status' => 'NEW',
@@ -77,7 +74,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $fieldResponse['response_id'] = $response->id;
             $fieldResponse['form_id'] = $this->zeusForm->id;
             $fieldResponse['field_id'] = $field;
-            FieldResponse::create($fieldResponse);
+            config('zeus-bolt.models.FieldResponse')::create($fieldResponse);
         }
 
         event(new FormSent($response, $this->item, $this->form->getState()['itemData'] ?? null));
