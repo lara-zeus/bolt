@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.24 - 2023-05-28
+
+### What's Changed
+
+- Config models by @atmonshi in https://github.com/lara-zeus/bolt/pull/39
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.23...0.0.24
+
 ## 0.0.23 - 2023-05-28
 
 ### What's Changed
