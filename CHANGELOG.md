@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.25 - 2023-05-28
+
+### What's Changed
+
+- add ar phrases by @atmonshi in https://github.com/lara-zeus/bolt/pull/40
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.24...0.0.25
+
 ## 0.0.24 - 2023-05-28
 
 ### What's Changed
