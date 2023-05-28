@@ -33,9 +33,9 @@
 
         @if(!empty($zeusForm->details))
             <div class="m-4">
-                <x-zeus::box>
+                <x-filament::card>
                     {!! nl2br($zeusForm->details) !!}
-                </x-zeus::box>
+                </x-filament::card>
             </div>
         @endif
 

@@ -48,10 +48,9 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
         if (request()->filled('form_id')) {
             $form = $form->where('form_id', request('form_id'));
         }
-        $form = $form->paginate(1);
 
         return [
-            'rows' => $form,
+            'rows' => $form->paginate(1),
         ];
     }
 }

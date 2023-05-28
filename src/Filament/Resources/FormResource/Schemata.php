@@ -91,8 +91,6 @@ trait Schemata
                         ->label(__('Form Details'))
                         ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
                     RichEditor::make('options.confirmation-message')
-                        //->hint(__('Translatable'))
-                        //->hintIcon('heroicon-s-translate')
                         ->label(__('Confirmation Message'))
                         ->helperText(__('optional, show a massage whenever any one submit a new entery')),
                 ]),
