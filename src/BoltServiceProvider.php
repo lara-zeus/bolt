@@ -63,13 +63,13 @@ class BoltServiceProvider extends PluginServiceProvider
         $package
             ->hasConfigFile()
             ->hasMigrations([
+                'create_categories_table',
                 'create_collections_table',
                 'create_forms_table',
                 'create_sections_table',
                 'create_fields_table',
                 'create_responses_table',
                 'create_field_responses_table',
-                'create_categories_table',
             ])
             ->hasTranslations()
             ->hasCommand(PublishCommand::class)
