@@ -51,7 +51,7 @@ class CategoryResource extends BoltResource
                     ->required()
                     ->maxLength(255)
                     ->reactive()
-                    ->label(__('name'))
+                    ->label(__('Name'))
                     ->afterStateUpdated(function (Closure $set, $state, $context) {
                         if ($context === 'edit') {
                             return;
@@ -60,7 +60,7 @@ class CategoryResource extends BoltResource
                     }),
                 TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                 TextInput::make('ordering')->required()->numeric()->label(__('ordering')),
-                Toggle::make('is_active')->label(__('is_active'))->default(1),
+                Toggle::make('is_active')->label(__('Is Active'))->default(1),
                 Textarea::make('desc')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
                 FileUpload::make('logo')
                     ->disk(config('zeus-bolt.uploads.disk', 'public'))

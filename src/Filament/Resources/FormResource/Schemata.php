@@ -91,14 +91,14 @@ trait Schemata
                         ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
                     RichEditor::make('options.confirmation-message')
                         ->label(__('Confirmation Message'))
-                        ->helperText(__('optional, show a massage whenever any one submit a new entery')),
+                        ->helperText(__('optional, show a massage whenever any one submit a new entry')),
                 ]),
             Tabs\Tab::make('display-access')
                 ->label(__('Display & Access'))
                 ->columns(2)
                 ->schema([
                     Toggle::make('is_active')
-                        ->label(__('is_active'))
+                        ->label(__('Is Active'))
                         ->default(1)
                         ->helperText(__('Activate the form and let users start submissions')),
                     Toggle::make('options.show-as-wizard')
@@ -177,7 +177,6 @@ trait Schemata
     public static function getFieldsSchema(): array
     {
         return [
-
             Tabs::make('fields')
                 ->tabs([
                     Tabs\Tab::make('type-text')
