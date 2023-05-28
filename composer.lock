@@ -1553,16 +1553,16 @@
         },
         {
             "name": "lara-zeus/core",
-            "version": "2.4.4",
+            "version": "2.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lara-zeus/core.git",
-                "reference": "8e0ecbf14de8172037f0587096ab0e9fcde292b1"
+                "reference": "e2652d4edfb741685382870d607e82dabc841e00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lara-zeus/core/zipball/8e0ecbf14de8172037f0587096ab0e9fcde292b1",
-                "reference": "8e0ecbf14de8172037f0587096ab0e9fcde292b1",
+                "url": "https://api.github.com/repos/lara-zeus/core/zipball/e2652d4edfb741685382870d607e82dabc841e00",
+                "reference": "e2652d4edfb741685382870d607e82dabc841e00",
                 "shasum": ""
             },
             "require": {
@@ -1625,7 +1625,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lara-zeus/core/issues",
-                "source": "https://github.com/lara-zeus/core/tree/2.4.4"
+                "source": "https://github.com/lara-zeus/core/tree/2.4.5"
             },
             "funding": [
                 {
@@ -1633,7 +1633,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-28T15:12:06+00:00"
+            "time": "2023-05-28T16:31:11+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8123,16 +8123,16 @@
         },
         {
             "name": "phpstan/phpstan-phpunit",
-            "version": "1.3.12",
+            "version": "1.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "c44246879d692d3b2cf2a21d65be4b4715d6ef21"
+                "reference": "d8bdab0218c5eb0964338d24a8511b65e9c94fa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/c44246879d692d3b2cf2a21d65be4b4715d6ef21",
-                "reference": "c44246879d692d3b2cf2a21d65be4b4715d6ef21",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/d8bdab0218c5eb0964338d24a8511b65e9c94fa5",
+                "reference": "d8bdab0218c5eb0964338d24a8511b65e9c94fa5",
                 "shasum": ""
             },
             "require": {
@@ -8169,9 +8169,9 @@
             "description": "PHPUnit extensions and rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-phpunit/issues",
-                "source": "https://github.com/phpstan/phpstan-phpunit/tree/1.3.12"
+                "source": "https://github.com/phpstan/phpstan-phpunit/tree/1.3.13"
             },
-            "time": "2023-05-23T11:58:47+00:00"
+            "time": "2023-05-26T11:05:59+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

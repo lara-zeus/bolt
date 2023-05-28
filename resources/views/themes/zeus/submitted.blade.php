@@ -3,8 +3,8 @@
         <h2>{{ __('form submitted successfully') }}</h2>
     </x-slot>
     <x-slot name="breadcrumb"></x-slot>
-    <div class="max-w-4xl mx-auto">
-        <x-zeus::box class="mx-4">
+    <div class="max-w-4xl mx-auto px-4">
+        <x-filament::card>
             @if(isset($form->options['confirmationMessage']) && !empty($form->options['confirmationMessage']))
                 {!! $form->options['confirmationMessage'] !!}
             @else
@@ -13,6 +13,6 @@
             </span>
                 <br>
             @endif
-        </x-zeus::box>
+        </x-filament::card>
     </div>
 </div>
