@@ -7,7 +7,6 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
-use LaraZeus\Bolt\Models\Response;
 
 class BrowseResponses extends Page implements Tables\Contracts\HasTable
 {
@@ -30,7 +29,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Response::query()->where('form_id', request('form_id'));
+        return config('zeus-bolt.models.Response')::query()->where('form_id', request('form_id'));
     }
 
     protected function getTableColumns(): array

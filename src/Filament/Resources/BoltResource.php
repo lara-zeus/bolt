@@ -13,4 +13,9 @@ class BoltResource extends Resource
     {
         return config('zeus-bolt.translatable_Locales');
     }
+
+    protected static function getNavigationGroup(): ?string
+    {
+        return __(config('zeus-bolt.navigation_group_label', 'Bolt'));
+    }
 }

@@ -14,7 +14,7 @@ class ShowEntry extends Component implements Forms\Contracts\HasForms
 
     public function mount($responseID)
     {
-        $this->response = Response::with('user')
+        $this->response = config('zeus-bolt.models.Response')::with('user')
             ->where('user_id', auth()->user()->id)
             ->where('id', $responseID)
             ->firstOrFail();

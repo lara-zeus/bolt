@@ -37,16 +37,16 @@ class Field extends Model
 
     public function form()
     {
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(config('zeus-bolt.models.Form'));
     }
 
     public function section()
     {
-        return $this->belongsToMany(Section::class);
+        return $this->belongsToMany(config('zeus-bolt.models.Section'));
     }
 
     public function fieldResponses()
     {
-        return $this->hasOne(FieldResponse::class);
+        return $this->hasOne(config('zeus-bolt.models.FieldResponse'));
     }
 }

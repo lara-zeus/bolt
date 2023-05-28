@@ -25,11 +25,11 @@ class Section extends Model
 
     public function fields()
     {
-        return $this->hasMany(Field::class, 'section_id', 'id')->orderBy('ordering');
+        return $this->hasMany(config('zeus-bolt.models.Field'), 'section_id', 'id')->orderBy('ordering');
     }
 
     public function form()
     {
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(config('zeus-bolt.models.Form'));
     }
 }

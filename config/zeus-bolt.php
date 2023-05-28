@@ -13,10 +13,23 @@ return [
     'middleware' => ['web'],
 
     /**
-     * set the prefix for forms URL.
+     * customize the models
      */
-    'post_uri_prefix' => 'form',
+    'models' => [
+        'Category' => \LaraZeus\Bolt\Models\Category::class,
+        'Collection' => \LaraZeus\Bolt\Models\Collection::class,
+        'Field' => \LaraZeus\Bolt\Models\Field::class,
+        'FieldResponse' => \LaraZeus\Bolt\Models\FieldResponse::class,
+        'Form' => \LaraZeus\Bolt\Models\Form::class,
+        'FormsStatus' => \LaraZeus\Bolt\Models\FormsStatus::class,
+        'Response' => \LaraZeus\Bolt\Models\Response::class,
+        'Section' => \LaraZeus\Bolt\Models\Section::class,
+    ],
 
+    /**
+     * you can use the default layout as a starting point for your blog.
+     * however, if you're already using your own component, just set the path here.
+     */
     'layout' => 'zeus::components.app',
 
     /**
@@ -48,4 +61,9 @@ return [
      * available locales, this currently used only in tags manager.
      */
     'translatable_Locales' => ['en', 'ar'],
+
+    /**
+     * Navigation Group Label
+     */
+    'navigation_group_label' => 'Bolt',
 ];

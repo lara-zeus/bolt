@@ -5,7 +5,7 @@ namespace LaraZeus\Bolt\Filament\Resources;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
-use Filament\Tables\Columns\BooleanColumn;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,6 +19,11 @@ class FormResource extends BoltResource
     use Schemata;
 
     protected static ?string $model = ZeusForm::class;
+
+    public static function getModel(): string
+    {
+        return config('zeus-bolt.models.Form');
+    }
 
     protected static ?string $navigationIcon = 'clarity-form-line';
 
@@ -34,11 +39,6 @@ class FormResource extends BoltResource
     protected static function getNavigationBadge(): ?string
     {
         return (string) ZeusForm::query()->count();
-    }
-
-    protected static function getNavigationGroup(): ?string
-    {
-        return __('Bolt');
     }
 
     public static function getLabel(): string
@@ -67,10 +67,10 @@ class FormResource extends BoltResource
             ->columns([
                 TextColumn::make('name')->searchable()->sortable()->label(__('Form Name')),
                 TextColumn::make('category.name')->label(__('Category'))->sortable(),
-                BooleanColumn::make('is_active')->label(__('Is Active'))->sortable(),
+                IconColumn::make('is_active')->boolean()->label(__('Is Active'))->sortable(),
                 TextColumn::make('start_date')->dateTime()->searchable()->sortable()->label(__('Start Date')),
                 TextColumn::make('end_date')->dateTime()->searchable()->sortable()->label(__('End Date')),
-                BooleanColumn::make('responses_exists')->exists('responses')->label(__('Responses Exists'))->sortable(),
+                IconColumn::make('responses_exists')->boolean()->exists('responses')->label(__('Responses Exists'))->sortable(),
                 TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable(),
             ])
             ->appendActions([

@@ -5,7 +5,6 @@ namespace LaraZeus\Bolt\Fields\Classes;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use LaraZeus\Bolt\Models\Collection;
 
 class Radio extends FieldsContract
 {
@@ -21,7 +20,7 @@ class Radio extends FieldsContract
     public static function getOptions()
     {
         return [
-            Select::make('options.dataSource')->required()->options(Collection::pluck('name', 'id'))->label(__('Data Source'))->columnSpan(2),
+            Select::make('options.dataSource')->required()->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))->label(__('Data Source'))->columnSpan(2),
             Toggle::make('options.is_required')->label(__('Is Required')),
             Toggle::make('options.is_inline')->label(__('Is inline')),
         ];
@@ -30,7 +29,7 @@ class Radio extends FieldsContract
     public function getResponse($field, $resp): string
     {
         if (! empty($resp->response)) {
-            $col = Collection::find($field->options['dataSource']);
+            $col = config('zeus-bolt.models.Collection')::find($field->options['dataSource']);
 
             return collect($col->values)->where('itemKey', $resp->response)->first()['itemValue'];
         }
@@ -42,7 +41,7 @@ class Radio extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        $component = $component->options(collect(Collection::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
+        $component = $component->options(collect(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
         if (isset($zeusField->options['is_inline']) && $zeusField->options['is_inline']) {
             $component->inline();
         }

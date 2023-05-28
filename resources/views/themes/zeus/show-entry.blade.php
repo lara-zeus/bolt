@@ -55,7 +55,7 @@
                     </x-filament::card>
 
                     <x-filament::card>
-                        @php $getStatues = \LaraZeus\Bolt\Models\FormsStatus::where('key',$response->status)->first() @endphp
+                        @php $getStatues = config('zeus-bolt.models.FormsStatus')::where('key',$response->status)->first() @endphp
                         <span class="text-gray-600">
                             <span>{{ __('status') }}:</span>
                             <span class="{{ $getStatues->class }}" x-tooltip.raw="{{ __('status') }}">{{ $response->status }}</span>
