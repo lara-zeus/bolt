@@ -55,7 +55,7 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
             ->twitter();
 
         return view(app('bolt-theme') . '.list-entries')
-            ->with('tickets', config('zeus-bolt.models.Response')::where('user_id', auth()->user()->id)->get())
+            //->with('tickets', config('zeus-bolt.models.Response')::where('user_id', auth()->user()->id)->get())
             ->layout(config('zeus-bolt.layout'));
     }
 }

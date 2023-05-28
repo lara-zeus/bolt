@@ -10,7 +10,7 @@
                 </svg>
                 <span>{{ __('Available from') }}:</span>
                 <span>{{ optional($zeusForm->start_date)->format('Y/m/d') }}</span>,
-                <span>{{ trans('to') }}:</span>
+                <span>{{ __('to') }}:</span>
                 <span>{{ optional($zeusForm->end_date)->format('Y/m/d') }}</span>
             </div>
         @endif
@@ -18,7 +18,7 @@
 
     <x-slot name="breadcrumps">
         <li class="flex items-center">
-            <a href="{{ route('bolt.user.forms.list') }}">Forms</a>
+            <a href="{{ route('bolt.user.forms.list') }}">{{ __('Forms') }}</a>
             <x-iconpark-rightsmall-o class="fill-current w-4 h-4 mx-3" />
         </li>
 

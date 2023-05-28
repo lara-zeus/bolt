@@ -9,8 +9,8 @@
                 {!! $form->options['confirmationMessage'] !!}
             @else
                 <span class="text-xs text-gray-400">
-                the form {{ $form->name ?? '' }} submitted successfully.
-            </span>
+                    {{ __('the form') }} {{ $form->name ?? '' }} {{ __('submitted successfully') }}.
+                </span>
                 <br>
             @endif
         </x-filament::card>
