@@ -53,6 +53,8 @@ class Select extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        return $component->options(collect(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
+        return $component
+            ->searchable()
+            ->options(collect(\optional(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource']))->values)->pluck('itemValue', 'itemKey'));
     }
 }

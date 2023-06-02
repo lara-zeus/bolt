@@ -18,7 +18,10 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 
-    protected static ?string $title = 'Entries';
+    protected function getTitle(): string
+    {
+        return __('Browse Entries');
+    }
 
     protected function getHeaderWidgets(): array
     {
@@ -30,15 +33,6 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
     protected function getTableQuery(): Builder
     {
         return config('zeus-bolt.models.Response')::query()->where('form_id', request('form_id'));
-    }
-
-    protected function getTableColumns(): array
-    {
-        return [
-            Tables\Columns\ViewColumn::make('response')
-                ->view('zeus-bolt::filament.resources.response-resource.components.view-responses')
-                ->label(''),
-        ];
     }
 
     protected function getViewData(): array

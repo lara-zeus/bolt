@@ -28,9 +28,7 @@ class CheckboxList extends FieldsContract
     public function getResponse($field, $resp): string
     {
         if (! empty($resp->response)) {
-            $col = config('zeus-bolt.models.Collection')::find($field->options['dataSource']);
-
-            return collect($col->values)->where('itemKey', $resp->response)->first()['itemValue'];
+            return collect(config('zeus-bolt.models.Collection')::find($field->options['dataSource'])->values)->where('itemKey', $resp->response)->first()['itemValue'];
         }
 
         return '';

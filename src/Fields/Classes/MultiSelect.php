@@ -8,6 +8,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class MultiSelect extends FieldsContract
 {
+    public bool $disabled = true;
     public string $renderClass = '\Filament\Forms\Components\MultiSelect';
 
     public int $sort = 3;
@@ -28,9 +29,7 @@ class MultiSelect extends FieldsContract
     public function getResponse($field, $resp): string
     {
         if (! empty($resp->response)) {
-            $col = config('zeus-bolt.models.Collection')::find($field->options['dataSource']);
-
-            return collect($col->values)->where('itemKey', $resp->response)->first()['itemValue'];
+            return collect(config('zeus-bolt.models.Collection')::find($field->options['dataSource'])->values)->where('itemKey', $resp->response)->first()['itemValue'];
         }
 
         return '';
@@ -40,6 +39,8 @@ class MultiSelect extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        return $component->options(collect(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
+        return $component
+            ->preload()
+            ->options(collect(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey')->toArray());
     }
 }

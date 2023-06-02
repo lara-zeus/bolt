@@ -7,6 +7,7 @@ use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -14,8 +15,10 @@ use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Facades\Bolt;
+use Closure;
 
 trait Schemata
 {
@@ -44,7 +47,7 @@ trait Schemata
                 ->createItemButtonLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -63,7 +66,7 @@ trait Schemata
                         ->maxLength(255)
                         ->reactive()
                         ->label(__('Form Name'))
-                        ->afterStateUpdated(function (\Closure $set, $state, $context) {
+                        ->afterStateUpdated(function (Closure $set, $state, $context) {
                             if ($context === 'edit') {
                                 return;
                             }
@@ -101,9 +104,7 @@ trait Schemata
                         ->label(__('Is Active'))
                         ->default(1)
                         ->helperText(__('Activate the form and let users start submissions')),
-                    Toggle::make('options.show-as-wizard')
-                        ->label(__('Show As Wizard'))
-                        ->helperText(__('instead of showing all section in one page, separate them in multiple steps')),
+
                     Toggle::make('options.require-login')
                         ->label(__('require Login'))
                         ->helperText(__('User must be logged in or create an account before can submit a new entry'))
@@ -111,9 +112,24 @@ trait Schemata
                     Toggle::make('options.one-entry-per-user')
                         ->label(__('One Entry Per User'))
                         ->helperText(__('to check if the user already submitted an entry in this form'))
-                        ->visible(function (\Closure $get) {
+                        ->visible(function (Closure $get) {
                             return $get('options.require-login');
                         }),
+
+                    Radio::make('options.show-as')
+                        ->label(__('Show the form as'))
+                        ->reactive()
+                        ->default('page')
+                        ->descriptions([
+                            'page' => __('show all sections on one page'),
+                            'wizard' => __('separate each section in steps'),
+                            'tabs' => __('Show the Form as Tabs')
+                        ])
+                        ->options([
+                            'page' => __('Show on one page'),
+                            'wizard' => __('Show As Wizard'),
+                            'tabs' => __('Show As Tabs'),
+                        ]),
                 ]),
             Tabs\Tab::make('advanced')
                 ->label(__('Advanced'))
@@ -126,7 +142,7 @@ trait Schemata
                         ->columns(2)
                         ->schema([
                             Placeholder::make('form-dates')
-                                ->label('Form Dates')
+                                ->label(__('Form Dates'))
                                 ->content(__('optional, specify when the form will be active and receiving new entries'))
                                 ->columnSpan(2),
                             DateTimePicker::make('start_date')
@@ -151,10 +167,47 @@ trait Schemata
     public static function getSectionsSchema(): array
     {
         return [
-            TextInput::make('name')
-                ->required()
-                ->lazy()
-                ->label(__('Section Name')),
+            Grid::make()
+                ->columns(2)
+                ->schema([
+                    Tabs::make('Heading')
+                        ->columnSpan(2)
+                        ->tabs([
+                            Tabs\Tab::make('section-info')
+                                ->label(__('Section Info'))
+                                ->schema([
+                                    TextInput::make('name')
+                                        ->required()
+                                        ->lazy()
+                                        ->label(__('Section Name')),
+                                ]),
+                            Tabs\Tab::make('section-details')
+                                ->label(__('Section Details'))
+                                ->columns(2)
+                                ->schema([
+                                    TextInput::make('section_descriptions')
+                                        ->nullable()
+                                        ->visible(fn(Closure $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->label(__('Section Descriptions')),
+
+                                    TextInput::make('section_column')
+                                        ->required()
+                                        ->default(1)
+                                        ->minValue(1)
+                                        ->maxValue(12)
+                                        ->hint(__('From 1-12'))
+                                        ->label(__('Section Column')),
+
+                                    IconPicker::make('section_icon')
+                                        ->visible(fn(Closure $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->label(__('Section icon')),
+
+                                    Toggle::make('section_aside')
+                                        ->visible(fn(Closure $get) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
+                                        ->label(__('show as aside'))
+                                ]),
+                        ]),
+                ]),
             Placeholder::make('Fields')
                 ->label(__('Section Fields')),
             Repeater::make('fields')
@@ -168,7 +221,7 @@ trait Schemata
                     'md' => 2,
                 ])
                 ->label('')
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->createItemButtonLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];
@@ -181,7 +234,7 @@ trait Schemata
                 ->tabs([
                     Tabs\Tab::make('type-text')
                         ->icon('heroicon-o-menu-alt-2')
-                        ->label('Type & title')
+                        ->label(__('Type & title'))
                         ->schema([
                             TextInput::make('name')
                                 ->required()
@@ -197,12 +250,12 @@ trait Schemata
                                 ->label(__('Field Type')),
                         ]),
                     Tabs\Tab::make('options')
-                        ->label('Options')
+                        ->label(__('Options'))
                         ->icon('heroicon-o-cog')
                         ->schema([
                             Grid::make()
                                 ->label(__('Field Options'))
-                                ->visible(function (\Closure $get) {
+                                ->visible(function (Closure $get) {
                                     $class = $get('type');
                                     if (class_exists($class)) {
                                         return (new $class)->hasOptions();
@@ -210,7 +263,7 @@ trait Schemata
 
                                     return false;
                                 })
-                                ->schema(function (\Closure $get) {
+                                ->schema(function (Closure $get) {
                                     return $get('type')::getOptions();
                                 }),
                         ]),

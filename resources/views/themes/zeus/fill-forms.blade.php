@@ -1,4 +1,4 @@
-<div x-data x-init="tippy('[data-tippy-content]', {animation: 'perspective'});">
+<div>
     <x-slot name="header">
         <h2>{{ $zeusForm->name ?? '' }}</h2>
         <p class="text-gray-400 text-mdd my-2">{{ $zeusForm->desc ?? '' }}</p>
@@ -18,17 +18,15 @@
 
     <x-slot name="breadcrumps">
         <li class="flex items-center">
-            <a href="{{ route('bolt.user.forms.list') }}">{{ __('Forms') }}</a>
+            <a href="{{ route('bolt.forms.list') }}">{{ __('Forms') }}</a>
             <x-iconpark-rightsmall-o class="fill-current w-4 h-4 mx-3" />
         </li>
-
         <li class="flex items-center">
             {{ $zeusForm->name }}
         </li>
     </x-slot>
 
-    <form wire:submit.prevent="store">
-
+    <x-filament::form wire:submit.prevent="store">
         {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
 
         @if(!empty($zeusForm->details))
@@ -39,19 +37,14 @@
             </div>
         @endif
 
-        <div class="container mx-auto my-10">
-            <div class="mx-4">
-                {{ $this->form }}
-            </div>
-        </div>
+        {{ $this->form }}
 
-        <div class="p-4 text-center">
-            <x-filament::button type="submit">
+        <div class="px-4 py-2 text-center">
+            <x-filament-support::button type="submit">
                 {{ __('Save') }}
-            </x-filament::button>
+            </x-filament-support::button>
         </div>
 
         {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
-
-    </form>
+    </x-filament::form>
 </div>
