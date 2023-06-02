@@ -2,10 +2,10 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Closure;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use Closure;
 
 class TextInput extends FieldsContract
 {

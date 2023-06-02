@@ -32,6 +32,6 @@ class FormsStatus extends Model
 
     protected function sushiShouldCache()
     {
-        return !app()->isLocal();
+        return ! app()->isLocal();
     }
 }

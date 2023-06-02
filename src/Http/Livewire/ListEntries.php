@@ -32,7 +32,7 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
                 TextColumn::make('form.name')
                     //->searchable('name')
                     ->label(__('Form Name'))
-                    ->url(fn(Response $record): string => route('bolt.entry.show', $record)),
+                    ->url(fn (Response $record): string => route('bolt.entry.show', $record)),
             ]),
             Stack::make([
                 TextColumn::make('updated_at')->label(__('Updated At'))->dateTime(),

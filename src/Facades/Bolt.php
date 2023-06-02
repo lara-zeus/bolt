@@ -14,7 +14,6 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use Symfony\Component\Finder\Finder;
-use Closure;
 
 class Bolt extends Facade
 {
@@ -35,11 +34,11 @@ class Bolt extends Facade
 
             $fields = collect();
 
-            if (!$coreFields->isEmpty()) {
+            if (! $coreFields->isEmpty()) {
                 $fields = $fields->merge($coreFields);
             }
 
-            if (!$appFields->isEmpty()) {
+            if (! $appFields->isEmpty()) {
                 $fields = $fields->merge($appFields);
             }
 
@@ -49,7 +48,7 @@ class Bolt extends Facade
 
     public static function collectFields($path, $namespace)
     {
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return collect();
         }
         $classes = Bolt::loadClasses($path, $namespace);
@@ -63,7 +62,7 @@ class Bolt extends Facade
         $allFields = [];
         foreach ($classes as $class) {
             $fieldClass = new $class();
-            if (!$fieldClass->disabled) {
+            if (! $fieldClass->disabled) {
                 $allFields[] = $fieldClass->toArray();
             }
         }
@@ -116,20 +115,20 @@ class Bolt extends Facade
                 $sections[] = Tabs\Tab::make($section->name)
                     ->icon($section->section_icon ?? null)
                     ->schema([
-                        Card::make()->columns($section->section_column)->schema($fields)
+                        Card::make()->columns($section->section_column)->schema($fields),
                     ]);
             } elseif (optional($zeusForm->options)['show-as'] === 'wizard') {
                 $sections[] = Wizard\Step::make($section->name)
                     ->description($section->section_descriptions)
                     ->icon($section->section_icon ?? null)
                     ->schema([
-                        Card::make()->columns($section->section_column)->schema($fields)
+                        Card::make()->columns($section->section_column)->schema($fields),
                     ]);
             } else {
                 $sections[] = Section::make($section->name)
                     ->schema($fields)
                     ->aside()
-                    ->aside(fn() => $section->section_aside)
+                    ->aside(fn () => $section->section_aside)
                     ->description($section->section_descriptions)
                     ->columns($section->section_column);
             }
@@ -151,12 +150,12 @@ class Bolt extends Facade
         return Placeholder::make('placeholder-' . $hook)
             ->label('')
             ->content(Filament::renderHook($hook))
-            ->visible(!empty(Filament::renderHook($hook)->toHtml()));
+            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
     }
 
     public static function renderHookBlade($hook)
     {
-        if (!empty(Filament::renderHook($hook)->toHtml())) {
+        if (! empty(Filament::renderHook($hook)->toHtml())) {
             return Filament::renderHook($hook);
         }
     }

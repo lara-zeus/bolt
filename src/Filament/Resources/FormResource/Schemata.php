@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource;
 
+use Closure;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
@@ -18,7 +19,6 @@ use Filament\Forms\Components\Toggle;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Facades\Bolt;
-use Closure;
 
 trait Schemata
 {
@@ -47,7 +47,7 @@ trait Schemata
                 ->createItemButtonLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -123,7 +123,7 @@ trait Schemata
                         ->descriptions([
                             'page' => __('show all sections on one page'),
                             'wizard' => __('separate each section in steps'),
-                            'tabs' => __('Show the Form as Tabs')
+                            'tabs' => __('Show the Form as Tabs'),
                         ])
                         ->options([
                             'page' => __('Show on one page'),
@@ -187,7 +187,7 @@ trait Schemata
                                 ->schema([
                                     TextInput::make('section_descriptions')
                                         ->nullable()
-                                        ->visible(fn(Closure $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'tabs')
                                         ->label(__('Section Descriptions')),
 
                                     TextInput::make('section_column')
@@ -199,12 +199,12 @@ trait Schemata
                                         ->label(__('Section Column')),
 
                                     IconPicker::make('section_icon')
-                                        ->visible(fn(Closure $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->visible(fn (Closure $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->label(__('Section icon')),
 
                                     Toggle::make('section_aside')
-                                        ->visible(fn(Closure $get) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
-                                        ->label(__('show as aside'))
+                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
+                                        ->label(__('show as aside')),
                                 ]),
                         ]),
                 ]),
@@ -221,7 +221,7 @@ trait Schemata
                     'md' => 2,
                 ])
                 ->label('')
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->createItemButtonLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];

@@ -9,6 +9,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 class MultiSelect extends FieldsContract
 {
     public bool $disabled = true;
+
     public string $renderClass = '\Filament\Forms\Components\MultiSelect';
 
     public int $sort = 3;

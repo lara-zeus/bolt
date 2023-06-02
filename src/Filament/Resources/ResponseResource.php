@@ -2,18 +2,15 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\Layout\Panel;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
 class ResponseResource extends BoltResource
@@ -31,7 +28,7 @@ class ResponseResource extends BoltResource
 
     protected static function getNavigationBadge(): ?string
     {
-        return (string)config('zeus-bolt.models.Response')::query()->count();
+        return (string) config('zeus-bolt.models.Response')::query()->count();
     }
 
     public static function getLabel(): string
@@ -77,7 +74,7 @@ class ResponseResource extends BoltResource
                             ->icon('heroicon-s-mail'),
                     ]),
                 ]),
-                TextColumn::make('form.name')->label(__('form'))->searchable()->visible(!request()->filled('form_id')),
+                TextColumn::make('form.name')->label(__('form'))->searchable()->visible(! request()->filled('form_id')),
                 Stack::make([
                     BadgeColumn::make('status')->label(__('status'))
                         ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
