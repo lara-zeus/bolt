@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.27 - 2023-06-02
+
+### What's Changed
+
+- update zeus-core by @atmonshi in https://github.com/lara-zeus/bolt/pull/43
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.26...0.0.27
+
 ## 0.0.26 - 2023-06-02
 
 ### What's Changed
