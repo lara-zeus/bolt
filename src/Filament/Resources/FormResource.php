@@ -84,7 +84,7 @@ class FormResource extends BoltResource
                     ->label(__('View'))
                     ->icon('heroicon-o-external-link')
                     ->tooltip(__('view form'))
-                    ->url(fn (ZeusForm $record): string => route('bolt.user.form.show', $record))
+                    ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
                     ->openUrlInNewTab(),
             ])->filters([
                 Filter::make('is_active')

@@ -6,6 +6,7 @@ use Filament\Facades\Filament;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Illuminate\Support\Arr;
@@ -103,24 +104,41 @@ class Bolt extends Facade
                 $fieldClass = new $zeusField->type;
                 $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
 
-                $fields[] = Card::make()
-                    ->schema([
-                        $fieldClass->appendFilamentComponentsOptions($component, $zeusField),
-                    ]);
+                $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
                 $fields[] = static::renderHook('zeus-form-field.after');
             }
 
             $fields[] = static::renderHook('zeus-form-section.after');
 
-            if (optional($zeusForm->options)['show-as-wizard']) {
-                $sections[] = Wizard\Step::make($section->name)->schema($fields);
+            if (optional($zeusForm->options)['show-as'] === 'tabs') {
+                $sections[] = Tabs\Tab::make($section->name)
+                    ->icon($section->section_icon ?? null)
+                    ->schema([
+                        Card::make()->columns($section->section_column)->schema($fields),
+                    ]);
+            } elseif (optional($zeusForm->options)['show-as'] === 'wizard') {
+                $sections[] = Wizard\Step::make($section->name)
+                    ->description($section->section_descriptions)
+                    ->icon($section->section_icon ?? null)
+                    ->schema([
+                        Card::make()->columns($section->section_column)->schema($fields),
+                    ]);
             } else {
-                $sections[] = Section::make($section->name)->schema($fields);
+                $sections[] = Section::make($section->name)
+                    ->schema($fields)
+                    ->aside()
+                    ->aside(fn () => $section->section_aside)
+                    ->description($section->section_descriptions)
+                    ->columns($section->section_column);
             }
         }
 
-        if (optional($zeusForm->options)['show-as-wizard']) {
+        if (optional($zeusForm->options)['show-as'] === 'tabs') {
+            return [Tabs::make('tabs')->tabs($sections)];
+        }
+
+        if (optional($zeusForm->options)['show-as'] === 'wizard') {
             return [Wizard::make($sections)];
         }
 

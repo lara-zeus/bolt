@@ -6,7 +6,7 @@
 
     <x-slot name="breadcrumps">
         <li class="flex items-center">
-            <a href="{{ route('bolt.user.entries.list') }}">{{ __('My Entries') }}</a>
+            <a href="{{ route('bolt.entries.list') }}">{{ __('My Entries') }}</a>
             <x-iconpark-rightsmall-o class="fill-current w-4 h-4 mx-3" />
         </li>
 
@@ -18,9 +18,6 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="md:col-span-2 space-y-4">
             <x-filament::card>
-                <x-filament::card.heading>
-                    {{ __('Entry Details') }}
-                </x-filament::card.heading>
                 <div class="grid grid-cols-1">
                     @foreach($response->fieldsResponses as $resp)
                         <div class="py-2 text-ellipsis overflow-auto">
@@ -34,7 +31,7 @@
         </div>
         <div class="md:col-span-1 space-y-4">
             <x-filament::card class="w-full">
-                <x-filament::card.heading>
+                <x-filament::card.heading class="text-secondary-500">
                     {{ __('User Details') }}
                 </x-filament::card.heading>
                 <p>
@@ -51,23 +48,26 @@
                 </p>
             </x-filament::card>
             <div>
-                <p class="my-3 mx-1 text-secondary-600 font-semibold">{{ __('Entry Details') }}</p>
                 <div class="space-y-2">
                     <x-filament::card>
-                        <span class="text-gray-600">{{ __('Form') }}:</span>
-                        <x-filament::card.heading class="text-primary-600">{{ $response->form->name ?? '' }}</x-filament::card.heading>
-                    </x-filament::card>
-
-                    <x-filament::card>
-                        @php $getStatues = config('zeus-bolt.models.FormsStatus')::where('key',$response->status)->first() @endphp
-                        <span class="text-gray-600">
-                            <span>{{ __('status') }}:</span>
-                            <span class="{{ $getStatues->class }}" x-tooltip.raw="{{ __('status') }}">{{ $response->status }}</span>
-                        </span>
                         <x-filament::card.heading class="text-primary-600">
-                            @svg($getStatues->icon,'w-6 h-6 inline')
-                            {{ $getStatues->label }}
+                            <p class="my-3 mx-1 text-secondary-600 font-semibold">{{ __('Entry Details') }}</p>
                         </x-filament::card.heading>
+
+                        <div>
+                            <span class="text-gray-600">{{ __('Form') }}:</span>
+                            {{ $response->form->name ?? '' }}
+                        </div>
+
+                        <div>
+                            <span>{{ __('status') }}</span>
+                            @php $getStatues = config('zeus-bolt.models.FormsStatus')::where('key',$response->status)->first() @endphp
+                            <span class="{{ $getStatues->class }}" x-tooltip.raw="{{ __('status') }}">
+                                @svg($getStatues->icon,'w-4 h-4 inline')
+                                {{ $getStatues->label }}
+                            </span>
+                        </div>
+
                     </x-filament::card>
                 </div>
             </div>

@@ -77,7 +77,7 @@ class BoltSeeder extends Seeder
             'slug' => 'feedback',
             'options' => json_encode([
                 'confirmation-message' => 'Thank you for your feedback',
-                'show-as-wizard' => false,
+                'show-as' => 'page',
                 'require-login' => false,
                 'emails-notification' => null,
                 'web-hook' => null,

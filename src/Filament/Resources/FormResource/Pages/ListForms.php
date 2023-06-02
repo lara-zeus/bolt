@@ -31,7 +31,7 @@ class ListForms extends ListRecords
                 ->icon('heroicon-o-external-link')
                 ->tooltip(__('view all forms'))
                 ->color('warning')
-                ->url(fn () => route('bolt.user.forms.list'))
+                ->url(fn () => route('bolt.forms.list'))
                 ->openUrlInNewTab(),
         ];
     }

@@ -5,8 +5,8 @@ namespace LaraZeus\Bolt\Filament\Resources;
 use Filament\Forms\Components\ViewField;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\Layout\Panel;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
@@ -75,13 +75,16 @@ class ResponseResource extends BoltResource
                     ]),
                 ]),
                 TextColumn::make('form.name')->label(__('form'))->searchable()->visible(! request()->filled('form_id')),
-                Panel::make([
-                    Stack::make([
-                        TextColumn::make('status')->label(__('Status'))->searchable(),
-                        TextColumn::make('notes')->label(__('Notes'))->searchable(),
-                        TextColumn::make('created_at')->label(__('Created Date'))->dateTime()->sortable()->searchable(),
-                    ]),
-                ])->collapsible(),
+                Stack::make([
+                    BadgeColumn::make('status')->label(__('status'))
+                        ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
+                        ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
+                        ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
+                        ->grow(false)
+                        ->searchable('status'),
+                    TextColumn::make('notes')->label(__('Notes'))->searchable(),
+                    TextColumn::make('created_at')->label(__('Created Date'))->dateTime()->sortable()->searchable(),
+                ]),
             ])
             ->contentGrid([
                 'md' => 2,

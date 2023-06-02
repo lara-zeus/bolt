@@ -91,7 +91,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ]);
         }*/
 
-        return redirect()->route('bolt.user.submitted', ['slug' => $this->zeusForm->slug]);
+        return redirect()->route('bolt.submitted', ['slug' => $this->zeusForm->slug]);
     }
 
     public function render()

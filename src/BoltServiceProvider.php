@@ -70,6 +70,7 @@ class BoltServiceProvider extends PluginServiceProvider
                 'create_fields_table',
                 'create_responses_table',
                 'create_field_responses_table',
+                'add_fields_to_sections_table',
             ])
             ->hasTranslations()
             ->hasCommand(PublishCommand::class)

@@ -29,7 +29,7 @@ class EditForm extends EditRecord
                 ->icon('heroicon-o-external-link')
                 ->tooltip(__('view form'))
                 ->color('warning')
-                ->url(fn () => route('bolt.user.form.show', $this->record))
+                ->url(fn () => route('bolt.form.show', $this->record))
                 ->openUrlInNewTab(),
         ];
     }
