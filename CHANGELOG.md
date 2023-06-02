@@ -2,6 +2,28 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.26 - 2023-06-02
+
+### What's Changed
+
+- Bump aglipanci/laravel-pint-action from 2.2.0 to 2.3.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/41
+- Bump dependabot/fetch-metadata from 1.4.0 to 1.5.1 by @dependabot in https://github.com/lara-zeus/bolt/pull/42
+
+🆕 new form layout added: tabs
+🆕 allow setting columns number per section
+🆕 add section descriptions
+🆕 Set Section Icon available for Tabs and Wizerd
+🆕 Option to view the section as aside
+
+✨ Localized all phrases, currently supporting (English and Arabic)
+✨ Improve the overall UI for viewing the responses.
+✨ You can set the status for each response
+
+❗️removed the route group `user`
+⚠️ run `php artisan migrate` for the new migration: `add_fields_to_sections_table`
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.25...0.0.26
+
 ## 0.0.25 - 2023-05-28
 
 ### What's Changed
