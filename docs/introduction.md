@@ -26,7 +26,7 @@ included a UI for the frontend bilt with filament
   - view field (soon)
   - dynamic dataset (soon)
   - user selector (soon)
-  - range (from to) (soon)
+  - date range (from to) (soon)
   - Text Input
   - Select Menu
   - Multi Select Menu
@@ -43,21 +43,22 @@ included a UI for the frontend bilt with filament
 - 🔥 all the options for filament fields are available
 - 🔥 validation rules (soon)
 - 🔥 collections for datasets
-- 🔥 multi lang (coming soon)
+- 🔥 multi lang
 - 🔥 ACL manager (soon)
   - planing to use spatie Laravel-permission
-- 🔥 form layout (soon)
+- 🔥 form layout
 - 🔥 form themes (soon)
-- 🔥 show responses for each form with searching and filtering on the dynamic fields (soon)
+- 🔥 show responses for each form 
+- 🔥 search in all responses filtering on the dynamic fields (soon)
 - 🔥 set status for each response
 - 🔥 exporting (soon)
-- 🔥 clone form (soon)
+- 🔥 clone form with `ReplicateAction` (soon)
 - 🔥 form stats and charts (soon)
 - 🔥 form reports (soon)
 - 🔥 exam module (set correct answer, the mark for each question, auto correction for all responses, send the mark to the user, and display the result) (soon)
 - 🔥 poll module (custom layout to show the form as a poll, and display the result as chart) (soon)
-- 🔥 multiple events ready to listen to (soon)
-- 🔥 show the entries for the users (soon)
+- 🔥 multiple events ready to listen to
+- 🔥 show the entries for the users
 - 🔥 List all forms for the users
 
 
