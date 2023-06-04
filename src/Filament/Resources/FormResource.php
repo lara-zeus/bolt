@@ -40,7 +40,7 @@ class FormResource extends BoltResource
 
     protected static function getNavigationBadge(): ?string
     {
-        return (string)ZeusForm::query()->count();
+        return (string) ZeusForm::query()->count();
     }
 
     public static function getLabel(): string
@@ -83,20 +83,20 @@ class FormResource extends BoltResource
                         ->label(__('Entries'))
                         ->icon('clarity-data-cluster-line')
                         ->tooltip(__('view all entries'))
-                        ->url(fn(ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
+                        ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
 
                     Action::make('view')
                         ->color('warning')
                         ->label(__('View'))
                         ->icon('heroicon-o-external-link')
                         ->tooltip(__('view form'))
-                        ->url(fn(ZeusForm $record): string => route('bolt.form.show', $record))
+                        ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
                         ->openUrlInNewTab(),
                 ]),
             ])->filters([
                 Filter::make('is_active')
                     ->toggle()
-                    ->query(fn(Builder $query): Builder => $query->where('is_active', true))
+                    ->query(fn (Builder $query): Builder => $query->where('is_active', true))
                     ->label(__('Is Active')),
             ]);
     }
