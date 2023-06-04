@@ -12,7 +12,7 @@ class Select extends FieldsContract
 
     public int $sort = 2;
 
-    public function title() :string
+    public function title(): string
     {
         return __('Select Menu');
     }

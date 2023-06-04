@@ -11,7 +11,7 @@ class RichEditor extends FieldsContract
 
     public int $sort = 10;
 
-    public function title() :string
+    public function title(): string
     {
         return __('Rich Editor');
     }

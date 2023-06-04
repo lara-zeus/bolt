@@ -32,7 +32,7 @@ abstract class FieldsContract implements Fields, Arrayable
         return class_basename($this);
     }
 
-    public function title() :string
+    public function title(): string
     {
         return __(class_basename($this));
     }

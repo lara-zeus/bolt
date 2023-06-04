@@ -13,7 +13,7 @@ class TextInput extends FieldsContract
 
     public int $sort = 1;
 
-    public function title() :string
+    public function title(): string
     {
         return __('Text Input');
     }

@@ -11,7 +11,7 @@ class DatePicker extends FieldsContract
 
     public int $sort = 8;
 
-    public function title() :string
+    public function title(): string
     {
         return __('Date Picker');
     }

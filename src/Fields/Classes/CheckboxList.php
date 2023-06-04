@@ -12,7 +12,7 @@ class CheckboxList extends FieldsContract
 
     public int $sort = 6;
 
-    public function title() :string
+    public function title(): string
     {
         return __('Checkbox List');
     }

@@ -4,7 +4,7 @@ namespace LaraZeus\Bolt\Fields;
 
 interface Fields
 {
-    public function title() :string;
+    public function title(): string;
 
     public static function getOptions(): array;
 

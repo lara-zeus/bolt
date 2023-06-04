@@ -11,7 +11,7 @@ class DateTimePicker extends FieldsContract
 
     public int $sort = 7;
 
-    public function title() :string
+    public function title(): string
     {
         return __('Date Time Picker');
     }

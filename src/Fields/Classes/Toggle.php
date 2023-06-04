@@ -10,7 +10,7 @@ class Toggle extends FieldsContract
 
     public int $sort = 5;
 
-    public function title() :string
+    public function title(): string
     {
         return __('Toggle');
     }

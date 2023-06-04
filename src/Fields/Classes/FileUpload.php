@@ -11,7 +11,7 @@ class FileUpload extends FieldsContract
 
     public int $sort = 11;
 
-    public function title() :string
+    public function title(): string
     {
         return __('File Upload');
     }

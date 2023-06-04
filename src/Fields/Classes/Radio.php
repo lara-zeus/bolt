@@ -12,7 +12,7 @@ class Radio extends FieldsContract
 
     public int $sort = 4;
 
-    public function title() :string
+    public function title(): string
     {
         return __('Radio');
     }
