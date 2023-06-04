@@ -12,16 +12,20 @@ class CheckboxList extends FieldsContract
 
     public int $sort = 6;
 
-    public function title()
+    public function title() :string
     {
         return __('Checkbox List');
     }
 
-    public static function getOptions()
+    public static function getOptions(): array
     {
         return [
             Select::make('options.dataSource')->required()->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))->label(__('Data Source'))->columnSpan(2),
             Toggle::make('options.is_required')->label(__('Is Required')),
+            \Filament\Forms\Components\TextInput::make('options.html_id')->label(__('Html ID')),
+            \Filament\Forms\Components\TextInput::make('options.htmlId')
+                ->default(str()->random(6))
+                ->label(__('HTML ID')),
         ];
     }
 

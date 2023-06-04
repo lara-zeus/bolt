@@ -18,7 +18,7 @@ included a UI for the frontend bilt with filament
 - 🔥 control the starting and ending dates for submissions
 - 🔥 email notifications per form
 - 🔥 Send form data to external URL upon submission
-  - 🔥 add custom html id and name to easily catch them on the webhook (soon)
+  - 🔥 add custom html id and name to easily catch them on the webhook
 - 🔥 confirmation message after submission per form
 - 🔥 option for requiring login per form
 - 🔥 limit submissions with one entry for a user (if auth is required only)

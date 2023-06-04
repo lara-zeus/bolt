@@ -11,16 +11,19 @@ class FileUpload extends FieldsContract
 
     public int $sort = 11;
 
-    public function title()
+    public function title() :string
     {
         return __('File Upload');
     }
 
-    public static function getOptions()
+    public static function getOptions(): array
     {
         return [
             Toggle::make('options.is_required')->label(__('Is Required')),
             Toggle::make('options.is_multiple')->label(__('Allow Multiple')),
+            \Filament\Forms\Components\TextInput::make('options.htmlId')
+                ->default(str()->random(6))
+                ->label(__('HTML ID')),
         ];
     }
 

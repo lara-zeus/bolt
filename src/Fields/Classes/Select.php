@@ -12,16 +12,19 @@ class Select extends FieldsContract
 
     public int $sort = 2;
 
-    public function title()
+    public function title() :string
     {
         return __('Select Menu');
     }
 
-    public static function getOptions()
+    public static function getOptions(): array
     {
         return [
             FilamentSelect::make('options.dataSource')->required()->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))->label(__('Data Source'))->columnSpan(2),
             Toggle::make('options.is_required')->label(__('Is Required')),
+            \Filament\Forms\Components\TextInput::make('options.htmlId')
+                ->default(str()->random(6))
+                ->label(__('HTML ID')),
         ];
     }
 
