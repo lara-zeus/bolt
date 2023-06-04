@@ -5,6 +5,8 @@ namespace LaraZeus\Bolt\Filament\Resources;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -38,7 +40,7 @@ class FormResource extends BoltResource
 
     protected static function getNavigationBadge(): ?string
     {
-        return (string) ZeusForm::query()->count();
+        return (string)ZeusForm::query()->count();
     }
 
     public static function getLabel(): string
@@ -73,23 +75,28 @@ class FormResource extends BoltResource
                 IconColumn::make('responses_exists')->boolean()->exists('responses')->label(__('Responses Exists'))->sortable(),
                 TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable(),
             ])
-            ->appendActions([
-                Action::make('entries')
-                    ->label(__('Entries'))
-                    ->icon('clarity-data-cluster-line')
-                    ->tooltip(__('view all entries'))
-                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
+            ->actions([
+                ActionGroup::make([
+                    EditAction::make('edit'),
+                    Action::make('entries')
+                        ->color('success')
+                        ->label(__('Entries'))
+                        ->icon('clarity-data-cluster-line')
+                        ->tooltip(__('view all entries'))
+                        ->url(fn(ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
 
-                Action::make('view')
-                    ->label(__('View'))
-                    ->icon('heroicon-o-external-link')
-                    ->tooltip(__('view form'))
-                    ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
-                    ->openUrlInNewTab(),
+                    Action::make('view')
+                        ->color('warning')
+                        ->label(__('View'))
+                        ->icon('heroicon-o-external-link')
+                        ->tooltip(__('view form'))
+                        ->url(fn(ZeusForm $record): string => route('bolt.form.show', $record))
+                        ->openUrlInNewTab(),
+                ]),
             ])->filters([
                 Filter::make('is_active')
                     ->toggle()
-                    ->query(fn (Builder $query): Builder => $query->where('is_active', true))
+                    ->query(fn(Builder $query): Builder => $query->where('is_active', true))
                     ->label(__('Is Active')),
             ]);
     }

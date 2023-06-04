@@ -21,18 +21,15 @@
 
 </p>
 
-
-
-### this package was extracted from a client project, working on making it stable.
-if you think this has potential, star the project to let me know :)
+_if you think this has potential, star the project to let me know :)_
 
 ### todo:
-- [ ] use filament as possible and replace zeus components
-- [ ] more flexibility on adding custom fields
-- [ ] integrate with laravel auth
-- [ ] add Categories
+- [x] use filament as possible and replace zeus components
+- [x] more flexibility on adding custom fields
+- [x] integrate with laravel auth
+- [x] add Categories
 - [ ] integrate with shield or other solution for permissions
-- [ ] use blade icons and replace SVGs
+- [x] use blade icons and replace SVGs
 
 ## Support Filament
 
@@ -41,10 +38,10 @@ if you think this has potential, star the project to let me know :)
 </a>
 
 ## features
-- 🔥 built with [TALL stack](https://tallstack.dev/)
-- 🔥 using [filament](https://filamentadmin.com) as an admin panel
+- 🔥 built with [filament](https://filamentadmin.com)
 - 🔥 FrontEnd scaffolding, highly customizable.
 - 🔥 Collections.
+- 🔥 Categories.
 
 and more in the way.
 
