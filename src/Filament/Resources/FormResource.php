@@ -7,6 +7,7 @@ use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -77,6 +78,7 @@ class FormResource extends BoltResource
             ])
             ->actions([
                 ActionGroup::make([
+                    ViewAction::make(),
                     EditAction::make('edit'),
                     Action::make('entries')
                         ->color('success')
@@ -84,16 +86,16 @@ class FormResource extends BoltResource
                         ->icon('clarity-data-cluster-line')
                         ->tooltip(__('view all entries'))
                         ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
-
-                    Action::make('view')
+                    Action::make('show')
                         ->color('warning')
-                        ->label(__('View'))
+                        ->label(__('View Form'))
                         ->icon('heroicon-o-external-link')
                         ->tooltip(__('view form'))
                         ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
                         ->openUrlInNewTab(),
                 ]),
-            ])->filters([
+            ])
+            ->filters([
                 Filter::make('is_active')
                     ->toggle()
                     ->query(fn (Builder $query): Builder => $query->where('is_active', true))
@@ -107,6 +109,7 @@ class FormResource extends BoltResource
             'index' => Pages\ListForms::route('/'),
             'create' => Pages\CreateForm::route('/create'),
             'edit' => Pages\EditForm::route('/{record}/edit'),
+            'view' => Pages\ViewForm::route('/{record}'),
         ];
     }
 
@@ -114,6 +117,10 @@ class FormResource extends BoltResource
     {
         return [
             BetaNote::class,
+            FormResource\Widgets\FormOverview::class,
+            FormResource\Widgets\ResponsesPerMonth::class,
+            FormResource\Widgets\ResponsesPerStatus::class,
+            FormResource\Widgets\ResponsesPerFields::class,
         ];
     }
 }

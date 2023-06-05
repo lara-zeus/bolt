@@ -22,6 +22,23 @@ use LaraZeus\Bolt\Facades\Bolt;
 
 trait Schemata
 {
+    public static function getMainFormSchemaForView(): array
+    {
+        return [
+            Hidden::make('user_id')->default(auth()->user()->id ?? null),
+            Hidden::make('layout')->default(1),
+            Hidden::make('ordering')->default(1),
+
+            Card::make()
+                ->schema([
+                    TextInput::make('name')
+                        ->maxLength(255)
+                        ->reactive()
+                        ->label(__('Form Name')),
+                ]),
+        ];
+    }
+
     public static function getMainFormSchema(): array
     {
         return [

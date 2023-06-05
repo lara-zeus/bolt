@@ -32,7 +32,7 @@ abstract class FieldsContract implements Fields, Arrayable
         return class_basename($this);
     }
 
-    public function title()
+    public function title(): string
     {
         return __(class_basename($this));
     }
@@ -56,7 +56,7 @@ abstract class FieldsContract implements Fields, Arrayable
     {
         $component
             ->label($zeusField->name)
-            ->id($zeusField->html_id)
+            ->id($zeusField->options['htmlId'] ?? str()->random(6))
             ->helperText($zeusField->description);
 
         if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {

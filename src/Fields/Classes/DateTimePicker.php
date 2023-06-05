@@ -11,15 +11,18 @@ class DateTimePicker extends FieldsContract
 
     public int $sort = 7;
 
-    public function title()
+    public function title(): string
     {
         return __('Date Time Picker');
     }
 
-    public static function getOptions()
+    public static function getOptions(): array
     {
         return [
             Toggle::make('options.is_required')->label(__('Is Required')),
+            \Filament\Forms\Components\TextInput::make('options.htmlId')
+                ->default(str()->random(6))
+                ->label(__('HTML ID')),
         ];
     }
 }

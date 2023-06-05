@@ -10,15 +10,18 @@ class Toggle extends FieldsContract
 
     public int $sort = 5;
 
-    public function title()
+    public function title(): string
     {
         return __('Toggle');
     }
 
-    public static function getOptions()
+    public static function getOptions(): array
     {
         return [
             \Filament\Forms\Components\Toggle::make('options.is_required')->label(__('Is Required')),
+            \Filament\Forms\Components\TextInput::make('options.htmlId')
+                ->default(str()->random(6))
+                ->label(__('HTML ID')),
         ];
     }
 }

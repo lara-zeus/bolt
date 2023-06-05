@@ -13,12 +13,12 @@ class TextInput extends FieldsContract
 
     public int $sort = 1;
 
-    public function title()
+    public function title(): string
     {
         return __('Text Input');
     }
 
-    public static function getOptions()
+    public static function getOptions(): array
     {
         return [
             Select::make('options.dateType')
@@ -38,8 +38,11 @@ class TextInput extends FieldsContract
 
             \Filament\Forms\Components\TextInput::make('options.prefix')->label(__('prefix')),
             \Filament\Forms\Components\TextInput::make('options.suffix')->label(__('suffix')),
-            \Filament\Forms\Components\TextInput::make('options.minValue')->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric'),
-            \Filament\Forms\Components\TextInput::make('options.maxValue')->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric'),
+            \Filament\Forms\Components\TextInput::make('options.minValue')->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')->label(__('min value')),
+            \Filament\Forms\Components\TextInput::make('options.maxValue')->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')->label(__('max value')),
+            \Filament\Forms\Components\TextInput::make('options.htmlId')
+                ->default(str()->random(6))
+                ->label(__('HTML ID')),
         ];
     }
 }
