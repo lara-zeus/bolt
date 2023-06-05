@@ -2,6 +2,17 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.29 - 2023-06-05
+
+### What's Changed
+
+- add widgets
+- add view form page in admin
+- update readme and introduction to mark some features as done 💪
+- update docs to add events
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.28...0.0.29
+
 ## 0.0.28 - 2023-06-04
 
 ### What's Changed
