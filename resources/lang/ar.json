@@ -139,5 +139,10 @@
   "suffix": "اللاحقة",
   "min value": "اقل قيمة",
   "max value": "اعلى قيمة",
-  "HTML ID": "معرف HTML"
+  "HTML ID": "معرف HTML",
+  "entries per month": "السجلات حسب الأشهر",
+  "Responses Status": "السجلات حسب الحالة",
+  "Fields": "الحقول",
+  "Responses": "السجلات",
+  "Fields Responses": "السجلات للحقول"
 }
