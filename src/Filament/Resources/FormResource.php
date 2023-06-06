@@ -68,13 +68,13 @@ class FormResource extends BoltResource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable()->sortable()->label(__('Form Name')),
-                TextColumn::make('category.name')->label(__('Category'))->sortable(),
-                IconColumn::make('is_active')->boolean()->label(__('Is Active'))->sortable(),
-                TextColumn::make('start_date')->dateTime()->searchable()->sortable()->label(__('Start Date')),
-                TextColumn::make('end_date')->dateTime()->searchable()->sortable()->label(__('End Date')),
-                IconColumn::make('responses_exists')->boolean()->exists('responses')->label(__('Responses Exists'))->sortable(),
-                TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable(),
+                TextColumn::make('name')->searchable()->sortable()->label(__('Form Name'))->toggleable(),
+                TextColumn::make('category.name')->label(__('Category'))->sortable()->toggleable(),
+                IconColumn::make('is_active')->boolean()->label(__('Is Active'))->sortable()->toggleable(),
+                TextColumn::make('start_date')->dateTime()->searchable()->sortable()->label(__('Start Date'))->toggleable(),
+                TextColumn::make('end_date')->dateTime()->searchable()->sortable()->label(__('End Date'))->toggleable(),
+                IconColumn::make('responses_exists')->boolean()->exists('responses')->label(__('Responses Exists'))->sortable()->toggleable(),
+                TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable()->toggleable(),
             ])
             ->actions([
                 ActionGroup::make([

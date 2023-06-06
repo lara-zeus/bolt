@@ -5,9 +5,19 @@ namespace LaraZeus\Bolt\Models;
 use Database\Factories\FormFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @property string $updated_at
+ * @property int $is_active
+ * @property string $desc
+ * @property string $name
+ * @property string $slug
+ */
 class Form extends Model
 {
     use SoftDeletes;
@@ -36,32 +46,37 @@ class Form extends Model
         return FormFactory::new();
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'));
     }
 
-    public function category()
+    /** @phpstan-return BelongsTo<Form, Category> */
+    public function category(): BelongsTo
     {
         return $this->belongsTo(config('zeus-bolt.models.Category'));
     }
 
-    public function sections()
+    /** @phpstan-return hasMany<Section> */
+    public function sections(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.Section'));
     }
 
-    public function fields()
+    /** @phpstan-return hasManyThrough<Field> */
+    public function fields(): HasManyThrough
     {
         return $this->hasManyThrough(config('zeus-bolt.models.Field'), config('zeus-bolt.models.Section'));
     }
 
-    public function responses()
+    /** @phpstan-return hasMany<Response> */
+    public function responses(): hasMany
     {
         return $this->hasMany(config('zeus-bolt.models.Response'));
     }
 
-    public function fieldsResponses()
+    /** @phpstan-return hasMany<FieldResponse> */
+    public function fieldsResponses(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
     }

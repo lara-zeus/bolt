@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property string $updated_at
+ * @property int $field_id
+ * @property int $form_id
+ */
 class FieldResponse extends Model
 {
     use SoftDeletes;

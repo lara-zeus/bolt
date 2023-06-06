@@ -3,13 +3,13 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\PieChartWidget;
-use Illuminate\Database\Eloquent\Model;
+use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
 use LaraZeus\Bolt\Models\Response;
 
 class ResponsesPerStatus extends PieChartWidget
 {
-    public ?Model $record = null;
+    public Form $record;
 
     protected int|string|array $columnSpan = [
         'sm' => 1,
@@ -24,10 +24,7 @@ class ResponsesPerStatus extends PieChartWidget
 
     protected function getData(): array
     {
-        if ($this->record === null) {
-            return [];
-        }
-
+        $dataset = [];
         $statuses = FormsStatus::get();
         foreach ($statuses as $status) {
             $dataset[] = Response::query()

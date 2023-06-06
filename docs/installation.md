@@ -33,3 +33,7 @@ finally, run the migration:
 ```bash
 php artisan migrate
 ```
+
+## Usage
+
+visit the url `/admin` , and `/forms` to access the forms.

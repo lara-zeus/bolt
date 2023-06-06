@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @property string $updated_at
+ * @property string $logo
+ */
 class Category extends Model
 {
     use HasFactory;

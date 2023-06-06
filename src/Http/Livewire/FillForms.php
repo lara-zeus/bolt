@@ -9,6 +9,9 @@ use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
 
+/**
+ * @property mixed $form
+ */
 class FillForms extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
@@ -40,7 +43,6 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $this->item = Office::whereSlug($itemSlug)->firstOrFail();
         }*/
 
-        /** @phpstan-ignore-next-line */
         $this->zeusForm = config('zeus-bolt.models.Form')::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
         abort_if(optional($this->zeusForm->options)['require-login'] && ! auth()->check(), 401);
@@ -48,6 +50,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
         }
+
+        $this->form->fill();
 
         event(new FormMounted($this->zeusForm));
         //$rules = $validationAttributes = [];
