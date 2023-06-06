@@ -34,8 +34,6 @@ class TextInput extends FieldsContract
                 ->default('text')
                 ->reactive(),
 
-            Toggle::make('options.is_required')->label(__('Is Required')),
-
             \Filament\Forms\Components\TextInput::make('options.prefix')->label(__('prefix')),
             \Filament\Forms\Components\TextInput::make('options.suffix')->label(__('suffix')),
             \Filament\Forms\Components\TextInput::make('options.minValue')->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')->label(__('min value')),
@@ -43,6 +41,9 @@ class TextInput extends FieldsContract
             \Filament\Forms\Components\TextInput::make('options.htmlId')
                 ->default(str()->random(6))
                 ->label(__('HTML ID')),
+
+            Toggle::make('options.is_required')->label(__('Is Required')),
+
         ];
     }
 }

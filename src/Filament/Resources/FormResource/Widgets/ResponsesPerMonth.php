@@ -3,12 +3,12 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\LineChartWidget;
-use Illuminate\Database\Eloquent\Model;
+use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
 
 class ResponsesPerMonth extends LineChartWidget
 {
-    public ?Model $record = null;
+    public Form $record;
 
     protected int|string|array $columnSpan = 'full';
 
@@ -21,9 +21,7 @@ class ResponsesPerMonth extends LineChartWidget
 
     protected function getData(): array
     {
-        if ($this->record === null) {
-            return [];
-        }
+        $dataset = [];
 
         for ($m = 1; $m <= 12; $m++) {
             $month = date('m', mktime(0, 0, 0, $m, 1, now()->format('Y')));

@@ -20,8 +20,17 @@ class Select extends FieldsContract
     public static function getOptions(): array
     {
         return [
-            FilamentSelect::make('options.dataSource')->required()->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))->label(__('Data Source'))->columnSpan(2),
-            Toggle::make('options.is_required')->label(__('Is Required')),
+            FilamentSelect::make('options.dataSource')
+                ->required()
+                ->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))
+                ->label(__('Data Source'))
+                ->columnSpan(2),
+            Toggle::make('options.is_required')
+                ->label(__('Is Required'))
+                ->columnSpan(2),
+            Toggle::make('options.allow_multiple')
+                ->label(__('Allow Multiple'))
+                ->columnSpan(2),
             \Filament\Forms\Components\TextInput::make('options.htmlId')
                 ->default(str()->random(6))
                 ->label(__('HTML ID')),
@@ -56,8 +65,17 @@ class Select extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        return $component
+        $options = collect(optional(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource']))->values);
+
+        $component = $component
             ->searchable()
-            ->options(collect(\optional(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource']))->values)->pluck('itemValue', 'itemKey'));
+            ->options($options->pluck('itemValue', 'itemKey'))
+            ->default($options->where('itemIsDefault', true)->pluck('itemKey'));
+
+        if (isset($zeusField->options['allow_multiple']) && $zeusField->options['allow_multiple']) {
+            $component = $component->multiple();
+        }
+
+        return $component;
     }
 }

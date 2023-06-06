@@ -8,6 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
+/**
+ * @property string $updated_at
+ * @property array $rules
+ * @property int $id
+ */
 class Field extends Model
 {
     use SoftDeletes;

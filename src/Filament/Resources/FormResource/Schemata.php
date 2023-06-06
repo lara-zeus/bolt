@@ -236,6 +236,8 @@ trait Schemata
                 ->grid([
                     'default' => 1,
                     'md' => 2,
+                    'xl' => 3,
+                    '2xl' => 4,
                 ])
                 ->label('')
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
@@ -271,6 +273,10 @@ trait Schemata
                         ->icon('heroicon-o-cog')
                         ->schema([
                             Grid::make()
+                                ->columns([
+                                    'default' => 1,
+                                    'lg' => 2,
+                                ])
                                 ->label(__('Field Options'))
                                 ->visible(function (Closure $get) {
                                     $class = $get('type');

@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property string $updated_at
+ * @property array $values
+ */
 class Collection extends Model
 {
     use SoftDeletes;

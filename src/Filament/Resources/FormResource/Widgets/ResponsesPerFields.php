@@ -3,12 +3,12 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\PieChartWidget;
-use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\Models\FieldResponse;
+use LaraZeus\Bolt\Models\Form;
 
 class ResponsesPerFields extends PieChartWidget
 {
-    public ?Model $record = null;
+    public Form $record;
 
     protected int|string|array $columnSpan = [
         'sm' => 1,
@@ -23,10 +23,7 @@ class ResponsesPerFields extends PieChartWidget
 
     protected function getData(): array
     {
-        if ($this->record === null) {
-            return [];
-        }
-
+        $dataset = [];
         $fields = $this->record->fields;
         foreach ($fields as $field) {
             $dataset[] = FieldResponse::query()

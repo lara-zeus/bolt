@@ -4,6 +4,15 @@ namespace LaraZeus\Bolt\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property string $key
+ * @property string $label
+ * @property string $desc
+ * @property string $color
+ * @property string $chartColor
+ * @property string $icon
+ * @property string $class
+ */
 class FormsStatus extends Model
 {
     use \Sushi\Sushi;

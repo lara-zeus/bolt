@@ -7,6 +7,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
 
@@ -74,6 +77,12 @@ class CollectionResource extends BoltResource
             ->columns([
                 TextColumn::make('name')->label(__('Collections Name'))->searchable(),
                 TextColumn::make('values-list')->html()->label(__('Collections Values'))->searchable(['values']),
+            ])
+            ->actions([
+                ActionGroup::make([
+                    EditAction::make(),
+                    DeleteAction::make(),
+                ]),
             ]);
     }
 

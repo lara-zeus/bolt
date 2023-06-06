@@ -42,7 +42,11 @@ class Radio extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        $component = $component->options(collect(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
+        $options = collect(optional(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource']))->values);
+        $component = $component
+            ->options($options->pluck('itemValue', 'itemKey'))
+            ->default($options->where('itemIsDefault', true)->pluck('itemKey'));
+
         if (isset($zeusField->options['is_inline']) && $zeusField->options['is_inline']) {
             $component->inline();
         }

@@ -42,6 +42,10 @@ class CheckboxList extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        return $component->options(collect(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource'])->values)->pluck('itemValue', 'itemKey'));
+        $options = collect(optional(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource']))->values);
+
+        return $component
+            ->options($options->pluck('itemValue', 'itemKey'))
+            ->default($options->where('itemIsDefault', true)->pluck('itemKey'));
     }
 }
