@@ -2,6 +2,17 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.30 - 2023-06-06
+
+### What's Changed
+
+- Actions by @atmonshi in https://github.com/lara-zeus/bolt/pull/47
+- better actions and improve fields to apply default values.
+- better responsive layout for fields in admin page
+- fixes for phpstan
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.29...0.0.30
+
 ## 0.0.29 - 2023-06-05
 
 ### What's Changed
