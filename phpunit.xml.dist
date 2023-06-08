@@ -19,7 +19,7 @@
     verbose="true"
 >
     <testsuites>
-        <testsuite name="LaraZeus\Artemis Test Suite">
+        <testsuite name="LaraZeus Bolt Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -36,4 +36,10 @@
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>
+    <php>
+        <env name="APP_KEY" value="base64:ZHphOWJpbmF4Nmo5M3c4YmdyZWh1aGg4aWRhZ3o4NGM="/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value="/absolute/path/to/database.sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
+    </php>
 </phpunit>
