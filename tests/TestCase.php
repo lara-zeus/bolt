@@ -11,9 +11,9 @@ use Filament\Tables\TablesServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Schema\Blueprint;
 use LaraZeus\Bolt\BoltServiceProvider;
+use LaraZeus\Bolt\Tests\Models\User;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use LaraZeus\Bolt\Tests\Models\User;
 
 class TestCase extends Orchestra
 {
