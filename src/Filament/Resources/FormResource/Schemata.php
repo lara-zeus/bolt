@@ -46,12 +46,12 @@ trait Schemata
             Hidden::make('layout')->default(1),
             Hidden::make('ordering')->default(1),
 
-            Tabs::make('Name')
+            Tabs::make('form-tabs')
                 ->tabs(static::getTabsSchema())
                 ->columnSpan(2),
             Card::make()
                 ->schema([
-                    Placeholder::make('Sections-title')
+                    Placeholder::make('section-title-placeholder')
                         ->label(__('Sections'))
                         ->helperText(__('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form')),
                 ]),
@@ -72,7 +72,7 @@ trait Schemata
     public static function getTabsSchema(): array
     {
         return [
-            Tabs\Tab::make('title-slug')
+            Tabs\Tab::make('title-slug-tab')
                 ->label(__('Title & Slug'))
                 ->columns(2)
                 ->schema([
@@ -96,7 +96,7 @@ trait Schemata
                         ->unique(ignoreRecord: true)
                         ->label(__('Form Slug')),
                 ]),
-            Tabs\Tab::make('text-details')
+            Tabs\Tab::make('text-details-tab')
                 ->label(__('Text & Details'))
                 ->schema([
                     Textarea::make('desc')
@@ -113,7 +113,7 @@ trait Schemata
                         ->label(__('Confirmation Message'))
                         ->helperText(__('optional, show a massage whenever any one submit a new entry')),
                 ]),
-            Tabs\Tab::make('display-access')
+            Tabs\Tab::make('display-access-tab')
                 ->label(__('Display & Access'))
                 ->columns(2)
                 ->schema([
@@ -148,7 +148,7 @@ trait Schemata
                             'tabs' => __('Show As Tabs'),
                         ]),
                 ]),
-            Tabs\Tab::make('advanced')
+            Tabs\Tab::make('advanced-tab')
                 ->label(__('Advanced'))
                 ->schema([
                     Select::make('category_id')
@@ -187,10 +187,10 @@ trait Schemata
             Grid::make()
                 ->columns(2)
                 ->schema([
-                    Tabs::make('Heading')
+                    Tabs::make('section-tab')
                         ->columnSpan(2)
                         ->tabs([
-                            Tabs\Tab::make('section-info')
+                            Tabs\Tab::make('section-info-tab')
                                 ->label(__('Section Info'))
                                 ->schema([
                                     TextInput::make('name')
@@ -198,7 +198,7 @@ trait Schemata
                                         ->lazy()
                                         ->label(__('Section Name')),
                                 ]),
-                            Tabs\Tab::make('section-details')
+                            Tabs\Tab::make('section-details-tab')
                                 ->label(__('Section Details'))
                                 ->columns(2)
                                 ->schema([
@@ -225,7 +225,7 @@ trait Schemata
                                 ]),
                         ]),
                 ]),
-            Placeholder::make('Fields')
+            Placeholder::make('section-fields-placeholder')
                 ->label(__('Section Fields')),
             Repeater::make('fields')
                 ->relationship()
@@ -249,9 +249,9 @@ trait Schemata
     public static function getFieldsSchema(): array
     {
         return [
-            Tabs::make('fields')
+            Tabs::make('fields-tab')
                 ->tabs([
-                    Tabs\Tab::make('type-text')
+                    Tabs\Tab::make('type-text-tab')
                         ->icon('heroicon-o-menu-alt-2')
                         ->label(__('Type & title'))
                         ->schema([
@@ -268,7 +268,7 @@ trait Schemata
                                 ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
                                 ->label(__('Field Type')),
                         ]),
-                    Tabs\Tab::make('options')
+                    Tabs\Tab::make('options-tab')
                         ->label(__('Options'))
                         ->icon('heroicon-o-cog')
                         ->schema([
