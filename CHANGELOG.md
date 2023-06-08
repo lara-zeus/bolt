@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.31 - 2023-06-08
+
+### What's Changed
+
+- rename some fields placeholders and add buttons on view form page by @atmonshi in https://github.com/lara-zeus/bolt/pull/48
+- add test by @atmonshi in https://github.com/lara-zeus/bolt/pull/49
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.30...0.0.31
+
 ## 0.0.30 - 2023-06-06
 
 ### What's Changed
