@@ -12,6 +12,8 @@ use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\EditCollectionWarning;
 
 class CollectionResource extends BoltResource
 {
@@ -92,6 +94,14 @@ class CollectionResource extends BoltResource
             'index' => Pages\ListCollections::route('/'),
             'create' => Pages\CreateCollection::route('/create'),
             'edit' => Pages\EditCollection::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            BetaNote::class,
+            EditCollectionWarning::class,
         ];
     }
 }
