@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.34 - 2023-06-09
+
+### What's Changed
+
+- fix widget by @atmonshi in https://github.com/lara-zeus/bolt/pull/52
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.33...0.0.34
+
 ## 0.0.33 - 2023-06-09
 
 ### What's Changed
