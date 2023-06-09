@@ -1,12 +1,15 @@
 ---
 title: add custom fields
-weight: 10
+weight: 6
 ---
 
-## Composer
+## Create Custom Fields
 
-for example we want to allow our users to use rating in the forms:
+you can add any custom fields you want that available on the [filament core](https://filamentphp.com/docs/2.x/forms/fields) or [filament plugins](https://filamentphp.com/plugins).
+
+for example, we want to allow our users to use rating in the forms:
 first install the package:
+
 ```bash
 composer require yepsua/filament-rating-field
 ```
@@ -19,23 +22,42 @@ the file name must be the same as the component class
 
 namespace App\Zeus\Fields;
 
+use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Rating extends FieldsContract
 {
-    public $renderClass = '\Yepsua\Filament\Forms\Components\Rating';
-    public $sort = 8;
+    public string $renderClass = '\Yepsua\Filament\Forms\Components\Rating';
 
-    public function title()
+    public int $sort = 99;
+
+    public function title(): string
     {
         return __('Rating');
     }
 
-    public static function getOptions()
+    public static function getOptions(): array
     {
         return [
             Toggle::make('options.is_required')->label(__('Is Required')),
         ];
     }
 }
+
+```
+
+check out the contract `LaraZeus\Bolt\Fields\FieldsContract` and see all the available methods.
+
+
+## Caching
+
+bolt will automatically add the field to the form builder.
+there is a cache for ll fields, so remember to flush the key `bolt.fields`
+
+
+## Disabling
+
+you can disable any field temporally by adding:
+```php
+public bool $disabled = true;
 ```

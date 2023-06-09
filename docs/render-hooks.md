@@ -1,6 +1,6 @@
 ---
 title: render hooks
-weight: 11
+weight: 7
 ---
 
 ## Render Hooks
@@ -36,11 +36,9 @@ Bolt also utilize these hooks to make it easier for you to customize any views
   - after rendering any field in all forms
 
 
-and more are coming
-
 ### Usage
 
-you can defind your hooks in your service provider:
+you can define your hooks in your service provider:
 
 ```php
 Filament::registerRenderHook(

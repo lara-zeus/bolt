@@ -1,0 +1,37 @@
+---
+title: Overview
+weight: 2
+---
+
+## Overview
+here is the structure of the table; it will give you an idea of how Bolt works:
+.
+
+![bolt-diagram](http://site.test/images/docs/bolt/bolt-diagram.png)
+
+## The concept:
+
+### Form:
+The main component of all of this. Including all descriptive texts and the form options.
+
+### Sections:
+To group the fields, it has some options like columns number.
+Also, an option to display sections as pages or wizards, or tabs
+
+### Fields
+fields are fields, most of the common types are available, and you can create custom ones
+
+### Categories:
+It's a way to organize and display the forms in the front end.
+Any form not linked to a category won't be shown in the forms list at the front end.
+
+### Collections:
+collections are datasets used for lists like checkboxes and select menus.
+
+### Responses:
+Every submission has a response record per user.
+
+### Responses Fields:
+Fields are related to each response and each field of the form. And they contain the user input.
+
+This structure helps to query any reports you want with ease.
