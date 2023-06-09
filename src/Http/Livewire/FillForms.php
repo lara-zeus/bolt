@@ -76,7 +76,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
             $setValue = $value;
 
-            if(!empty($setValue) && is_array($setValue)){
+            if (! empty($setValue) && is_array($setValue)) {
                 $value = json_encode($value);
             }
 

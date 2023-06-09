@@ -103,7 +103,7 @@ abstract class FieldsContract implements Fields, Arrayable
         }
 
         if (empty($options)) {
-            $options = join('-', $items);
+            $options = implode('-', $items);
         }
 
         return $options;
