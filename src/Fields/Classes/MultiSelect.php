@@ -32,11 +32,7 @@ class MultiSelect extends FieldsContract
 
     public function getResponse($field, $resp): string
     {
-        if (! empty($resp->response)) {
-            return collect(config('zeus-bolt.models.Collection')::find($field->options['dataSource'])->values)->where('itemKey', $resp->response)->first()['itemValue'];
-        }
-
-        return '';
+        return $this->getCollectionsValuesForResponse($field, $resp);
     }
 
     public function appendFilamentComponentsOptions($component, $zeusField)

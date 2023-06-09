@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
 use Filament\Pages\Actions\Action;
+use Filament\Pages\Actions\EditAction;
 use Filament\Pages\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
@@ -22,10 +23,12 @@ class ViewForm extends ViewRecord
     {
         return [
             LocaleSwitcher::make(),
+            EditAction::make(),
             Action::make('entries')
                 ->label(__('Entries'))
                 ->icon('clarity-data-cluster-line')
                 ->tooltip(__('view all entries'))
+                ->color('secondary')
                 ->url(fn () => url('admin/responses?form_id=' . $this->record->id)),
 
             Action::make('view')
