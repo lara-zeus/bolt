@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.32 - 2023-06-09
+
+### What's Changed
+
+- Multi response value and more by @atmonshi in https://github.com/lara-zeus/bolt/pull/50
+
+- allow to store and display multi values as in select multiple or checkboxes
+- add an edit button to view the form on the admin page
+- add a note when editing collections
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.31...0.0.32
+
 ## 0.0.31 - 2023-06-08
 
 ### What's Changed
