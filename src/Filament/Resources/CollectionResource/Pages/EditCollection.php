@@ -5,7 +5,7 @@ namespace LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
 use Filament\Resources\Pages\EditRecord;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\EditCollectionWarning;
+use LaraZeus\Bolt\Filament\Resources\CollectionResource\Widgets\EditCollectionWarning;
 
 class EditCollection extends EditRecord
 {
