@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
+namespace LaraZeus\Bolt\Filament\Resources\CollectionResource\Widgets;
 
 use Filament\Widgets\Widget;
 use Illuminate\Database\Eloquent\Model;
