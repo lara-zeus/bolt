@@ -22,7 +22,6 @@ class CheckboxList extends FieldsContract
         return [
             Select::make('options.dataSource')->required()->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))->label(__('Data Source'))->columnSpan(2),
             Toggle::make('options.is_required')->label(__('Is Required')),
-            \Filament\Forms\Components\TextInput::make('options.html_id')->label(__('Html ID')),
             \Filament\Forms\Components\TextInput::make('options.htmlId')
                 ->default(str()->random(6))
                 ->label(__('HTML ID')),
@@ -31,11 +30,7 @@ class CheckboxList extends FieldsContract
 
     public function getResponse($field, $resp): string
     {
-        if (! empty($resp->response)) {
-            return collect(config('zeus-bolt.models.Collection')::find($field->options['dataSource'])->values)->where('itemKey', $resp->response)->first()['itemValue'];
-        }
-
-        return '';
+        return $this->getCollectionsValuesForResponse($field, $resp);
     }
 
     public function appendFilamentComponentsOptions($component, $zeusField)

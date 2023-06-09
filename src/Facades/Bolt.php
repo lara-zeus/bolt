@@ -159,4 +159,19 @@ class Bolt extends Facade
             return Filament::renderHook($hook);
         }
     }
+
+    public static function jsJson($string): bool
+    {
+        if ($string === '') {
+            return false;
+        }
+
+        json_decode($string);
+
+        if (json_last_error()) {
+            return false;
+        }
+
+        return true;
+    }
 }

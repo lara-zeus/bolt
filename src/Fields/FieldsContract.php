@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Fields;
 
 use Illuminate\Contracts\Support\Arrayable;
+use LaraZeus\Bolt\Facades\Bolt;
 
 abstract class FieldsContract implements Fields, Arrayable
 {
@@ -72,5 +73,39 @@ abstract class FieldsContract implements Fields, Arrayable
         }
 
         return $component;
+    }
+
+    public function getCollectionsValuesForResponse($field, $resp): string
+    {
+        $items = $resp->response;
+
+        if (empty($items)) {
+            return $items;
+        }
+
+        if (Bolt::jsJson($resp->response)) {
+            $items = json_decode($resp->response);
+        } else {
+            $items = [$items];
+        }
+
+        $options = config('zeus-bolt.models.Collection')::find($field->options['dataSource']);
+        if ($options === null) {
+            return $items;
+        }
+
+        $options = collect($options->values);
+
+        if (is_array($items)) {
+            $options = $options->whereIn('itemKey', $items)->pluck('itemValue')->join(', ');
+        } else {
+            $options = $options->where('itemKey', $items)->pluck('itemValue');
+        }
+
+        if (empty($options)) {
+            $options = join('-', $items);
+        }
+
+        return $options;
     }
 }

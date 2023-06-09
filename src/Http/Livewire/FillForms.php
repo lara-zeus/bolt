@@ -74,11 +74,18 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         ]);
 
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
-            $fieldResponse['response'] = $value ?? '';
-            $fieldResponse['response_id'] = $response->id;
-            $fieldResponse['form_id'] = $this->zeusForm->id;
-            $fieldResponse['field_id'] = $field;
-            config('zeus-bolt.models.FieldResponse')::create($fieldResponse);
+            $setValue = $value;
+
+            if(!empty($setValue) && is_array($setValue)){
+                $value = json_encode($value);
+            }
+
+            config('zeus-bolt.models.FieldResponse')::create([
+                'response' => $value ?? '',
+                'response_id' => $response->id,
+                'form_id' => $this->zeusForm->id,
+                'field_id' => $field,
+            ]);
         }
 
         event(new FormSent($response, $this->item, $this->form->getState()['itemData'] ?? null));
