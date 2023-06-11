@@ -40,7 +40,7 @@ class TextInput extends FieldsContract
                     'ipv6' => __('ip v6'),
                     'macAddress' => __('mac address'),
                 ])
-                ->default('text')
+                ->default('string')
                 ->reactive(),
 
             \Filament\Forms\Components\TextInput::make('options.prefix')->label(__('prefix')),
