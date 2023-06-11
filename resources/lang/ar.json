@@ -144,5 +144,15 @@
   "Responses Status": "السجلات حسب الحالة",
   "Fields": "الحقول",
   "Responses": "السجلات",
-  "Fields Responses": "السجلات للحقول"
+  "Fields Responses": "السجلات للحقول",
+  "string":  "نص",
+  "password": "كلمة مرور",
+  "active url":  "رابط نشط",
+  "alpha": "احرف فقط",
+  "alpha dash":  "احرف مع - و ـ",
+  "alpha num": "احرف وارقام فقط",
+  "ip":  "رقم IP",
+  "ipv4": "رقم IP 4",
+  "ipv6":  "رقم IP 6",
+  "mac address": "عنوان ماك"
 }

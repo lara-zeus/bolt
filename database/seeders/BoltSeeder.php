@@ -110,7 +110,7 @@ class BoltSeeder extends Seeder
             'section_id' => $section1,
             'ordering' => 1,
             'options' => json_encode([
-                'dateType' => 'text',
+                'dateType' => 'string',
                 'is_required' => true,
             ], JSON_THROW_ON_ERROR),
             'type' => '\LaraZeus\Bolt\Fields\Classes\TextInput',

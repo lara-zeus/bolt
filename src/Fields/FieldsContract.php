@@ -15,7 +15,7 @@ abstract class FieldsContract implements Fields, Arrayable
 
     public int $sort;
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'disabled' => $this->disabled,
@@ -28,7 +28,7 @@ abstract class FieldsContract implements Fields, Arrayable
         ];
     }
 
-    public function getCode()
+    public function getCode(): string
     {
         return class_basename($this);
     }
@@ -38,7 +38,7 @@ abstract class FieldsContract implements Fields, Arrayable
         return __(class_basename($this));
     }
 
-    public function getClass()
+    public function getClass(): string
     {
         return '\\' . get_called_class();
     }

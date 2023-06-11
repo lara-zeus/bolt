@@ -288,7 +288,8 @@ trait Schemata
                                 })
                                 ->schema(function (Closure $get) {
                                     return $get('type')::getOptions();
-                                }),
+                                })
+                                ->columns(1),
                         ]),
                 ]),
         ];

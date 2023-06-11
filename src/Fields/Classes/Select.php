@@ -2,13 +2,11 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Select as FilamentSelect;
-use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Select extends FieldsContract
 {
-    public string $renderClass = '\Filament\Forms\Components\Select';
+    public string $renderClass = \Filament\Forms\Components\Select::class;
 
     public int $sort = 2;
 
@@ -20,17 +18,14 @@ class Select extends FieldsContract
     public static function getOptions(): array
     {
         return [
-            FilamentSelect::make('options.dataSource')
+            \Filament\Forms\Components\Select::make('options.dataSource')
                 ->required()
                 ->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))
-                ->label(__('Data Source'))
-                ->columnSpan(2),
-            Toggle::make('options.is_required')
-                ->label(__('Is Required'))
-                ->columnSpan(2),
-            Toggle::make('options.allow_multiple')
-                ->label(__('Allow Multiple'))
-                ->columnSpan(2),
+                ->label(__('Data Source')),
+            \Filament\Forms\Components\Toggle::make('options.is_required')
+                ->label(__('Is Required')),
+            \Filament\Forms\Components\Toggle::make('options.allow_multiple')
+                ->label(__('Allow Multiple')),
             \Filament\Forms\Components\TextInput::make('options.htmlId')
                 ->default(str()->random(6))
                 ->label(__('HTML ID')),
