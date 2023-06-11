@@ -2,6 +2,23 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.36 - 2023-06-11
+
+### What's Changed
+
+- improvements and fixes in zeus fields by @atmonshi in https://github.com/lara-zeus/bolt/pull/54
+- Chenge: cheange `text` Data type to `string` for TextInput
+- Change: removing MultiSelect field since it's the same as Select with `multiple" option
+
+If you're in production already, you have to change it in DB by creating a migration or editing it manually
+
+Improve: the fields options UI.
+
+fix: show the response for Radio Field
+fix: saving values if the field is not required
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.35...0.0.36
+
 ## 0.0.35 - 2023-06-09
 
 ### What's Changed
