@@ -2,12 +2,11 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class DatePicker extends FieldsContract
 {
-    public string $renderClass = '\Filament\Forms\Components\DatePicker';
+    public string $renderClass = \Filament\Forms\Components\DatePicker::class;
 
     public int $sort = 8;
 
@@ -19,7 +18,7 @@ class DatePicker extends FieldsContract
     public static function getOptions(): array
     {
         return [
-            Toggle::make('options.is_required')->label(__('Is Required')),
+            \Filament\Forms\Components\Toggle::make('options.is_required')->label(__('Is Required')),
             \Filament\Forms\Components\TextInput::make('options.htmlId')
                 ->default(str()->random(6))
                 ->label(__('HTML ID')),

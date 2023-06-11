@@ -81,7 +81,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             }
 
             config('zeus-bolt.models.FieldResponse')::create([
-                'response' => $value ?? '',
+                'response' => (! empty($value)) ? $value : '',
                 'response_id' => $response->id,
                 'form_id' => $this->zeusForm->id,
                 'field_id' => $field,
