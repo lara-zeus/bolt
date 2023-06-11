@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.37 - 2023-06-11
+
+### What's Changed
+
+- fix default data type for TextInput by @atmonshi in https://github.com/lara-zeus/bolt/pull/55
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.36...0.0.37
+
 ## 0.0.36 - 2023-06-11
 
 ### What's Changed
