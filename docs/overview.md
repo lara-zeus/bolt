@@ -30,11 +30,10 @@ collections are datasets used for lists like checkboxes and select menus.
 
 ### Responses:
 Every submission has a response record per user.
-
-Entries per form have three views:
-list: list the response only as cards
-browse: how the response with the fields one per page
-report: table view for all entries and it's fields
+you can view the responses per form in three ways:
+- list: list the response only as cards
+- browse: how the response with the fields one per page
+- report: table view for all entries and it's fields
 
 ### Responses Fields:
 Fields are related to each response and each field of the form. And they contain the user input.
