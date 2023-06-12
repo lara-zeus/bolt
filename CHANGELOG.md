@@ -2,6 +2,55 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.38 - 2023-06-12
+
+### What's Changed
+
+- finalizing the entries report and cleaning up the navigations between different views
+- update docs
+- allow setting entry notes
+- add action set the status to browse and repost
+
+#### Entries per each form now have three views:
+
+- list: list the response only as cards
+- browse: how the response with the fields one per page
+- report: table view for all entries and their fields
+
+#### 🔴🔴 Database refactor:
+
+In preparation for the first release, I made some changes and refactored the database structure for constancy.
+no migration, you can create your own or simply apply it from the database directly, remember this is still a beta version :).
+
+##### table `fields` drop these columns
+
+- html_id
+- html_name
+- rules
+- layout_position
+
+##### table `forms` rename the column `desc` to `description`
+
+##### table `forms` drop `layout` column
+
+##### table `sections` rename these fields:
+
+- section_column
+- section_descriptions
+- section_icon
+- section_aside
+
+to
+
+- columns
+- description
+- icon
+- aside
+
+##### table `categories` rename `desc` to `description`
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.37...0.0.38
+
 ## 0.0.37 - 2023-06-11
 
 ### What's Changed
