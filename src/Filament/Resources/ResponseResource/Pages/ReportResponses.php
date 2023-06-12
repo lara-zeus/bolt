@@ -127,7 +127,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
     protected function getTableBulkActions(): array
     {
         return [
-            FilamentExportBulkAction::make('export')->label(__('Export'))
+            FilamentExportBulkAction::make('export')->label(__('Export')),
         ];
     }
 
