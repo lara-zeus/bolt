@@ -21,15 +21,12 @@ class BoltServiceProvider extends PluginServiceProvider
 {
     public static string $name = 'zeus-bolt';
 
-    protected function getResources(): array
-    {
-        return [
-            CollectionResource::class,
-            FormResource::class,
-            ResponseResource::class,
-            CategoryResource::class,
-        ];
-    }
+    protected array $resources = [
+        CollectionResource::class,
+        FormResource::class,
+        ResponseResource::class,
+        CategoryResource::class,
+    ];
 
     public function boot()
     {
