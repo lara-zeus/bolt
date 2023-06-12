@@ -89,7 +89,8 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                             $query->where('response', 'like', '%' . $search . '%');
                         });
                 })
-                ->getStateUsing(fn (Model $record) => $this->getFieldResponseValue($record, $field))
+                ->getStateUsing(fn(Model $record) => $this->getFieldResponseValue($record, $field))
+                ->html()
                 ->toggleable();
         }
 
@@ -105,17 +106,8 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
         if ($fieldResponse === null) {
             return '';
         }
-        $response = $fieldResponse->response;
-        if (Bolt::jsJson($response)) {
-            $response = json_decode($response);
-            if (is_array($response)) {
-                return implode(' - ', $response);
-            }
 
-            return $response;
-        }
-
-        return $response;
+        return (new $fieldResponse->field->type)->getResponse($fieldResponse->field, $fieldResponse);
     }
 
     protected function getTableFilters(): array
@@ -132,13 +124,13 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                 ->size('sm')
                 ->visible(request()->filled('form_id'))
                 ->label(__('Brows Entries'))
-                ->url(fn (): string => ResponseResource::getUrl('brows') . '?form_id=' . request('form_id')),
+                ->url(fn(): string => ResponseResource::getUrl('brows') . '?form_id=' . request('form_id')),
 
             Action::make('list')
                 ->size('sm')
                 ->visible(request()->filled('form_id'))
                 ->label(__('List Entries'))
-                ->url(fn (): string => ResponseResource::getUrl() . '?form_id=' . request('form_id')),
+                ->url(fn(): string => ResponseResource::getUrl() . '?form_id=' . request('form_id')),
         ];
     }
 }
