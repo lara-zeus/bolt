@@ -25,12 +25,12 @@ class ListResponses extends ListRecords
                 ->size('sm')
                 ->visible(request()->filled('form_id'))
                 ->label(__('Brows Entries'))
-                ->url(fn(): string => 'responses/brows?form_id=' . request('form_id')),
+                ->url(fn (): string => 'responses/brows?form_id=' . request('form_id')),
             Action::make('report')
                 ->size('sm')
                 ->visible(request()->filled('form_id'))
                 ->label(__('Entries Report'))
-                ->url(fn(): string => 'responses/report?form_id=' . request('form_id')),
+                ->url(fn (): string => 'responses/report?form_id=' . request('form_id')),
         ];
     }
 }

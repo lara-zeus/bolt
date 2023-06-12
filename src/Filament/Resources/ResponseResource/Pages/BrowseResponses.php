@@ -68,12 +68,12 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
                 ->size('sm')
                 ->visible(request()->filled('form_id'))
                 ->label(__('List Entries'))
-                ->url(fn(): string => ResponseResource::getUrl() . '?form_id=' . request('form_id')),
+                ->url(fn (): string => ResponseResource::getUrl() . '?form_id=' . request('form_id')),
             Action::make('report')
                 ->size('sm')
                 ->visible(request()->filled('form_id'))
                 ->label(__('Entries Report'))
-                ->url(fn(): string => ResponseResource::getUrl('report') . '?form_id=' . request('form_id')),
+                ->url(fn (): string => ResponseResource::getUrl('report') . '?form_id=' . request('form_id')),
         ];
     }
 }
