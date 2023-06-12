@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
-use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
 use Filament\Tables\Columns\BadgeColumn;
@@ -10,14 +9,15 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
+use Closure;
 
 class ReportResponses extends Page implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
+    use ResponseResource\EntriesAction;
 
     protected static string $resource = ResponseResource::class;
 
@@ -27,7 +27,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
 
     public $form;
 
-    public $form_id;
+    public int $form_id = 0;
 
     protected $queryString = [
         'form_id',
@@ -37,12 +37,18 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
     {
         abort_unless(request()->filled('form_id'), 404);
 
-        $this->form = Form::with(['fields'])->find(request('form_id'));
+        $this->form_id = request('form_id', 0);
+        $this->form = Form::with(['fields'])->find($this->form_id);
     }
 
     protected function getTitle(): string
     {
         return __('Entries Report');
+    }
+
+    protected function getTableRecordUrlUsing(): ?Closure
+    {
+        return fn (Model $record): string => ResponseResource::getUrl('view',$record);
     }
 
     protected function getHeaderWidgets(): array
@@ -55,7 +61,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
     protected function getTableQuery(): Builder
     {
         return config('zeus-bolt.models.Response')::query()
-            ->where('form_id', request('form_id'))
+            ->where('form_id', $this->form_id)
             ->with(['fieldsResponses']);
     }
 
@@ -119,18 +125,6 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
 
     protected function getActions(): array
     {
-        return [
-            Action::make('brows')
-                ->size('sm')
-                ->visible(request()->filled('form_id'))
-                ->label(__('Brows Entries'))
-                ->url(fn(): string => ResponseResource::getUrl('brows') . '?form_id=' . request('form_id')),
-
-            Action::make('list')
-                ->size('sm')
-                ->visible(request()->filled('form_id'))
-                ->label(__('List Entries'))
-                ->url(fn(): string => ResponseResource::getUrl() . '?form_id=' . request('form_id')),
-        ];
+        return $this->getEntriesActions();
     }
 }

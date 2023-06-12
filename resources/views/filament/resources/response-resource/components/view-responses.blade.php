@@ -41,7 +41,7 @@
             </div>
             <div class="md:col-span-1 space-y-4">
                 <x-filament::card class="w-full">
-                    <x-filament::card.heading class="text-secondary-500">
+                    <x-filament::card.heading class="text-secondary-600">
                         {{ __('User Details') }}
                     </x-filament::card.heading>
                     <p>
@@ -64,7 +64,7 @@
                                 <p class="my-3 mx-1 text-secondary-600 font-semibold">{{ __('Entry Details') }}</p>
                             </x-filament::card.heading>
 
-                            <div>
+                            <div class="flex flex-col">
                                 <span class="text-gray-600">{{ __('Form') }}:</span>
                                 {{ $getRecord()->form->name ?? '' }}
                             </div>
@@ -73,9 +73,14 @@
                                 <span>{{ __('status') }}</span>
                                 @php $getStatues = config('zeus-bolt.models.FormsStatus')::where('key',$getRecord()->status)->first() @endphp
                                 <span class="{{ $getStatues->class }}" x-tooltip.raw="{{ __('status') }}">
-                                @svg($getStatues->icon,'w-4 h-4 inline')
-                                    {{ $getStatues->label }}
-                            </span>
+                                    @svg($getStatues->icon,'w-4 h-4 inline')
+                                        {{ $getStatues->label }}
+                                </span>
+                            </div>
+
+                            <div class="flex flex-col">
+                                <span>{{ __('Notes') }}:</span>
+                                {!! nl2br($getRecord()->notes) !!}
                             </div>
 
                         </x-filament::card>

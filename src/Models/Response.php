@@ -11,7 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property string $updated_at
  * @property int $form_id
+ * @property int $user_id
  * @property string $status
+ * @property string $notes
  */
 class Response extends Model
 {
