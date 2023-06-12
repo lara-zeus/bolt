@@ -2,11 +2,13 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ReplicateAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -93,6 +95,28 @@ class FormResource extends BoltResource
                         ->tooltip(__('view form'))
                         ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
                         ->openUrlInNewTab(),
+
+                    ReplicateAction::make()
+                        ->label(__('Replicate'))
+                        ->excludeAttributes(['name', 'slug'])
+                        ->form([
+                            TextInput::make('name.' . app()->getLocale())->required(),
+                            TextInput::make('slug')->required(),
+                        ])
+                        ->beforeReplicaSaved(function (ZeusForm $replica, ZeusForm $record, array $data): void {
+                            $repForm = $replica->fill($data);
+                            $repForm->save();
+                            $formID = $repForm->id;
+                            $record->sections->each(function ($item) use ($formID) {
+                                $repSec = $item->replicate()->fill(['form_id' => $formID]);
+                                $repSec->save();
+                                $sectionID = $repSec->id;
+                                $item->fields->each(function ($item) use ($sectionID) {
+                                    $repField = $item->replicate()->fill(['section_id' => $sectionID]);
+                                    $repField->save();
+                                });
+                            });
+                        }),
                 ]),
             ])
             ->filters([
