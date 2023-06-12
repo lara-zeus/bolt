@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2>{{ $zeusForm->name ?? '' }}</h2>
-        <p class="text-gray-400 text-mdd my-2">{{ $zeusForm->desc ?? '' }}</p>
+        <p class="text-gray-400 text-mdd my-2">{{ $zeusForm->description ?? '' }}</p>
 
         @if($zeusForm->start_date !== null)
             <div class="text-gray-400 text-sm">

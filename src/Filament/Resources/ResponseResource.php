@@ -97,7 +97,7 @@ class ResponseResource extends BoltResource
                 'md' => 2,
                 'xl' => 3,
             ])
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('created_at', 'description')
             ->filters([
                 SelectFilter::make('form')->relationship('form', 'name')->default(request('form_id', null)),
             ]);

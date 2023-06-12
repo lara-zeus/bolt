@@ -67,7 +67,7 @@ class BoltSeeder extends Seeder
 
         $category = DB::table('categories')->insertGetId([
             'name' => json_encode(['en' => 'General Forms', 'ar' => 'النماذج العامة'], JSON_THROW_ON_ERROR),
-            'desc' => json_encode(['en' => 'all other Forms', 'ar' => 'كافة النماذج'], JSON_THROW_ON_ERROR),
+            'description' => json_encode(['en' => 'all other Forms', 'ar' => 'كافة النماذج'], JSON_THROW_ON_ERROR),
             'slug' => 'general-forms',
             'created_at' => now(),
         ]);
@@ -86,10 +86,9 @@ class BoltSeeder extends Seeder
             'user_id' => 1,
             'start_date' => null,
             'end_date' => null,
-            'layout' => '',
             'ordering' => 1,
             'is_active' => 1,
-            'desc' => json_encode(['en' => 'send us your Feedback about our service', 'ar' => 'شاركنا تقييمك على خدماتنا'], JSON_THROW_ON_ERROR),
+            'description' => json_encode(['en' => 'send us your Feedback about our service', 'ar' => 'شاركنا تقييمك على خدماتنا'], JSON_THROW_ON_ERROR),
             'details' => json_encode(['en' => 'please use the same email address you used on registration, so we can add points to your account', 'ar' => 'الرجاء استخدام نفس البريد الإلكتروني المستخدم في التسجيل لاضافة النقاط لحسابك'], JSON_THROW_ON_ERROR),
             'created_at' => now(),
         ]);

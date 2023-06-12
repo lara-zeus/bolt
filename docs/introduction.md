@@ -44,7 +44,7 @@ included a UI for the frontend bilt with filament
 - 🔥 validation rules for text input
 - 🔥 collections for datasets
 - 🔥 multi lang
-- 🔥 form layout
+- 🔥 form layouts
 - 🔥 show responses for each form 
 - 🔥 search in all responses filtering on the dynamic fields (soon)
 - 🔥 set status for each response

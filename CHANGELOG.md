@@ -122,7 +122,7 @@ fix: saving values if the field is not required
 
 🆕 new form layout added: tabs
 🆕 allow setting columns number per section
-🆕 add section descriptions
+🆕 add section description
 🆕 Set Section Icon available for Tabs and Wizerd
 🆕 Option to view the section as aside
 

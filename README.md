@@ -23,14 +23,6 @@
 
 _if you think this has potential, star the project to let me know :)_
 
-### todo:
-- [x] use filament as possible and replace zeus components
-- [x] more flexibility on adding custom fields
-- [x] integrate with laravel auth
-- [x] add Categories
-- [ ] integrate with shield or other solution for permissions
-- [x] use blade icons and replace SVGs
-
 ## Support Filament
 
 <a href="https://github.com/sponsors/danharrin">

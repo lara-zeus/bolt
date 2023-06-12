@@ -19,12 +19,8 @@ class CreateFieldsTable extends Migration
             $table->text('name');
             $table->text('description')->nullable();
             $table->string('type');
-            $table->integer('layout_position')->default(1);
             $table->integer('ordering')->default(1);
-            $table->string('html_id')->nullable();
-            $table->string('html_name')->nullable();
             $table->text('options')->nullable();
-            $table->text('rules')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

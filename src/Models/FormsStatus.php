@@ -23,7 +23,7 @@ class FormsStatus extends Model
             [
                 'key' => 'NEW',
                 'label' => __('New'),
-                'desc' => 'used when a new form created by the user or an employee',
+                'description' => 'used when a new form created by the user or an employee',
                 'color' => 'success',
                 'chartColor' => '#21C55D',
                 'icon' => 'heroicon-o-document',
@@ -32,7 +32,7 @@ class FormsStatus extends Model
             [
                 'key' => 'CLOSE',
                 'label' => __('closed'),
-                'desc' => 'used when a new form created by the user or an employee',
+                'description' => 'used when a new form created by the user or an employee',
                 'color' => 'danger',
                 'chartColor' => '#EF4444',
                 'icon' => 'heroicon-o-x-circle',

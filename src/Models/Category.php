@@ -19,7 +19,7 @@ class Category extends Model
     use HasUpdates;
     use HasTranslations;
 
-    public $translatable = ['name', 'desc'];
+    public $translatable = ['name', 'description'];
 
     protected $guarded = [];
 

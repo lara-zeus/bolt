@@ -15,7 +15,7 @@
 
                 <p>
                     {{ $category->name }}
-                    <cite class="block">{{ $category->desc }}</cite>
+                    <cite class="block">{{ $category->description }}</cite>
                 </p>
 
                 @foreach($category->forms as $form)
@@ -24,7 +24,7 @@
                             {{ $form->name ?? '' }}
                         </span>
                         <cite class="text-secondary-600 dark:text-secondary-500 hover:dark:text-secondary-300">
-                            {{ $form->desc }}
+                            {{ $form->description }}
                         </cite>
                     </a>
                 @endforeach

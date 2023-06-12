@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('sections', function (Blueprint $table) {
-            $table->integer('section_column')->default(1);
-            $table->text('section_descriptions')->nullable();
-            $table->string('section_icon')->nullable();
-            $table->boolean('section_aside')->default(0);
+            $table->integer('columns')->default(1);
+            $table->text('description')->nullable();
+            $table->string('icon')->nullable();
+            $table->boolean('aside')->default(0);
         });
     }
 
@@ -25,10 +25,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('sections', function (Blueprint $table) {
-            $table->dropColumn('section_column');
-            $table->dropColumn('section_descriptions');
-            $table->dropColumn('section_icon');
-            $table->dropColumn('section_aside');
+            $table->dropColumn('columns');
+            $table->dropColumn('description');
+            $table->dropColumn('icon');
+            $table->dropColumn('aside');
         });
     }
 };
