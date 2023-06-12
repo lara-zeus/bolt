@@ -1,4 +1,4 @@
-<div x-data class="space-y-4 my-6 mx-4 ">
+<div x-data class="space-y-4 my-6">
 
     <x-slot name="header">
         <h2>{{ __('Show Entry Details') }}</h2>
