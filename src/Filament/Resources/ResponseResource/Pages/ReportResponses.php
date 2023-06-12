@@ -7,7 +7,6 @@ use Filament\Resources\Pages\Page;
 use Filament\Tables;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +14,6 @@ use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\Response;
 
 class ReportResponses extends Page implements Tables\Contracts\HasTable
 {
@@ -91,7 +89,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                             $query->where('response', 'like', '%' . $search . '%');
                         });
                 })
-                ->getStateUsing(fn(Model $record) => $this->getFieldResponseValue($record, $field))
+                ->getStateUsing(fn (Model $record) => $this->getFieldResponseValue($record, $field))
                 ->toggleable();
         }
 
@@ -134,13 +132,13 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                 ->size('sm')
                 ->visible(request()->filled('form_id'))
                 ->label(__('Brows Entries'))
-                ->url(fn(): string => ResponseResource::getUrl('brows') . '?form_id=' . request('form_id')),
+                ->url(fn (): string => ResponseResource::getUrl('brows') . '?form_id=' . request('form_id')),
 
             Action::make('list')
                 ->size('sm')
                 ->visible(request()->filled('form_id'))
                 ->label(__('List Entries'))
-                ->url(fn(): string => ResponseResource::getUrl() . '?form_id=' . request('form_id')),
+                ->url(fn (): string => ResponseResource::getUrl() . '?form_id=' . request('form_id')),
         ];
     }
 }
