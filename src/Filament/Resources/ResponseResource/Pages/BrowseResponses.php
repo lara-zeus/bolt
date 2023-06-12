@@ -2,17 +2,17 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
+use Closure;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Tables\Actions\Action;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
-use Closure;
-use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\Models\FormsStatus;
 use LaraZeus\Bolt\Models\Response;
 
@@ -50,7 +50,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     protected function getTableRecordClassesUsing(): ?Closure
     {
-        return fn(Model $record) => 'bg-gray-100';
+        return fn (Model $record) => 'bg-gray-100';
     }
 
     protected function getTitle(): string
@@ -63,7 +63,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
         return [
             Tables\Columns\ViewColumn::make('response')
                 ->label(__('Browse Entries'))
-                ->view('zeus-bolt::themes.zeus.show-entry')
+                ->view('zeus-bolt::themes.zeus.show-entry'),
         ];
     }
 
@@ -102,11 +102,11 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
                 ->form([
                     Select::make('status')
                         ->label(__('status'))
-                        ->default(fn(Response $record) => $record->status)
+                        ->default(fn (Response $record) => $record->status)
                         ->options(FormsStatus::query()->pluck('label', 'key'))
                         ->required(),
                     Textarea::make('notes')
-                        ->default(fn(Response $record) => $record->notes)
+                        ->default(fn (Response $record) => $record->notes)
                         ->label(__('Notes')),
                 ]),
         ];

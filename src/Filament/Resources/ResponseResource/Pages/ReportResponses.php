@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
+use Closure;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
 use Filament\Tables\Columns\BadgeColumn;
@@ -12,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
-use Closure;
 
 class ReportResponses extends Page implements Tables\Contracts\HasTable
 {
@@ -48,7 +48,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
 
     protected function getTableRecordUrlUsing(): ?Closure
     {
-        return fn (Model $record): string => ResponseResource::getUrl('view',$record);
+        return fn (Model $record): string => ResponseResource::getUrl('view', $record);
     }
 
     protected function getHeaderWidgets(): array

@@ -28,11 +28,11 @@ class ViewResponse extends ViewRecord
                 ->form([
                     Select::make('status')
                         ->label(__('status'))
-                        ->default(fn(Response $record) => $record->status)
+                        ->default(fn (Response $record) => $record->status)
                         ->options(FormsStatus::query()->pluck('label', 'key'))
                         ->required(),
                     Textarea::make('notes')
-                        ->default(fn(Response $record) => $record->notes)
+                        ->default(fn (Response $record) => $record->notes)
                         ->label(__('Notes')),
                 ]),
         ];
