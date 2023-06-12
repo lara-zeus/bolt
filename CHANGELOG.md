@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.39 - 2023-06-12
+
+### What's Changed
+
+- add exporting entries action by @atmonshi in https://github.com/lara-zeus/bolt/pull/57
+- using `alperenersoy/filament-export`
+- 
+- add Replicate Action for forms with its sections and fields by @atmonshi in https://github.com/lara-zeus/bolt/pull/58
+- 
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.38...0.0.39
+
 ## 0.0.38 - 2023-06-12
 
 ### What's Changed
