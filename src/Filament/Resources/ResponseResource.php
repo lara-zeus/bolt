@@ -62,8 +62,11 @@ class ResponseResource extends BoltResource
             ->columns([
                 Split::make([
                     Stack::make([
-                        ImageColumn::make('user.avatar')->label(__('User avatar')),
-                        TextColumn::make('user.name')->label(__('User Name'))->searchable(),
+                        ImageColumn::make('user.avatar')
+                            ->label(__('Avatar')),
+                        TextColumn::make('user.name')
+                            ->label(__('User Name'))
+                            ->searchable(),
                         TextColumn::make('user.email')
                             ->searchable()
                             ->label(__('User Email'))
@@ -74,9 +77,13 @@ class ResponseResource extends BoltResource
                             ->icon('heroicon-s-mail'),
                     ]),
                 ]),
-                TextColumn::make('form.name')->label(__('form'))->searchable()->visible(! request()->filled('form_id')),
+                TextColumn::make('form.name')
+                    ->label(__('form'))
+                    ->searchable()
+                    ->visible(! request()->filled('form_id')),
                 Stack::make([
-                    BadgeColumn::make('status')->label(__('status'))
+                    BadgeColumn::make('status')
+                        ->label(__('status'))
                         ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
                         ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
                         ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
@@ -100,6 +107,7 @@ class ResponseResource extends BoltResource
     {
         return [
             'brows' => Pages\BrowseResponses::route('/brows'),
+            'report' => Pages\ReportResponses::route('/report'),
             'index' => Pages\ListResponses::route('/'),
             'view' => Pages\ViewResponse::route('/{record}'),
         ];

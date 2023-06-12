@@ -1,4 +1,9 @@
 <x-filament::page>
+    {{--{{ $this->table }}
+    <div class="flex w-full justify-end">
+        <x-tables::filters.popover :form="$this->table->getLivewire()->getTableFiltersForm()" class="shrink-0"/>
+    </div>--}}
+
     @forelse ($rows as $row)
         @include('zeus-bolt::themes.zeus.show-entry',['response'=>$row])
     @empty
