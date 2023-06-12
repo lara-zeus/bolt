@@ -5,12 +5,15 @@ namespace LaraZeus\Bolt\Models;
 use Database\Factories\ResponseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string $updated_at
  * @property int $form_id
+ * @property int $user_id
  * @property string $status
+ * @property string $notes
  */
 class Response extends Model
 {
@@ -27,7 +30,8 @@ class Response extends Model
         return ResponseFactory::new();
     }
 
-    public function fieldsResponses()
+    /** @phpstan-return HasMany<FieldResponse> */
+    public function fieldsResponses(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
     }

@@ -17,6 +17,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $desc
  * @property string $name
  * @property string $slug
+ * @property string $description
  */
 class Form extends Model
 {
@@ -26,7 +27,7 @@ class Form extends Model
     use HasActive;
     use HasTranslations;
 
-    public $translatable = ['name', 'desc', 'details'/*, 'options.confirmation-message'*/];
+    public $translatable = ['name', 'description', 'details'];
 
     public function getRouteKeyName()
     {

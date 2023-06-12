@@ -102,6 +102,10 @@ abstract class FieldsContract implements Fields, Arrayable
             $options = $options->where('itemKey', $items)->pluck('itemValue');
         }
 
+        if (is_countable($options) && $options->isNotEmpty()) {
+            $options = $options->join(' - ');
+        }
+
         if (empty($options)) {
             $options = implode('-', $items);
         }

@@ -26,8 +26,6 @@ trait Schemata
     {
         return [
             Hidden::make('user_id')->default(auth()->user()->id ?? null),
-            Hidden::make('layout')->default(1),
-            Hidden::make('ordering')->default(1),
 
             Card::make()
                 ->schema([
@@ -43,8 +41,6 @@ trait Schemata
     {
         return [
             Hidden::make('user_id')->default(auth()->user()->id ?? null),
-            Hidden::make('layout')->default(1),
-            Hidden::make('ordering')->default(1),
 
             Tabs::make('form-tabs')
                 ->tabs(static::getTabsSchema())
@@ -99,7 +95,7 @@ trait Schemata
             Tabs\Tab::make('text-details-tab')
                 ->label(__('Text & Details'))
                 ->schema([
-                    Textarea::make('desc')
+                    Textarea::make('description')
                         ->hint(__('Translatable'))
                         ->hintIcon('heroicon-s-translate')
                         ->label(__('Form Description'))
@@ -121,7 +117,6 @@ trait Schemata
                         ->label(__('Is Active'))
                         ->default(1)
                         ->helperText(__('Activate the form and let users start submissions')),
-
                     Toggle::make('options.require-login')
                         ->label(__('require Login'))
                         ->helperText(__('User must be logged in or create an account before can submit a new entry'))
@@ -147,6 +142,9 @@ trait Schemata
                             'wizard' => __('Show As Wizard'),
                             'tabs' => __('Show As Tabs'),
                         ]),
+                    TextInput::make('ordering')
+                        ->label(__('ordering'))
+                        ->default(1),
                 ]),
             Tabs\Tab::make('advanced-tab')
                 ->label(__('Advanced'))
@@ -202,24 +200,24 @@ trait Schemata
                                 ->label(__('Section Details'))
                                 ->columns(2)
                                 ->schema([
-                                    TextInput::make('section_descriptions')
+                                    TextInput::make('description')
                                         ->nullable()
                                         ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'tabs')
-                                        ->label(__('Section Descriptions')),
+                                        ->label(__('Section Description')),
 
-                                    TextInput::make('section_column')
+                                    TextInput::make('columns')
                                         ->required()
                                         ->default(1)
                                         ->minValue(1)
                                         ->maxValue(12)
                                         ->hint(__('From 1-12'))
-                                        ->label(__('Section Column')),
+                                        ->label(__('Section Columns')),
 
-                                    IconPicker::make('section_icon')
+                                    IconPicker::make('icon')
                                         ->visible(fn (Closure $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->label(__('Section icon')),
 
-                                    Toggle::make('section_aside')
+                                    Toggle::make('aside')
                                         ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
                                         ->label(__('show as aside')),
                                 ]),

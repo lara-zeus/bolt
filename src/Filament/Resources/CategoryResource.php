@@ -62,7 +62,7 @@ class CategoryResource extends BoltResource
                 TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                 TextInput::make('ordering')->required()->numeric()->label(__('ordering')),
                 Toggle::make('is_active')->label(__('Is Active'))->default(1),
-                Textarea::make('desc')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
+                Textarea::make('description')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
                 FileUpload::make('logo')
                     ->disk(config('zeus-bolt.uploads.disk', 'public'))
                     ->directory(config('zeus-bolt.uploads.dir', 'logos'))
@@ -77,14 +77,14 @@ class CategoryResource extends BoltResource
             ->columns([
                 ImageColumn::make('logo')->disk(config('zeus-bolt.uploads.disk', 'public'))->label(__('Logo')),
                 TextColumn::make('name')->label(__('Name'))->sortable()->searchable(),
-                TextColumn::make('desc')->label(__('Description')),
+                TextColumn::make('description')->label(__('Description')),
                 IconColumn::make('is_active')
                     ->boolean()
                     ->sortable()
                     ->label(__('Is Active')),
             ])
             ->reorderable('ordering')
-            ->defaultSort('id', 'desc')
+            ->defaultSort('id', 'description')
             ->actions([
                 ActionGroup::make([
                     EditAction::make(),

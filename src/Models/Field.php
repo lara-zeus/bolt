@@ -10,7 +10,6 @@ use Spatie\Translatable\HasTranslations;
 
 /**
  * @property string $updated_at
- * @property array $rules
  * @property int $id
  */
 class Field extends Model
@@ -25,15 +24,7 @@ class Field extends Model
 
     protected $casts = [
         'options' => 'array',
-        'rules' => 'array',
     ];
-
-    public function getAllRulesAttribute()
-    {
-        return collect($this->rules)->transform(function ($item) {
-            return $item['rule'];
-        })->join(' ');
-    }
 
     protected static function newFactory()
     {
