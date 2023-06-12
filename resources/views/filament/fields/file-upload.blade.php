@@ -1,5 +1,7 @@
 @if(!empty($resp->response))
-    <a target="_blank" href="{{ Storage::disk(config('zeus-bolt.uploads.disk'))->url($resp->response) }}">
+    <x-filament::button
+            tag="a" target="_blank" size="sm" outlined
+            href="{{ Storage::disk(config('zeus-bolt.uploads.disk'))->url($resp->response) }}">
         {{ __('view file') }}
-    </a>
+    </x-filament::button>
 @endif
