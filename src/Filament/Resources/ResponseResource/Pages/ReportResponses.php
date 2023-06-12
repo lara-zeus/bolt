@@ -95,7 +95,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                             $query->where('response', 'like', '%' . $search . '%');
                         });
                 })
-                ->getStateUsing(fn(Model $record) => $this->getFieldResponseValue($record, $field))
+                ->getStateUsing(fn (Model $record) => $this->getFieldResponseValue($record, $field))
                 ->html()
                 ->toggleable();
         }
