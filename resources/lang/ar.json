@@ -155,5 +155,6 @@
   "ipv4": "رقم IP 4",
   "ipv6":  "رقم IP 6",
   "mac address": "عنوان ماك",
-  "Replicate": "تكرار"
+  "Replicate": "تكرار",
+  "Export": "تصدير"
 }

@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Closure;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
@@ -120,6 +121,13 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
     {
         return [
             SelectFilter::make('form')->relationship('form', 'name')->default(request('form_id', null)),
+        ];
+    }
+
+    protected function getTableBulkActions(): array
+    {
+        return [
+            FilamentExportBulkAction::make('export')->label(__('Export')),
         ];
     }
 

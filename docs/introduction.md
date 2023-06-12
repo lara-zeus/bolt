@@ -48,9 +48,9 @@ included a UI for the frontend bilt with filament
 - 🔥 show responses for each form 
 - 🔥 search in all responses filtering on the dynamic fields (soon)
 - 🔥 set status for each response
-- 🔥 exporting (soon)
+- 🔥 export or print form with its fields
 - 🔥 Replicate forms with its sections and fields
-- 🔥 form reports (soon)
+- 🔥 form reports
 - 🔥 exam module (set correct answer, the mark for each question, auto correction for all responses, send the mark to the user, and display the result) (soon)
 - 🔥 poll module (custom layout to show the form as a poll, and display the result as chart) (soon)
 - 🔥 multiple events ready to listen to
