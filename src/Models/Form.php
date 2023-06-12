@@ -17,6 +17,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $desc
  * @property string $name
  * @property string $slug
+ * @property string $description
  */
 class Form extends Model
 {
