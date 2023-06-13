@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 0.0.40 - 2023-06-13
+
+### What's Changed
+
+- add Filters and searches by @atmonshi in https://github.com/lara-zeus/bolt/pull/59
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.39...0.0.40
+
 ## 0.0.39 - 2023-06-12
 
 ### What's Changed
