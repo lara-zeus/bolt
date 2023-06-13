@@ -85,6 +85,9 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
             SelectFilter::make('form')
                 ->relationship('form', 'name')
                 ->default($this->form_id),
+            SelectFilter::make('status')
+                ->options(FormsStatus::query()->pluck('label', 'key'))
+                ->label(__('Status')),
         ];
     }
 

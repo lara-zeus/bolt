@@ -13,6 +13,7 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Schemata;
@@ -71,7 +72,7 @@ class FormResource extends BoltResource
         return $table
             ->columns([
                 TextColumn::make('name')->searchable()->sortable()->label(__('Form Name'))->toggleable(),
-                TextColumn::make('category.name')->label(__('Category'))->sortable()->toggleable(),
+                TextColumn::make('category.name')->searchable()->label(__('Category'))->sortable()->toggleable(),
                 IconColumn::make('is_active')->boolean()->label(__('Is Active'))->sortable()->toggleable(),
                 TextColumn::make('start_date')->dateTime()->searchable()->sortable()->label(__('Start Date'))->toggleable(),
                 TextColumn::make('end_date')->dateTime()->searchable()->sortable()->label(__('End Date'))->toggleable(),
@@ -95,7 +96,6 @@ class FormResource extends BoltResource
                         ->tooltip(__('view form'))
                         ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
                         ->openUrlInNewTab(),
-
                     ReplicateAction::make()
                         ->label(__('Replicate'))
                         ->excludeAttributes(['name', 'slug'])
@@ -124,6 +124,15 @@ class FormResource extends BoltResource
                     ->toggle()
                     ->query(fn (Builder $query): Builder => $query->where('is_active', true))
                     ->label(__('Is Active')),
+
+                Filter::make('not_active')
+                    ->toggle()
+                    ->query(fn (Builder $query): Builder => $query->where('is_active', false))
+                    ->label(__('Inactive')),
+
+                SelectFilter::make('category_id')
+                    ->options(config('zeus-bolt.models.Category')::pluck('name', 'id'))
+                    ->label(__('Category')),
             ]);
     }
 

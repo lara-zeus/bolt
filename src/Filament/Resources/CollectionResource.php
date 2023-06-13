@@ -77,8 +77,8 @@ class CollectionResource extends BoltResource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label(__('Collections Name'))->searchable(),
-                TextColumn::make('values-list')->html()->label(__('Collections Values'))->searchable(['values']),
+                TextColumn::make('name')->label(__('Collections Name'))->searchable()->sortable()->toggleable(),
+                TextColumn::make('values-list')->html()->label(__('Collections Values'))->searchable(['values'])->sortable()->toggleable(),
             ])
             ->actions([
                 ActionGroup::make([
