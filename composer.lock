@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e34b3a072b3d0cb58a9182afc690934",
+    "content-hash": "fb2f62e7393107eaa35fda770496aae5",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -1802,11 +1802,17 @@
         },
         {
             "name": "lara-zeus/core",
-            "version": "dev-main",
+            "version": "2.4.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lara-zeus/core.git",
+                "reference": "dd84ccba8e47540bc26ad40e603e711fdb2a7a43"
+            },
             "dist": {
-                "type": "path",
-                "url": "../core",
-                "reference": "b663e86d1bb9c81d8c71e702d48941e1493ec3c5"
+                "type": "zip",
+                "url": "https://api.github.com/repos/lara-zeus/core/zipball/dd84ccba8e47540bc26ad40e603e711fdb2a7a43",
+                "reference": "dd84ccba8e47540bc26ad40e603e711fdb2a7a43",
+                "shasum": ""
             },
             "require": {
                 "archtechx/laravel-seo": "^0.7",
@@ -1846,26 +1852,7 @@
                     "LaraZeus\\Core\\": "src"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "LaraZeus\\Core\\Tests\\": "tests"
-                }
-            },
-            "scripts": {
-                "pint": [
-                    "vendor/bin/pint"
-                ],
-                "test:pest": [
-                    "vendor/bin/pest --parallel"
-                ],
-                "test:phpstan": [
-                    "vendor/bin/phpstan analyse"
-                ],
-                "test": [
-                    "@test:pest",
-                    "@test:phpstan"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1885,9 +1872,17 @@
                 "lara-zeus",
                 "laravel"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/lara-zeus/core/issues",
+                "source": "https://github.com/lara-zeus/core/tree/2.4.10"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/atmonshi",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-13T16:32:19+00:00"
         },
         {
             "name": "laravel/framework",
@@ -11116,9 +11111,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "lara-zeus/core": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
