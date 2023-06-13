@@ -16,6 +16,8 @@ use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\CreateCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\EditCategory;
@@ -75,12 +77,23 @@ class CategoryResource extends BoltResource
     {
         return $table
             ->columns([
-                ImageColumn::make('logo')->disk(config('zeus-bolt.uploads.disk', 'public'))->label(__('Logo')),
-                TextColumn::make('name')->label(__('Name'))->sortable()->searchable(),
-                TextColumn::make('description')->label(__('Description')),
+                ImageColumn::make('logo')
+                    ->disk(config('zeus-bolt.uploads.disk', 'public'))
+                    ->toggleable()
+                    ->label(__('Logo')),
+                TextColumn::make('name')
+                    ->label(__('Name'))
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable(),
+                TextColumn::make('description')
+                    ->label(__('Description'))
+                    ->toggleable()
+                    ->searchable(),
                 IconColumn::make('is_active')
                     ->boolean()
                     ->sortable()
+                    ->toggleable()
                     ->label(__('Is Active')),
             ])
             ->reorderable('ordering')
@@ -90,6 +103,16 @@ class CategoryResource extends BoltResource
                     EditAction::make(),
                     DeleteAction::make(),
                 ]),
+            ])
+            ->filters([
+                Filter::make('is_active')
+                    ->label(__('is active'))
+                    ->toggle()
+                    ->query(fn (Builder $query): Builder => $query->where('is_active', true)),
+                Filter::make('not_active')
+                    ->label(__('not active'))
+                    ->toggle()
+                    ->query(fn (Builder $query): Builder => $query->where('is_active', false)),
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),

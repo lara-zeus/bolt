@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
+use LaraZeus\Bolt\Models\FormsStatus;
 
 class ReportResponses extends Page implements Tables\Contracts\HasTable
 {
@@ -83,8 +84,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                 ->grow(false)
                 ->searchable('status'),
 
-            Tables\Columns\TextColumn::make('notes')
-                ->toggleable(),
+            Tables\Columns\TextColumn::make('notes')->toggleable(),
         ];
 
         foreach ($this->form->fields->sortBy('ordering') as $field) {
@@ -101,8 +101,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                 ->toggleable();
         }
 
-        $mainColumns[] = Tables\Columns\TextColumn::make('created_at')
-            ->toggleable();
+        $mainColumns[] = Tables\Columns\TextColumn::make('created_at')->toggleable();
 
         return $mainColumns;
     }
@@ -121,6 +120,9 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
     {
         return [
             SelectFilter::make('form')->relationship('form', 'name')->default(request('form_id', null)),
+            SelectFilter::make('status')
+                ->options(FormsStatus::query()->pluck('label', 'key'))
+                ->label(__('Status')),
         ];
     }
 

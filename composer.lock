@@ -1802,16 +1802,16 @@
         },
         {
             "name": "lara-zeus/core",
-            "version": "2.4.9",
+            "version": "2.4.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lara-zeus/core.git",
-                "reference": "a97fd0ff4fde8b6438ae89e5dc1013784b55df61"
+                "reference": "dd84ccba8e47540bc26ad40e603e711fdb2a7a43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lara-zeus/core/zipball/a97fd0ff4fde8b6438ae89e5dc1013784b55df61",
-                "reference": "a97fd0ff4fde8b6438ae89e5dc1013784b55df61",
+                "url": "https://api.github.com/repos/lara-zeus/core/zipball/dd84ccba8e47540bc26ad40e603e711fdb2a7a43",
+                "reference": "dd84ccba8e47540bc26ad40e603e711fdb2a7a43",
                 "shasum": ""
             },
             "require": {
@@ -1874,7 +1874,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lara-zeus/core/issues",
-                "source": "https://github.com/lara-zeus/core/tree/2.4.9"
+                "source": "https://github.com/lara-zeus/core/tree/2.4.10"
             },
             "funding": [
                 {
@@ -1882,7 +1882,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-12T13:17:22+00:00"
+            "time": "2023-06-13T16:32:19+00:00"
         },
         {
             "name": "laravel/framework",
@@ -7822,23 +7822,23 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v7.24.1",
+            "version": "v7.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "6c38cf3d6a3523a25974d8457ca94439eaf12ab0"
+                "reference": "35956b9a678c95fd1cb73769e94c5699237864c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/6c38cf3d6a3523a25974d8457ca94439eaf12ab0",
-                "reference": "6c38cf3d6a3523a25974d8457ca94439eaf12ab0",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/35956b9a678c95fd1cb73769e94c5699237864c2",
+                "reference": "35956b9a678c95fd1cb73769e94c5699237864c2",
                 "shasum": ""
             },
             "require": {
                 "fakerphp/faker": "^1.21",
-                "laravel/framework": "^9.52.4",
+                "laravel/framework": "^9.52.9",
                 "mockery/mockery": "^1.5.1",
-                "orchestra/testbench-core": "^7.24.1",
+                "orchestra/testbench-core": "^7.25",
                 "php": "^8.0",
                 "phpunit/phpunit": "^9.5.10",
                 "spatie/laravel-ray": "^1.32.4",
@@ -7868,29 +7868,29 @@
             "keywords": [
                 "BDD",
                 "TDD",
+                "dev",
                 "laravel",
-                "orchestra-platform",
-                "orchestral",
+                "laravel-packages",
                 "testing"
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/v7.24.1"
+                "source": "https://github.com/orchestral/testbench/tree/v7.25.0"
             },
-            "time": "2023-04-03T01:22:44+00:00"
+            "time": "2023-06-13T06:00:26+00:00"
         },
         {
             "name": "orchestra/testbench-core",
-            "version": "v7.24.3",
+            "version": "v7.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench-core.git",
-                "reference": "78d2245cd542b0ed69407eaae7e8e42abddb07a2"
+                "reference": "d5da4c5733ede2c39658adedc45fa74e15f8c957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/78d2245cd542b0ed69407eaae7e8e42abddb07a2",
-                "reference": "78d2245cd542b0ed69407eaae7e8e42abddb07a2",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/d5da4c5733ede2c39658adedc45fa74e15f8c957",
+                "reference": "d5da4c5733ede2c39658adedc45fa74e15f8c957",
                 "shasum": ""
             },
             "require": {
@@ -7898,10 +7898,9 @@
             },
             "require-dev": {
                 "fakerphp/faker": "^1.21",
-                "laravel/framework": "^9.52.4",
+                "laravel/framework": "^9.52.9",
                 "laravel/pint": "^1.4",
                 "mockery/mockery": "^1.5.1",
-                "orchestra/canvas": "^7.0",
                 "phpstan/phpstan": "^1.10.7",
                 "phpunit/phpunit": "^9.5.10",
                 "spatie/laravel-ray": "^1.32.4",
@@ -7912,7 +7911,7 @@
             "suggest": {
                 "brianium/paratest": "Allow using parallel tresting (^6.4).",
                 "fakerphp/faker": "Allow using Faker for testing (^1.21).",
-                "laravel/framework": "Required for testing (^9.52.4).",
+                "laravel/framework": "Required for testing (^9.52.9).",
                 "mockery/mockery": "Allow using Mockery for testing (^1.5.1).",
                 "nunomaduro/collision": "Allow using Laravel style tests output and parallel testing (^6.2).",
                 "orchestra/testbench-browser-kit": "Allow using legacy Laravel BrowserKit for testing (^7.0).",
@@ -7963,7 +7962,7 @@
                 "issues": "https://github.com/orchestral/testbench/issues",
                 "source": "https://github.com/orchestral/testbench-core"
             },
-            "time": "2023-04-27T01:11:38+00:00"
+            "time": "2023-06-13T05:37:48+00:00"
         },
         {
             "name": "pestphp/pest",
@@ -10365,16 +10364,16 @@
         },
         {
             "name": "spatie/backtrace",
-            "version": "1.4.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/backtrace.git",
-                "reference": "ec4dd16476b802dbdc6b4467f84032837e316b8c"
+                "reference": "47794d19e3215ace9e005a8f200cd7cc7be52572"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/backtrace/zipball/ec4dd16476b802dbdc6b4467f84032837e316b8c",
-                "reference": "ec4dd16476b802dbdc6b4467f84032837e316b8c",
+                "url": "https://api.github.com/repos/spatie/backtrace/zipball/47794d19e3215ace9e005a8f200cd7cc7be52572",
+                "reference": "47794d19e3215ace9e005a8f200cd7cc7be52572",
                 "shasum": ""
             },
             "require": {
@@ -10411,7 +10410,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/backtrace/tree/1.4.0"
+                "source": "https://github.com/spatie/backtrace/tree/1.4.1"
             },
             "funding": [
                 {
@@ -10423,7 +10422,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2023-03-04T08:57:24+00:00"
+            "time": "2023-06-13T14:35:04+00:00"
         },
         {
             "name": "spatie/laravel-ray",

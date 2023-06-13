@@ -12,6 +12,7 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
+use LaraZeus\Bolt\Models\FormsStatus;
 
 class ResponseResource extends BoltResource
 {
@@ -99,7 +100,12 @@ class ResponseResource extends BoltResource
             ])
             ->defaultSort('created_at', 'description')
             ->filters([
-                SelectFilter::make('form')->relationship('form', 'name')->default(request('form_id', null)),
+                SelectFilter::make('status')
+                    ->options(FormsStatus::query()->pluck('label', 'key'))
+                    ->label(__('Status')),
+                SelectFilter::make('form')
+                    ->relationship('form', 'name')
+                    ->default(request('form_id', null)),
             ]);
     }
 
