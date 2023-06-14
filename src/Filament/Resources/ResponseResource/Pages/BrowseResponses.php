@@ -63,7 +63,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
         return [
             Tables\Columns\ViewColumn::make('response')
                 ->label(__('Browse Entries'))
-                ->view('zeus-bolt::themes.zeus.show-entry'),
+                ->view('zeus-bolt::filament.resources.response-resource.pages.show-entry'),
         ];
     }
 
