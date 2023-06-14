@@ -11,7 +11,7 @@
         </li>
 
         <li class="flex items-center">
-            {{ __('Show entry') }} # {{ $response->id }}
+            {{ __('Show entry') }} # {{ $getRecord()->id }}
         </li>
     </x-slot>
 
@@ -19,7 +19,7 @@
         <div class="md:col-span-2 space-y-4">
             <x-filament::card>
                 <div class="grid grid-cols-1">
-                    @foreach($response->fieldsResponses as $resp)
+                    @foreach($getRecord()->fieldsResponses as $resp)
                         <div class="py-2 text-ellipsis overflow-auto">
                             <p>{{ $resp->field->name }}</p>
                             <p class="font-semibold mb-2">{!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}</p>
@@ -36,15 +36,15 @@
                 </x-filament::card.heading>
                 <p>
                     <span class="text-base font-light">{{ __('By') }}</span>:
-                    @if($response->user_id === null)
+                    @if($getRecord()->user_id === null)
                         {{ __('Visitor') }}
                     @else
-                        {{ ($response->user->name) ?? '' }}
+                        {{ ($getRecord()->user->name) ?? '' }}
                     @endif
                 </p>
                 <p class="flex flex-col">
                     <span class="text-base font-light">{{ __('created at') }}:</span>
-                    <span class="font-semibold">{{ $response->created_at->format('Y.m/d') }}-{{ $response->created_at->format('h:i a') }}</span>
+                    <span class="font-semibold">{{ $getRecord()->created_at->format('Y.m/d') }}-{{ $getRecord()->created_at->format('h:i a') }}</span>
                 </p>
             </x-filament::card>
             <div>
@@ -56,12 +56,12 @@
 
                         <div class="flex flex-col">
                             <span class="text-gray-600">{{ __('Form') }}:</span>
-                            {{ $response->form->name ?? '' }}
+                            {{ $getRecord()->form->name ?? '' }}
                         </div>
 
                         <div>
                             <span>{{ __('status') }}</span>
-                            @php $getStatues = config('zeus-bolt.models.FormsStatus')::where('key',$response->status)->first() @endphp
+                            @php $getStatues = config('zeus-bolt.models.FormsStatus')::where('key',$getRecord()->status)->first() @endphp
                             <span class="{{ $getStatues->class }}" x-tooltip.raw="{{ __('status') }}">
                                 @svg($getStatues->icon,'w-4 h-4 inline')
                                 {{ $getStatues->label }}
@@ -70,7 +70,7 @@
 
                         <div class="flex flex-col">
                             <span>{{ __('Notes') }}:</span>
-                            {!! nl2br($response->notes) !!}
+                            {!! nl2br($getRecord()->notes) !!}
                         </div>
 
                     </x-filament::card>
