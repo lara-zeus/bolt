@@ -23,10 +23,6 @@ included a UI for the frontend bilt with filament
 - 🔥 option for requiring login per form
 - 🔥 limit submissions with one entry for a user (if auth is required only)
 - 🔥 Available Fields:
-  - view field (soon)
-  - dynamic dataset (soon)
-  - user selector (soon)
-  - date range (from to) (soon)
   - Text Input
   - Select Menu
   - Multi Select Menu
@@ -46,12 +42,12 @@ included a UI for the frontend bilt with filament
 - 🔥 multi lang
 - 🔥 form layouts
 - 🔥 show responses for each form 
-- 🔥 search in all responses filtering on the dynamic fields (soon)
+- 🔥 search in all responses filtering on the dynamic fields
 - 🔥 set status for each response
 - 🔥 export or print form with its fields
 - 🔥 Replicate forms with its sections and fields
 - 🔥 form reports
-- 🔥 exam module (set correct answer, the mark for each question, auto correction for all responses, send the mark to the user, and display the result) (soon)
+- 🔥 exam module (set correct answer, the mark for each question, autocorrection for all responses, send the mark to the user, and display the result) (soon)
 - 🔥 poll module (custom layout to show the form as a poll, and display the result as chart) (soon)
 - 🔥 multiple events ready to listen to
 - 🔥 show the entries for the users
