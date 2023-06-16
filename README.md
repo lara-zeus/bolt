@@ -1,10 +1,8 @@
-<h1 align="center">Lara Zeus Bolt</h1>
-
-<h4 align="center">Lara-zeus bolt is a form builder for your users, with so many use cases.</h3>
-
 <p align="center">
 <a href="https://larazeus.com"><img src="https://larazeus.com/images/bolt-banner.png" /></a>
 </p>
+
+<h4 align="center">Lara-zeus bolt is a form builder for your users, with so many use cases.</h4>
 
 <h1 align="center" style="color: red">
 🚧🚧 Still under development 🚧🚧
