@@ -14,50 +14,58 @@ first install the package:
 composer require yepsua/filament-rating-field
 ```
 
-create a file in `Zeus\Fields\Rating.php`
-the file name must be the same as the component class
+create the field using the following command, passing the Fully qualified names of the form component:
 
-```php
-<?php
-
-namespace App\Zeus\Fields;
-
-use Filament\Forms\Components\Toggle;
-use LaraZeus\Bolt\Fields\FieldsContract;
-
-class Rating extends FieldsContract
-{
-    public string $renderClass = '\Yepsua\Filament\Forms\Components\Rating';
-
-    public int $sort = 99;
-
-    public function title(): string
-    {
-        return __('Rating');
-    }
-
-    public static function getOptions(): array
-    {
-        return [
-            Toggle::make('options.is_required')->label(__('Is Required')),
-        ];
-    }
-}
-
+```bash
+php artisan make:zeus-field \\Yepsua\\Filament\\Forms\\Components\\Rating
 ```
-
-check out the contract `LaraZeus\Bolt\Fields\FieldsContract` and see all the available methods.
-
 
 ## Caching
 
 bolt will automatically add the field to the form builder.
 there is a cache for ll fields, so remember to flush the key `bolt.fields`
 
+## Customization
+check out the contract `LaraZeus\Bolt\Fields\FieldsContract` and see all the available methods.
 
-## Disabling
+available customizations:
+
+### Disabling
 
 you can disable any field temporally by adding:
 ```php
 public bool $disabled = true;
+```
+
+### Field title:
+
+```php
+public function title(): string
+{
+    return __(class_basename($this));
+}
+```
+
+### fields options
+you can add any options to be shown in the admin page when creating the form
+
+```php
+public static function getOptions(): array
+{
+    return [
+        Toggle::make('options.is_required')->label(__('Is Required')),
+    ];
+}
+```
+
+and to apply these options to the field:
+```php
+public function appendFilamentComponentsOptions($component, $zeusField)
+{
+    parent::appendFilamentComponentsOptions($component, $zeusField);
+
+    if (isset($zeusField->options['is_required']) && $zeusField->options['is_required']) {
+        $component = $component->required();
+    }
+}
 ```
