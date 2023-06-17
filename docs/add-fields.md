@@ -69,3 +69,22 @@ public function appendFilamentComponentsOptions($component, $zeusField)
     }
 }
 ```
+
+### disable options tab
+if your field doesn't have any options you can disable the options tab by removing the method `getOptions`, or return false:
+```php
+public function hasOptions(): bool
+{
+    return false;
+}
+```
+
+### view the response
+you can control how to present the response in the entries pages
+
+```php
+public function getResponse($field, $resp): string
+{
+    return $resp->response;
+}
+```

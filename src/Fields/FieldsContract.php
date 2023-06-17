@@ -19,7 +19,7 @@ abstract class FieldsContract implements Fields, Arrayable
     {
         return [
             'disabled' => $this->disabled,
-            'class' => $this->getClass(),
+            'class' => '\\' . get_called_class(),
             'renderClass' => $this->renderClass,
             'hasOptions' => $this->hasOptions(),
             'code' => $this->getCode(),
@@ -36,11 +36,6 @@ abstract class FieldsContract implements Fields, Arrayable
     public function title(): string
     {
         return __(class_basename($this));
-    }
-
-    public function getClass(): string
-    {
-        return '\\' . get_called_class();
     }
 
     public function hasOptions(): bool
