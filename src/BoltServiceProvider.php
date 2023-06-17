@@ -5,7 +5,8 @@ namespace LaraZeus\Bolt;
 use Filament\PluginServiceProvider;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
-use LaraZeus\Bolt\Console\PublishCommand;
+use LaraZeus\Bolt\Commands\PublishCommand;
+use LaraZeus\Bolt\Commands\ZeusFieldCommand;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
@@ -70,7 +71,10 @@ class BoltServiceProvider extends PluginServiceProvider
                 'add_fields_to_sections_table',
             ])
             ->hasTranslations()
-            ->hasCommand(PublishCommand::class)
+            ->hasCommands([
+                PublishCommand::class,
+                ZeusFieldCommand::class,
+            ])
             ->hasRoute('web');
     }
 }

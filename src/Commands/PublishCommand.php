@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Console;
+namespace LaraZeus\Bolt\Commands;
 
 use Illuminate\Console\Command;
 
