@@ -31,8 +31,8 @@ class ZeusFieldCommand extends Command
         $filamentPluginFullNamespace = $this->argument('plugin');
         $fieldClassName = str($filamentPluginFullNamespace)->explode('\\')->last();
 
-        $this->copyStubToApp('ZeusField', 'app/Zeus/Fields/'.$fieldClassName.'.php', [
-            'namespace' => "App\\Zeus\\Fields",
+        $this->copyStubToApp('ZeusField', 'app/Zeus/Fields/' . $fieldClassName . '.php', [
+            'namespace' => 'App\\Zeus\\Fields',
             'plugin' => $filamentPluginFullNamespace,
             'class' => $fieldClassName,
         ]);
