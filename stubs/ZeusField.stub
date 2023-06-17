@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use Filament\Forms\Components\Toggle;
+use LaraZeus\Bolt\Fields\FieldsContract;
+
+class {{ class }} extends FieldsContract
+{
+    public string $renderClass = {{ plugin }}::class;
+
+    public int $sort = 20;
+
+    public static function getOptions(): array
+    {
+        return [
+            Toggle::make('options.is_required')->label(__('Is Required')),
+        ];
+    }
+}
+
