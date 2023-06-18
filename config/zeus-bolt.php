@@ -68,6 +68,11 @@ return [
     'navigation_group_label' => 'Bolt',
 
     /**
+     * default mailable for new entries
+     */
+    'default_mailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
+
+    /**
      * the default date format
      */
     'default_date_format' => 'Y m/d',

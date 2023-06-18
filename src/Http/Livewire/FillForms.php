@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Http\Livewire;
 
 use Filament\Forms;
+use Illuminate\Support\Facades\Mail;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -101,6 +102,15 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                 'response' => $response,
             ]);
         }*/
+
+        if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
+            $emails = explode(',', $this->zeusForm->options['emails-notification']);
+
+            foreach ($emails as $email) {
+                $mailable = config('zeus-bolt.default_mailable');
+                Mail::to($email)->send(new $mailable($this->zeusForm, $response));
+            }
+        }
 
         return redirect()->route('bolt.submitted', ['slug' => $this->zeusForm->slug]);
     }

@@ -93,7 +93,7 @@
   "optional, organize your forms into categories": "optional, organize your forms into categories",
   "optional, specify when the form will be active and receiving new entries": "optional, specify when the form will be active and receiving new entries",
   "Emails Notifications": "Emails Notifications",
-  "optional, enter the emails you want to receive notification when ever you got a new entry": "optional, enter the emails you want to receive notification when ever you got a new entry",
+  "optional, enter the emails (comma separated) you want to receive notification when ever you got a new entry": "optional, enter the emails you want to receive notification when ever you got a new entry",
   "enter webHook URL": "enter webHook URL",
   "Send the form data to a webHook": "Send the form data to a webHook",
   "Section Name": "Section Name",
