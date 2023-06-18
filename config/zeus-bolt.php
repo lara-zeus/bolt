@@ -66,4 +66,9 @@ return [
      * Navigation Group Label
      */
     'navigation_group_label' => 'Bolt',
+
+    /**
+     * default mailable for new entries
+     */
+    'default_mailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
 ];
