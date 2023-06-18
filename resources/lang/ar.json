@@ -93,7 +93,7 @@
   "optional, organize your forms into categories": "ترتيب النماذج في تصنيفات لتظهر في الموقع",
   "optional, specify when the form will be active and receiving new entries": "يمكنك تحديد فترة السماح باستقبال ارساليات للنموذج",
   "Emails Notifications": "تنبيهات البريد",
-  "optional, enter the emails you want to receive notification when ever you got a new entry": "اختياري، يمكنك ارسال تنبيهات للبريد الإلكتروني عند وجود ادخالات جديدة",
+  "optional, enter the emails (comma separated) you want to receive notification when ever you got a new entry": "اختياري، يمكنك ارسال تنبيهات للبريد الإلكتروني عند وجود ادخالات جديدة, افصل بين الإيميلات بفاصلة",
   "enter webHook URL": "رابط استدعاء خارجي",
   "Send the form data to a webHook": "ارسال النموذج إلى رابط خارجي",
   "Section Name": "اسم التصنيف",
