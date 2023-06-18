@@ -46,7 +46,6 @@ Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recen
 
 ## Support
 available support channels:
-* using our channel `#bolt` on [Discord](https://filamentphp.com/discord)
 * open an issue on [GitHub](https://github.com/lara-zeus/bolt/issues)
 * email us using the [contact center](https://still-code.com/contact-us/lara-zeus)
 
