@@ -46,7 +46,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         $this->zeusForm = config('zeus-bolt.models.Form')::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
-        abort_if(optional($this->zeusForm->options)['require-login'] && !auth()->check(), 401);
+        abort_if(optional($this->zeusForm->options)['require-login'] && ! auth()->check(), 401);
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
@@ -77,12 +77,12 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
             $setValue = $value;
 
-            if (!empty($setValue) && is_array($setValue)) {
+            if (! empty($setValue) && is_array($setValue)) {
                 $value = json_encode($value);
             }
 
             config('zeus-bolt.models.FieldResponse')::create([
-                'response' => (!empty($value)) ? $value : '',
+                'response' => (! empty($value)) ? $value : '',
                 'response_id' => $response->id,
                 'form_id' => $this->zeusForm->id,
                 'field_id' => $field,
@@ -103,7 +103,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ]);
         }*/
 
-        if (isset($this->zeusForm->options['emails-notification']) && !empty($this->zeusForm->options['emails-notification'])) {
+        if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
 
             foreach ($emails as $email) {

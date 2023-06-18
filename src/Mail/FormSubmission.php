@@ -11,9 +11,11 @@ use Illuminate\Queue\SerializesModels;
 
 class FormSubmission extends Mailable implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public $form;
+
     public $response;
 
     /**
