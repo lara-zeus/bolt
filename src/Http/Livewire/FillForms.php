@@ -136,6 +136,11 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                 ->layout(config('zeus-bolt.layout'));
         }
 
+        if ($this->zeusForm->onePerUser()) {
+            return view('zeus-bolt::errors.one-entry-per-user')
+                ->layout(config('zeus-bolt.layout'));
+        }
+
         return view(app('bolt-theme') . '.fill-forms')
             ->layout(config('zeus-bolt.layout'));
     }
