@@ -24,6 +24,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $end_date
  * @property bool $date_available
  * @property bool $require_login
+ * @property bool $onePerUser
  */
 class Form extends Model
 {
@@ -111,5 +112,12 @@ class Form extends Model
         return Attribute::make(
             get: fn () => optional($this->options)['require-login'] && auth()->check(),
         );
+    }
+
+    public function onePerUser(): bool
+    {
+        return $this->require_login
+            && optional($this->options)['one-entry-per-user']
+            && $this->responses()->where('user_id')->exists();
     }
 }
