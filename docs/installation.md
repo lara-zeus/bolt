@@ -20,6 +20,11 @@ php artisan vendor:publish --tag=zeus-bolt-migrations
 
 optionally, if you want to seed the database, publish the seeder and factories with:
 
+```bash
+php artisan vendor:publish --tag=zeus-bolt-seeder
+php artisan vendor:publish --tag=zeus-bolt-factories
+```
+
 ## Assets
 to publish the assets files for the frontend:
 
@@ -36,4 +41,4 @@ php artisan migrate
 
 ## Usage
 
-visit the url `/admin` , and `/forms` to access the forms.
+visit the url `/admin` , and `/bolt` to access the forms.

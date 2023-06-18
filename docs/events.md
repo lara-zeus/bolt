@@ -10,12 +10,12 @@ Bolt will fire these events:
 - `LaraZeus\Bolt\Events\FormSent`
 
 ## Register a Listener:
-* first create your listener:
+* First, create your listener:
 ```bash
 php artisan make:listener SendNotification --event=FormMounted
 ```
 
-* second register the listener in your `EventServiceProvider`
+* Second, register the listener in your `EventServiceProvider`
 
 ```php
 protected $listen = [
@@ -26,8 +26,8 @@ protected $listen = [
 ];
 ```
 
-* finally, you can receive the form object in the `handle` method, and do whatever you want. 
-for example:
+* Finally, you can receive the form object in the `handle` method and do whatever you want.
+  For example:
 
 ```php
 Mail::to(User::first())->send(new \App\Mail\Contact(

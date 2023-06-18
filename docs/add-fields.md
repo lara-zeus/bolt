@@ -5,39 +5,37 @@ weight: 6
 
 ## Create Custom Fields
 
-you can add any custom fields you want that available on the [filament core](https://filamentphp.com/docs/2.x/forms/fields) or [filament plugins](https://filamentphp.com/plugins).
+Add any custom fields you want that is available on the [filament core](https://filamentphp.com/docs/2.x/forms/fields) or [filament plugins](https://filamentphp.com/plugins).
 
-for example, we want to allow our users to use rating in the forms:
-first install the package:
+For example, we want to allow our users to use ratings in the forms:
+First, install the package:
 
 ```bash
 composer require yepsua/filament-rating-field
 ```
 
-create the field using the following command, passing the Fully qualified names of the form component:
+Create the field using the following command, passing the fully qualified name of the form component:
 
 ```bash
-php artisan make:zeus-field \\Yepsua\\Filament\\Forms\\Components\\Rating
+php artisan make:Zeus-field \\Yepsua\\Filament\\Forms\\Components\\Rating
 ```
 
 ## Caching
 
-bolt will automatically add the field to the form builder.
-there is a cache for ll fields, so remember to flush the key `bolt.fields`
+Bolt will automatically list the field in the form builder.
+There is a cache for all fields, so remember to flush the key `bolt.fields`
 
 ## Customization
 check out the contract `LaraZeus\Bolt\Fields\FieldsContract` and see all the available methods.
 
-available customizations:
-
 ### Disabling
 
-you can disable any field temporally by adding:
+You can turn off any field temporally by adding:
 ```php
 public bool $disabled = true;
 ```
 
-### Field title:
+### Field Title:
 
 ```php
 public function title(): string
@@ -46,8 +44,8 @@ public function title(): string
 }
 ```
 
-### fields options
-you can add any options to be shown in the admin page when creating the form
+### Field Options
+you can add any options to be shown on the admin page when creating the form
 
 ```php
 public static function getOptions(): array
@@ -58,7 +56,7 @@ public static function getOptions(): array
 }
 ```
 
-and to apply these options to the field:
+And to apply these options to the field in the frontend:
 ```php
 public function appendFilamentComponentsOptions($component, $zeusField)
 {
@@ -70,8 +68,8 @@ public function appendFilamentComponentsOptions($component, $zeusField)
 }
 ```
 
-### disable options tab
-if your field doesn't have any options you can disable the options tab by removing the method `getOptions`, or return false:
+### Disable the options tab
+if your field doesn't have any options, you can turn off the options tab by removing the method `getOptions` or returning false:
 ```php
 public function hasOptions(): bool
 {
@@ -79,8 +77,8 @@ public function hasOptions(): bool
 }
 ```
 
-### view the response
-you can control how to present the response in the entries pages
+### View the Response
+you can control how to view the response on the entries pages
 
 ```php
 public function getResponse($field, $resp): string
