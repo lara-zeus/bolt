@@ -66,4 +66,9 @@ return [
      * Navigation Group Label
      */
     'navigation_group_label' => 'Bolt',
+
+    /**
+     * the default date format
+     */
+    'default_date_format' => 'Y m/d',
 ];

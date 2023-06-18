@@ -156,5 +156,12 @@
   "ipv6":  "رقم IP 6",
   "mac address": "عنوان ماك",
   "Replicate": "تكرار",
-  "Export": "تصدير"
+  "Export": "تصدير",
+  "Login Required": "يتطلب تسجيل الدخول",
+  "Login is required to access the form": "تسجيل الدخول اجباري قبل تعبئة النموذج",
+  "Login": "تسجيل الدخول",
+  "the submission period is ended for the form": "انتهت فترة السماح بتعبئة النموذج",
+  "Date Ended": "انتهى التاريخ",
+  "Start date": "تاريخ البداية",
+  "End date": "تاريخ النهاية"
 }

@@ -36,6 +36,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     // todo $itemSlug is temp solution, refactor later
     // todo Bolt should not care about other extension
+    /**
+     * @throws \Throwable
+     */
     public function mount($slug, $itemSlug = null)
     {
         // todo dynamic checks for ext 'preShowHook'
@@ -45,8 +48,6 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         $this->zeusForm = config('zeus-bolt.models.Form')::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
-        abort_if(optional($this->zeusForm->options)['require-login'] && ! auth()->check(), 401);
-
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
         }
@@ -54,7 +55,6 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $this->form->fill();
 
         event(new FormMounted($this->zeusForm));
-        //$rules = $validationAttributes = [];
     }
 
     public function resetAll()
@@ -115,6 +115,16 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ->rawTag('<meta name="theme-color" content="' . config('zeus-bolt.site_color') . '" />')
             ->withUrl()
             ->twitter();
+
+        if (! $this->zeusForm->require_login) {
+            return view('zeus-bolt::errors.login-required')
+                ->layout(config('zeus-bolt.layout'));
+        }
+
+        if (! $this->zeusForm->date_available) {
+            return view('zeus-bolt::errors.date-ended')
+                ->layout(config('zeus-bolt.layout'));
+        }
 
         return view(app('bolt-theme') . '.fill-forms')
             ->layout(config('zeus-bolt.layout'));
