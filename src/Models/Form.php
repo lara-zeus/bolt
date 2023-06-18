@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Models;
 
 use Database\Factories\FormFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,11 @@ use Spatie\Translatable\HasTranslations;
  * @property string $name
  * @property string $slug
  * @property string $description
+ * @property array $options
+ * @property string $start_date
+ * @property string $end_date
+ * @property bool $date_available
+ * @property bool $require_login
  */
 class Form extends Model
 {
@@ -80,5 +86,30 @@ class Form extends Model
     public function fieldsResponses(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
+    }
+
+    /**
+     * Check if the form dates is available.
+     */
+    protected function dateAvailable(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->start_date === null ||
+                (
+                    $this->start_date !== null
+                    && $this->end_date !== null
+                    && now()->between($this->start_date, $this->end_date)
+                ),
+        );
+    }
+
+    /**
+     * Check if the form require login.
+     */
+    protected function requireLogin(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => optional($this->options)['require-login'] && auth()->check(),
+        );
     }
 }
