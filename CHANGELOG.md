@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.0.0 - 2023-06-18
+
+### What's Changed
+
+- finally out of demo 🤞 by @atmonshi in https://github.com/lara-zeus/bolt/pull/69
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/0.0.47...1.0.0
+
 ## 0.0.43 - 2023-06-16
 
 ### What's Changed
