@@ -11,7 +11,6 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\FormsStatus;
 use LaraZeus\Bolt\Models\Response;
@@ -64,13 +63,6 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
             Tables\Columns\ViewColumn::make('response')
                 ->label(__('Browse Entries'))
                 ->view('zeus-bolt::filament.resources.response-resource.pages.show-entry'),
-        ];
-    }
-
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            BetaNote::class,
         ];
     }
 

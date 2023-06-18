@@ -5,7 +5,6 @@ namespace LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 
 class ListCategories extends ListRecords
 {
@@ -18,13 +17,6 @@ class ListCategories extends ListRecords
         return [
             Actions\LocaleSwitcher::make(),
             Actions\CreateAction::make(),
-        ];
-    }
-
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            BetaNote::class,
         ];
     }
 }

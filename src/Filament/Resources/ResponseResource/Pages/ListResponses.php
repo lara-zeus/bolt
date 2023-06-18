@@ -7,7 +7,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ViewAction;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\FormsStatus;
 use LaraZeus\Bolt\Models\Response;
@@ -27,13 +26,6 @@ class ListResponses extends ListRecords
     public function mount(): void
     {
         $this->form_id = request('form_id', 0);
-    }
-
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            BetaNote::class,
-        ];
     }
 
     protected function getTableActions(): array

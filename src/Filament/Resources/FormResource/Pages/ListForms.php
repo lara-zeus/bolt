@@ -6,20 +6,12 @@ use Filament\Pages\Actions;
 use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 
 class ListForms extends ListRecords
 {
     use ListRecords\Concerns\Translatable;
 
     protected static string $resource = FormResource::class;
-
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            BetaNote::class,
-        ];
-    }
 
     protected function getActions(): array
     {
