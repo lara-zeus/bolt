@@ -5,7 +5,6 @@ namespace LaraZeus\Bolt\Filament\Resources;
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Widgets\EditCollectionWarning;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 
 class BoltResource extends Resource
 {
@@ -24,7 +23,6 @@ class BoltResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            BetaNote::class,
             EditCollectionWarning::class,
         ];
     }

@@ -6,7 +6,6 @@ use Filament\Pages\Actions\Action;
 use Filament\Pages\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\EditRecord;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 
 class EditForm extends EditRecord
 {
@@ -31,13 +30,6 @@ class EditForm extends EditRecord
                 ->color('warning')
                 ->url(fn () => route('bolt.form.show', $this->record))
                 ->openUrlInNewTab(),
-        ];
-    }
-
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            BetaNote::class,
         ];
     }
 }

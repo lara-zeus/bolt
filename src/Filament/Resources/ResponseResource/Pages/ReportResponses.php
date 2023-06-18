@@ -11,7 +11,6 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
@@ -51,13 +50,6 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
     protected function getTableRecordUrlUsing(): ?Closure
     {
         return fn (Model $record): string => ResponseResource::getUrl('view', $record);
-    }
-
-    protected function getHeaderWidgets(): array
-    {
-        return [
-            BetaNote::class,
-        ];
     }
 
     protected function getTableQuery(): Builder

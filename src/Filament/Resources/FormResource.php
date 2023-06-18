@@ -17,7 +17,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Schemata;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Widgets\BetaNote;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class FormResource extends BoltResource
@@ -149,7 +148,6 @@ class FormResource extends BoltResource
     public static function getWidgets(): array
     {
         return [
-            BetaNote::class,
             FormResource\Widgets\FormOverview::class,
             FormResource\Widgets\ResponsesPerMonth::class,
             FormResource\Widgets\ResponsesPerStatus::class,
