@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.0.1 - 2023-06-19
+
+### What's Changed
+
+- fix primary color 🦩 by @atmonshi in https://github.com/lara-zeus/bolt/pull/70
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.0.0...1.0.1
+
 ## 1.0.0 - 2023-06-18
 
 ### What's Changed
