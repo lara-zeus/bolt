@@ -1802,16 +1802,16 @@
         },
         {
             "name": "lara-zeus/core",
-            "version": "2.4.15",
+            "version": "2.4.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lara-zeus/core.git",
-                "reference": "f7af097987e0240fcbd870da4462996fa16cfb55"
+                "reference": "806450f8d55cbc82d6e144426c5c7b30337ad70b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lara-zeus/core/zipball/f7af097987e0240fcbd870da4462996fa16cfb55",
-                "reference": "f7af097987e0240fcbd870da4462996fa16cfb55",
+                "url": "https://api.github.com/repos/lara-zeus/core/zipball/806450f8d55cbc82d6e144426c5c7b30337ad70b",
+                "reference": "806450f8d55cbc82d6e144426c5c7b30337ad70b",
                 "shasum": ""
             },
             "require": {
@@ -1859,7 +1859,7 @@
             "authors": [
                 {
                     "name": "php coder",
-                    "email": "wh7r.com@gmail.com",
+                    "email": "info@larazeus.com",
                     "role": "Owner"
                 }
             ],
@@ -1874,7 +1874,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lara-zeus/core/issues",
-                "source": "https://github.com/lara-zeus/core/tree/2.4.15"
+                "source": "https://github.com/lara-zeus/core/tree/2.4.16"
             },
             "funding": [
                 {
@@ -1882,7 +1882,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-17T19:32:04+00:00"
+            "time": "2023-06-19T01:00:24+00:00"
         },
         {
             "name": "laravel/framework",
