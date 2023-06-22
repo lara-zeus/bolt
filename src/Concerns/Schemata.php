@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Filament\Resources\FormResource;
+namespace LaraZeus\Bolt\Concerns;
 
 use Closure;
 use Filament\Forms\Components\Card;
@@ -60,7 +60,7 @@ trait Schemata
                 ->createItemButtonLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -176,6 +176,24 @@ trait Schemata
                                 ->helperText(__('Send the form data to a webHook')),*/
                         ]),
                 ]),
+
+
+            Tabs\Tab::make('extensions-tab')
+                ->label(__('Extensions'))
+                ->visible(config('zeus-bolt.extensions') !== null)
+                ->schema([
+                    Select::make('extensions')
+                        ->label(__('Extensions'))
+                        ->multiple()
+                        ->preload()
+                        ->options(function () {
+                            return collect(config('zeus-bolt.extensions'))
+                                ->mapWithKeys(function ($item) {
+                                    $class = new $item;
+                                    return [$item => $class->label()];
+                                });
+                        }),
+                ]),
         ];
     }
 
@@ -202,7 +220,7 @@ trait Schemata
                                 ->schema([
                                     TextInput::make('description')
                                         ->nullable()
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn(Closure $get) => $get('../../options.show-as') !== 'tabs')
                                         ->label(__('Section Description')),
 
                                     TextInput::make('columns')
@@ -214,11 +232,11 @@ trait Schemata
                                         ->label(__('Section Columns')),
 
                                     IconPicker::make('icon')
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->visible(fn(Closure $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn(Closure $get) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
                                         ->label(__('show as aside')),
                                 ]),
                         ]),
@@ -238,7 +256,7 @@ trait Schemata
                     '2xl' => 4,
                 ])
                 ->label('')
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->createItemButtonLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Models;
+namespace LaraZeus\Bolt\Concerns;
 
 trait HasActive
 {

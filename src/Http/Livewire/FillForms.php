@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Facades\Bolt;
+use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
 
@@ -19,15 +20,13 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public Form $zeusForm;
 
-    public $item;
-
-    public $itemData;
+    public $extensionData;
 
     public $zeusData = [];
 
     protected function getFormSchema(): array
     {
-        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm, $this->item);
+        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm);
     }
 
     protected function getFormModel(): Form
@@ -35,19 +34,14 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         return $this->zeusForm;
     }
 
-    // todo $itemSlug is temp solution, refactor later
-    // todo Bolt should not care about other extension
     /**
      * @throws \Throwable
      */
-    public function mount($slug, $itemSlug = null)
+    public function mount($slug)
     {
-        // todo dynamic checks for ext 'preShowHook'
-        /*if ($itemSlug !== null) {
-            $this->item = Office::whereSlug($itemSlug)->firstOrFail();
-        }*/
-
         $this->zeusForm = config('zeus-bolt.models.Form')::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
+
+        $this->extensionData = Extensions::init($this->zeusForm, 'canView');
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
@@ -77,33 +71,25 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
             $setValue = $value;
 
-            if (! empty($setValue) && is_array($setValue)) {
+            if (!empty($setValue) && is_array($setValue)) {
                 $value = json_encode($value);
             }
 
             config('zeus-bolt.models.FieldResponse')::create([
-                'response' => (! empty($value)) ? $value : '',
+                'response' => (!empty($value)) ? $value : '',
                 'response_id' => $response->id,
                 'form_id' => $this->zeusForm->id,
                 'field_id' => $field,
             ]);
         }
 
-        event(new FormSent($response, $this->item, $this->form->getState()['itemData'] ?? null));
+        event(new FormSent($response));
 
-        /* todo
-         * issues:
-         * api tokes?
-         * events is better
-         */
-        /*if(isset($this->zeusForm->options['web-hook']) && !empty($this->zeusForm->options['web-hook'])){
-            $post = Http::post($this->zeusForm->options['web-hook'], [
-                'form_id' => $this->zeusForm->id,
-                'response' => $response,
-            ]);
-        }*/
+        $this->extensionData['response'] = $response;
 
-        if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
+        Extensions::init($this->zeusForm, 'store', $this->extensionData);
+
+        if (isset($this->zeusForm->options['emails-notification']) && !empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
 
             foreach ($emails as $email) {
@@ -126,12 +112,12 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ->withUrl()
             ->twitter();
 
-        if (! $this->zeusForm->require_login) {
+        if (!$this->zeusForm->require_login) {
             return view('zeus-bolt::errors.login-required')
                 ->layout(config('zeus-bolt.layout'));
         }
 
-        if (! $this->zeusForm->date_available) {
+        if (!$this->zeusForm->date_available) {
             return view('zeus-bolt::errors.date-ended')
                 ->layout(config('zeus-bolt.layout'));
         }

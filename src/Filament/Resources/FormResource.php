@@ -15,8 +15,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Schemata;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class FormResource extends BoltResource
@@ -77,6 +77,7 @@ class FormResource extends BoltResource
                 TextColumn::make('end_date')->dateTime()->searchable()->sortable()->label(__('End Date'))->toggleable(),
                 IconColumn::make('responses_exists')->boolean()->exists('responses')->label(__('Responses Exists'))->sortable()->toggleable(),
                 TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable()->toggleable(),
+                TextColumn::make('extensions')->label(__('Extensions'))->sortable()->toggleable(),
             ])
             ->actions([
                 ActionGroup::make([

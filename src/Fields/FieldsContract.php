@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Fields;
 
 use Illuminate\Contracts\Support\Arrayable;
+use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
 
 abstract class FieldsContract implements Fields, Arrayable

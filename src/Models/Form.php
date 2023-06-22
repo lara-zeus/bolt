@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use LaraZeus\Bolt\Concerns\HasActive;
+use LaraZeus\Bolt\Concerns\HasUpdates;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -20,6 +22,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $slug
  * @property string $description
  * @property array $options
+ * @property array $extensions
  * @property string $start_date
  * @property string $end_date
  * @property bool $date_available
@@ -47,6 +50,7 @@ class Form extends Model
         'start_date' => 'datetime',
         'end_date' => 'datetime',
         'options' => 'array',
+        'extensions' => 'array',
     ];
 
     protected static function newFactory()

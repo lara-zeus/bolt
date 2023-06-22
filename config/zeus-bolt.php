@@ -76,4 +76,11 @@ return [
      * the default date format
      */
     'default_date_format' => 'Y m/d',
+
+    /**
+     * available extensions, leave it null to disable the extensions tab from the forms
+     */
+    'extensions' => [
+        \LaraZeus\Thunder\Extensions\Thunder::class,
+    ],
 ];

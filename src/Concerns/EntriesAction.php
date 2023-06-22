@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Filament\Resources\ResponseResource;
+namespace LaraZeus\Bolt\Concerns;
 
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Actions\ActionGroup;

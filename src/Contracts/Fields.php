@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Fields;
+namespace LaraZeus\Bolt\Contracts;
 
 interface Fields
 {
