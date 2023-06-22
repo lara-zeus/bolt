@@ -71,12 +71,12 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
             $setValue = $value;
 
-            if (!empty($setValue) && is_array($setValue)) {
+            if (! empty($setValue) && is_array($setValue)) {
                 $value = json_encode($value);
             }
 
             config('zeus-bolt.models.FieldResponse')::create([
-                'response' => (!empty($value)) ? $value : '',
+                'response' => (! empty($value)) ? $value : '',
                 'response_id' => $response->id,
                 'form_id' => $this->zeusForm->id,
                 'field_id' => $field,
@@ -89,7 +89,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         Extensions::init($this->zeusForm, 'store', $this->extensionData);
 
-        if (isset($this->zeusForm->options['emails-notification']) && !empty($this->zeusForm->options['emails-notification'])) {
+        if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
 
             foreach ($emails as $email) {
@@ -112,12 +112,12 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ->withUrl()
             ->twitter();
 
-        if (!$this->zeusForm->require_login) {
+        if (! $this->zeusForm->require_login) {
             return view('zeus-bolt::errors.login-required')
                 ->layout(config('zeus-bolt.layout'));
         }
 
-        if (!$this->zeusForm->date_available) {
+        if (! $this->zeusForm->date_available) {
             return view('zeus-bolt::errors.date-ended')
                 ->layout(config('zeus-bolt.layout'));
         }
