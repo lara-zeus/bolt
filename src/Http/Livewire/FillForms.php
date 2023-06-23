@@ -91,18 +91,6 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         event(new FormSent($response, $this->item, $this->form->getState()['itemData'] ?? null));
 
-        /* todo
-         * issues:
-         * api tokes?
-         * events is better
-         */
-        /*if(isset($this->zeusForm->options['web-hook']) && !empty($this->zeusForm->options['web-hook'])){
-            $post = Http::post($this->zeusForm->options['web-hook'], [
-                'form_id' => $this->zeusForm->id,
-                'response' => $response,
-            ]);
-        }*/
-
         if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
 
@@ -126,7 +114,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ->withUrl()
             ->twitter();
 
-        if (! $this->zeusForm->require_login) {
+        if ($this->zeusForm->need_login) {
             return view('zeus-bolt::errors.login-required')
                 ->layout(config('zeus-bolt.layout'));
         }
