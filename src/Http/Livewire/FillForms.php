@@ -112,7 +112,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ->withUrl()
             ->twitter();
 
-        if (! $this->zeusForm->require_login) {
+        if ($this->zeusForm->need_login) {
             return view('zeus-bolt::errors.login-required')
                 ->layout(config('zeus-bolt.layout'));
         }
