@@ -110,7 +110,7 @@ class Form extends Model
     protected function needLogin(): Attribute
     {
         return Attribute::make(
-            get: fn () => optional($this->options)['require-login'] && !auth()->check(),
+            get: fn () => optional($this->options)['require-login'] && ! auth()->check(),
         );
     }
 
