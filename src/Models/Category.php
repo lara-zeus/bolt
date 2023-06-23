@@ -25,7 +25,7 @@ class Category extends Model
 
     protected $guarded = [];
 
-    protected static function newFactory():CategoryFactory
+    protected static function newFactory(): CategoryFactory
     {
         return CategoryFactory::new();
     }

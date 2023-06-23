@@ -21,7 +21,7 @@ class Section extends Model
 
     protected $guarded = [];
 
-    protected static function newFactory():SectionFactory
+    protected static function newFactory(): SectionFactory
     {
         return SectionFactory::new();
     }
