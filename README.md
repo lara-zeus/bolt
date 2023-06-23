@@ -2,7 +2,7 @@
 <a href="https://larazeus.com"><img src="https://larazeus.com/images/bolt-banner.png" /></a>
 </p>
 
-<h4 align="center">Lara-zeus bolt is a form builder for your users, with so many use cases.</h4>
+<h4 align="center">Lara-zeus bolt is a form builder for your users with many use cases.</h4>
 
 <p align="center">
 
@@ -15,7 +15,7 @@
 
 </p>
 
-_if you think this has potential, star the project to let me know :)_
+_💖 if you think this has potential, star ⭐️ the project to let me know :)_
 
 ## Support Filament
 
@@ -28,26 +28,30 @@ _if you think this has potential, star the project to let me know :)_
 - 🔥 FrontEnd scaffolding, highly customizable.
 - 🔥 Collections.
 - 🔥 Categories.
+- 🔥 Entries report.
 
-and more in the way.
+And more on the way.
+
+## Overview
+[read more](https://larazeus.com/docs/bolt/v1/overview) about the idea and how Bolt works.
 
 ## Demo
 
-> visit our demo site: https://demo.larazeus.com
+> Visit our demo site: https://demo.larazeus.com
 
 
 ## Full Documentation
 
-> visit our website to get the full documentation: https://larazeus.com/bolt
+> Visit our website to get the complete documentation: https://larazeus.com/bolt
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information on recent changes.
 
 ## Support
 available support channels:
 * open an issue on [GitHub](https://github.com/lara-zeus/bolt/issues)
-* email us using the [contact center](https://still-code.com/contact-us/lara-zeus)
+* Email us using the [contact center](https://still-code.com/contact-us/lara-zeus)
 
 ## Contributing
 
@@ -55,7 +59,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email info@larazeus.com instead of using the issue tracker.
+If you find any security-related issues, please email info@larazeus.com instead of using the issue tracker.
 
 ## Credits
 
@@ -64,4 +68,4 @@ If you discover any security related issues, please email info@larazeus.com inst
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please have a look at [License File](LICENSE.md) for more information.
