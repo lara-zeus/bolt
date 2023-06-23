@@ -12,7 +12,7 @@ class Extensions extends Facade
         return 'bolt';
     }
 
-    public static function init($form, $hook, $data = null, $action = 'create'): null|Extension
+    public static function init($form, $hook, $data = null, $action = 'create'): null|Extension|array
     {
         if ($form->extensions !== null) {
             foreach ($form->extensions as $extension) {

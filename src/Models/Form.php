@@ -37,9 +37,9 @@ class Form extends Model
     use HasActive;
     use HasTranslations;
 
-    public $translatable = ['name', 'description', 'details'];
+    public array $translatable = ['name', 'description', 'details'];
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
@@ -53,7 +53,7 @@ class Form extends Model
         'extensions' => 'array',
     ];
 
-    protected static function newFactory()
+    protected static function newFactory(): FormFactory
     {
         return FormFactory::new();
     }
@@ -95,6 +95,7 @@ class Form extends Model
 
     /**
      * Check if the form dates is available.
+     * @return Attribute<string, never>
      */
     protected function dateAvailable(): Attribute
     {
@@ -110,6 +111,7 @@ class Form extends Model
 
     /**
      * Check if the form require login.
+     * @return Attribute<string, never>
      */
     protected function needLogin(): Attribute
     {

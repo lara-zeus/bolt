@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Models;
 use Database\Factories\CollectionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 
@@ -24,7 +25,7 @@ class Collection extends Model
         'values' => 'array',
     ];
 
-    public function getValuesListAttribute($value)
+    public function getValuesListAttribute(): string
     {
         $someValues = '';
         $someValuesCount = 0;
@@ -42,12 +43,12 @@ class Collection extends Model
         return $someValues . $more;
     }
 
-    protected static function newFactory()
+    protected static function newFactory(): CollectionFactory
     {
         return CollectionFactory::new();
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'));
     }

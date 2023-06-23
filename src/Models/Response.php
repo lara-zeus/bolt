@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Models;
 use Database\Factories\ResponseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasUpdates;
@@ -26,7 +27,7 @@ class Response extends Model
 
     protected $fillable = ['form_id', 'status', 'notes', 'user_id'];
 
-    protected static function newFactory()
+    protected static function newFactory(): ResponseFactory
     {
         return ResponseFactory::new();
     }
@@ -37,11 +38,12 @@ class Response extends Model
         return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model'));
     }
 
+    /** @return BelongsTo<Form, Response> */
     public function form()
     {
         return $this->belongsTo(config('zeus-bolt.models.Form'));

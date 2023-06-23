@@ -17,7 +17,7 @@ class FormsStatus extends Model
 {
     use \Sushi\Sushi;
 
-    public function getRows()
+    public function getRows(): array
     {
         return [
             [
@@ -41,7 +41,7 @@ class FormsStatus extends Model
         ];
     }
 
-    protected function sushiShouldCache()
+    protected function sushiShouldCache(): bool
     {
         return ! app()->isLocal();
     }

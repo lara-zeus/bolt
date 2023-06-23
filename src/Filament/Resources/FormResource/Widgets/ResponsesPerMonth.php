@@ -24,7 +24,7 @@ class ResponsesPerMonth extends LineChartWidget
         $dataset = [];
 
         for ($m = 1; $m <= 12; $m++) {
-            $month = date('m', mktime(0, 0, 0, $m, 1, now()->format('Y')));
+            $month = date('m', mktime(0, 0, 0, $m, 1, (int) now()->format('Y')));
             $dataset[] = Response::query()
                 ->where('form_id', $this->record->id)
                 ->whereYear('created_at', '=', now()->format('Y'))
