@@ -3,8 +3,7 @@
 namespace LaraZeus\Bolt\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\Str;
-use LaraZeus\Bolt\Contracts\BoltExtension;
+use LaraZeus\Bolt\Contracts\Extension;
 
 class Extensions extends Facade
 {

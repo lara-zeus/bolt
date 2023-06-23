@@ -34,11 +34,11 @@ class Bolt extends Facade
 
             $fields = collect();
 
-            if (!$coreFields->isEmpty()) {
+            if (! $coreFields->isEmpty()) {
                 $fields = $fields->merge($coreFields);
             }
 
-            if (!$appFields->isEmpty()) {
+            if (! $appFields->isEmpty()) {
                 $fields = $fields->merge($appFields);
             }
 
@@ -48,7 +48,7 @@ class Bolt extends Facade
 
     public static function collectFields($path, $namespace): Collection
     {
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return collect();
         }
         $classes = Bolt::loadClasses($path, $namespace);
@@ -62,7 +62,7 @@ class Bolt extends Facade
         $allFields = [];
         foreach ($classes as $class) {
             $fieldClass = new $class();
-            if (!$fieldClass->disabled) {
+            if (! $fieldClass->disabled) {
                 $allFields[] = $fieldClass->toArray();
             }
         }
@@ -124,7 +124,7 @@ class Bolt extends Facade
                 $sections[] = Section::make($section->name)
                     ->schema($fields)
                     ->aside()
-                    ->aside(fn() => $section->aside)
+                    ->aside(fn () => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);
             }
@@ -146,12 +146,12 @@ class Bolt extends Facade
         return Placeholder::make('placeholder-' . $hook)
             ->label('')
             ->content(Filament::renderHook($hook))
-            ->visible(!empty(Filament::renderHook($hook)->toHtml()));
+            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
     }
 
     public static function renderHookBlade($hook)
     {
-        if (!empty(Filament::renderHook($hook)->toHtml())) {
+        if (! empty(Filament::renderHook($hook)->toHtml())) {
             return Filament::renderHook($hook);
         }
     }

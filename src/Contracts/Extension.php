@@ -12,12 +12,8 @@ interface Extension
      * before displaying the form, do some checks
      * for example check if the request() param is existed, or the user is logged in !
      *
-     * @param Model $form
-     * @param string $data
-     * @param string $action create or update
-     *
-     *
-     * @return array|bool
+     * @param  string  $data
+     * @param  string  $action create or update
      */
     public function canView(Model $form, $data, string $action = 'create'): bool|array;
 
@@ -26,11 +22,8 @@ interface Extension
      *
      * return a blade file with view()->render()
      *
-     * @param Model $form
-     * @param null $data
-     * @param string $action create or update
-     *
-     * @return string
+     * @param  null  $data
+     * @param  string  $action create or update
      */
     public function render(Model $form, $data, string $action = 'create'): string;
 
@@ -42,11 +35,8 @@ interface Extension
     /**
      * before storing the form, do some checks or validation
      *
-     * @param Model $form
-     * @param                         $data
-     * @param string $action create or update
-     *
-     * @return bool
+     * @param  Model  $form
+     * @param  string  $action create or update
      */
     public function preStore($form, $data, string $action = 'create'): bool;
 
@@ -54,22 +44,18 @@ interface Extension
      * the store logic for the app, insert ticket or any DB ONLY calls, don't send here anything,
      * and you must return the saved app, if you want to depend on it in the postStore
      *
-     * @param Model $form
-     * @param                         $data
-     * @param string $action create or update
-     *
+     * @param  Model  $form
+     * @param  string  $action create or update
      * @return array ['msg','lockedItem']
-     * @throws \Exception
      *
+     * @throws \Exception
      */
     public function store($form, $data, string $action = 'create'): array;
 
     /**
      * this typically used for sending only, it will execute after the DB::transaction
      *
-     * @param Model $form
-     * @param $data
-     * @param string $action create or update
+     * @param  string  $action create or update
      */
     public function postStore(Model $form, $data, string $action = 'create'): void;
 
@@ -77,11 +63,7 @@ interface Extension
      * this will show any info after saving the form, like ticket num or more buttons and links
      * also it's better to use blade file, view()->render()
      *
-     * @param Model $form
-     * @param        $data
-     * @param string $action create or update
-     *
-     * @return string
+     * @param  string  $action create or update
      */
     public function SubmittedRender(Model $form, $data, string $action = 'create'): string;
 }
