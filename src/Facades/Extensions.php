@@ -21,5 +21,7 @@ class Extensions extends Facade
                 }
             }
         }
+
+        return null;
     }
 }
