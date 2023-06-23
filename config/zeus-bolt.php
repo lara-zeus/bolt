@@ -80,7 +80,5 @@ return [
     /**
      * available extensions, leave it null to disable the extensions tab from the forms
      */
-    'extensions' => [
-        \LaraZeus\Thunder\Extensions\Thunder::class,
-    ],
+    'extensions' => null,
 ];
