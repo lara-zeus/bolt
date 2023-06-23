@@ -4,12 +4,12 @@ namespace LaraZeus\Bolt\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
 
-interface BoltExtension
+interface Extension
 {
     public function label(): string;
 
     /**
-     * before display the form, do some checks
+     * before displaying the form, do some checks
      * for example check if the request() param is existed, or the user is logged in !
      *
      * @param Model $form
@@ -34,11 +34,13 @@ interface BoltExtension
      */
     public function render(Model $form, $data, string $action = 'create'): string;
 
+    /*
+     * return an array of filament components to add them to the form
+     */
     public function formComponents(Model $form, $data, string $action = 'create'): array;
 
     /**
      * before storing the form, do some checks or validation
-     * this will be called before the VCF checks
      *
      * @param Model $form
      * @param                         $data
@@ -49,7 +51,7 @@ interface BoltExtension
     public function preStore($form, $data, string $action = 'create'): bool;
 
     /**
-     * the store logic for the app, insert ticket or any DB ONLY calls, don't send here anything
+     * the store logic for the app, insert ticket or any DB ONLY calls, don't send here anything,
      * and you must return the saved app, if you want to depend on it in the postStore
      *
      * @param Model $form
@@ -63,7 +65,7 @@ interface BoltExtension
     public function store($form, $data, string $action = 'create'): array;
 
     /**
-     * this typically used for sending only, it will executed after the DB::transaction
+     * this typically used for sending only, it will execute after the DB::transaction
      *
      * @param Model $form
      * @param $data
