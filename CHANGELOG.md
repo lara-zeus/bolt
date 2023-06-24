@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.1.0 - 2023-06-24
+
+### What's Changed
+
+- Add Extensions by @atmonshi in https://github.com/lara-zeus/bolt/pull/71
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.0.2...1.1.0
+
 ## 1.0.2 - 2023-06-23
 
 ### What's Changed
