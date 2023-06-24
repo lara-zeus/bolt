@@ -33,9 +33,9 @@ class TestCase extends Orchestra
             User::create(['email' => 'admin@domain.com', 'name' => 'Admin', 'password' => 'password'])
         );
 
-        Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'LaraZeus\Bolt\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
-        );
+        /*Factory::guessFactoryNamesUsing(
+            fn (string $modelName) => 'LaraZeus\\Bolt\\Tests\\Factories\\' . class_basename($modelName) . 'Factory'
+        );*/
 
     }
 
