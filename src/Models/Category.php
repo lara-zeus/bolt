@@ -6,7 +6,9 @@ use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
+use LaraZeus\Bolt\Concerns\HasUpdates;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -19,20 +21,24 @@ class Category extends Model
     use HasUpdates;
     use HasTranslations;
 
-    public $translatable = ['name', 'description'];
+    public array $translatable = ['name', 'description'];
 
     protected $guarded = [];
 
-    protected static function newFactory()
+    protected static function newFactory(): CategoryFactory
     {
         return CategoryFactory::new();
     }
 
-    public function forms()
+    /** @return HasMany<Form> */
+    public function forms(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.Form'));
     }
 
+    /**
+     * @return Attribute<string, never>
+     */
     protected function logoUrl(): Attribute
     {
         return Attribute::make(

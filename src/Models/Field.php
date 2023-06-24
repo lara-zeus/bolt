@@ -5,6 +5,9 @@ namespace LaraZeus\Bolt\Models;
 use Database\Factories\FieldFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
@@ -18,7 +21,7 @@ class Field extends Model
     use HasFactory;
     use HasTranslations;
 
-    public $translatable = ['name'];
+    public array $translatable = ['name'];
 
     protected $guarded = [];
 
@@ -26,22 +29,25 @@ class Field extends Model
         'options' => 'array',
     ];
 
-    protected static function newFactory()
+    protected static function newFactory(): FieldFactory
     {
         return FieldFactory::new();
     }
 
-    public function form()
+    /** @return BelongsTo<Form, Field> */
+    public function form(): BelongsTo
     {
         return $this->belongsTo(config('zeus-bolt.models.Form'));
     }
 
-    public function section()
+    /** @return BelongsToMany<Section> */
+    public function section(): BelongsToMany
     {
         return $this->belongsToMany(config('zeus-bolt.models.Section'));
     }
 
-    public function fieldResponses()
+    /** @return HasOne<FieldResponse> */
+    public function fieldResponses(): HasOne
     {
         return $this->hasOne(config('zeus-bolt.models.FieldResponse'));
     }

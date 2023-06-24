@@ -7,10 +7,10 @@ use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use Symfony\Component\Finder\Finder;
@@ -46,7 +46,7 @@ class Bolt extends Facade
         });
     }
 
-    public static function collectFields($path, $namespace)
+    public static function collectFields($path, $namespace): Collection
     {
         if (! is_dir($path)) {
             return collect();
@@ -57,7 +57,7 @@ class Bolt extends Facade
         return collect($allFields);
     }
 
-    protected static function setFields($classes)
+    protected static function setFields($classes): array
     {
         $allFields = [];
         foreach ($classes as $class) {
@@ -70,7 +70,7 @@ class Bolt extends Facade
         return $allFields;
     }
 
-    public static function loadClasses($path, $namespace)
+    public static function loadClasses($path, $namespace): array
     {
         $classes = [];
         $path = array_unique(Arr::wrap($path));
@@ -82,21 +82,21 @@ class Bolt extends Facade
         return $classes;
     }
 
-    public static function prepareFieldsAndSectionToRender($zeusForm, $item): array
+    public static function prepareFieldsAndSectionToRender($zeusForm): array
     {
         $sections = [];
         $zeusSections = $zeusForm->sections()->orderBy('ordering')->get();
-        $countSections = 0;
+
+        $getExtComponent = Extensions::init($zeusForm, 'formComponents');
+        if ($getExtComponent !== null) {
+            $sections[] = Section::make('extensions')
+                ->schema($getExtComponent);
+        }
+
         foreach ($zeusSections as $section) {
-            $countSections++;
             $fields = [];
 
             $fields[] = static::renderHook('zeus-form-section.before');
-
-            /*if ($item !== null && $countSections === 1) {
-                // todo adding title comment if there is an extension, extensions should define their own fields somehow
-                $fields[] = TextInput::make('itemData.title')->label(__('Ticket Title'))->required();
-            }*/
 
             foreach ($section->fields()->orderBy('ordering')->get() as $zeusField) {
                 $fields[] = static::renderHook('zeus-form-field.before');
@@ -145,7 +145,7 @@ class Bolt extends Facade
         return $sections;
     }
 
-    public static function renderHook($hook)
+    public static function renderHook($hook): Placeholder
     {
         return Placeholder::make('placeholder-' . $hook)
             ->label('')

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Facades\Bolt;
+use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
 
@@ -19,15 +20,13 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public Form $zeusForm;
 
-    public $item;
-
-    public $itemData;
+    public $extensionData;
 
     public $zeusData = [];
 
     protected function getFormSchema(): array
     {
-        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm, $this->item);
+        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm);
     }
 
     protected function getFormModel(): Form
@@ -35,19 +34,14 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         return $this->zeusForm;
     }
 
-    // todo $itemSlug is temp solution, refactor later
-    // todo Bolt should not care about other extension
     /**
      * @throws \Throwable
      */
-    public function mount($slug, $itemSlug = null)
+    public function mount($slug)
     {
-        // todo dynamic checks for ext 'preShowHook'
-        /*if ($itemSlug !== null) {
-            $this->item = Office::whereSlug($itemSlug)->firstOrFail();
-        }*/
-
         $this->zeusForm = config('zeus-bolt.models.Form')::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
+
+        $this->extensionData = Extensions::init($this->zeusForm, 'canView') ?? [];
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
@@ -89,7 +83,12 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ]);
         }
 
-        event(new FormSent($response, $this->item, $this->form->getState()['itemData'] ?? null));
+        event(new FormSent($response));
+
+        $this->extensionData['response'] = $response;
+        $this->extensionData['extensionsComponent'] = $this->form->getState()['extensions'] ?? [];
+
+        $extensionItemId = Extensions::init($this->zeusForm, 'store', $this->extensionData) ?? [];
 
         if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
@@ -100,7 +99,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             }
         }
 
-        return redirect()->route('bolt.submitted', ['slug' => $this->zeusForm->slug]);
+        return redirect()->route('bolt.submitted', ['slug' => $this->zeusForm->slug, $extensionItemId['itemId'] ?? 0]);
     }
 
     public function render()

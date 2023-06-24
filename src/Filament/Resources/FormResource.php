@@ -15,8 +15,8 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Schemata;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class FormResource extends BoltResource

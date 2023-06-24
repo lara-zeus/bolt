@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use LaraZeus\Bolt\Concerns\HasActive;
+use LaraZeus\Bolt\Concerns\HasUpdates;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -20,6 +22,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $slug
  * @property string $description
  * @property array $options
+ * @property array $extensions
  * @property string $start_date
  * @property string $end_date
  * @property bool $date_available
@@ -34,9 +37,9 @@ class Form extends Model
     use HasActive;
     use HasTranslations;
 
-    public $translatable = ['name', 'description', 'details'];
+    public array $translatable = ['name', 'description', 'details'];
 
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
@@ -49,7 +52,7 @@ class Form extends Model
         'options' => 'array',
     ];
 
-    protected static function newFactory()
+    protected static function newFactory(): FormFactory
     {
         return FormFactory::new();
     }
@@ -91,6 +94,8 @@ class Form extends Model
 
     /**
      * Check if the form dates is available.
+     *
+     * @return Attribute<string, never>
      */
     protected function dateAvailable(): Attribute
     {
@@ -106,6 +111,8 @@ class Form extends Model
 
     /**
      * Check if the form require login.
+     *
+     * @return Attribute<string, never>
      */
     protected function needLogin(): Attribute
     {

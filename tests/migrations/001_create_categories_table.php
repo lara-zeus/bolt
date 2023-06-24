@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_id')->constrained('forms');
-            $table->text('name')->nullable();
+            $table->text('name');
             $table->integer('ordering')->default(1);
-            $table->integer('columns')->default(1);
+            $table->boolean('is_active')->default(1);
             $table->text('description')->nullable();
-            $table->string('icon')->nullable();
-            $table->boolean('aside')->default(0);
+            $table->string('slug');
+            $table->string('logo')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('categories');
     }
 };

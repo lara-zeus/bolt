@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('collections', function (Blueprint $table) {
-            $table->id();
-            $table->text('name');
-            $table->longText('values')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('forms', function (Blueprint $table) {
+            $table->text('extensions')->nullable();
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collections');
+        Schema::table('forms', function (Blueprint $table) {
+            $table->dropColumn('extensions');
+        });
     }
 };

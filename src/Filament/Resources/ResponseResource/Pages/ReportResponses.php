@@ -18,7 +18,7 @@ use LaraZeus\Bolt\Models\FormsStatus;
 class ReportResponses extends Page implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
-    use ResponseResource\EntriesAction;
+    use \LaraZeus\Bolt\Concerns\EntriesAction;
 
     protected static string $resource = ResponseResource::class;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Filament\Resources\FormResource;
+namespace LaraZeus\Bolt\Concerns;
 
 use Closure;
 use Filament\Forms\Components\Card;
@@ -175,6 +175,21 @@ trait Schemata
                                 ->label(__('enter webHook URL'))
                                 ->helperText(__('Send the form data to a webHook')),*/
                         ]),
+                ]),
+
+            Tabs\Tab::make('extensions-tab')
+                ->label(__('Extensions'))
+                ->visible(config('zeus-bolt.extensions') !== null)
+                ->schema([
+                    Select::make('extensions')
+                        ->label(__('Extensions'))
+                        ->preload()
+                        ->options(function () {
+                            return collect(config('zeus-bolt.extensions'))
+                                ->mapWithKeys(function ($item) {
+                                    return [$item => (new $item)->label()];
+                                });
+                        }),
                 ]),
         ];
     }

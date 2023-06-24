@@ -15,15 +15,9 @@ class FormSent
 
     public $response;
 
-    public $item;
-
-    public $data;
-
-    public function __construct($response, $item, $data)
+    public function __construct($response)
     {
         $this->response = $response;
-        $this->item = $item;
-        $this->data = $data;
     }
 
     /**

@@ -13,7 +13,7 @@ use LaraZeus\Bolt\Models\Response;
 
 class ListResponses extends ListRecords
 {
-    use ResponseResource\EntriesAction;
+    use \LaraZeus\Bolt\Concerns\EntriesAction;
 
     protected static string $resource = ResponseResource::class;
 
