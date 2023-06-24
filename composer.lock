@@ -77,16 +77,16 @@
         },
         {
             "name": "alperenersoy/filament-export",
-            "version": "v0.3.5",
+            "version": "v0.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alperenersoy/filament-export.git",
-                "reference": "3a26d8e026a5327f476fa2263d2654793ac863a7"
+                "reference": "0a25d55a61406ad0b0ed9bd8cb1e67ebfcd81a1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alperenersoy/filament-export/zipball/3a26d8e026a5327f476fa2263d2654793ac863a7",
-                "reference": "3a26d8e026a5327f476fa2263d2654793ac863a7",
+                "url": "https://api.github.com/repos/alperenersoy/filament-export/zipball/0a25d55a61406ad0b0ed9bd8cb1e67ebfcd81a1a",
+                "reference": "0a25d55a61406ad0b0ed9bd8cb1e67ebfcd81a1a",
                 "shasum": ""
             },
             "require": {
@@ -127,9 +127,9 @@
             "description": "Customizable export and print functionality for Filament Admin Panel",
             "support": {
                 "issues": "https://github.com/alperenersoy/filament-export/issues",
-                "source": "https://github.com/alperenersoy/filament-export/tree/v0.3.5"
+                "source": "https://github.com/alperenersoy/filament-export/tree/v0.3.6"
             },
-            "time": "2023-06-01T16:45:19+00:00"
+            "time": "2023-06-20T18:03:18+00:00"
         },
         {
             "name": "archtechx/laravel-seo",
@@ -3185,16 +3185,16 @@
         },
         {
             "name": "openspout/openspout",
-            "version": "v4.14.0",
+            "version": "v4.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/openspout/openspout.git",
-                "reference": "528442c4051c8dfc53c164651156fa616c370931"
+                "reference": "907a2ff042741b1f25b6e636d18ce9d7fc4c8333"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openspout/openspout/zipball/528442c4051c8dfc53c164651156fa616c370931",
-                "reference": "528442c4051c8dfc53c164651156fa616c370931",
+                "url": "https://api.github.com/repos/openspout/openspout/zipball/907a2ff042741b1f25b6e636d18ce9d7fc4c8333",
+                "reference": "907a2ff042741b1f25b6e636d18ce9d7fc4c8333",
                 "shasum": ""
             },
             "require": {
@@ -3208,17 +3208,17 @@
             },
             "require-dev": {
                 "ext-zlib": "*",
-                "friendsofphp/php-cs-fixer": "^3.17.0",
+                "friendsofphp/php-cs-fixer": "^3.18.0",
                 "infection/infection": "^0.27",
                 "phpbench/phpbench": "^1.2.10",
-                "phpstan/phpstan": "^1.10.15",
-                "phpstan/phpstan-phpunit": "^1.3.12",
+                "phpstan/phpstan": "^1.10.19",
+                "phpstan/phpstan-phpunit": "^1.3.13",
                 "phpstan/phpstan-strict-rules": "^1.5.1",
-                "phpunit/phpunit": "^10.1.3"
+                "phpunit/phpunit": "^10.2.2"
             },
             "suggest": {
-                "ext-iconv": "To handle non UTF-8 CSV files (if \"php-intl\" is not already installed or is too limited)",
-                "ext-intl": "To handle non UTF-8 CSV files (if \"iconv\" is not already installed)"
+                "ext-iconv": "To handle non UTF-8 CSV files (if \"php-mbstring\" is not already installed or is too limited)",
+                "ext-mbstring": "To handle non UTF-8 CSV files (if \"iconv\" is not already installed)"
             },
             "type": "library",
             "extra": {
@@ -3262,7 +3262,7 @@
             ],
             "support": {
                 "issues": "https://github.com/openspout/openspout/issues",
-                "source": "https://github.com/openspout/openspout/tree/v4.14.0"
+                "source": "https://github.com/openspout/openspout/tree/v4.15.0"
             },
             "funding": [
                 {
@@ -3274,7 +3274,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-24T09:26:05+00:00"
+            "time": "2023-06-19T07:48:22+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -4085,16 +4085,16 @@
         },
         {
             "name": "spatie/laravel-translatable",
-            "version": "6.5.1",
+            "version": "6.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-translatable.git",
-                "reference": "b8f102492f816608d832cfe9e420da6a856312cf"
+                "reference": "29d08d2088bda0d2b05452a348a7af2e81f9c668"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/b8f102492f816608d832cfe9e420da6a856312cf",
-                "reference": "b8f102492f816608d832cfe9e420da6a856312cf",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/29d08d2088bda0d2b05452a348a7af2e81f9c668",
+                "reference": "29d08d2088bda0d2b05452a348a7af2e81f9c668",
                 "shasum": ""
             },
             "require": {
@@ -4155,7 +4155,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-translatable/issues",
-                "source": "https://github.com/spatie/laravel-translatable/tree/6.5.1"
+                "source": "https://github.com/spatie/laravel-translatable/tree/6.5.2"
             },
             "funding": [
                 {
@@ -4163,7 +4163,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-05-06T10:22:13+00:00"
+            "time": "2023-06-20T18:08:15+00:00"
         },
         {
             "name": "spatie/simple-excel",
@@ -7379,16 +7379,16 @@
         },
         {
             "name": "laravel/pint",
-            "version": "v1.10.2",
+            "version": "v1.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/pint.git",
-                "reference": "f78de1a1bbab7aa41a6ea211c5962b0530d1a301"
+                "reference": "c472786bca01e4812a9bb7933b23edfc5b6877b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/f78de1a1bbab7aa41a6ea211c5962b0530d1a301",
-                "reference": "f78de1a1bbab7aa41a6ea211c5962b0530d1a301",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/c472786bca01e4812a9bb7933b23edfc5b6877b7",
+                "reference": "c472786bca01e4812a9bb7933b23edfc5b6877b7",
                 "shasum": ""
             },
             "require": {
@@ -7399,7 +7399,7 @@
                 "php": "^8.1.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.17.0",
+                "friendsofphp/php-cs-fixer": "^3.18.0",
                 "illuminate/view": "^10.5.1",
                 "laravel-zero/framework": "^10.0.2",
                 "mockery/mockery": "^1.5.1",
@@ -7441,7 +7441,7 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-            "time": "2023-06-12T10:50:04+00:00"
+            "time": "2023-06-20T15:55:03+00:00"
         },
         {
             "name": "mockery/mockery",
@@ -8612,16 +8612,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.19",
+            "version": "1.10.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "af5a296ff02610c1bfb4ddfac9fd4a08657b9046"
+                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/af5a296ff02610c1bfb4ddfac9fd4a08657b9046",
-                "reference": "af5a296ff02610c1bfb4ddfac9fd4a08657b9046",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5",
+                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5",
                 "shasum": ""
             },
             "require": {
@@ -8670,7 +8670,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-14T15:26:58+00:00"
+            "time": "2023-06-21T20:07:58+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
@@ -10426,16 +10426,16 @@
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.32.4",
+            "version": "1.32.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "2274653f0a90dd87fbb887437be1c1ea1388a47c"
+                "reference": "288f30c94c9725dfd78d8a1b82b230521f4d697e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/2274653f0a90dd87fbb887437be1c1ea1388a47c",
-                "reference": "2274653f0a90dd87fbb887437be1c1ea1388a47c",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/288f30c94c9725dfd78d8a1b82b230521f4d697e",
+                "reference": "288f30c94c9725dfd78d8a1b82b230521f4d697e",
                 "shasum": ""
             },
             "require": {
@@ -10495,7 +10495,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.32.4"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.32.5"
             },
             "funding": [
                 {
@@ -10507,7 +10507,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2023-03-23T08:04:54+00:00"
+            "time": "2023-06-23T07:04:32+00:00"
         },
         {
             "name": "spatie/macroable",
