@@ -11,7 +11,6 @@ use Filament\Notifications\NotificationsServiceProvider;
 use Filament\SpatieLaravelTranslatablePluginServiceProvider;
 use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use LaraZeus\Bolt\BoltServiceProvider;
 use LaraZeus\Bolt\Tests\Models\User;
@@ -36,7 +35,6 @@ class TestCase extends Orchestra
         /*Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'LaraZeus\\Bolt\\Tests\\Factories\\' . class_basename($modelName) . 'Factory'
         );*/
-
     }
 
     protected function getPackageProviders($app): array

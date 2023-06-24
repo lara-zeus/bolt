@@ -41,7 +41,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         $this->zeusForm = config('zeus-bolt.models.Form')::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
 
-        $this->extensionData = Extensions::init($this->zeusForm, 'canView');
+        $this->extensionData = Extensions::init($this->zeusForm, 'canView') ?? [];
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
@@ -86,9 +86,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         event(new FormSent($response));
 
         $this->extensionData['response'] = $response;
-        $this->extensionData['extensionsComponent'] = $this->form->getState()['extensions'];
+        $this->extensionData['extensionsComponent'] = $this->form->getState()['extensions'] ?? [];
 
-        $extensionItemId = Extensions::init($this->zeusForm, 'store', $this->extensionData);
+        $extensionItemId = Extensions::init($this->zeusForm, 'store', $this->extensionData) ?? [];
 
         if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);

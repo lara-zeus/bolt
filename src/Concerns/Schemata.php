@@ -181,16 +181,13 @@ trait Schemata
                 ->label(__('Extensions'))
                 ->visible(config('zeus-bolt.extensions') !== null)
                 ->schema([
-                    // todo.. if needed
                     Select::make('extensions')
                         ->label(__('Extensions'))
                         ->preload()
                         ->options(function () {
                             return collect(config('zeus-bolt.extensions'))
                                 ->mapWithKeys(function ($item) {
-                                    $class = new $item;
-
-                                    return [$item => $class->label()];
+                                    return [$item => (new $item)->label()];
                                 });
                         }),
                 ]),
