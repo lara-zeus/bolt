@@ -86,8 +86,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         event(new FormSent($response));
 
         $this->extensionData['response'] = $response;
+        $this->extensionData['extensionsComponent'] = $this->form->getState()['extensions'];
 
-        Extensions::init($this->zeusForm, 'store', $this->extensionData);
+        $extensionItemId = Extensions::init($this->zeusForm, 'store', $this->extensionData);
 
         if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
@@ -98,7 +99,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             }
         }
 
-        return redirect()->route('bolt.submitted', ['slug' => $this->zeusForm->slug]);
+        return redirect()->route('bolt.submitted', ['slug' => $this->zeusForm->slug, $extensionItemId['itemId'] ?? 0]);
     }
 
     public function render()

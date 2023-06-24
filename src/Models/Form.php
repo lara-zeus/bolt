@@ -50,7 +50,6 @@ class Form extends Model
         'start_date' => 'datetime',
         'end_date' => 'datetime',
         'options' => 'array',
-        'extensions' => 'array',
     ];
 
     protected static function newFactory(): FormFactory

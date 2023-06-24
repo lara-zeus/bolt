@@ -87,8 +87,11 @@ class Bolt extends Facade
         $sections = [];
         $zeusSections = $zeusForm->sections()->orderBy('ordering')->get();
 
-        $sections[] = Section::make('extensions')
-            ->schema(Extensions::init($zeusForm, 'formComponents'));
+        $getExtComponent = Extensions::init($zeusForm, 'formComponents');
+        if ($getExtComponent !== null) {
+            $sections[] = Section::make('extensions')
+                ->schema($getExtComponent);
+        }
 
         foreach ($zeusSections as $section) {
             $fields = [];

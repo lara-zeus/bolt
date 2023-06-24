@@ -4,19 +4,21 @@
     </x-slot>
     <x-slot name="breadcrumb"></x-slot>
     <div class="max-w-4xl mx-auto px-4">
-
-        {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'SubmittedRender',) !!}
-
         <x-filament::card>
-            @if(isset($form->options['confirmation_message']) && !empty($form->options['confirmation_message']))
-                <span class="text-xs text-gray-400">
+            @if(!empty($form->options['confirmation_message']))
+                <span class="text-md text-gray-600">
                     {!! $form->options['confirmation_message'] !!}
                 </span>
             @else
-                <span class="text-xs text-gray-400">
-                    {{ __('the form') }} {{ $form->name ?? '' }} {{ __('submitted successfully') }}.
+                <span class="text-md text-gray-600">
+                    {{ __('the form') }}
+                    <span class="font-semibold">{{ $form->name ?? '' }}</span>
+                    {{ __('submitted successfully') }}.
                 </span>
             @endif
+
+            {!! \LaraZeus\Bolt\Facades\Extensions::init($form, 'SubmittedRender', ['extensionData' => $extension]) !!}
+
         </x-filament::card>
     </div>
 </div>

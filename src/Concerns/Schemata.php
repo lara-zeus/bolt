@@ -181,9 +181,9 @@ trait Schemata
                 ->label(__('Extensions'))
                 ->visible(config('zeus-bolt.extensions') !== null)
                 ->schema([
+                    // todo.. if needed
                     Select::make('extensions')
                         ->label(__('Extensions'))
-                        ->multiple()
                         ->preload()
                         ->options(function () {
                             return collect(config('zeus-bolt.extensions'))

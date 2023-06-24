@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Http\Livewire;
 
+use LaraZeus\Bolt\Facades\Extensions;
 use Livewire\Component;
 
 class Submitted extends Component
@@ -10,10 +11,15 @@ class Submitted extends Component
 
     public $form;
 
-    public function mount($slug)
+    public $extension;
+
+    public function mount($slug, $extension = null)
     {
         $this->slug = $slug;
         $this->form = config('zeus-bolt.models.Form')::whereSlug($slug)->firstOrFail();
+        if ($extension !== null) {
+            $this->extension = $extension; //Extensions::init($this->form, 'getModel', ['itemId' => $extension]);
+        }
     }
 
     public function render()
