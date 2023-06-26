@@ -163,5 +163,9 @@
   "the submission period is ended for the form": "انتهت فترة السماح بتعبئة النموذج",
   "Date Ended": "انتهى التاريخ",
   "Start date": "تاريخ البداية",
-  "End date": "تاريخ النهاية"
+  "End date": "تاريخ النهاية",
+  "New submission on form": "لديك سجل جديد في النموذج",
+  "view the entry": "عرض السجل",
+  "any changes in the values of these items will affect the responses for the forms in": "اي تعديلات في القيم ستؤثر على السجلات في",
+  "field": "حقل"
 }
