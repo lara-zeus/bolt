@@ -1,5 +1,3 @@
 <x-filament::page>
-    <div>
-        {{ $this->table }}
-    </div>
+    {{ $this->table }}
 </x-filament::page>

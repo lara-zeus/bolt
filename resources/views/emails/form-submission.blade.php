@@ -1,8 +1,8 @@
 <x-mail::message>
-# New submission on form: {{ $form->name }}
+# {{ __('New submission on form') }}: {{ $form->name }}
 
 <x-mail::button :url="$url">
-view the entry
+{{ __('view the entry') }}
 </x-mail::button>
 
 Thanks,<br>

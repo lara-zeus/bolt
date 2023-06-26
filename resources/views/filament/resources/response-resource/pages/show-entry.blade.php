@@ -1,7 +1,7 @@
 <div x-data class="space-y-4 my-6 mx-4 w-full">
 
     <x-slot name="header">
-        <h2>{{ __('Show Entry Details') }}</h2>
+        <h3>{{ __('Show Entry Details') }}</h3>
     </x-slot>
 
     <x-slot name="breadcrumps">
