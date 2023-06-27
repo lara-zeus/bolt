@@ -30,16 +30,16 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
-            $coreFields = Bolt::collectFields(__DIR__.'/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            $coreFields = Bolt::collectFields(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Bolt::collectFields(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
 
             $fields = collect();
 
-            if (!$coreFields->isEmpty()) {
+            if (! $coreFields->isEmpty()) {
                 $fields = $fields->merge($coreFields);
             }
 
-            if (!$appFields->isEmpty()) {
+            if (! $appFields->isEmpty()) {
                 $fields = $fields->merge($appFields);
             }
 
@@ -49,7 +49,7 @@ class Bolt extends Facade
 
     public static function collectFields($path, $namespace): Collection
     {
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return collect();
         }
         $classes = Bolt::loadClasses($path, $namespace);
@@ -63,7 +63,7 @@ class Bolt extends Facade
         $allFields = [];
         foreach ($classes as $class) {
             $fieldClass = new $class();
-            if (!$fieldClass->disabled) {
+            if (! $fieldClass->disabled) {
                 $allFields[] = $fieldClass->toArray();
             }
         }
@@ -77,7 +77,7 @@ class Bolt extends Facade
         $path = array_unique(Arr::wrap($path));
 
         foreach ((new Finder())->in($path)->files() as $className) {
-            $classes[] = $namespace.$className->getFilenameWithoutExtension();
+            $classes[] = $namespace . $className->getFilenameWithoutExtension();
         }
 
         return $classes;
@@ -96,6 +96,7 @@ class Bolt extends Facade
                     if (class_exists($class)) {
                         return (new $class)->label();
                     }
+
                     return __('Extension');
                 })
                 ->schema($getExtComponent);
@@ -110,7 +111,7 @@ class Bolt extends Facade
                 $fields[] = static::renderHook('zeus-form-field.before');
 
                 $fieldClass = new $zeusField->type;
-                $component = $fieldClass->renderClass::make('zeusData.'.$zeusField->id);
+                $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
 
                 $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
@@ -136,7 +137,7 @@ class Bolt extends Facade
                 $sections[] = Section::make($section->name)
                     ->schema($fields)
                     ->aside()
-                    ->aside(fn() => $section->aside)
+                    ->aside(fn () => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);
             }
@@ -155,15 +156,15 @@ class Bolt extends Facade
 
     public static function renderHook($hook): Placeholder
     {
-        return Placeholder::make('placeholder-'.$hook)
+        return Placeholder::make('placeholder-' . $hook)
             ->label('')
             ->content(Filament::renderHook($hook))
-            ->visible(!empty(Filament::renderHook($hook)->toHtml()));
+            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
     }
 
     public static function renderHookBlade($hook)
     {
-        if (!empty(Filament::renderHook($hook)->toHtml())) {
+        if (! empty(Filament::renderHook($hook)->toHtml())) {
             return Filament::renderHook($hook);
         }
     }
