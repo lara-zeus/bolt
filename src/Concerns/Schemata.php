@@ -186,8 +186,12 @@ trait Schemata
                         ->preload()
                         ->options(function () {
                             return collect(config('zeus-bolt.extensions'))
-                                ->mapWithKeys(function ($item) {
-                                    return [$item => (new $item)->label()];
+                                ->mapWithKeys(function ($item): array {
+                                    if (class_exists($item, false)) {
+                                        return [$item => (new $item)->label()];
+                                    }
+
+                                    return [$item => $item];
                                 });
                         }),
                 ]),
