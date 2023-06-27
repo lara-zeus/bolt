@@ -18,12 +18,15 @@ class ViewResponse extends ViewRecord
     {
         return [
             Action::make('set-status')
+                ->visible(function (): bool {
+                    return $this->record->form->extensions === null;
+                })
                 ->label(__('Set Status'))
                 ->icon('heroicon-o-tag')
-                ->action(function (array $data): void {
-                    $this->record->status = $data['status'];
-                    $this->record->notes = $data['notes'];
-                    $this->record->save();
+                ->action(function (array $data, Response $record): void {
+                    $record->status = $data['status'];
+                    $record->notes = $data['notes'];
+                    $record->save();
                 })
                 ->form([
                     Select::make('status')
