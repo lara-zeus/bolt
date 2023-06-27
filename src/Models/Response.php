@@ -60,6 +60,8 @@ class Response extends Model
             'class' => $getStatues->class ?? '',
             'icon' => $getStatues->icon ?? 'heroicon-o-status-online',
             'label' => $getStatues->label ?? $this->status,
+            'key' => $getStatues->key ?? '',
+            'color' => $getStatues->color ?? '',
         ];
     }
 }

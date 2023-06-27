@@ -187,7 +187,7 @@ trait Schemata
                         ->options(function () {
                             return collect(config('zeus-bolt.extensions'))
                                 ->mapWithKeys(function ($item): array {
-                                    if (class_exists($item, false)) {
+                                    if (class_exists($item)) {
                                         return [$item => (new $item)->label()];
                                     }
 
