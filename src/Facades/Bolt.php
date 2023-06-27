@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
+use LaraZeus\Bolt\Models\Form;
 use Symfony\Component\Finder\Finder;
 
 class Bolt extends Facade
@@ -82,7 +83,7 @@ class Bolt extends Facade
         return $classes;
     }
 
-    public static function prepareFieldsAndSectionToRender($zeusForm): array
+    public static function prepareFieldsAndSectionToRender(Form $zeusForm): array
     {
         $sections = [];
         $zeusSections = $zeusForm->sections()->orderBy('ordering')->get();
@@ -90,6 +91,14 @@ class Bolt extends Facade
         $getExtComponent = Extensions::init($zeusForm, 'formComponents');
         if ($getExtComponent !== null) {
             $sections[] = Section::make('extensions')
+                ->heading(function () use ($zeusForm) {
+                    $class = $zeusForm->extensions;
+                    if (class_exists($class)) {
+                        return (new $class)->label();
+                    }
+
+                    return __('Extension');
+                })
                 ->schema($getExtComponent);
         }
 
