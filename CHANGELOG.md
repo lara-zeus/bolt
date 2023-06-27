@@ -2,6 +2,26 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.1.1 - 2023-06-27
+
+### What's Changed
+
+- add french by @jvkassi in https://github.com/lara-zeus/bolt/pull/73
+- Add missing phrases by @atmonshi in https://github.com/lara-zeus/bolt/pull/74
+- Add missing phrases to fr by @atmonshi in https://github.com/lara-zeus/bolt/pull/78
+- store the extension item id in response by @atmonshi in https://github.com/lara-zeus/bolt/pull/77
+- refactor set status action and hide it if the form has extension by @atmonshi in https://github.com/lara-zeus/bolt/pull/76
+- fix if the extensions not exist in edit forms by @atmonshi in https://github.com/lara-zeus/bolt/pull/75
+- clean up show response blades and improve get status details by @atmonshi in https://github.com/lara-zeus/bolt/pull/79
+- add missing keys to status by @atmonshi in https://github.com/lara-zeus/bolt/pull/81
+- add extension label by @atmonshi in https://github.com/lara-zeus/bolt/pull/80
+
+### New Contributors
+
+- @jvkassi made their first contribution in https://github.com/lara-zeus/bolt/pull/73
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.0...1.1.1
+
 ## 1.1.0 - 2023-06-24
 
 ### What's Changed
