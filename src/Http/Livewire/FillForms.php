@@ -39,7 +39,13 @@ class FillForms extends Component implements Forms\Contracts\HasForms
      */
     public function mount($slug)
     {
-        $this->zeusForm = config('zeus-bolt.models.Form')::with(['sections', 'sections.fields'])->whereSlug($slug)->whereIsActive(1)->firstOrFail();
+        $this->zeusForm = config('zeus-bolt.models.Form')::query()
+            ->with([
+                'sections', 'sections.fields',
+            ])
+            ->whereSlug($slug)
+            ->whereIsActive(1)
+            ->firstOrFail();
 
         $this->extensionData = Extensions::init($this->zeusForm, 'canView') ?? [];
 
@@ -89,6 +95,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $this->extensionData['extensionsComponent'] = $this->form->getState()['extensions'] ?? [];
 
         $extensionItemId = Extensions::init($this->zeusForm, 'store', $this->extensionData) ?? [];
+
+        $response->update(['extension_item_id' => $extensionItemId['itemId'] ?? null]);
 
         if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
