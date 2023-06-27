@@ -1,20 +1,4 @@
 <div x-data class="space-y-4 my-6 mx-4 w-full">
-
-    <x-slot name="header">
-        <h3>{{ __('Show Entry Details') }}</h3>
-    </x-slot>
-
-    <x-slot name="breadcrumps">
-        <li class="flex items-center">
-            <a href="{{ route('bolt.entries.list') }}">{{ __('My Entries') }}</a>
-            <x-iconpark-rightsmall-o class="fill-current w-4 h-4 mx-3" />
-        </li>
-
-        <li class="flex items-center">
-            {{ __('Show entry') }} # {{ $getRecord()->id }}
-        </li>
-    </x-slot>
-
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="md:col-span-2 space-y-4">
             <x-filament::card>
@@ -60,11 +44,11 @@
                         </div>
 
                         <div>
-                            <span>{{ __('status') }}</span>
-                            @php $getStatues = config('zeus-bolt.models.FormsStatus')::where('key',$getRecord()->status)->first() @endphp
-                            <span class="{{ $getStatues->class }}" x-tooltip.raw="{{ __('status') }}">
-                                @svg($getStatues->icon,'w-4 h-4 inline')
-                                {{ $getStatues->label }}
+                            22<span>{{ __('status') }}</span>
+                            @php $getStatues = $getRecord()->statusDetails() @endphp
+                            <span class="{{ $getStatues['class']}}" x-tooltip.raw="{{ __('status') }}">
+                                @svg($getStatues['icon'],'w-4 h-4 inline')
+                                {{ $getStatues['label'] }}
                             </span>
                         </div>
 
