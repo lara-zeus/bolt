@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
+use LaraZeus\Bolt\Models\Form;
 use Symfony\Component\Finder\Finder;
 
 class Bolt extends Facade
@@ -29,16 +30,16 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
-            $coreFields = Bolt::collectFields(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            $coreFields = Bolt::collectFields(__DIR__.'/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Bolt::collectFields(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
 
             $fields = collect();
 
-            if (! $coreFields->isEmpty()) {
+            if (!$coreFields->isEmpty()) {
                 $fields = $fields->merge($coreFields);
             }
 
-            if (! $appFields->isEmpty()) {
+            if (!$appFields->isEmpty()) {
                 $fields = $fields->merge($appFields);
             }
 
@@ -48,7 +49,7 @@ class Bolt extends Facade
 
     public static function collectFields($path, $namespace): Collection
     {
-        if (! is_dir($path)) {
+        if (!is_dir($path)) {
             return collect();
         }
         $classes = Bolt::loadClasses($path, $namespace);
@@ -62,7 +63,7 @@ class Bolt extends Facade
         $allFields = [];
         foreach ($classes as $class) {
             $fieldClass = new $class();
-            if (! $fieldClass->disabled) {
+            if (!$fieldClass->disabled) {
                 $allFields[] = $fieldClass->toArray();
             }
         }
@@ -76,13 +77,13 @@ class Bolt extends Facade
         $path = array_unique(Arr::wrap($path));
 
         foreach ((new Finder())->in($path)->files() as $className) {
-            $classes[] = $namespace . $className->getFilenameWithoutExtension();
+            $classes[] = $namespace.$className->getFilenameWithoutExtension();
         }
 
         return $classes;
     }
 
-    public static function prepareFieldsAndSectionToRender($zeusForm): array
+    public static function prepareFieldsAndSectionToRender(Form $zeusForm): array
     {
         $sections = [];
         $zeusSections = $zeusForm->sections()->orderBy('ordering')->get();
@@ -90,6 +91,13 @@ class Bolt extends Facade
         $getExtComponent = Extensions::init($zeusForm, 'formComponents');
         if ($getExtComponent !== null) {
             $sections[] = Section::make('extensions')
+                ->heading(function () use ($zeusForm) {
+                    $class = $zeusForm->extensions;
+                    if (class_exists($class)) {
+                        return (new $class)->label();
+                    }
+                    return __('Extension');
+                })
                 ->schema($getExtComponent);
         }
 
@@ -102,7 +110,7 @@ class Bolt extends Facade
                 $fields[] = static::renderHook('zeus-form-field.before');
 
                 $fieldClass = new $zeusField->type;
-                $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
+                $component = $fieldClass->renderClass::make('zeusData.'.$zeusField->id);
 
                 $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
@@ -128,7 +136,7 @@ class Bolt extends Facade
                 $sections[] = Section::make($section->name)
                     ->schema($fields)
                     ->aside()
-                    ->aside(fn () => $section->aside)
+                    ->aside(fn() => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);
             }
@@ -147,15 +155,15 @@ class Bolt extends Facade
 
     public static function renderHook($hook): Placeholder
     {
-        return Placeholder::make('placeholder-' . $hook)
+        return Placeholder::make('placeholder-'.$hook)
             ->label('')
             ->content(Filament::renderHook($hook))
-            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
+            ->visible(!empty(Filament::renderHook($hook)->toHtml()));
     }
 
     public static function renderHookBlade($hook)
     {
-        if (! empty(Filament::renderHook($hook)->toHtml())) {
+        if (!empty(Filament::renderHook($hook)->toHtml())) {
             return Filament::renderHook($hook);
         }
     }

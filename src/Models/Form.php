@@ -22,7 +22,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $slug
  * @property string $description
  * @property array $options
- * @property array $extensions
+ * @property string $extensions
  * @property string $start_date
  * @property string $end_date
  * @property bool $date_available
