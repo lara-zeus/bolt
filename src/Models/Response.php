@@ -48,4 +48,18 @@ class Response extends Model
     {
         return $this->belongsTo(config('zeus-bolt.models.Form'));
     }
+
+    /**
+     * get status detail.
+     */
+    public function statusDetails(): array
+    {
+        $getStatues = config('zeus-bolt.models.FormsStatus')::where('key', $this->status)->first();
+
+        return [
+            'class' => $getStatues->class ?? '',
+            'icon' => $getStatues->icon ?? 'heroicon-o-status-online',
+            'label' => $getStatues->label ?? $this->status,
+        ];
+    }
 }
