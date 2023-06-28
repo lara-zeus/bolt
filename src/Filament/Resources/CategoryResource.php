@@ -36,11 +36,6 @@ class CategoryResource extends BoltResource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static function getNavigationBadge(): ?string
-    {
-        return (string) config('zeus-bolt.models.Category')::query()->count();
-    }
-
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'slug'];

@@ -32,11 +32,6 @@ class CollectionResource extends BoltResource
         return ['name', 'values'];
     }
 
-    protected static function getNavigationBadge(): ?string
-    {
-        return (string) config('zeus-bolt.models.Collection')::query()->count();
-    }
-
     public static function getLabel(): string
     {
         return __('Collection');
