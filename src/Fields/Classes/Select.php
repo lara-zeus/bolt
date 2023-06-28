@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Select extends FieldsContract
@@ -18,17 +19,11 @@ class Select extends FieldsContract
     public static function getOptions(): array
     {
         return [
-            \Filament\Forms\Components\Select::make('options.dataSource')
-                ->required()
-                ->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))
-                ->label(__('Data Source')),
-            \Filament\Forms\Components\Toggle::make('options.is_required')
-                ->label(__('Is Required')),
-            \Filament\Forms\Components\Toggle::make('options.allow_multiple')
-                ->label(__('Allow Multiple')),
-            \Filament\Forms\Components\TextInput::make('options.htmlId')
-                ->default(str()->random(6))
-                ->label(__('HTML ID')),
+            self::dataSource(),
+            self::required(),
+            Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
+            self::htmlID(),
+            self::visibility(),
         ];
     }
 
@@ -41,7 +36,7 @@ class Select extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        $options = collect(optional(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource']))->values);
+        $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 
         $component = $component
             ->searchable()

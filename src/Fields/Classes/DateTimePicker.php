@@ -18,10 +18,9 @@ class DateTimePicker extends FieldsContract
     public static function getOptions(): array
     {
         return [
-            \Filament\Forms\Components\Toggle::make('options.is_required')->label(__('Is Required')),
-            \Filament\Forms\Components\TextInput::make('options.htmlId')
-                ->default(str()->random(6))
-                ->label(__('HTML ID')),
+            self::required(),
+            self::htmlID(),
+            self::visibility(),
         ];
     }
 }

@@ -23,8 +23,6 @@ class FormResource extends BoltResource
 {
     use Schemata;
 
-    protected static ?string $model = ZeusForm::class;
-
     public static function getModel(): string
     {
         return config('zeus-bolt.models.Form');
@@ -39,11 +37,6 @@ class FormResource extends BoltResource
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'slug'];
-    }
-
-    protected static function getNavigationBadge(): ?string
-    {
-        return (string) ZeusForm::query()->count();
     }
 
     public static function getLabel(): string

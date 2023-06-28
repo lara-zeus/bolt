@@ -27,11 +27,6 @@ class ResponseResource extends BoltResource
 
     protected static ?string $slug = 'responses';
 
-    protected static function getNavigationBadge(): ?string
-    {
-        return (string) config('zeus-bolt.models.Response')::query()->count();
-    }
-
     public static function getLabel(): string
     {
         return __('Entries');
