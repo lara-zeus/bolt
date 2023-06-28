@@ -15,16 +15,15 @@ trait HasOptions
     {
         return Grid::make()
             ->schema([
-                Toggle::make('conditional_visibility')
+                Toggle::make('options.visibility.active')
                     ->reactive()
-                    ->dehydrated(false)
                     ->label(__('Conditional Visibility')),
 
                 Select::make('options.visibility.fieldIDs')
                     ->label(__('show when the field:'))
                     ->reactive()
-                    ->visible(fn (Closure $get): bool => ! empty($get('conditional_visibility')))
-                    ->label(function ($livewire, $record) {
+                    ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
+                    ->options(function ($livewire, $record) {
                         return $livewire->record
                             ->fields()
                             ->where('fields.id', '!=', $record->id ?? null)
