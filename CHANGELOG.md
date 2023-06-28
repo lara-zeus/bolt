@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.0 - 2023-06-28
+
+### What's Changed
+
+- Allow Conditional Visibility for fields by @atmonshi in https://github.com/lara-zeus/bolt/pull/82
+- Add HasOptions to handle common fields options better
+- Refactor common fields options
+- Fix options and store the Conditional Visibility in field options
+- Add collapsed to form sections and fields when editing forms
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.1...1.2.0
+
 ## 1.1.1 - 2023-06-27
 
 ### What's Changed
