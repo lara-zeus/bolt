@@ -60,6 +60,7 @@ trait Schemata
                 ->createItemButtonLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
+                ->collapsed()
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
@@ -250,6 +251,7 @@ trait Schemata
                 ->orderable('ordering')
                 ->cloneable()
                 ->collapsible()
+                ->collapsed()
                 ->grid([
                     'default' => 1,
                     'md' => 2,
