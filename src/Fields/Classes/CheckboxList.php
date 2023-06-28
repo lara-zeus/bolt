@@ -18,14 +18,10 @@ class CheckboxList extends FieldsContract
     public static function getOptions(): array
     {
         return [
-            \Filament\Forms\Components\Select::make('options.dataSource')
-                ->required()
-                ->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))
-                ->label(__('Data Source')),
-            \Filament\Forms\Components\TextInput::make('options.htmlId')
-                ->default(str()->random(6))
-                ->label(__('HTML ID')),
-            \Filament\Forms\Components\Toggle::make('options.is_required')->label(__('Is Required')),
+            self::dataSource(),
+            self::required(),
+            self::htmlID(),
+            self::visibility(),
         ];
     }
 
@@ -38,7 +34,7 @@ class CheckboxList extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        $options = collect(optional(config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource']))->values);
+        $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 
         return $component
             ->options($options->pluck('itemValue', 'itemKey'))

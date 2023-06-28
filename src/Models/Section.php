@@ -10,7 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
-/** @property string $updated_at */
+/**
+ * @property string $updated_at
+ * @property string $name
+ * @property string $columns
+ * @property string $description
+ * @property string $aside
+ */
 class Section extends Model
 {
     use SoftDeletes;

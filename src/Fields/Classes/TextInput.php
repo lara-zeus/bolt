@@ -4,12 +4,12 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use Closure;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\TextInput as TextInputAlias;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class TextInput extends FieldsContract
 {
-    public string $renderClass = \Filament\Forms\Components\TextInput::class;
+    public string $renderClass = TextInputAlias::class;
 
     public int $sort = 1;
 
@@ -43,15 +43,23 @@ class TextInput extends FieldsContract
                 ->default('string')
                 ->reactive(),
 
-            \Filament\Forms\Components\TextInput::make('options.prefix')->label(__('prefix')),
-            \Filament\Forms\Components\TextInput::make('options.suffix')->label(__('suffix')),
-            \Filament\Forms\Components\TextInput::make('options.minValue')->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')->label(__('min value')),
-            \Filament\Forms\Components\TextInput::make('options.maxValue')->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')->label(__('max value')),
-            \Filament\Forms\Components\TextInput::make('options.htmlId')
-                ->default(str()->random(6))
-                ->label(__('HTML ID')),
+            TextInputAlias::make('options.prefix')
+                ->label(__('prefix')),
 
-            Toggle::make('options.is_required')->label(__('Is Required')),
+            TextInputAlias::make('options.suffix')
+                ->label(__('suffix')),
+
+            TextInputAlias::make('options.minValue')
+                ->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')
+                ->label(__('min value')),
+
+            TextInputAlias::make('options.maxValue')
+                ->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')
+                ->label(__('max value')),
+
+            self::required(),
+            self::htmlID(),
+            self::visibility(),
         ];
     }
 

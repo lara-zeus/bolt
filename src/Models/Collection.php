@@ -22,7 +22,7 @@ class Collection extends Model
     protected $fillable = ['name', 'values', 'user_id'];
 
     protected $casts = [
-        'values' => 'array',
+        'values' => 'collection',
     ];
 
     public function getValuesListAttribute(): string

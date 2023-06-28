@@ -2,12 +2,18 @@
 
 namespace LaraZeus\Bolt\Fields;
 
+use Closure;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Collection;
+use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
+use LaraZeus\Bolt\Models\Field;
 
 abstract class FieldsContract implements Fields, Arrayable
 {
+    use HasOptions;
+
     public bool $disabled = false;
 
     public string $renderClass;
@@ -68,44 +74,75 @@ abstract class FieldsContract implements Fields, Arrayable
             $component = $component->required();
         }
 
-        return $component;
+        $component = $component
+            ->visible(function ($record, Closure $get) use ($zeusField) {
+
+                if (! isset($zeusField->options['visibility'])) {
+                    return true;
+                }
+
+                $relatedFields = $zeusField->options['visibility']['fieldIDs'];
+                $relatedFieldsValues = $zeusField->options['visibility']['values'];
+
+                if (empty($relatedFields) || empty($relatedFieldsValues)) {
+                    return true;
+                }
+
+                $getRelatedField = $record->fields()
+                    ->where('fields.id', $relatedFields)
+                    ->first();
+
+                if ($getRelatedField === null) {
+                    return true;
+                }
+
+                $collection = FieldsContract::getFieldCollectionItemsList($zeusField)
+                    ->whereIn('itemKey', $relatedFieldsValues)
+                    ->pluck('itemKey')
+                    ->toArray();
+
+                if (empty($collection)) {
+                    return true;
+                }
+
+                return in_array($get('zeusData.' . $relatedFields), $collection);
+            });
+
+        return $component->reactive();
     }
 
     public function getCollectionsValuesForResponse($field, $resp): string
     {
-        $items = $resp->response;
+        $response = $resp->response;
 
-        if (empty($items)) {
-            return $items;
+        if (empty($response)) {
+            return $response;
         }
 
         if (Bolt::jsJson($resp->response)) {
-            $items = json_decode($resp->response);
+            $response = json_decode($response);
         } else {
-            $items = [$items];
+            $response = [$response];
         }
 
-        $options = config('zeus-bolt.models.Collection')::find($field->options['dataSource']);
-        if ($options === null) {
-            return $items;
+        $values = config('zeus-bolt.models.Collection')::find($field->options['dataSource']);
+        if ($values === null) {
+            return $response;
         }
 
-        $options = collect($options->values);
+        $values = $values->values->whereIn('itemKey', $response)->pluck('itemValue')->join(', ');
 
-        if (is_array($items)) {
-            $options = $options->whereIn('itemKey', $items)->pluck('itemValue')->join(', ');
-        } else {
-            $options = $options->where('itemKey', $items)->pluck('itemValue');
+        return (! empty($values)) ? $values : implode(', ', $response);
+    }
+
+    public static function getFieldCollectionItemsList(Field $zeusField): Collection
+    {
+        $getCollection = config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource'] ?? 0);
+
+        if ($getCollection === null) {
+            return collect();
         }
 
-        if (is_countable($options) && $options->isNotEmpty()) {
-            $options = $options->join(' - ');
-        }
-
-        if (empty($options)) {
-            $options = implode('-', $items);
-        }
-
-        return $options;
+        return $getCollection->values;
     }
 }

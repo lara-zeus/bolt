@@ -13,7 +13,9 @@ use Spatie\Translatable\HasTranslations;
 
 /**
  * @property string $updated_at
+ * @property string $type
  * @property int $id
+ * @property array $options
  */
 class Field extends Model
 {

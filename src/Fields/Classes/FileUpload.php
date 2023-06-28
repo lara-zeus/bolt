@@ -18,11 +18,10 @@ class FileUpload extends FieldsContract
     public static function getOptions(): array
     {
         return [
-            \Filament\Forms\Components\Toggle::make('options.is_required')->label(__('Is Required')),
-            \Filament\Forms\Components\Toggle::make('options.is_multiple')->label(__('Allow Multiple')),
-            \Filament\Forms\Components\TextInput::make('options.htmlId')
-                ->default(str()->random(6))
-                ->label(__('HTML ID')),
+            \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
+            self::required(),
+            self::htmlID(),
+            self::visibility(),
         ];
     }
 
@@ -40,6 +39,10 @@ class FileUpload extends FieldsContract
 
         $component->disk(config('zeus-bolt.uploads.disk'))
             ->directory(config('zeus-bolt.uploads.directory'));
+
+        if (isset($zeusField->options['allow_multiple']) && $zeusField->options['allow_multiple']) {
+            $component = $component->multiple();
+        }
 
         return $component;
     }
