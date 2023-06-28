@@ -77,11 +77,11 @@ abstract class FieldsContract implements Fields, Arrayable
         $component = $component
             ->visible(function ($record, Closure $get) use ($zeusField) {
 
-                if (! isset($zeusField->options['visibility'])) {
+                if (! isset($zeusField->options['visibility']) || ! $zeusField->options['visibility']['active']) {
                     return true;
                 }
 
-                $relatedFields = $zeusField->options['visibility']['fieldIDs'];
+                $relatedFields = $zeusField->options['visibility']['fieldID'];
                 $relatedFieldsValues = $zeusField->options['visibility']['values'];
 
                 if (empty($relatedFields) || empty($relatedFieldsValues)) {
@@ -96,14 +96,10 @@ abstract class FieldsContract implements Fields, Arrayable
                     return true;
                 }
 
-                $collection = FieldsContract::getFieldCollectionItemsList($zeusField)
-                    ->whereIn('itemKey', $relatedFieldsValues)
+                $collection = FieldsContract::getFieldCollectionItemsList($getRelatedField)
+                    ->where('itemKey', $relatedFieldsValues)
                     ->pluck('itemKey')
                     ->toArray();
-
-                if (empty($collection)) {
-                    return true;
-                }
 
                 return in_array($get('zeusData.' . $relatedFields), $collection);
             });

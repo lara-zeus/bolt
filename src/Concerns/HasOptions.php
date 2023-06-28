@@ -19,7 +19,7 @@ trait HasOptions
                     ->reactive()
                     ->label(__('Conditional Visibility')),
 
-                Select::make('options.visibility.fieldIDs')
+                Select::make('options.visibility.fieldID')
                     ->label(__('show when the field:'))
                     ->reactive()
                     ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
@@ -36,13 +36,13 @@ trait HasOptions
                 Select::make('options.visibility.values')
                     ->label(__('show when the field:'))
                     ->reactive()
-                    ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.fieldIDs')))
+                    ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->options(function (Closure $get, $livewire) {
-                        if ($get('options.visibility.fieldIDs') === null) {
+                        if ($get('options.visibility.fieldID') === null) {
                             return [];
                         }
                         $getRelated = $livewire->getRecord()->fields()
-                            ->where('fields.id', $get('options.visibility.fieldIDs'))
+                            ->where('fields.id', $get('options.visibility.fieldID'))
                             ->first();
 
                         if (! isset($getRelated->options['dataSource'])) {
