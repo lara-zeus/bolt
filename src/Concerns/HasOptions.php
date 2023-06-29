@@ -23,7 +23,12 @@ trait HasOptions
                     ->label(__('show when the field:'))
                     ->reactive()
                     ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
+                    ->required(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
                     ->options(function ($livewire, $record) {
+                        if ($record === null) {
+                            return [];
+                        }
+
                         return $livewire->record
                             ->fields()
                             ->where('fields.id', '!=', $record->id ?? null)
@@ -36,6 +41,7 @@ trait HasOptions
                 Select::make('options.visibility.values')
                     ->label(__('show when the field:'))
                     ->reactive()
+                    ->required(fn (Closure $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->options(function (Closure $get, $livewire) {
                         if ($get('options.visibility.fieldID') === null) {
