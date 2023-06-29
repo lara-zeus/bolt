@@ -37,7 +37,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     /**
      * @throws \Throwable
      */
-    public function mount($slug)
+    public function mount($slug, $extensionSlug = null)
     {
         $this->zeusForm = config('zeus-bolt.models.Form')::query()
             ->with([
@@ -47,7 +47,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ->whereIsActive(1)
             ->firstOrFail();
 
-        $this->extensionData = Extensions::init($this->zeusForm, 'canView') ?? [];
+        $this->extensionData = Extensions::init($this->zeusForm, 'canView', ['extensionSlug' => $extensionSlug]) ?? [];
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';

@@ -10,11 +10,12 @@ interface Extension
 
     /**
      * before displaying the form, do some checks
-     * for example check if the request() param is existed, or the user is logged in !
+     * for example check if the $data['extensionSlug'] param is existed, or the user is logged in !
      *
      * @param  Form  $form Bolt form
+     * @param  array  $data extra data
      */
-    public function canView(Form $form): bool|array|null;
+    public function canView(Form $form, array $data): bool|array|null;
 
     /**
      * what to show at the beginning of the form
@@ -22,8 +23,9 @@ interface Extension
      * return a blade file with view()->render()
      *
      * @param  Form  $form Bolt form
+     * @param  array  $data extra data
      */
-    public function render(Form $form): string|null;
+    public function render(Form $form, array $data): string|null;
 
     /*
      * return an array of filament components to add them to the form
