@@ -24,6 +24,6 @@ Route::prefix(config('zeus-bolt.path'))
             ->name('entry.show')
             ->middleware('auth');
 
-        Route::get('{slug}', FillForms::class)
+        Route::get('{slug}/{extensionSlug?}', FillForms::class)
             ->name('form.show');
     });

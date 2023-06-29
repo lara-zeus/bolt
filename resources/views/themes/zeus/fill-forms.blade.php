@@ -27,7 +27,7 @@
     <x-filament::form wire:submit.prevent="store" class="mx-2">
         {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
 
-        {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'render') !!}
+        {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'render',$extensionData) !!}
 
         @if(!empty($zeusForm->details))
             <div class="m-4">
