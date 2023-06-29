@@ -23,10 +23,10 @@ class ViewResponse extends ViewRecord
                 })
                 ->label(__('Set Status'))
                 ->icon('heroicon-o-tag')
-                ->action(function (array $data, Response $record): void {
-                    $record->status = $data['status'];
-                    $record->notes = $data['notes'];
-                    $record->save();
+                ->action(function (array $data): void {
+                    $this->record->status = $data['status'];
+                    $this->record->notes = $data['notes'];
+                    $this->record->save();
                 })
                 ->form([
                     Select::make('status')
