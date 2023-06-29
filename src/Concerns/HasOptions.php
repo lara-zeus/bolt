@@ -25,9 +25,10 @@ trait HasOptions
                     ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
                     ->required(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
                     ->options(function ($livewire, $record) {
-                        if($record === null){
+                        if ($record === null) {
                             return [];
                         }
+
                         return $livewire->record
                             ->fields()
                             ->where('fields.id', '!=', $record->id ?? null)
