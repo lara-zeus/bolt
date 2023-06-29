@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.2 - 2023-06-29
+
+### What's Changed
+
+- fix: pass ext data instead of depending on request by @atmonshi in https://github.com/lara-zeus/bolt/pull/85
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.1...1.2.2
+
 ## 1.2.0 - 2023-06-28
 
 ### What's Changed
