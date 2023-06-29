@@ -9,6 +9,9 @@ use Filament\Tables\Actions\Action;
 use LaraZeus\Bolt\Models\FormsStatus;
 use LaraZeus\Bolt\Models\Response;
 
+/**
+ * @property mixed $record
+ */
 class SetResponseStatus extends Action
 {
     protected ?Closure $mutateRecordDataUsing = null;
@@ -30,10 +33,10 @@ class SetResponseStatus extends Action
 
         $this->icon('heroicon-o-tag');
 
-        $this->action(function (array $data, Response $record): void {
-            $record->status = $data['status'];
-            $record->notes = $data['notes'];
-            $record->save();
+        $this->action(function (array $data): void {
+            $this->record->status = $data['status'];
+            $this->record->notes = $data['notes'];
+            $this->record->save();
         });
 
         $this->form([
