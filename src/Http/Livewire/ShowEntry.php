@@ -31,7 +31,7 @@ class ShowEntry extends Component implements Forms\Contracts\HasForms
             ->withUrl()
             ->twitter();
 
-        return view(app('bolt-theme') . '.show-entry')
+        return view(app('boltTheme') . '.show-entry')
             ->with('response', $this->response)
             ->layout(config('zeus-bolt.layout'));
     }

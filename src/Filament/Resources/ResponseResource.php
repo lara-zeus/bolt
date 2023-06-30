@@ -46,7 +46,8 @@ class ResponseResource extends BoltResource
     {
         return $form
             ->schema([
-                ViewField::make('response')->view('zeus-bolt::filament.resources.response-resource.components.view-responses')
+                ViewField::make('response')
+                    ->view('zeus::filament.resources.response-resource.components.view-responses')
                     ->label('')
                     ->columnSpan(2),
             ]);

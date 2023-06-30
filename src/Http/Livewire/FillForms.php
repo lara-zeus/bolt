@@ -122,21 +122,21 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ->twitter();
 
         if ($this->zeusForm->need_login) {
-            return view('zeus-bolt::errors.login-required')
+            return view('zeus::errors.login-required')
                 ->layout(config('zeus-bolt.layout'));
         }
 
         if (! $this->zeusForm->date_available) {
-            return view('zeus-bolt::errors.date-ended')
+            return view('zeus::errors.date-ended')
                 ->layout(config('zeus-bolt.layout'));
         }
 
         if ($this->zeusForm->onePerUser()) {
-            return view('zeus-bolt::errors.one-entry-per-user')
+            return view('zeus::errors.one-entry-per-user')
                 ->layout(config('zeus-bolt.layout'));
         }
 
-        return view(app('bolt-theme') . '.fill-forms')
+        return view(app('boltTheme') . '.fill-forms')
             ->layout(config('zeus-bolt.layout'));
     }
 }

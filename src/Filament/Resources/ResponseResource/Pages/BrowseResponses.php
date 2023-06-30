@@ -19,7 +19,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     protected static string $resource = ResponseResource::class;
 
-    protected static string $view = 'zeus-bolt::filament.resources.response-resource.pages.browse-responses';
+    protected static string $view = 'zeus::filament.resources.response-resource.pages.browse-responses';
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 
@@ -59,7 +59,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
         return [
             Tables\Columns\ViewColumn::make('response')
                 ->label(__('Browse Entries'))
-                ->view('zeus-bolt::filament.resources.response-resource.pages.show-entry'),
+                ->view('zeus::filament.resources.response-resource.pages.show-entry'),
         ];
     }
 

@@ -9,6 +9,6 @@
         :state-path="$getStatePath()"
 >
     <div x-data="{ state: $wire.entangle('{{ $getStatePath() }}') }" class="space-y-4 my-6 mx-4 ">
-        @include('zeus-bolt::filament.resources.response-resource.pages.show-entry')
+        @include('zeus::filament.resources.response-resource.pages.show-entry')
     </div>
 </x-forms::field-wrapper>

@@ -27,7 +27,7 @@ class FileUpload extends FieldsContract
 
     public function getResponse($field, $resp): string
     {
-        return view('zeus-bolt::filament.fields.file-upload')
+        return view('zeus::filament.fields.file-upload')
             ->with('resp', $resp)
             ->with('field', $field)
             ->render();

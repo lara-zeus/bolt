@@ -22,7 +22,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
 
     protected static string $resource = ResponseResource::class;
 
-    protected static string $view = 'zeus-bolt::filament.pages.reports.entries';
+    protected static string $view = 'zeus::filament.pages.reports.entries';
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 

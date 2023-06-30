@@ -3,8 +3,6 @@
 namespace LaraZeus\Bolt;
 
 use Filament\PluginServiceProvider;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\View;
 use LaraZeus\Bolt\Commands\PublishCommand;
 use LaraZeus\Bolt\Commands\ZeusFieldCommand;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
@@ -15,6 +13,7 @@ use LaraZeus\Bolt\Http\Livewire\FillForms;
 use LaraZeus\Bolt\Http\Livewire\ListEntries;
 use LaraZeus\Bolt\Http\Livewire\ListForms;
 use LaraZeus\Bolt\Http\Livewire\Submitted;
+use LaraZeus\Core\CoreServiceProvider;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
 
@@ -29,13 +28,9 @@ class BoltServiceProvider extends PluginServiceProvider
         CategoryResource::class,
     ];
 
-    public function boot()
+    public function bootingPackage(): void
     {
-        View::share('bolt-theme', 'zeus-bolt::themes.' . config('zeus-bolt.theme', 'zeus'));
-
-        App::singleton('bolt-theme', function () {
-            return 'zeus-bolt::themes.' . config('zeus-bolt.theme', 'zeus');
-        });
+        CoreServiceProvider::setThemePath('bolt');
 
         Livewire::component('bolt.submitted', Submitted::class);
         Livewire::component('bolt.fill-form', FillForms::class);
@@ -51,15 +46,11 @@ class BoltServiceProvider extends PluginServiceProvider
                 __DIR__ . '/../database/factories' => database_path('factories'),
             ], 'zeus-bolt-factories');
         }
-
-        return parent::boot();
     }
 
-    public function configurePackage(Package $package): void
+    public function packageConfigured(Package $package): void
     {
-        parent::configurePackage($package);
         $package
-            ->hasConfigFile()
             ->hasMigrations([
                 'create_categories_table',
                 'create_collections_table',
@@ -71,7 +62,7 @@ class BoltServiceProvider extends PluginServiceProvider
                 'add_extensions_to_forms',
                 'add_extension_item_responses',
             ])
-            ->hasTranslations()
+            ->hasViews('zeus')
             ->hasCommands([
                 PublishCommand::class,
                 ZeusFieldCommand::class,

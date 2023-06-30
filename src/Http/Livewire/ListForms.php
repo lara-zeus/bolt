@@ -17,7 +17,7 @@ class ListForms extends Component
             ->withUrl()
             ->twitter();
 
-        return view(app('bolt-theme') . '.list-forms')
+        return view(app('boltTheme') . '.list-forms')
             ->with('forms', config('zeus-bolt.models.Form')::query()->whereIsActive(1)->get())
             ->with('categories', config('zeus-bolt.models.Category')::has('forms')->where('is_active', 1)->orderBy('ordering')->get())
             ->layout(config('zeus-bolt.layout'));
