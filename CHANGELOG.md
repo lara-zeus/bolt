@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.3 - 2023-06-30
+
+### What's Changed
+
+- add docs on how to embed the form in any blade file by @atmonshi in https://github.com/lara-zeus/bolt/pull/86
+- more docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/87
+- update core by @atmonshi in https://github.com/lara-zeus/bolt/pull/88
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.2...1.2.3
+
 ## 1.2.2 - 2023-06-29
 
 ### What's Changed
