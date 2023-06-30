@@ -22,6 +22,8 @@ included a UI for the frontend bilt with filament
 - 🔥 confirmation message after submission per form
 - 🔥 option for requiring login perform
 - 🔥 limit submissions with one entry for a user (if auth is required only)
+- 🔥 Conditional Visibility for fields.
+- 🔥 Extensions
 - 🔥 Available Fields:
   - Text Input
   - Select Menu
@@ -52,7 +54,6 @@ included a UI for the frontend bilt with filament
 - 🔥 multiple events ready to listen to
 - 🔥 show the entries for the users
 - 🔥 List all forms for the users
-
 
 ## Support
 available support channels:
