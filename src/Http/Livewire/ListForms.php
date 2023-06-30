@@ -10,14 +10,14 @@ class ListForms extends Component
     {
         seo()
             ->title(config('zeus-bolt.site_title', 'Laravel'))
-            ->description(__('Forms').' '.config('zeus-bolt.site_description', 'Laravel'))
+            ->description(__('Forms') . ' ' . config('zeus-bolt.site_description', 'Laravel'))
             ->site(config('zeus-bolt.site_title', 'Laravel'))
-            ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="'.asset('favicon/favicon.ico').'">')
-            ->rawTag('<meta name="theme-color" content="'.config('zeus-bolt.site_color').'" />')
+            ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
+            ->rawTag('<meta name="theme-color" content="' . config('zeus-bolt.site_color') . '" />')
             ->withUrl()
             ->twitter();
 
-        return view(app('boltTheme').'.list-forms')
+        return view(app('boltTheme') . '.list-forms')
             ->with(
                 'categories',
                 config('zeus-bolt.models.Category')::query()
