@@ -24,6 +24,8 @@ Route::prefix(config('zeus-bolt.path'))
             ->name('entry.show')
             ->middleware('auth');
 
+        Route::view('embed', app('bolt-theme') . '.embed');
+
         Route::get('{slug}/{extensionSlug?}', FillForms::class)
             ->name('form.show');
     });
