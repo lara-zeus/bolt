@@ -33,6 +33,6 @@ class ShowEntry extends Component implements Forms\Contracts\HasForms
 
         return view(app('boltTheme') . '.show-entry')
             ->with('response', $this->response)
-            ->layout(config('zeus-bolt.layout'));
+            ->layout(config('zeus.layout'));
     }
 }

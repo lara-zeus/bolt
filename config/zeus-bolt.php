@@ -27,12 +27,6 @@ return [
     ],
 
     /**
-     * you can use the default layout as a starting point for your blog.
-     * however, if you're already using your own component, just set the path here.
-     */
-    'layout' => 'zeus::components.app',
-
-    /**
      * this will be setup the default seo site title. read more about it in 'laravel-seo'.
      */
     'site_title' => config('app.name', 'Laravel') . ' | Forms',
@@ -51,11 +45,6 @@ return [
         'disk' => 'public',
         'directory' => 'logos',
     ],
-
-    /**
-     * the default theme, for now we only have one theme, and soon we will provide more free and premium themes.
-     */
-    'theme' => 'zeus',
 
     /**
      * available locales, this currently used only in tags manager.

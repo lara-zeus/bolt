@@ -31,6 +31,6 @@ class Submitted extends Component
             ->twitter();
 
         return view(app('boltTheme') . '.submitted')
-            ->layout(config('zeus-bolt.layout'));
+            ->layout(config('zeus.layout'));
     }
 }

@@ -123,20 +123,20 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         if ($this->zeusForm->need_login) {
             return view('zeus::errors.login-required')
-                ->layout(config('zeus-bolt.layout'));
+                ->layout(config('zeus.layout'));
         }
 
         if (! $this->zeusForm->date_available) {
             return view('zeus::errors.date-ended')
-                ->layout(config('zeus-bolt.layout'));
+                ->layout(config('zeus.layout'));
         }
 
         if ($this->zeusForm->onePerUser()) {
             return view('zeus::errors.one-entry-per-user')
-                ->layout(config('zeus-bolt.layout'));
+                ->layout(config('zeus.layout'));
         }
 
         return view(app('boltTheme') . '.fill-forms')
-            ->layout(config('zeus-bolt.layout'));
+            ->layout(config('zeus.layout'));
     }
 }
