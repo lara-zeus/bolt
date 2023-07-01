@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.4 - 2023-07-01
+
+### What's Changed
+
+- add `not-prose` for forms, so the style won't suck when the form embed… by @atmonshi in https://github.com/lara-zeus/bolt/pull/89
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.3...1.2.4
+
 ## 1.2.3 - 2023-06-30
 
 ### What's Changed
