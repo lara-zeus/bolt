@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.5 - 2023-07-02
+
+### What's Changed
+
+- add Constraints and delete relations, with support for soft delete  by @atmonshi in https://github.com/lara-zeus/bolt/pull/90
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.4...1.2.5
+
 ## 1.2.4 - 2023-07-01
 
 ### What's Changed
