@@ -133,7 +133,7 @@ class Form extends Model
     protected function dateAvailable(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->start_date === null ||
+            get: fn () => $this->start_date === null ||
                 (
                     $this->start_date !== null
                     && $this->end_date !== null
@@ -150,7 +150,7 @@ class Form extends Model
     protected function needLogin(): Attribute
     {
         return Attribute::make(
-            get: fn() => optional($this->options)['require-login'] && !auth()->check(),
+            get: fn () => optional($this->options)['require-login'] && ! auth()->check(),
         );
     }
 
