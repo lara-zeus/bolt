@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Translatable\HasTranslations;
 
@@ -31,6 +31,21 @@ class Field extends Model
         'options' => 'array',
     ];
 
+    protected static function booted(): void
+    {
+        static::deleting(function (Field $field) {
+            if ($field->isForceDeleting()) {
+                $field->fieldResponses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+            } else {
+                $field->fieldResponses->each(function ($item) {
+                    $item->delete();
+                });
+            }
+        });
+    }
+
     protected static function newFactory(): FieldFactory
     {
         return FieldFactory::new();
@@ -48,9 +63,9 @@ class Field extends Model
         return $this->belongsToMany(config('zeus-bolt.models.Section'));
     }
 
-    /** @return HasOne<FieldResponse> */
-    public function fieldResponses(): HasOne
+    /** @return HasMany<FieldResponse> */
+    public function fieldResponses(): HasMany
     {
-        return $this->hasOne(config('zeus-bolt.models.FieldResponse'));
+        return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
     }
 }

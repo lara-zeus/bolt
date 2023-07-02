@@ -7,14 +7,22 @@ use Filament\Resources\Form;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Actions\ReplicateAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
@@ -109,9 +117,15 @@ class FormResource extends BoltResource
                                 });
                             });
                         }),
+
+                    DeleteAction::make(),
+                    ForceDeleteAction::make(),
+                    RestoreAction::make(),
+
                 ]),
             ])
             ->filters([
+                TrashedFilter::make(),
                 Filter::make('is_active')
                     ->toggle()
                     ->query(fn (Builder $query): Builder => $query->where('is_active', true))
@@ -125,6 +139,19 @@ class FormResource extends BoltResource
                 SelectFilter::make('category_id')
                     ->options(config('zeus-bolt.models.Category')::pluck('name', 'id'))
                     ->label(__('Category')),
+            ])
+            ->bulkActions([
+                DeleteBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+            ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
             ]);
     }
 

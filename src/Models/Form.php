@@ -39,11 +39,6 @@ class Form extends Model
 
     public array $translatable = ['name', 'description', 'details'];
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     protected $guarded = [];
 
     protected $casts = [
@@ -51,6 +46,44 @@ class Form extends Model
         'end_date' => 'datetime',
         'options' => 'array',
     ];
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Form $form) {
+            if ($form->isForceDeleting()) {
+                $form->fieldsResponses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+                $form->responses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+                $form->sections()->withTrashed()->get()->each(function ($item) {
+                    $item->fields()->withTrashed()->get()->each(function ($item) {
+                        $item->forceDelete();
+                    });
+                    $item->forceDelete();
+                });
+            } else {
+                $form->fieldsResponses->each(function ($item) {
+                    $item->delete();
+                });
+                $form->responses->each(function ($item) {
+                    $item->delete();
+                });
+                $form->sections->each(function ($item) {
+                    $item->fields->each(function ($item) {
+                        $item->delete();
+                    });
+                    $item->delete();
+                });
+            }
+        });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
     protected static function newFactory(): FormFactory
     {

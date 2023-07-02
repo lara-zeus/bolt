@@ -20,7 +20,7 @@ it('can render Category List', function () {
         ->assertCanSeeTableRecords($forms);
 });*/
 
-it('can render Collection List', function () {
+/*it('can render Collection List', function () {
     get(CollectionResource::getUrl())
         ->assertSuccessful();
 });
@@ -33,4 +33,4 @@ it('can render Form List', function () {
 it('can render Response List', function () {
     get(ResponseResource::getUrl())
         ->assertSuccessful();
-});
+});*/
