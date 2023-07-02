@@ -27,6 +27,21 @@ class Response extends Model
 
     protected $fillable = ['form_id', 'status', 'notes', 'user_id'];
 
+    protected static function booted(): void
+    {
+        static::deleting(function (Response $response) {
+            $response->fieldsResponses->each(function ($item) {
+                $item->delete();
+            });
+        });
+
+        static::forceDeleting(function (Response $response) {
+            $response->fieldsResponses()->withTrashed()->get()->each(function ($item) {
+                $item->forceDelete();
+            });
+        });
+    }
+
     protected static function newFactory(): ResponseFactory
     {
         return ResponseFactory::new();

@@ -70,6 +70,7 @@ class BoltServiceProvider extends PluginServiceProvider
                 'create_field_responses_table',
                 'add_extensions_to_forms',
                 'add_extension_item_responses',
+                'alter_tables_constraints',
             ])
             ->hasTranslations()
             ->hasCommands([

@@ -27,6 +27,27 @@ class Section extends Model
 
     protected $guarded = [];
 
+    protected static function booted(): void
+    {
+        static::deleting(function (Section $section) {
+            $section->fields->each(function ($item) {
+                $item->fieldResponses->each(function ($item) {
+                    $item->delete();
+                });
+                $item->delete();
+            });
+        });
+
+        static::forceDeleting(function (Section $section) {
+            $section->fields()->withTrashed()->get()->each(function ($item) {
+                $item->fieldResponses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+                $item->forceDelete();
+            });
+        });
+    }
+
     protected static function newFactory(): SectionFactory
     {
         return SectionFactory::new();

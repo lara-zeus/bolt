@@ -13,11 +13,17 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ForceDeleteAction;
+use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TrashedFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\CreateCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\EditCategory;
@@ -81,8 +87,9 @@ class CategoryResource extends BoltResource
                     ->sortable()
                     ->toggleable()
                     ->searchable(),
-                TextColumn::make('description')
-                    ->label(__('Description'))
+                TextColumn::make('forms_count')
+                    ->counts('forms')
+                    ->label(__('Forms'))
                     ->toggleable()
                     ->searchable(),
                 IconColumn::make('is_active')
@@ -97,9 +104,12 @@ class CategoryResource extends BoltResource
                 ActionGroup::make([
                     EditAction::make(),
                     DeleteAction::make(),
+                    ForceDeleteAction::make(),
+                    RestoreAction::make(),
                 ]),
             ])
             ->filters([
+                TrashedFilter::make(),
                 Filter::make('is_active')
                     ->label(__('is active'))
                     ->toggle()
@@ -111,6 +121,16 @@ class CategoryResource extends BoltResource
             ])
             ->bulkActions([
                 DeleteBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+            ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
             ]);
     }
 

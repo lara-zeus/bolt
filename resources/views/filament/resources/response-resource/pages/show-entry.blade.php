@@ -4,11 +4,15 @@
             <x-filament::card>
                 <div class="grid grid-cols-1">
                     @foreach($getRecord()->fieldsResponses as $resp)
-                        <div class="py-2 text-ellipsis overflow-auto">
-                            <p>{{ $resp->field->name }}</p>
-                            <p class="font-semibold mb-2">{!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}</p>
-                            <x-filament::hr/>
-                        </div>
+                        @if($resp->field !== null)
+                            <div class="py-2 text-ellipsis overflow-auto">
+                                <p>{{ $resp->field->name ?? '' }}</p>
+                                <p class="font-semibold mb-2">
+                                    {!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}
+                                </p>
+                                <x-filament::hr/>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </x-filament::card>
