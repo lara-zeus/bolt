@@ -30,15 +30,15 @@ class Response extends Model
     protected static function booted(): void
     {
         static::deleting(function (Response $response) {
-            $response->fieldsResponses->each(function ($item) {
-                $item->delete();
-            });
-        });
-
-        static::forceDeleting(function (Response $response) {
-            $response->fieldsResponses()->withTrashed()->get()->each(function ($item) {
-                $item->forceDelete();
-            });
+            if ($response->isForceDeleting()) {
+                $response->fieldsResponses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+            } else {
+                $response->fieldsResponses->each(function ($item) {
+                    $item->delete();
+                });
+            }
         });
     }
 

@@ -34,15 +34,15 @@ class Field extends Model
     protected static function booted(): void
     {
         static::deleting(function (Field $field) {
-            $field->fieldResponses->each(function ($item) {
-                $item->delete();
-            });
-        });
-
-        static::forceDeleting(function (Field $field) {
-            $field->fieldResponses()->withTrashed()->get()->each(function ($item) {
-                $item->forceDelete();
-            });
+            if ($field->isForceDeleting()) {
+                $field->fieldResponses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+            } else {
+                $field->fieldResponses->each(function ($item) {
+                    $item->delete();
+                });
+            }
         });
     }
 
