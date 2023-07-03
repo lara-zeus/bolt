@@ -2,11 +2,12 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Database\Factories\FieldResponseFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use LaraZeus\Bolt\Database\Factories\FieldResponseFactory;
 
 /**
  * @property string $updated_at
@@ -22,7 +23,7 @@ class FieldResponse extends Model
 
     protected $fillable = ['form_id', 'field_id', 'response_id', 'response'];
 
-    protected static function newFactory(): FieldResponseFactory
+    protected static function newFactory(): Factory
     {
         return FieldResponseFactory::new();
     }

@@ -2,12 +2,13 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Database\Factories\CollectionFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasUpdates;
+use LaraZeus\Bolt\Database\Factories\CollectionFactory;
 
 /**
  * @property string $updated_at
@@ -43,7 +44,7 @@ class Collection extends Model
         return $someValues . $more;
     }
 
-    protected static function newFactory(): CollectionFactory
+    protected static function newFactory(): Factory
     {
         return CollectionFactory::new();
     }

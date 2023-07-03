@@ -1,15 +1,13 @@
 <?php
 
-namespace Database\Factories;
+namespace LaraZeus\Bolt\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use LaraZeus\Bolt\Models\Section;
 
 class SectionFactory extends Factory
 {
-    public function getModel(): string
-    {
-        return config('zeus-bolt.models.Section');
-    }
+    protected $model = Section::class;
 
     /**
      * Define the model's default state.

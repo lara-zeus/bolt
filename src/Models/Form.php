@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Database\Factories\FormFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +11,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasActive;
 use LaraZeus\Bolt\Concerns\HasUpdates;
+use LaraZeus\Bolt\Database\Factories\FormFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -85,7 +86,7 @@ class Form extends Model
         return 'slug';
     }
 
-    protected static function newFactory(): FormFactory
+    protected static function newFactory(): Factory
     {
         return FormFactory::new();
     }
