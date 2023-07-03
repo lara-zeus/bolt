@@ -4,6 +4,7 @@ use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\ListForms;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section;
+use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
@@ -18,14 +19,11 @@ it('can list Form', function () {
 });
 
 it('can render create form page', function () {
-    $this->get(FormResource::getUrl('create'))->assertSuccessful();
+    get(FormResource::getUrl('create'))->assertSuccessful();
 });
 
 it('can create', function () {
-    $newData = Form::factory()
-        ->has(Section::factory()->count(1))
-        //->make()
-        ->create();
+    $newData = Form::factory()->make();
 
     livewire(FormResource\Pages\CreateForm::class)
         ->fillForm([
@@ -38,14 +36,17 @@ it('can create', function () {
             'category_id' => $newData->category_id,
             'start_date' => $newData->start_date,
             'end_date' => $newData->end_date,
-            'sections' => $newData->sections->first()->toArray(),
         ])
         ->call('create')
         ->assertHasNoFormErrors();
 
-    /*$this->assertDatabaseHas(Form::class, [
-        'name' => json_encode($newData->name),
-        'description' => json_encode($newData->description),
+    assertDatabaseHas(Form::class, [
+        'name' => json_encode([
+            'en' => $newData->name
+        ]),
+        'description' => json_encode([
+            'en' => $newData->description
+        ]),
         'user_id' => $newData->user->getKey(),
         'ordering' => $newData->ordering,
         'slug' => $newData->slug,
@@ -53,5 +54,30 @@ it('can create', function () {
         'category_id' => $newData->category_id,
         'start_date' => $newData->start_date,
         'end_date' => $newData->end_date,
-    ]);*/
+    ]);
+});
+
+it('can edit', function () {
+    get(FormResource::getUrl('edit', [
+        'record' => Form::factory()->create(),
+    ]))->assertSuccessful();
+});
+
+it('can retrieve data', function () {
+    $post = Form::factory()->create();
+
+    livewire(FormResource\Pages\EditForm::class, [
+        'record' => $post->getRouteKey(),
+    ])
+        ->assertFormSet([
+            'name' => $post->name,
+            'description' => $post->description,
+            'user_id' => $post->user->getKey(),
+            'ordering' => $post->ordering,
+            'slug' => $post->slug,
+            'is_active' => $post->is_active,
+            'category_id' => $post->category_id,
+            'start_date' => $post->start_date,
+            'end_date' => $post->end_date,
+        ]);
 });
