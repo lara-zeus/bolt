@@ -52,7 +52,7 @@ trait Schemata
                         ->helperText(__('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form')),
                 ]),
 
-            /*Repeater::make('sections')
+            Repeater::make('sections')
                 ->label('')
                 ->schema(static::getSectionsSchema())
                 ->relationship()
@@ -62,7 +62,7 @@ trait Schemata
                 ->collapsible()
                 ->collapsed()
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
-                ->columnSpan(2),*/
+                ->columnSpan(2),
         ];
     }
 
