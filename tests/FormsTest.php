@@ -3,7 +3,6 @@
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\ListForms;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\Section;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
@@ -41,18 +40,17 @@ it('can create', function () {
                     'name' => 'sdf',
                     'columns' => 2,
                     'aside' => 0,
-                    'fields' =>
+                    'fields' => [
                         [
-                            [
-                                'name' => 'sdf',
-                                'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
-                                'options' => [
-                                    'dateType' => 'string',
-                                    'htmlId' => str()->random(6),
-                                ],
-                            ]
+                            'name' => 'sdf',
+                            'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+                            'options' => [
+                                'dateType' => 'string',
+                                'htmlId' => str()->random(6),
+                            ],
                         ],
-                ]
+                    ],
+                ],
             ],
         ])
         ->call('create')
