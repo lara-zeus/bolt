@@ -41,7 +41,9 @@ it('can create', function () {
             'category_id' => $newData->category_id,
             'start_date' => $newData->start_date,
             'end_date' => $newData->end_date,
-            'sections' => $newData->sections->first()->toArray(),
+            'sections' => [
+                'name'=>$newData->sections->first()->name,
+            ],
         ])
         ->call('create')
         ->assertHasNoFormErrors();
