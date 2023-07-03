@@ -24,6 +24,7 @@ it('can render create form page', function () {
 
 it('can create', function () {
     $newData = Form::factory()->make();
+    $htmlID = str()->random(6);
 
     livewire(FormResource\Pages\CreateForm::class)
         ->fillForm([
@@ -41,29 +42,34 @@ it('can create', function () {
                     'name' => 'sdf',
                     'columns' => 2,
                     'aside' => 0,
-                    'fields' =>
+                    'fields' => [
                         [
-                            [
-                                'name' => 'sdf',
-                                'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
-                                'options' => [
-                                    'dateType' => 'string',
-                                    'htmlId' => str()->random(6),
+                            'name' => 'sdf',
+                            'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+                            'options' => [
+                                'dateType' => 'string',
+                                'htmlId' => $htmlID,
+                                'prefix' => null,
+                                'suffix' => null,
+                                'is_required' => null,
+                                'visibility' => [
+                                    'active' => null,
                                 ],
-                            ]
+                            ],
                         ],
-                ]
+                    ],
+                ],
             ],
         ])
         ->call('create')
         ->assertHasNoFormErrors();
 
-    /*assertDatabaseHas(Form::class, [
+    assertDatabaseHas(Form::class, [
         'name' => json_encode([
-            'en' => $newData->name
+            'en' => $newData->name,
         ]),
         'description' => json_encode([
-            'en' => $newData->description
+            'en' => $newData->description,
         ]),
         'user_id' => $newData->user->getKey(),
         'ordering' => $newData->ordering,
@@ -72,7 +78,32 @@ it('can create', function () {
         'category_id' => $newData->category_id,
         'start_date' => $newData->start_date,
         'end_date' => $newData->end_date,
-    ]);*/
+    ]);
+
+    assertDatabaseHas(Section::class, [
+        'name' => json_encode([
+            'en' => 'sdf',
+        ]),
+        'columns' => 2,
+        'aside' => 0,
+    ]);
+
+    assertDatabaseHas(\LaraZeus\Bolt\Models\Field::class, [
+        'name' => json_encode([
+            'en' => 'sdf',
+        ]),
+        'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+        'options' => json_encode([
+            'dateType' => 'string',
+            'prefix' => null,
+            'suffix' => null,
+            'is_required' => null,
+            'htmlId' => $htmlID,
+            'visibility' => [
+                'active' => null,
+            ],
+        ]),
+    ]);
 });
 
 it('can edit', function () {
