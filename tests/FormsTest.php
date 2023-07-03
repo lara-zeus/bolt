@@ -4,7 +4,6 @@ use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\ListForms;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section;
-
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
@@ -26,9 +25,7 @@ it('can create', function () {
     $newData = Form::factory()
         ->has(Section::factory()->count(1))
         //->make()
-        ->create()
-
-    ;
+        ->create();
 
     livewire(FormResource\Pages\CreateForm::class)
         ->fillForm([
