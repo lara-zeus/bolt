@@ -2,9 +2,11 @@
 
 namespace LaraZeus\Bolt\Tests;
 
+use ArchTech\SEO\SEOServiceProvider;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Codeat3\BladeClarityIcons\BladeClarityIconsServiceProvider;
+use Codeat3\BladeIconpark\BladeIconparkServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
 use Filament\Notifications\NotificationsServiceProvider;
@@ -15,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use LaraZeus\Bolt\BoltServiceProvider;
 use LaraZeus\Bolt\Tests\Models\User;
+use LaraZeus\Core\CoreServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
@@ -43,12 +46,15 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
+            SEOServiceProvider::class,
+            CoreServiceProvider::class,
             BoltServiceProvider::class,
             LivewireServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             BladeIconsServiceProvider::class,
             BladeClarityIconsServiceProvider::class,
             BladeCaptureDirectiveServiceProvider::class,
+            BladeIconparkServiceProvider::class,
             FilamentServiceProvider::class,
             NotificationsServiceProvider::class,
             SupportServiceProvider::class,

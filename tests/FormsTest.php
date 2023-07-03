@@ -12,6 +12,21 @@ it('can render Form List', function () {
     get(FormResource::getUrl())->assertSuccessful();
 });
 
+it('can render list Forms', function () {
+    get('/bolt')->assertSuccessful();
+});
+
+it('can render show Form', function () {
+    $form = Form::factory()->create();
+    get(config('zeus-bolt.path') . '/' . $form->slug)->assertSuccessful();
+});
+
+it('the form can be rendered', function () {
+    $form = Form::factory()->create();
+    livewire(\LaraZeus\Bolt\Http\Livewire\FillForms::class, ['slug' => $form->slug])
+        ->assertFormExists();
+});
+
 it('can list Form', function () {
     $forms = Form::factory()->count(10)->create();
 
