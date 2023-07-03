@@ -130,3 +130,59 @@ it('can retrieve data', function () {
             'end_date' => $post->end_date,
         ]);
 });
+
+/**
+ * @property int $user_id
+ */
+it('can save', function () {
+    $form = Form::factory()->create();
+    $newData = Form::factory()->make();
+    $htmlID = str()->random(6);
+
+    livewire(FormResource\Pages\EditForm::class, [
+        'record' => $form->getRouteKey(),
+    ])
+        ->fillForm([
+            'name' => $newData->name,
+            'user_id' => $newData->user->getKey(),
+            'ordering' => $newData->ordering,
+            'description' => $newData->description,
+            'slug' => $newData->slug,
+            'is_active' => $newData->is_active,
+            'category_id' => $newData->category_id,
+            'start_date' => $newData->start_date,
+            'end_date' => $newData->end_date,
+            'sections' => [
+                [
+                    'name' => 'sdf',
+                    'columns' => 2,
+                    'aside' => 0,
+                    'fields' => [
+                        [
+                            'name' => 'sdf',
+                            'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+                            'options' => [
+                                'dateType' => 'string',
+                                'htmlId' => $htmlID,
+                                'prefix' => null,
+                                'suffix' => null,
+                                'is_required' => null,
+                                'visibility' => [
+                                    'active' => null,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ])
+        ->call('save')
+        ->assertHasNoFormErrors();
+
+    // @phpstan-ignore-next-line
+    expect($form->refresh())
+        ->user_id->toBe($newData->user->getKey())
+        ->name->toBe($newData->name)
+        ->description->toBe($newData->description)
+        ->slug->toBe($newData->slug);
+});
