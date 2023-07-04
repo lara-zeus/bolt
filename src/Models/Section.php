@@ -2,12 +2,13 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Database\Factories\SectionFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use LaraZeus\Bolt\Database\Factories\SectionFactory;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -48,7 +49,7 @@ class Section extends Model
         });
     }
 
-    protected static function newFactory(): SectionFactory
+    protected static function newFactory(): Factory
     {
         return SectionFactory::new();
     }

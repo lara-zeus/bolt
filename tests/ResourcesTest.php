@@ -13,14 +13,14 @@ it('can render Category List', function () {
         ->assertSuccessful();
 });
 
-/*it('can list posts', function () {
+it('can list posts', function () {
     $forms = \LaraZeus\Bolt\Models\Form::factory()->count(10)->create();
 
     livewire(ListForms::class)
         ->assertCanSeeTableRecords($forms);
-});*/
+});
 
-/*it('can render Collection List', function () {
+it('can render Collection List', function () {
     get(CollectionResource::getUrl())
         ->assertSuccessful();
 });
@@ -33,4 +33,4 @@ it('can render Form List', function () {
 it('can render Response List', function () {
     get(ResponseResource::getUrl())
         ->assertSuccessful();
-});*/
+});
