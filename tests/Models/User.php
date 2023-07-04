@@ -3,9 +3,9 @@
 namespace LaraZeus\Bolt\Tests\Models;
 
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use LaraZeus\Bolt\Database\Factories\UserFactory;
 
 /**

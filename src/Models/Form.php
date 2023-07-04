@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasActive;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\FormFactory;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Spatie\Translatable\HasTranslations;
 
 /**

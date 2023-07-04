@@ -4,12 +4,27 @@ use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\ListForms;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section;
-
+use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 it('can render Form List', function () {
     get(FormResource::getUrl())->assertSuccessful();
+});
+
+it('can render list Forms', function () {
+    get('/bolt')->assertSuccessful();
+});
+
+it('can render show Form', function () {
+    $form = Form::factory()->create();
+    get(config('zeus-bolt.path') . '/' . $form->slug)->assertSuccessful();
+});
+
+it('the form can be rendered', function () {
+    $form = Form::factory()->create();
+    livewire(\LaraZeus\Bolt\Http\Livewire\FillForms::class, ['slug' => $form->slug])
+        ->assertFormExists();
 });
 
 it('can list Form', function () {
@@ -19,16 +34,12 @@ it('can list Form', function () {
 });
 
 it('can render create form page', function () {
-    $this->get(FormResource::getUrl('create'))->assertSuccessful();
+    get(FormResource::getUrl('create'))->assertSuccessful();
 });
 
 it('can create', function () {
-    $newData = Form::factory()
-        ->has(Section::factory()->count(1))
-        //->make()
-        ->create()
-
-    ;
+    $newData = Form::factory()->make();
+    $htmlID = str()->random(6);
 
     livewire(FormResource\Pages\CreateForm::class)
         ->fillForm([
@@ -42,15 +53,39 @@ it('can create', function () {
             'start_date' => $newData->start_date,
             'end_date' => $newData->end_date,
             'sections' => [
-                'name'=>$newData->sections->first()->name,
+                [
+                    'name' => 'sdf',
+                    'columns' => 2,
+                    'aside' => 0,
+                    'fields' => [
+                        [
+                            'name' => 'sdf',
+                            'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+                            'options' => [
+                                'dateType' => 'string',
+                                'htmlId' => $htmlID,
+                                'prefix' => null,
+                                'suffix' => null,
+                                'is_required' => null,
+                                'visibility' => [
+                                    'active' => null,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ])
         ->call('create')
         ->assertHasNoFormErrors();
 
-    /*$this->assertDatabaseHas(Form::class, [
-        'name' => json_encode($newData->name),
-        'description' => json_encode($newData->description),
+    assertDatabaseHas(Form::class, [
+        'name' => json_encode([
+            'en' => $newData->name,
+        ]),
+        'description' => json_encode([
+            'en' => $newData->description,
+        ]),
         'user_id' => $newData->user->getKey(),
         'ordering' => $newData->ordering,
         'slug' => $newData->slug,
@@ -58,5 +93,111 @@ it('can create', function () {
         'category_id' => $newData->category_id,
         'start_date' => $newData->start_date,
         'end_date' => $newData->end_date,
-    ]);*/
+    ]);
+
+    assertDatabaseHas(Section::class, [
+        'name' => json_encode([
+            'en' => 'sdf',
+        ]),
+        'columns' => 2,
+        'aside' => 0,
+    ]);
+
+    assertDatabaseHas(\LaraZeus\Bolt\Models\Field::class, [
+        'name' => json_encode([
+            'en' => 'sdf',
+        ]),
+        'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+        'options' => json_encode([
+            'dateType' => 'string',
+            'prefix' => null,
+            'suffix' => null,
+            'is_required' => null,
+            'htmlId' => $htmlID,
+            'visibility' => [
+                'active' => null,
+            ],
+        ]),
+    ]);
+});
+
+it('can edit', function () {
+    get(FormResource::getUrl('edit', [
+        'record' => Form::factory()->create(),
+    ]))->assertSuccessful();
+});
+
+it('can retrieve data', function () {
+    $post = Form::factory()->create();
+
+    livewire(FormResource\Pages\EditForm::class, [
+        'record' => $post->getRouteKey(),
+    ])
+        ->assertFormSet([
+            'name' => $post->name,
+            'description' => $post->description,
+            'user_id' => $post->user->getKey(),
+            'ordering' => $post->ordering,
+            'slug' => $post->slug,
+            'is_active' => $post->is_active,
+            'category_id' => $post->category_id,
+            'start_date' => $post->start_date,
+            'end_date' => $post->end_date,
+        ]);
+});
+
+/**
+ * @property int $user_id
+ */
+it('can save', function () {
+    $form = Form::factory()->create();
+    $newData = Form::factory()->make();
+    $htmlID = str()->random(6);
+
+    livewire(FormResource\Pages\EditForm::class, [
+        'record' => $form->getRouteKey(),
+    ])
+        ->fillForm([
+            'name' => $newData->name,
+            'user_id' => $newData->user->getKey(),
+            'ordering' => $newData->ordering,
+            'description' => $newData->description,
+            'slug' => $newData->slug,
+            'is_active' => $newData->is_active,
+            'category_id' => $newData->category_id,
+            'start_date' => $newData->start_date,
+            'end_date' => $newData->end_date,
+            'sections' => [
+                [
+                    'name' => 'sdf',
+                    'columns' => 2,
+                    'aside' => 0,
+                    'fields' => [
+                        [
+                            'name' => 'sdf',
+                            'type' => \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+                            'options' => [
+                                'dateType' => 'string',
+                                'htmlId' => $htmlID,
+                                'prefix' => null,
+                                'suffix' => null,
+                                'is_required' => null,
+                                'visibility' => [
+                                    'active' => null,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ])
+        ->call('save')
+        ->assertHasNoFormErrors();
+
+    // @phpstan-ignore-next-line
+    expect($form->refresh())
+        ->user_id->toBe($newData->user->getKey())
+        ->name->toBe($newData->name)
+        ->description->toBe($newData->description)
+        ->slug->toBe($newData->slug);
 });
