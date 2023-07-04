@@ -40,9 +40,9 @@ trait Schemata
     public static function getMainFormSchema(): array
     {
         return [
-            TextInput::make('user_id')->default(auth()->user()->id ?? null),
+            Hidden::make('user_id')->default(auth()->user()->id ?? null),
 
-            /*Tabs::make('form-tabs')
+            Tabs::make('form-tabs')
                 ->tabs(static::getTabsSchema())
                 ->columnSpan(2),
             Card::make()
@@ -50,9 +50,9 @@ trait Schemata
                     Placeholder::make('section-title-placeholder')
                         ->label(__('Sections'))
                         ->helperText(__('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form')),
-                ]),*/
+                ]),
 
-            /*Repeater::make('sections')
+            Repeater::make('sections')
                 ->label('')
                 ->schema(static::getSectionsSchema())
                 ->relationship()
@@ -62,7 +62,7 @@ trait Schemata
                 ->collapsible()
                 ->collapsed()
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
-                ->columnSpan(2),*/
+                ->columnSpan(2),
         ];
     }
 

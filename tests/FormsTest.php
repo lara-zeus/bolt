@@ -8,7 +8,7 @@ use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
-/*it('can render Form List', function () {
+it('can render Form List', function () {
     get(FormResource::getUrl())->assertSuccessful();
 });
 
@@ -119,7 +119,7 @@ it('can create', function () {
             ],
         ]),
     ]);
-});*/
+});
 
 it('can not edit', function () {
     get(\LaraZeus\Bolt\Filament\Resources\CategoryResource::getUrl('edit', [
@@ -127,7 +127,7 @@ it('can not edit', function () {
     ]))->assertSuccessful();
 });
 
-/*it('can retrieve data', function () {
+it('can retrieve data', function () {
     $post = Form::factory()->create();
 
     livewire(FormResource\Pages\EditForm::class, [
@@ -144,12 +144,12 @@ it('can not edit', function () {
             'start_date' => $post->start_date,
             'end_date' => $post->end_date,
         ]);
-});*/
+});
 
 /**
  * @property int $user_id
  */
-/*it('can save', function () {
+it('can save', function () {
     $form = Form::factory()->create();
     $newData = Form::factory()->make();
     $htmlID = str()->random(6);
@@ -200,4 +200,4 @@ it('can not edit', function () {
         ->name->toBe($newData->name)
         ->description->toBe($newData->description)
         ->slug->toBe($newData->slug);
-});*/
+});
