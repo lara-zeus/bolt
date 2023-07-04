@@ -46,25 +46,25 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            SEOServiceProvider::class,
-            CoreServiceProvider::class,
-            BoltServiceProvider::class,
+            BladeCaptureDirectiveServiceProvider::class,
+            FormsServiceProvider::class,
+            SupportServiceProvider::class,
+            TablesServiceProvider::class,
+            FilamentServiceProvider::class,
+            NotificationsServiceProvider::class,
             LivewireServiceProvider::class,
+            CoreServiceProvider::class,
+            SEOServiceProvider::class,
+            BoltServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             BladeIconsServiceProvider::class,
             BladeClarityIconsServiceProvider::class,
-            BladeCaptureDirectiveServiceProvider::class,
             BladeIconparkServiceProvider::class,
-            FilamentServiceProvider::class,
-            NotificationsServiceProvider::class,
-            SupportServiceProvider::class,
-            FormsServiceProvider::class,
-            TablesServiceProvider::class,
             SpatieLaravelTranslatablePluginServiceProvider::class,
         ];
     }
 
-    protected function defineDatabaseMigrations()
+    protected function defineDatabaseMigrations(): void
     {
         $this->loadLaravelMigrations();
         $this->loadMigrationsFrom(__DIR__ . '/migrations');
