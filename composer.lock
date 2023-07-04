@@ -2111,7 +2111,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "c664c345126b25dab7af59cc072aa0abf54447d5"
+                "reference": "a870b484e34a9d48debacd0b722abdd3e2743bac"
             },
             "require": {
                 "archtechx/laravel-seo": "^0.7",
