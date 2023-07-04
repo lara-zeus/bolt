@@ -46,7 +46,6 @@ class Form extends Model
         'start_date' => 'datetime',
         'end_date' => 'datetime',
         'options' => 'array',
-        'user_id' => 'integer',
     ];
 
     protected static function booted(): void
