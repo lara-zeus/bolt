@@ -2,6 +2,7 @@
 
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\ListForms;
+use LaraZeus\Bolt\Http\Livewire\FillForms;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section;
 use function Pest\Laravel\assertDatabaseHas;
@@ -23,8 +24,78 @@ it('can render show Form', function () {
 
 it('the form can be rendered', function () {
     $form = Form::factory()->create();
-    livewire(\LaraZeus\Bolt\Http\Livewire\FillForms::class, ['slug' => $form->slug])
+    livewire(FillForms::class, ['slug' => $form->slug])
         ->assertFormExists();
+});
+
+it('see ended form date', function () {
+    $form = Form::factory()->create();
+
+    $form->update([
+        'start_date' => now()->subDays(6),
+        'end_date' => now()->subDay(),
+    ]);
+
+    livewire(FillForms::class, ['slug' => $form->slug])
+        ->assertSee(__('Date Ended'));
+});
+
+it('see form date is valid', function () {
+    $form = Form::factory()->create();
+
+    $form->update([
+        'start_date' => now()->subDays(2),
+        'end_date' => now()->addDays(5),
+    ]);
+
+    livewire(FillForms::class, ['slug' => $form->slug])
+        ->assertDontSee(__('Date Ended'));
+});
+
+it('see form require login for logged in user', function () {
+    $form = Form::factory()->create();
+
+    $form->update([
+        'options' => ['require-login' => true],
+    ]);
+
+    livewire(FillForms::class, ['slug' => $form->slug])
+        ->assertDontSee(__('Login Required'));
+});
+
+it('see form require login for guest user', function () {
+    auth()->logout();
+    $form = Form::factory()->create();
+
+    $form->update([
+        'options' => ['require-login' => true],
+    ]);
+
+    livewire(FillForms::class, ['slug' => $form->slug])
+        ->assertSee(__('Login Required'));
+});
+
+it('see form when not require login', function () {
+    $form = Form::factory()->create();
+
+    $form->update([
+        'options' => ['require-login' => false],
+    ]);
+
+    livewire(FillForms::class, ['slug' => $form->slug])
+        ->assertDontSee(__('Login Required'));
+});
+
+it('see form when not require login for guest', function () {
+    auth()->logout();
+    $form = Form::factory()->create();
+
+    $form->update([
+        'options' => ['require-login' => false],
+    ]);
+
+    livewire(FillForms::class, ['slug' => $form->slug])
+        ->assertDontSee(__('Login Required'));
 });
 
 it('can list Form', function () {
