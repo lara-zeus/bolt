@@ -61,6 +61,7 @@ trait Schemata
                 ->cloneable()
                 ->collapsible()
                 ->collapsed()
+                ->minItems(1)
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
@@ -250,6 +251,7 @@ trait Schemata
                 ->label('')
                 ->orderable('ordering')
                 ->cloneable()
+                ->minItems(1)
                 ->collapsible()
                 ->collapsed()
                 ->grid([

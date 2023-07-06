@@ -49,7 +49,6 @@ class SetResponseStatus extends Action
                 ->default(fn (Response $record) => $record->notes)
                 ->label(__('Notes')),
         ]);
-
     }
 
     public function mutateRecordDataUsing(?Closure $callback): static
