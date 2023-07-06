@@ -76,7 +76,6 @@ abstract class FieldsContract implements Fields, Arrayable
 
         $component = $component
             ->visible(function ($record, Closure $get) use ($zeusField) {
-
                 if (! isset($zeusField->options['visibility']) || ! $zeusField->options['visibility']['active']) {
                     return true;
                 }
