@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.7 - 2023-07-06
+
+### What's Changed
+
+- add some tests for the form resource and fill-form frontend page by @atmonshi in https://github.com/lara-zeus/bolt/pull/92
+- require at least one section and field by @atmonshi in https://github.com/lara-zeus/bolt/pull/95
+- add more tests by @atmonshi in https://github.com/lara-zeus/bolt/pull/94
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.6...1.2.7
+
 ## 1.2.6 - 2023-07-04
 
 ### What's Changed
