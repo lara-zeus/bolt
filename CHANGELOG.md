@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.8 - 2023-07-11
+
+### What's Changed
+
+- allow to set the default value by string param by @atmonshi in https://github.com/lara-zeus/bolt/pull/96
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.7...1.2.8
+
 ## 1.2.7 - 2023-07-06
 
 ### What's Changed
