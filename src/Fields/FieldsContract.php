@@ -74,7 +74,7 @@ abstract class FieldsContract implements Fields, Arrayable
             $component = $component->required();
         }
 
-        if(request()->filled($zeusField->options['htmlId'])){
+        if (request()->filled($zeusField->options['htmlId'])) {
             $component = $component->default(request($zeusField->options['htmlId']));
         }
 
