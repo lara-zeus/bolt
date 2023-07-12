@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.9 - 2023-07-12
+
+### What's Changed
+
+- fix sorting in collections by @atmonshi in https://github.com/lara-zeus/bolt/pull/97
+- fix date ended and add some validation by @atmonshi in https://github.com/lara-zeus/bolt/pull/98
+- update core by @atmonshi in https://github.com/lara-zeus/bolt/pull/99
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.8...1.2.9
+
 ## 1.2.8 - 2023-07-11
 
 ### What's Changed
