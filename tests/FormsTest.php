@@ -37,7 +37,7 @@ it('see ended form date', function () {
     ]);
 
     livewire(FillForms::class, ['slug' => $form->slug])
-        ->assertSee(__('Date Ended'));
+        ->assertSee(__('Date Not Available'));
 });
 
 it('see form date is valid', function () {
@@ -49,7 +49,7 @@ it('see form date is valid', function () {
     ]);
 
     livewire(FillForms::class, ['slug' => $form->slug])
-        ->assertDontSee(__('Date Ended'));
+        ->assertDontSee(__('Date Not Available'));
 });
 
 it('see form require login for logged in user', function () {

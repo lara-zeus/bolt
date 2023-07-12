@@ -163,8 +163,10 @@ trait Schemata
                                 ->content(__('optional, specify when the form will be active and receiving new entries'))
                                 ->columnSpan(2),
                             DateTimePicker::make('start_date')
+                                ->requiredWith('end_date')
                                 ->label(__('Start Date')),
                             DateTimePicker::make('end_date')
+                                ->requiredWith('start_date')
                                 ->label(__('End Date')),
                         ]),
                     Grid::make()
