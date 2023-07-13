@@ -24,6 +24,7 @@ included a UI for the frontend bilt with filament
 - 🔥 limit submissions with one entry for a user (if auth is required only)
 - 🔥 Conditional Visibility for fields.
 - 🔥 Extensions
+- 🔥 Embed the form in sky posts and pages, or as a livewire component
 - 🔥 Available Fields:
   - Text Input
   - Select Menu
