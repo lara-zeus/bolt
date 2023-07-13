@@ -203,7 +203,7 @@ trait Schemata
 
             Tabs\Tab::make('embed-tab')
                 ->label(__('Embed'))
-                ->visible(\class_exists(\LaraZeus\Sky\SkyServiceProvider::class))
+                ->visible(class_exists(\LaraZeus\Sky\SkyServiceProvider::class))
                 ->schema([
                     TextInput::make('form_embed')
                         ->label(__('to embed the form in any post or page'))
