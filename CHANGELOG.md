@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.10 - 2023-07-13
+
+### What's Changed
+
+- allow to toggle Conditional Visibility by a toggle field by @atmonshi in https://github.com/lara-zeus/bolt/pull/101
+- fix sections ID when display the form as a wizard by @atmonshi in https://github.com/lara-zeus/bolt/pull/102
+- Embed by @atmonshi in https://github.com/lara-zeus/bolt/pull/103
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.9...1.2.10
+
 ## 1.2.9 - 2023-07-12
 
 ### What's Changed
