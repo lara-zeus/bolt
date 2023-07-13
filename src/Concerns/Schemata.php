@@ -63,7 +63,7 @@ trait Schemata
                 ->collapsible()
                 ->collapsed()
                 ->minItems(1)
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -210,9 +210,9 @@ trait Schemata
                         ->dehydrated(false)
                         ->disabled()
                         ->formatStateUsing(function (Closure $get) {
-                            return '<bolt>'.$get('slug').'</bolt>';
+                            return '<bolt>' . $get('slug') . '</bolt>';
                         })
-                        ->suffixAction(CopyAction::make())
+                        ->suffixAction(CopyAction::make()),
                 ]),
         ];
     }
@@ -240,7 +240,7 @@ trait Schemata
                                 ->schema([
                                     TextInput::make('description')
                                         ->nullable()
-                                        ->visible(fn(Closure $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'tabs')
                                         ->label(__('Section Description')),
 
                                     TextInput::make('columns')
@@ -252,12 +252,14 @@ trait Schemata
                                         ->label(__('Section Columns')),
 
                                     IconPicker::make('icon')
-                                        ->visible(fn(Closure $get
+                                        ->visible(fn (
+                                            Closure $get
                                         ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')
-                                        ->visible(fn(Closure $get
+                                        ->visible(fn (
+                                            Closure $get
                                         ) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
                                         ->label(__('show as aside')),
                                 ]),
@@ -280,7 +282,7 @@ trait Schemata
                     '2xl' => 4,
                 ])
                 ->label('')
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->createItemButtonLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];
