@@ -32,8 +32,11 @@ trait HasOptions
                         return $livewire->record
                             ->fields()
                             ->where('fields.id', '!=', $record->id ?? null)
-                            ->whereNotNull('fields.options->dataSource')
                             ->where('fields.options', '!=', $record->id ?? null)
+                            ->where(function ($query) {
+                                $query->whereNotNull('fields.options->dataSource');
+                                $query->orWhere('type', '\LaraZeus\Bolt\Fields\Classes\Toggle');
+                            })
                             ->get()
                             ->pluck('name', 'id');
                     }),
@@ -50,6 +53,13 @@ trait HasOptions
                         $getRelated = $livewire->getRecord()->fields()
                             ->where('fields.id', $get('options.visibility.fieldID'))
                             ->first();
+
+                        if ($getRelated->type === '\LaraZeus\Bolt\Fields\Classes\Toggle') {
+                            return [
+                                'true' => __('checked'),
+                                'false' => __('not checked'),
+                            ];
+                        }
 
                         if (! isset($getRelated->options['dataSource'])) {
                             return [];
