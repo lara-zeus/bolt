@@ -13,6 +13,15 @@ to Embed the Form in any blade page, simply use:
 
 and [this](https://demo.larazeus.com/embed) is how the form look in an empty page.
 
+## embed in the Sky
+
+if you are using our package [Sky](https://larazeus.com/sky), you can embed the forms by using the code:
+```html
+<bolt>formSlug</bolt>
+```
+
+And for your user's convenience, we added a new tab in the form to make it easy to copy the code.
+
 ### Compiling assets
 * make sure to include all the assets needed to render the form, 
 * take a look at creating [custom themes](https://filamentphp.com/docs/2.x/admin/appearance#building-themes) for Filament. 
