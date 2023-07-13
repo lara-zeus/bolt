@@ -19,6 +19,7 @@ use Filament\Forms\Components\Toggle;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Facades\Bolt;
+use Webbingbrasil\FilamentCopyActions\Forms\Actions\CopyAction;
 
 trait Schemata
 {
@@ -62,7 +63,7 @@ trait Schemata
                 ->collapsible()
                 ->collapsed()
                 ->minItems(1)
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -199,6 +200,20 @@ trait Schemata
                                 });
                         }),
                 ]),
+
+            Tabs\Tab::make('embed-tab')
+                ->label(__('Embed'))
+                ->visible(\class_exists(\LaraZeus\Sky\SkyServiceProvider::class))
+                ->schema([
+                    TextInput::make('form_embed')
+                        ->label(__('to embed the form in any post or page'))
+                        ->dehydrated(false)
+                        ->disabled()
+                        ->formatStateUsing(function (Closure $get) {
+                            return '<bolt>'.$get('slug').'</bolt>';
+                        })
+                        ->suffixAction(CopyAction::make())
+                ]),
         ];
     }
 
@@ -225,7 +240,7 @@ trait Schemata
                                 ->schema([
                                     TextInput::make('description')
                                         ->nullable()
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn(Closure $get) => $get('../../options.show-as') !== 'tabs')
                                         ->label(__('Section Description')),
 
                                     TextInput::make('columns')
@@ -237,11 +252,13 @@ trait Schemata
                                         ->label(__('Section Columns')),
 
                                     IconPicker::make('icon')
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->visible(fn(Closure $get
+                                        ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn(Closure $get
+                                        ) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
                                         ->label(__('show as aside')),
                                 ]),
                         ]),
@@ -263,7 +280,7 @@ trait Schemata
                     '2xl' => 4,
                 ])
                 ->label('')
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->createItemButtonLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];
