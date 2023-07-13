@@ -99,10 +99,14 @@ abstract class FieldsContract implements Fields, Arrayable
                     return true;
                 }
 
-                $collection = FieldsContract::getFieldCollectionItemsList($getRelatedField)
-                    ->where('itemKey', $relatedFieldsValues)
-                    ->pluck('itemKey')
-                    ->toArray();
+                if ($getRelatedField->type === '\LaraZeus\Bolt\Fields\Classes\Toggle') {
+                    $collection = ['true', 'false'];
+                } else {
+                    $collection = FieldsContract::getFieldCollectionItemsList($getRelatedField)
+                        ->where('itemKey', $relatedFieldsValues)
+                        ->pluck('itemKey')
+                        ->toArray();
+                }
 
                 return in_array($get('zeusData.' . $relatedFields), $collection);
             });
