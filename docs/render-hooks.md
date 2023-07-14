@@ -1,5 +1,5 @@
 ---
-title: render hooks
+title: Render hooks
 weight: 7
 ---
 
