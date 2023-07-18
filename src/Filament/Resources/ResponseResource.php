@@ -82,7 +82,8 @@ class ResponseResource extends BoltResource
                     TextColumn::make('status')
                         ->badge()
                         ->label(__('status'))
-                        ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
+                        // todo
+                        //->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
                         ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
                         ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
                         ->grow(false)
