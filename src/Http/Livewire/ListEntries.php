@@ -3,14 +3,12 @@
 namespace LaraZeus\Bolt\Http\Livewire;
 
 use Filament\Tables;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
-use Filament\Tables\Table;
 
 class ListEntries extends Component
 {
