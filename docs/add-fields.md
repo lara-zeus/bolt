@@ -1,5 +1,5 @@
 ---
-title: add custom fields
+title: Custom Fields
 weight: 6
 ---
 

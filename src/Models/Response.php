@@ -2,13 +2,14 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Database\Factories\ResponseFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasUpdates;
+use LaraZeus\Bolt\Database\Factories\ResponseFactory;
 
 /**
  * @property string $updated_at
@@ -27,7 +28,22 @@ class Response extends Model
 
     protected $fillable = ['form_id', 'status', 'notes', 'user_id'];
 
-    protected static function newFactory(): ResponseFactory
+    protected static function booted(): void
+    {
+        static::deleting(function (Response $response) {
+            if ($response->isForceDeleting()) {
+                $response->fieldsResponses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+            } else {
+                $response->fieldsResponses->each(function ($item) {
+                    $item->delete();
+                });
+            }
+        });
+    }
+
+    protected static function newFactory(): Factory
     {
         return ResponseFactory::new();
     }

@@ -25,14 +25,14 @@ interface Extension
      * @param  Form  $form Bolt form
      * @param  array  $data extra data
      */
-    public function render(Form $form, array $data): string|null;
+    public function render(Form $form, array $data): ?string;
 
     /*
      * return an array of filament components to add them to the form
      *
      * @param  Form  $form Bolt form
      */
-    public function formComponents(Form $form): array|null;
+    public function formComponents(Form $form): ?array;
 
     /**
      * the store logic for the app, insert ticket or any DB ONLY calls, don't send here anything,
@@ -43,7 +43,7 @@ interface Extension
      *
      * @throws \Exception
      */
-    public function store(Form $form, array $data): array|null;
+    public function store(Form $form, array $data): ?array;
 
     /**
      * this typically used for sending only, it will execute after the DB::transaction
@@ -58,5 +58,5 @@ interface Extension
      *
      * @param  Form  $form Bolt form
      */
-    public function SubmittedRender(Form $form, array $data): string|null;
+    public function SubmittedRender(Form $form, array $data): ?string;
 }

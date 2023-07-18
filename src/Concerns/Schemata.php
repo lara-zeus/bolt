@@ -19,6 +19,7 @@ use Filament\Forms\Components\Toggle;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Facades\Bolt;
+use Webbingbrasil\FilamentCopyActions\Forms\Actions\CopyAction;
 
 trait Schemata
 {
@@ -61,6 +62,7 @@ trait Schemata
                 ->cloneable()
                 ->collapsible()
                 ->collapsed()
+                ->minItems(1)
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
@@ -162,8 +164,10 @@ trait Schemata
                                 ->content(__('optional, specify when the form will be active and receiving new entries'))
                                 ->columnSpan(2),
                             DateTimePicker::make('start_date')
+                                ->requiredWith('end_date')
                                 ->label(__('Start Date')),
                             DateTimePicker::make('end_date')
+                                ->requiredWith('start_date')
                                 ->label(__('End Date')),
                         ]),
                     Grid::make()
@@ -195,6 +199,20 @@ trait Schemata
                                     return [$item => $item];
                                 });
                         }),
+                ]),
+
+            Tabs\Tab::make('embed-tab')
+                ->label(__('Embed'))
+                ->visible(class_exists(\LaraZeus\Sky\SkyServiceProvider::class))
+                ->schema([
+                    TextInput::make('form_embed')
+                        ->label(__('to embed the form in any post or page'))
+                        ->dehydrated(false)
+                        ->disabled()
+                        ->formatStateUsing(function (Closure $get) {
+                            return '<bolt>' . $get('slug') . '</bolt>';
+                        })
+                        ->suffixAction(CopyAction::make()),
                 ]),
         ];
     }
@@ -234,11 +252,15 @@ trait Schemata
                                         ->label(__('Section Columns')),
 
                                     IconPicker::make('icon')
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->visible(fn (
+                                            Closure $get
+                                        ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn (
+                                            Closure $get
+                                        ) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
                                         ->label(__('show as aside')),
                                 ]),
                         ]),
@@ -250,6 +272,7 @@ trait Schemata
                 ->label('')
                 ->orderable('ordering')
                 ->cloneable()
+                ->minItems(1)
                 ->collapsible()
                 ->collapsed()
                 ->grid([

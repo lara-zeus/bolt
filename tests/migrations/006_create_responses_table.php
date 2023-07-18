@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('status')->default('NEW');
             $table->text('notes')->nullable();
+            $table->integer('extension_item_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

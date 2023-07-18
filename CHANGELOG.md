@@ -2,6 +2,79 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.10 - 2023-07-13
+
+### What's Changed
+
+- allow to toggle Conditional Visibility by a toggle field by @atmonshi in https://github.com/lara-zeus/bolt/pull/101
+- fix sections ID when display the form as a wizard by @atmonshi in https://github.com/lara-zeus/bolt/pull/102
+- Embed by @atmonshi in https://github.com/lara-zeus/bolt/pull/103
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.9...1.2.10
+
+## 1.2.9 - 2023-07-12
+
+### What's Changed
+
+- fix sorting in collections by @atmonshi in https://github.com/lara-zeus/bolt/pull/97
+- fix date ended and add some validation by @atmonshi in https://github.com/lara-zeus/bolt/pull/98
+- update core by @atmonshi in https://github.com/lara-zeus/bolt/pull/99
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.8...1.2.9
+
+## 1.2.8 - 2023-07-11
+
+### What's Changed
+
+- allow to set the default value by string param by @atmonshi in https://github.com/lara-zeus/bolt/pull/96
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.7...1.2.8
+
+## 1.2.7 - 2023-07-06
+
+### What's Changed
+
+- add some tests for the form resource and fill-form frontend page by @atmonshi in https://github.com/lara-zeus/bolt/pull/92
+- require at least one section and field by @atmonshi in https://github.com/lara-zeus/bolt/pull/95
+- add more tests by @atmonshi in https://github.com/lara-zeus/bolt/pull/94
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.6...1.2.7
+
+## 1.2.6 - 2023-07-04
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/91
+- update all dependecies by @atmonshi in https://github.com/lara-zeus/bolt/pull/93
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.5...1.2.6
+
+## 1.2.5 - 2023-07-02
+
+### What's Changed
+
+- add Constraints and delete relations, with support for soft delete  by @atmonshi in https://github.com/lara-zeus/bolt/pull/90
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.4...1.2.5
+
+## 1.2.4 - 2023-07-01
+
+### What's Changed
+
+- add `not-prose` for forms, so the style won't suck when the form embed… by @atmonshi in https://github.com/lara-zeus/bolt/pull/89
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.3...1.2.4
+
+## 1.2.3 - 2023-06-30
+
+### What's Changed
+
+- add docs on how to embed the form in any blade file by @atmonshi in https://github.com/lara-zeus/bolt/pull/86
+- more docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/87
+- update core by @atmonshi in https://github.com/lara-zeus/bolt/pull/88
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.2...1.2.3
+
 ## 1.2.2 - 2023-06-29
 
 ### What's Changed

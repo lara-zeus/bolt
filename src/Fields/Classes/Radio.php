@@ -39,11 +39,16 @@ class Radio extends FieldsContract
         $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 
         $component = $component
-            ->options($options->pluck('itemValue', 'itemKey'))
-            ->default($options->where('itemIsDefault', true)->pluck('itemKey'));
+            ->options($options->pluck('itemValue', 'itemKey'));
 
         if (isset($zeusField->options['is_inline']) && $zeusField->options['is_inline']) {
             $component->inline();
+        }
+
+        if (request()->filled($zeusField->options['htmlId'])) {
+            $component = $component->default(request($zeusField->options['htmlId']));
+        } elseif ($selected = $options->where('itemIsDefault', true)->pluck('itemKey')->isNotEmpty()) {
+            $component = $component->default($selected);
         }
 
         return $component;

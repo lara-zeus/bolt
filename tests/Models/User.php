@@ -3,9 +3,10 @@
 namespace LaraZeus\Bolt\Tests\Models;
 
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Orchestra\Testbench\Factories\UserFactory;
+use LaraZeus\Bolt\Database\Factories\UserFactory;
 
 /**
  * @property string $email
@@ -27,7 +28,7 @@ class User extends Authenticatable implements FilamentUser
         return true;
     }
 
-    protected static function newFactory(): UserFactory
+    protected static function newFactory(): Factory
     {
         return UserFactory::new();
     }

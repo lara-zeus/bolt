@@ -2,13 +2,15 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use LaraZeus\Bolt\Concerns\HasUpdates;
+use LaraZeus\Bolt\Database\Factories\CategoryFactory;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -17,6 +19,7 @@ use Spatie\Translatable\HasTranslations;
  */
 class Category extends Model
 {
+    use SoftDeletes;
     use HasFactory;
     use HasUpdates;
     use HasTranslations;
@@ -25,7 +28,7 @@ class Category extends Model
 
     protected $guarded = [];
 
-    protected static function newFactory(): CategoryFactory
+    protected static function newFactory(): Factory
     {
         return CategoryFactory::new();
     }

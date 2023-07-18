@@ -1,15 +1,13 @@
 <?php
 
-namespace Database\Factories;
+namespace LaraZeus\Bolt\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use LaraZeus\Bolt\Models\Form;
 
 class FormFactory extends Factory
 {
-    public function getModel(): string
-    {
-        return config('zeus-bolt.models.Form');
-    }
+    protected $model = Form::class;
 
     /**
      * Define the model's default state.
@@ -20,7 +18,7 @@ class FormFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'user_id' => config('auth.providers.users.model')::factory(),
+            'user_id' => 1,
             'ordering' => $this->faker->numberBetween(1, 20),
             'description' => $this->faker->text(),
             'slug' => $this->faker->slug(),

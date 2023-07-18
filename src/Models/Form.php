@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Database\Factories\FormFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasActive;
 use LaraZeus\Bolt\Concerns\HasUpdates;
+use LaraZeus\Bolt\Database\Factories\FormFactory;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -39,20 +40,54 @@ class Form extends Model
 
     public array $translatable = ['name', 'description', 'details'];
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
-
     protected $guarded = [];
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
         'options' => 'array',
+        'user_id' => 'integer',
     ];
 
-    protected static function newFactory(): FormFactory
+    protected static function booted(): void
+    {
+        static::deleting(function (Form $form) {
+            if ($form->isForceDeleting()) {
+                $form->fieldsResponses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+                $form->responses()->withTrashed()->get()->each(function ($item) {
+                    $item->forceDelete();
+                });
+                $form->sections()->withTrashed()->get()->each(function ($item) {
+                    $item->fields()->withTrashed()->get()->each(function ($item) {
+                        $item->forceDelete();
+                    });
+                    $item->forceDelete();
+                });
+            } else {
+                $form->fieldsResponses->each(function ($item) {
+                    $item->delete();
+                });
+                $form->responses->each(function ($item) {
+                    $item->delete();
+                });
+                $form->sections->each(function ($item) {
+                    $item->fields->each(function ($item) {
+                        $item->delete();
+                    });
+                    $item->delete();
+                });
+            }
+        });
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    protected static function newFactory(): Factory
     {
         return FormFactory::new();
     }

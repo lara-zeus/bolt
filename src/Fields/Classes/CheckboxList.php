@@ -36,8 +36,15 @@ class CheckboxList extends FieldsContract
 
         $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 
-        return $component
-            ->options($options->pluck('itemValue', 'itemKey'))
-            ->default($options->where('itemIsDefault', true)->pluck('itemKey'));
+        $component = $component
+            ->options($options->pluck('itemValue', 'itemKey'));
+
+        if (request()->filled($zeusField->options['htmlId'])) {
+            $component = $component->default(request($zeusField->options['htmlId']));
+        } elseif ($selected = $options->where('itemIsDefault', true)->pluck('itemKey')->isNotEmpty()) {
+            $component = $component->default($selected);
+        }
+
+        return $component;
     }
 }

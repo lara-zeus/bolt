@@ -26,6 +26,7 @@ return new class extends Migration
             $table->longText('options')->nullable();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
+            $table->text('extensions')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

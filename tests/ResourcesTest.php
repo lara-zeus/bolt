@@ -13,12 +13,12 @@ it('can render Category List', function () {
         ->assertSuccessful();
 });
 
-/*it('can list posts', function () {
+it('can list posts', function () {
     $forms = \LaraZeus\Bolt\Models\Form::factory()->count(10)->create();
 
     livewire(ListForms::class)
         ->assertCanSeeTableRecords($forms);
-});*/
+});
 
 it('can render Collection List', function () {
     get(CollectionResource::getUrl())

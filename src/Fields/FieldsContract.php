@@ -74,9 +74,12 @@ abstract class FieldsContract implements Fields, Arrayable
             $component = $component->required();
         }
 
+        if (request()->filled($zeusField->options['htmlId'])) {
+            $component = $component->default(request($zeusField->options['htmlId']));
+        }
+
         $component = $component
             ->visible(function ($record, Closure $get) use ($zeusField) {
-
                 if (! isset($zeusField->options['visibility']) || ! $zeusField->options['visibility']['active']) {
                     return true;
                 }
@@ -96,10 +99,14 @@ abstract class FieldsContract implements Fields, Arrayable
                     return true;
                 }
 
-                $collection = FieldsContract::getFieldCollectionItemsList($getRelatedField)
-                    ->where('itemKey', $relatedFieldsValues)
-                    ->pluck('itemKey')
-                    ->toArray();
+                if ($getRelatedField->type === '\LaraZeus\Bolt\Fields\Classes\Toggle') {
+                    $collection = ['true', 'false'];
+                } else {
+                    $collection = FieldsContract::getFieldCollectionItemsList($getRelatedField)
+                        ->where('itemKey', $relatedFieldsValues)
+                        ->pluck('itemKey')
+                        ->toArray();
+                }
 
                 return in_array($get('zeusData.' . $relatedFields), $collection);
             });

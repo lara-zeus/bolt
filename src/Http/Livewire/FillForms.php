@@ -127,8 +127,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         }
 
         if (! $this->zeusForm->date_available) {
-            return view('zeus::errors.date-ended')
-                ->layout(config('zeus.layout'));
+            return view('zeus::errors.date-not-available')
+                ->layout(config('zeus-bolt.layout'));
         }
 
         if ($this->zeusForm->onePerUser()) {
