@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
-use Filament\Pages\Actions\Action;
-use Filament\Pages\Actions\ActionGroup;
+use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 
 trait EntriesAction

@@ -10,7 +10,7 @@ class BoltResource extends Resource
 {
     use Translatable;
 
-    protected static function getNavigationBadge(): ?string
+    public static function getNavigationBadge(): ?string
     {
         return (string) static::getModel()::query()->count();
     }
@@ -20,7 +20,7 @@ class BoltResource extends Resource
         return config('zeus-bolt.translatable_Locales');
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getNavigationGroup(): ?string
     {
         return __(config('zeus-bolt.navigation_group_label', 'Bolt'));
     }

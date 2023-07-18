@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
-use Filament\Pages\Actions\Action;
-use Filament\Pages\Actions\LocaleSwitcher;
+use Filament\Actions\Action;
+use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\EditRecord;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 
@@ -25,7 +25,7 @@ class EditForm extends EditRecord
 
             Action::make('view')
                 ->label(__('View'))
-                ->icon('heroicon-o-external-link')
+                ->icon('heroicon-o-arrow-top-right-on-square')
                 ->tooltip(__('view form'))
                 ->color('warning')
                 ->url(fn () => route('bolt.form.show', $this->record))

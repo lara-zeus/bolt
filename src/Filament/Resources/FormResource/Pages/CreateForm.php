@@ -2,7 +2,7 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
-use Filament\Pages\Actions;
+use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 

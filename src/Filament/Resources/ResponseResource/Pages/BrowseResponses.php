@@ -34,7 +34,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
         $this->form_id = request('form_id', 0);
     }
 
-    protected function getTableRecordsPerPage(): int
+    public function getTableRecordsPerPage(): int
     {
         return 1;
     }
@@ -49,7 +49,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
         return fn (Model $record) => 'bg-gray-100';
     }
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return __('Browse Entries');
     }

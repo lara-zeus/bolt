@@ -4,7 +4,7 @@ namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Pages\Actions\Action;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\FormsStatus;

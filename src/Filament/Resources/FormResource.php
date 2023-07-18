@@ -3,8 +3,7 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\TextInput;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -21,6 +20,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use LaraZeus\Bolt\Concerns\Schemata;
@@ -31,16 +31,16 @@ class FormResource extends BoltResource
 {
     use Schemata;
 
-    public static function getModel(): string
-    {
-        return config('zeus-bolt.models.Form');
-    }
-
     protected static ?string $navigationIcon = 'clarity-form-line';
 
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getModel(): string
+    {
+        return config('zeus-bolt.models.Form');
+    }
 
     public static function getGloballySearchableAttributes(): array
     {
@@ -57,7 +57,7 @@ class FormResource extends BoltResource
         return __('Forms');
     }
 
-    protected static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('Forms');
     }
@@ -92,7 +92,7 @@ class FormResource extends BoltResource
                     Action::make('show')
                         ->color('warning')
                         ->label(__('View Form'))
-                        ->icon('heroicon-o-external-link')
+                        ->icon('heroicon-o-arrow-top-right-on-square')
                         ->tooltip(__('view form'))
                         ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
                         ->openUrlInNewTab(),

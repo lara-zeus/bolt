@@ -2,13 +2,12 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
-use Closure;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -22,6 +21,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
@@ -56,7 +56,7 @@ class CategoryResource extends BoltResource
                     ->maxLength(255)
                     ->reactive()
                     ->label(__('Name'))
-                    ->afterStateUpdated(function (Closure $set, $state, $context) {
+                    ->afterStateUpdated(function (Set $set, $state, $context) {
                         if ($context === 'edit') {
                             return;
                         }
@@ -153,7 +153,7 @@ class CategoryResource extends BoltResource
         return __('Categories');
     }
 
-    protected static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('Categories');
     }

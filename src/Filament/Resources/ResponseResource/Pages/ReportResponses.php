@@ -8,6 +8,7 @@ use Filament\Resources\Pages\Page;
 use Filament\Tables;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -42,7 +43,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
         $this->form = Form::with(['fields'])->find($this->form_id);
     }
 
-    protected function getTitle(): string
+    public function getTitle(): string
     {
         return __('Entries Report');
     }
@@ -65,10 +66,11 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
             ImageColumn::make('user.avatar')
                 ->label(__('Avatar'))
                 ->toggleable(),
-            Tables\Columns\TextColumn::make('user.name')
+            TextColumn::make('user.name')
                 ->label(__('User Name'))
                 ->searchable(),
-            BadgeColumn::make('status')
+            TextColumn::make('status')
+                ->badge()
                 ->label(__('status'))
                 ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
                 ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
@@ -76,11 +78,11 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                 ->grow(false)
                 ->searchable('status'),
 
-            Tables\Columns\TextColumn::make('notes')->toggleable(),
+            TextColumn::make('notes')->toggleable(),
         ];
 
         foreach ($this->form->fields->sortBy('ordering') as $field) {
-            $mainColumns[] = Tables\Columns\TextColumn::make('zeusData.' . $field->id)
+            $mainColumns[] = TextColumn::make('zeusData.' . $field->id)
                 ->label($field->name)
                 ->searchable(query: function (Builder $query, string $search): Builder {
                     return $query
@@ -93,7 +95,7 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                 ->toggleable();
         }
 
-        $mainColumns[] = Tables\Columns\TextColumn::make('created_at')->toggleable();
+        $mainColumns[] = TextColumn::make('created_at')->toggleable();
 
         return $mainColumns;
     }

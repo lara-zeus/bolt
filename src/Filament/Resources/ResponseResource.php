@@ -3,14 +3,14 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\ViewField;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Models\FormsStatus;
 
@@ -37,7 +37,7 @@ class ResponseResource extends BoltResource
         return __('Entries');
     }
 
-    protected static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('Entries');
     }
@@ -79,7 +79,8 @@ class ResponseResource extends BoltResource
                     ->searchable()
                     ->visible(! request()->filled('form_id')),
                 Stack::make([
-                    BadgeColumn::make('status')
+                    TextColumn::make('status')
+                        ->badge()
                         ->label(__('status'))
                         ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
                         ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())

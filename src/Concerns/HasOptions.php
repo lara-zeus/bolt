@@ -2,11 +2,11 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
-use Closure;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Get;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
@@ -22,8 +22,8 @@ trait HasOptions
                 Select::make('options.visibility.fieldID')
                     ->label(__('show when the field:'))
                     ->reactive()
-                    ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
-                    ->required(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
+                    ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
+                    ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->options(function ($livewire, $record) {
                         if ($record === null) {
                             return [];
@@ -44,9 +44,9 @@ trait HasOptions
                 Select::make('options.visibility.values')
                     ->label(__('show when the field:'))
                     ->reactive()
-                    ->required(fn (Closure $get): bool => ! empty($get('options.visibility.fieldID')))
-                    ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.fieldID')))
-                    ->options(function (Closure $get, $livewire) {
+                    ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
+                    ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
+                    ->options(function (Get $get, $livewire) {
                         if ($get('options.visibility.fieldID') === null) {
                             return [];
                         }

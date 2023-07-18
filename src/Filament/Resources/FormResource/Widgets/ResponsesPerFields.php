@@ -16,7 +16,7 @@ class ResponsesPerFields extends PieChartWidget
 
     protected static ?string $maxHeight = '300px';
 
-    protected function getHeading(): string
+    public function getHeading(): string
     {
         return __('Responses Status');
     }

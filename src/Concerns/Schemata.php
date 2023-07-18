@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
-use Closure;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
@@ -16,6 +15,8 @@ use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -57,8 +58,8 @@ trait Schemata
                 ->label('')
                 ->schema(static::getSectionsSchema())
                 ->relationship()
-                ->orderable('ordering')
-                ->createItemButtonLabel(__('Add Section'))
+                ->orderColumn('ordering')
+                ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
                 ->collapsed()
@@ -82,7 +83,7 @@ trait Schemata
                         ->maxLength(255)
                         ->reactive()
                         ->label(__('Form Name'))
-                        ->afterStateUpdated(function (Closure $set, $state, $context) {
+                        ->afterStateUpdated(function (Set $set, $state, $context) {
                             if ($context === 'edit') {
                                 return;
                             }
@@ -127,7 +128,7 @@ trait Schemata
                     Toggle::make('options.one-entry-per-user')
                         ->label(__('One Entry Per User'))
                         ->helperText(__('to check if the user already submitted an entry in this form'))
-                        ->visible(function (Closure $get) {
+                        ->visible(function (Get $get) {
                             return $get('options.require-login');
                         }),
 
@@ -209,7 +210,7 @@ trait Schemata
                         ->label(__('to embed the form in any post or page'))
                         ->dehydrated(false)
                         ->disabled()
-                        ->formatStateUsing(function (Closure $get) {
+                        ->formatStateUsing(function (Get $get) {
                             return '<bolt>' . $get('slug') . '</bolt>';
                         })
                         ->suffixAction(CopyAction::make()),
@@ -240,7 +241,7 @@ trait Schemata
                                 ->schema([
                                     TextInput::make('description')
                                         ->nullable()
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn (Get $get) => $get('../../options.show-as') !== 'tabs')
                                         ->label(__('Section Description')),
 
                                     TextInput::make('columns')
@@ -253,13 +254,13 @@ trait Schemata
 
                                     IconPicker::make('icon')
                                         ->visible(fn (
-                                            Closure $get
+                                            Get $get
                                         ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')
                                         ->visible(fn (
-                                            Closure $get
+                                            Get $get
                                         ) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
                                         ->label(__('show as aside')),
                                 ]),
@@ -270,7 +271,7 @@ trait Schemata
             Repeater::make('fields')
                 ->relationship()
                 ->label('')
-                ->orderable('ordering')
+                ->orderColumn('ordering')
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
@@ -283,7 +284,7 @@ trait Schemata
                 ])
                 ->label('')
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
-                ->createItemButtonLabel(__('Add field'))
+                ->addActionLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];
     }
@@ -320,7 +321,7 @@ trait Schemata
                                     'lg' => 2,
                                 ])
                                 ->label(__('Field Options'))
-                                ->visible(function (Closure $get) {
+                                ->visible(function (Get $get) {
                                     $class = $get('type');
                                     if (class_exists($class)) {
                                         return (new $class)->hasOptions();
@@ -328,7 +329,7 @@ trait Schemata
 
                                     return false;
                                 })
-                                ->schema(function (Closure $get) {
+                                ->schema(function (Get $get) {
                                     return $get('type')::getOptions();
                                 })
                                 ->columns(1),

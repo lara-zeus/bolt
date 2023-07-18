@@ -10,8 +10,9 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
+use Filament\Tables\Table;
 
-class ListEntries extends Component implements Tables\Contracts\HasTable
+class ListEntries extends Component
 {
     use Tables\Concerns\InteractsWithTable;
 
@@ -24,8 +25,11 @@ class ListEntries extends Component implements Tables\Contracts\HasTable
     {
         return [
             Split::make([
-                BadgeColumn::make('status')->label(__('status'))
-                    ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
+                TextColumn::make('status')
+                    ->badge()
+                    ->label(__('status'))
+                    // todo
+                    //->enums(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
                     ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
                     ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
                     ->grow(false),
