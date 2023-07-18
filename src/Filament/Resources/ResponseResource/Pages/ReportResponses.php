@@ -6,7 +6,6 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Closure;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;

@@ -4,7 +4,6 @@ namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\ViewField;
 use Filament\Forms\Form;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
