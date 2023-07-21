@@ -6,6 +6,7 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Closure;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Resources\Pages\Page;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -19,7 +20,6 @@ use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
 use LaraZeus\Bolt\Models\Response;
-use Filament\Resources\Pages\Page;
 
 class ReportResponses extends Page implements HasForms, HasTable
 {
@@ -40,7 +40,6 @@ class ReportResponses extends Page implements HasForms, HasTable
     protected $queryString = [
         'form_id',
     ];
-
 
     public function table(Table $table): Table
     {

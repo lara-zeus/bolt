@@ -10,7 +10,6 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Pages\ViewRecord;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
-use Filament\Infolists;
 
 class ViewForm extends ViewRecord
 {
@@ -36,8 +35,7 @@ class ViewForm extends ViewRecord
                         'draft' => 'heroicon-o-pencil',
                         'reviewing' => 'heroicon-o-clock',
                         'published' => 'heroicon-o-check-circle',
-                    })
-
+                    }),
 
             ]);
     }
