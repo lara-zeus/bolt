@@ -1,4 +1,4 @@
-<x-filament::widget>
+<x-filament-widgets::widget>
     <x-filament::card>
         <div class="text-center font-semibold">
             {{ __('any changes in the values of these items will affect the responses for the forms in') }}
@@ -8,4 +8,4 @@
             {{ __('field') }}
         </div>
     </x-filament::card>
-</x-filament::widget>
+</x-filament-widgets::widget>

@@ -33,7 +33,7 @@ trait Schemata
                 ->schema([
                     TextInput::make('name')
                         ->maxLength(255)
-                        ->reactive()
+                        ->live()
                         ->label(__('Form Name')),
                 ]),
         ];
@@ -78,10 +78,10 @@ trait Schemata
                 ->schema([
                     TextInput::make('name')
                         ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-translate')
+                        ->hintIcon('heroicon-s-language')
                         ->required()
                         ->maxLength(255)
-                        ->reactive()
+                        ->live()
                         ->label(__('Form Name'))
                         ->afterStateUpdated(function (Set $set, $state, $context) {
                             if ($context === 'edit') {
@@ -101,12 +101,12 @@ trait Schemata
                 ->schema([
                     Textarea::make('description')
                         ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-translate')
+                        ->hintIcon('heroicon-s-language')
                         ->label(__('Form Description'))
                         ->helperText(__('shown under the title of the form and used in SEO')),
                     RichEditor::make('details')
                         ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-translate')
+                        ->hintIcon('heroicon-s-language')
                         ->label(__('Form Details'))
                         ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
                     RichEditor::make('options.confirmation-message')
@@ -124,7 +124,7 @@ trait Schemata
                     Toggle::make('options.require-login')
                         ->label(__('require Login'))
                         ->helperText(__('User must be logged in or create an account before can submit a new entry'))
-                        ->reactive(),
+                        ->live(),
                     Toggle::make('options.one-entry-per-user')
                         ->label(__('One Entry Per User'))
                         ->helperText(__('to check if the user already submitted an entry in this form'))
@@ -134,7 +134,7 @@ trait Schemata
 
                     Radio::make('options.show-as')
                         ->label(__('Show the form as'))
-                        ->reactive()
+                        ->live()
                         ->default('page')
                         ->descriptions([
                             'page' => __('show all sections on one page'),
@@ -213,7 +213,8 @@ trait Schemata
                         ->formatStateUsing(function (Get $get) {
                             return '<bolt>' . $get('slug') . '</bolt>';
                         })
-                        ->suffixAction(CopyAction::make()),
+                    //    ->suffixAction(CopyAction::make())
+                    ,
                 ]),
         ];
     }
@@ -295,7 +296,7 @@ trait Schemata
             Tabs::make('fields-tab')
                 ->tabs([
                     Tabs\Tab::make('type-text-tab')
-                        ->icon('heroicon-o-menu-alt-2')
+                        ->icon('heroicon-o-bars-3-bottom-left')
                         ->label(__('Type & title'))
                         ->schema([
                             TextInput::make('name')
@@ -307,7 +308,7 @@ trait Schemata
                             Select::make('type')
                                 ->required()
                                 ->options(Bolt::availableFields()->pluck('title', 'class'))
-                                ->reactive()
+                                ->live()
                                 ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
                                 ->label(__('Field Type')),
                         ]),

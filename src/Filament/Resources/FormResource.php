@@ -84,7 +84,7 @@ class FormResource extends BoltResource
                     ViewAction::make(),
                     EditAction::make('edit'),
                     Action::make('entries')
-                        ->color('success')
+                        ->color('info')
                         ->label(__('Entries'))
                         ->icon('clarity-data-cluster-line')
                         ->tooltip(__('view all entries'))
@@ -121,7 +121,6 @@ class FormResource extends BoltResource
                     DeleteAction::make(),
                     ForceDeleteAction::make(),
                     RestoreAction::make(),
-
                 ]),
             ])
             ->filters([

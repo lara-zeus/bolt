@@ -16,12 +16,12 @@ trait HasOptions
         return Grid::make()
             ->schema([
                 Toggle::make('options.visibility.active')
-                    ->reactive()
+                    ->live()
                     ->label(__('Conditional Visibility')),
 
                 Select::make('options.visibility.fieldID')
                     ->label(__('show when the field:'))
-                    ->reactive()
+                    ->live()
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->options(function ($livewire, $record) {
@@ -42,8 +42,8 @@ trait HasOptions
                     }),
 
                 Select::make('options.visibility.values')
-                    ->label(__('show when the field:'))
-                    ->reactive()
+                    ->label(__('has the value:'))
+                    ->live()
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->options(function (Get $get, $livewire) {

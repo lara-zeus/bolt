@@ -2,9 +2,9 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Closure;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput as TextInputAlias;
+use Filament\Forms\Get;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class TextInput extends FieldsContract
@@ -41,7 +41,7 @@ class TextInput extends FieldsContract
                     'macAddress' => __('mac address'),
                 ])
                 ->default('string')
-                ->reactive(),
+                ->live(),
 
             TextInputAlias::make('options.prefix')
                 ->label(__('prefix')),
@@ -50,11 +50,11 @@ class TextInput extends FieldsContract
                 ->label(__('suffix')),
 
             TextInputAlias::make('options.minValue')
-                ->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')
+                ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
                 ->label(__('min value')),
 
             TextInputAlias::make('options.maxValue')
-                ->visible(fn (Closure $get): bool => $get('options.dateType') === 'numeric')
+                ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
                 ->label(__('max value')),
 
             self::required(),

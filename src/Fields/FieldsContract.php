@@ -2,7 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields;
 
-use Closure;
+use Filament\Forms\Get;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use LaraZeus\Bolt\Concerns\HasOptions;
@@ -79,7 +79,7 @@ abstract class FieldsContract implements Fields, Arrayable
         }
 
         $component = $component
-            ->visible(function ($record, Closure $get) use ($zeusField) {
+            ->visible(function ($record, Get $get) use ($zeusField) {
                 if (! isset($zeusField->options['visibility']) || ! $zeusField->options['visibility']['active']) {
                     return true;
                 }
@@ -111,7 +111,7 @@ abstract class FieldsContract implements Fields, Arrayable
                 return in_array($get('zeusData.' . $relatedFields), $collection);
             });
 
-        return $component->reactive();
+        return $component->live();
     }
 
     public function getCollectionsValuesForResponse($field, $resp): string

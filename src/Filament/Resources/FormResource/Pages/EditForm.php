@@ -18,6 +18,7 @@ class EditForm extends EditRecord
         return [
             LocaleSwitcher::make(),
             Action::make('entries')
+                ->color('info')
                 ->label(__('Entries'))
                 ->icon('clarity-data-cluster-line')
                 ->tooltip(__('view all entries'))

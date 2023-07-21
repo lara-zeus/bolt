@@ -4,20 +4,27 @@ namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Closure;
-use Filament\Resources\Pages\Page;
-use Filament\Tables;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
+use LaraZeus\Bolt\Models\Response;
+use Filament\Resources\Pages\Page;
 
-class ReportResponses extends Page implements Tables\Contracts\HasTable
+class ReportResponses extends Page implements HasForms, HasTable
 {
-    use Tables\Concerns\InteractsWithTable;
+    use InteractsWithTable;
+    use InteractsWithForms;
     use \LaraZeus\Bolt\Concerns\EntriesAction;
 
     protected static string $resource = ResponseResource::class;
@@ -33,6 +40,25 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
     protected $queryString = [
         'form_id',
     ];
+
+
+    public function table(Table $table): Table
+    {
+        return $table
+            ->query(Response::query())
+            ->columns([
+                TextColumn::make('name'),
+            ])
+            ->filters([
+                // ...
+            ])
+            ->actions([
+                // ...
+            ])
+            ->bulkActions([
+                // ...
+            ]);
+    }
 
     public function mount()
     {
@@ -122,12 +148,17 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
     protected function getTableBulkActions(): array
     {
         return [
-            FilamentExportBulkAction::make('export')->label(__('Export')),
+            //FilamentExportBulkAction::make('export')->label(__('Export')),
         ];
     }
 
     protected function getActions(): array
     {
         return $this->getEntriesActions();
+    }
+
+    public function render(): View
+    {
+        return view('zeus::filament.pages.reports.entries');
     }
 }
