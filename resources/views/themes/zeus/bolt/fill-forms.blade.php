@@ -40,9 +40,9 @@
         {{ $this->form }}
 
         <div class="px-4 py-2 text-center">
-            <x-filament-support::button type="submit">
+            <x-filament::button type="submit">
                 {{ __('Save') }}
-            </x-filament-support::button>
+            </x-filament::button>
         </div>
 
         {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
