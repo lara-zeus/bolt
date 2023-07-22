@@ -80,11 +80,5 @@
             }
         }
     },
-    "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../core"
-        }
-    ]
+    "minimum-stability": "dev"
 }
