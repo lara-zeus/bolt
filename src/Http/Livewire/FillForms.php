@@ -22,6 +22,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public $extensionData;
 
+    public $extensions;
+
     public $zeusData = [];
 
     protected function getFormSchema(): array
