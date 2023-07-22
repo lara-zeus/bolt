@@ -70,7 +70,7 @@ class ResponseResource extends BoltResource
                             ->extraAttributes(['class' => 'text-gray-400'])
                             ->size('sm')
                             ->weight('medium')
-                            ->icon('heroicon-s-mail'),
+                            ->icon('heroicon-s-envelope'),
                     ]),
                 ]),
                 TextColumn::make('form.name')

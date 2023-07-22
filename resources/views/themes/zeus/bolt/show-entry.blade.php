@@ -23,7 +23,7 @@
                         <div class="py-2 text-ellipsis overflow-auto">
                             <p>{{ $resp->field->name }}</p>
                             <p class="font-semibold mb-2">{!! ( new $resp->field->type )->getResponse($resp->field, $resp) !!}</p>
-                            <x-filament::hr/>
+                            <hr/>
                         </div>
                     @endforeach
                 </div>
@@ -31,9 +31,9 @@
         </div>
         <div class="md:col-span-1 space-y-4">
             <x-filament::card class="w-full">
-                <x-filament::card.heading class="text-secondary-600">
+                <x-slot name="heading" class="text-secondary-600">
                     {{ __('User Details') }}
-                </x-filament::card.heading>
+                </x-slot>
                 <p>
                     <span class="text-base font-light">{{ __('By') }}</span>:
                     @if($response->user_id === null)
@@ -50,9 +50,9 @@
             <div>
                 <div class="space-y-2">
                     <x-filament::card>
-                        <x-filament::card.heading class="text-primary-600">
+                        <x-slot name="heading" class="text-primary-600">
                             <p class="my-3 mx-1 text-secondary-600 font-semibold">{{ __('Entry Details') }}</p>
-                        </x-filament::card.heading>
+                        </x-slot>
 
                         <div class="flex flex-col">
                             <span class="text-gray-600">{{ __('Form') }}:</span>

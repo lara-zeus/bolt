@@ -31,6 +31,8 @@
         "guava/filament-icon-picker": "dev-filament-v3-alpha"
     },
     "require-dev": {
+        "pestphp/pest": "^2.0",
+        "phpunit/phpunit": "^10.2",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.0.1",
