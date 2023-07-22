@@ -1759,7 +1759,7 @@
             "dist": {
                 "type": "path",
                 "url": "../core",
-                "reference": "8477f62918782e0c94c5ddcc4997847e1b5223b9"
+                "reference": "18db93d580c650e13043e654cf32cd27e8288e70"
             },
             "require": {
                 "archtechx/laravel-seo": "^0.7",
@@ -7944,12 +7944,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest.git",
-                "reference": "cf5275293fe693ec2cf4dbadbadae01daaa08169"
+                "reference": "705f19dd87caf16de4c24f5cfb7eff2e4aab3e3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest/zipball/cf5275293fe693ec2cf4dbadbadae01daaa08169",
-                "reference": "cf5275293fe693ec2cf4dbadbadae01daaa08169",
+                "url": "https://api.github.com/repos/pestphp/pest/zipball/705f19dd87caf16de4c24f5cfb7eff2e4aab3e3f",
+                "reference": "705f19dd87caf16de4c24f5cfb7eff2e4aab3e3f",
                 "shasum": ""
             },
             "require": {
@@ -8026,7 +8026,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest/issues",
-                "source": "https://github.com/pestphp/pest/tree/v2.9.3"
+                "source": "https://github.com/pestphp/pest/tree/v2.9.4"
             },
             "funding": [
                 {
@@ -8038,7 +8038,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-20T18:47:23+00:00"
+            "time": "2023-07-22T14:42:37+00:00"
         },
         {
             "name": "pestphp/pest-plugin",
@@ -8792,12 +8792,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "81a4069e54b04778f7ce568d37e5859eae8ad4cf"
+                "reference": "16cf5d2bcc0310ac77c4f3efe3456bee4e181030"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/81a4069e54b04778f7ce568d37e5859eae8ad4cf",
-                "reference": "81a4069e54b04778f7ce568d37e5859eae8ad4cf",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/16cf5d2bcc0310ac77c4f3efe3456bee4e181030",
+                "reference": "16cf5d2bcc0310ac77c4f3efe3456bee4e181030",
                 "shasum": ""
             },
             "require": {
@@ -8847,7 +8847,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-07-21T14:22:41+00:00"
+            "time": "2023-07-22T13:18:49+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
