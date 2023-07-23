@@ -15,11 +15,6 @@ class BoltResource extends Resource
         return (string) static::getModel()::query()->count();
     }
 
-    public static function getTranslatableLocales(): array
-    {
-        return config('zeus-bolt.translatable_Locales');
-    }
-
     public static function getNavigationGroup(): ?string
     {
         return __(config('zeus-bolt.navigation_group_label', 'Bolt'));

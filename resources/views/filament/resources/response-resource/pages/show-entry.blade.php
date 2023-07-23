@@ -48,7 +48,7 @@
                         </div>
 
                         <div>
-                            22<span>{{ __('status') }}</span>
+                            <span>{{ __('status') }}</span>
                             @php $getStatues = $getRecord()->statusDetails() @endphp
                             <span class="{{ $getStatues['class']}}" x-tooltip.raw="{{ __('status') }}">
                                 @svg($getStatues['icon'],'w-4 h-4 inline')
