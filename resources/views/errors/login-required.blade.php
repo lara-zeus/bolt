@@ -7,7 +7,7 @@
         <x-filament::card>
             <x-slot name="heading">
                 <div class="flex items-center justify-center gap-2">
-                    <x-heroicon-o-exclamation class="w-5 h-5 text-secondary-600"/>
+                    @svg('heroicon-o-exclamation','w-5 h-5 text-secondary-600')
                     <span class="text-md">
                         {{ __('Login Required') }}
                     </span>

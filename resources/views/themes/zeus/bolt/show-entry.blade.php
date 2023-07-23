@@ -7,7 +7,7 @@
     <x-slot name="breadcrumps">
         <li class="flex items-center">
             <a href="{{ route('bolt.entries.list') }}">{{ __('My Entries') }}</a>
-            <x-iconpark-rightsmall-o class="fill-current w-4 h-4 mx-3" />
+            @svg('iconpark-rightsmall-o','fill-current w-4 h-4 mx-3')
         </li>
 
         <li class="flex items-center">

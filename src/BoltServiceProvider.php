@@ -41,6 +41,7 @@ class BoltServiceProvider extends PackageServiceProvider
             ->name('zeus-bolt')
             ->hasViews('zeus')
             ->hasMigrations($this->getMigrations())
+            ->hasTranslations()
             ->hasCommands($this->getCommands())
             ->hasConfigFile()
             ->hasRoute('web');
