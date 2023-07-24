@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EditCollectionWarning extends Widget
 {
-    protected int|string|array $columnSpan = 'full';
+    protected int | string | array $columnSpan = 'full';
 
     public ?Model $record = null;
 

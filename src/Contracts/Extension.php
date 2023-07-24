@@ -15,7 +15,7 @@ interface Extension
      * @param  Form  $form Bolt form
      * @param  array  $data extra data
      */
-    public function canView(Form $form, array $data): bool|array|null;
+    public function canView(Form $form, array $data): bool | array | null;
 
     /**
      * what to show at the beginning of the form

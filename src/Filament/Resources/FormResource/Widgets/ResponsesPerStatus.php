@@ -11,7 +11,7 @@ class ResponsesPerStatus extends PieChartWidget
 {
     public Form $record;
 
-    protected int|string|array $columnSpan = [
+    protected int | string | array $columnSpan = [
         'sm' => 1,
     ];
 
