@@ -13,7 +13,11 @@
         "builder",
         "filamentphp"
     ],
-    "homepage": "https://github.com/lara-zeus",
+    "homepage": "https://larazeus.com/bolt",
+    "support": {
+        "issues": "https://github.com/lara-zeus/bolt/issues",
+        "source": "https://github.com/lara-zeus/bolt"
+    },
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -26,7 +30,6 @@
     "require": {
         "php": "^8.0",
         "codeat3/blade-clarity-icons": "^1.7",
-        "filament/spatie-laravel-translatable-plugin": "3.x-dev",
         "lara-zeus/core": "3.x-dev",
         "guava/filament-icon-picker": "dev-filament-v3-alpha"
     },

@@ -15,6 +15,8 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class BoltServiceProvider extends PackageServiceProvider
 {
+    public static string $name = 'zeus-bolt';
+
     public function packageBooted(): void
     {
         CoreServiceProvider::setThemePath('bolt');
@@ -38,7 +40,7 @@ class BoltServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('zeus-bolt')
+            ->name(static::$name)
             ->hasViews('zeus')
             ->hasMigrations($this->getMigrations())
             ->hasTranslations()

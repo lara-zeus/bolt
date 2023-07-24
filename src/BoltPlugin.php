@@ -13,7 +13,7 @@ class BoltPlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'zeus-sky';
+        return 'zeus-bolt';
     }
 
     public function register(Panel $panel): void
