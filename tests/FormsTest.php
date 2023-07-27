@@ -20,7 +20,7 @@ it('can render list Forms', function () {
 
 it('can render show Form', function () {
     $form = Form::factory()->create();
-    get(BoltPlugin::get()->getBoltPrefix(). '/' . $form->slug)->assertSuccessful();
+    get(BoltPlugin::get()->getBoltPrefix() . '/' . $form->slug)->assertSuccessful();
 });
 
 it('the form can be rendered', function () {
