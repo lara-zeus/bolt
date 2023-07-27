@@ -5,7 +5,7 @@ weight: 1
 
 ## Introduction
 @zeus bolt is a form builder for your users, with so many use cases
-included a UI for the frontend bilt with filament
+included a UI for the frontend built with filament
 
 **[Demo](https://demo.larazeus.com) · [Github](https://github.com/lara-zeus/bolt)**
 
@@ -23,18 +23,6 @@ included a UI for the frontend bilt with filament
 - 🔥 Conditional Visibility for fields.
 - 🔥 Extensions
 - 🔥 Embed the form in sky posts and pages, or as a livewire component
-- 🔥 Available Fields:
-  - Text Input
-  - Select Menu
-  - Multi-Select Menu
-  - Radio
-  - Checkbox List
-  - Date Time Picker
-  - Date Picker
-  - Time Picker
-  - Rich Editor
-  - File Upload
-  - Toggle
 - 🔥 Add any field from filament plugins
 - 🔥 Create your field
 - 🔥 All the options for filament fields are available
