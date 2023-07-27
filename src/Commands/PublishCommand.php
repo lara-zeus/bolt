@@ -27,11 +27,6 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        // art vendor:publish --tag=zeus-bolt-migrations
-        // publish Wind files
-        $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-config', '--force' => $this->option('force')]);
-        $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-views', '--force' => $this->option('force')]);
-
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-migrations', '--force' => $this->option('force')]);
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-seeder', '--force' => $this->option('force')]);
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-factories', '--force' => $this->option('force')]);

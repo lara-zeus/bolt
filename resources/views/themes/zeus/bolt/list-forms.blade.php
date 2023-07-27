@@ -23,7 +23,7 @@
                         <span class="text-primary-600 dark:text-primary-500 hover:dark:text-primary-300">
                             {{ $form->name ?? '' }}
                         </span>
-                        <cite class="text-secondary-600 dark:text-secondary-500 hover:dark:text-secondary-300">
+                        <cite class="text-custom-600 dark:text-custom-500 hover:dark:text-custom-300">
                             {{ $form->description }}
                         </cite>
                     </a>

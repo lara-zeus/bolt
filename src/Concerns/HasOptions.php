@@ -7,6 +7,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
@@ -87,7 +88,7 @@ trait HasOptions
             ->schema([
                 Select::make('options.dataSource')
                     ->required()
-                    ->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))
+                    ->options(BoltPlugin::getModel('Collection')::pluck('name', 'id'))
                     ->label(__('Data Source')),
             ])
             ->columns(1);

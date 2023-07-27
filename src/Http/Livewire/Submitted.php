@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Http\Livewire;
 
+use LaraZeus\Bolt\BoltPlugin;
 use Livewire\Component;
 
 class Submitted extends Component
@@ -15,18 +16,18 @@ class Submitted extends Component
     public function mount($slug, $extension = null)
     {
         $this->slug = $slug;
-        $this->form = config('zeus-bolt.models.Form')::whereSlug($slug)->firstOrFail();
+        $this->form = BoltPlugin::getModel('Form')::whereSlug($slug)->firstOrFail();
         $this->extension = $extension;
     }
 
     public function render()
     {
         seo()
-            ->title($this->form->name . ' ' . config('zeus-bolt.site_title', 'Laravel'))
-            ->description($this->form->description . ' ' . config('zeus-bolt.site_description', 'Laravel'))
-            ->site(config('zeus-bolt.site_title', 'Laravel'))
+            ->title($this->form->name . ' ' . config('zeus.site_title', 'Laravel'))
+            ->description($this->form->description . ' ' . config('zeus.site_description', 'Laravel'))
+            ->site(config('zeus.site_title', 'Laravel'))
             ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
-            ->rawTag('<meta name="theme-color" content="' . config('zeus-bolt.site_color') . '" />')
+            ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
             ->withUrl()
             ->twitter();
 

@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Http\Livewire\FillForms;
 use LaraZeus\Bolt\Http\Livewire\ListEntries;
 use LaraZeus\Bolt\Http\Livewire\ListForms;
 use LaraZeus\Bolt\Http\Livewire\ShowEntry;
 use LaraZeus\Bolt\Http\Livewire\Submitted;
 
-Route::prefix(config('zeus-bolt.path'))
+Route::prefix(BoltPlugin::get()->getBoltPrefix())
     ->name('bolt.')
-    ->middleware(config('zeus-bolt.middleware'))
+    ->middleware(BoltPlugin::get()->getMiddleware())
     ->group(function () {
         Route::get('/', ListForms::class)
             ->name('forms.list');

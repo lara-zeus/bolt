@@ -15,6 +15,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
@@ -51,9 +52,10 @@ class ReportResponses extends Page implements HasForms, HasTable
             TextColumn::make('status')
                 ->badge()
                 ->label(__('status'))
+                // todo
                 //->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
-                ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
-                ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
+                ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
+                ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)
                 ->searchable('status'),
 
@@ -78,7 +80,7 @@ class ReportResponses extends Page implements HasForms, HasTable
 
         return $table
             ->query(
-                config('zeus-bolt.models.Response')::query()
+                BoltPlugin::getModel('Response')::query()
                     ->where('form_id', $this->form_id)
                     ->with(['fieldsResponses'])
             )

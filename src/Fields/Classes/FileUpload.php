@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class FileUpload extends FieldsContract
@@ -37,8 +38,8 @@ class FileUpload extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        $component->disk(config('zeus-bolt.uploads.disk'))
-            ->directory(config('zeus-bolt.uploads.directory'));
+        $component->disk(BoltPlugin::get()->getUploadDisk())
+            ->directory(BoltPlugin::get()->getUploadDirectory());
 
         if (isset($zeusField->options['allow_multiple']) && $zeusField->options['allow_multiple']) {
             $component = $component->multiple();

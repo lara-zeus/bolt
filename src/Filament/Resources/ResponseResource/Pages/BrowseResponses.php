@@ -8,6 +8,7 @@ use Filament\Tables;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\FormsStatus;
@@ -65,7 +66,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return config('zeus-bolt.models.Response')::query()->where('form_id', $this->form_id);
+        return BoltPlugin::getModel('Response')::query()->where('form_id', $this->form_id);
     }
 
     protected function getTableFilters(): array

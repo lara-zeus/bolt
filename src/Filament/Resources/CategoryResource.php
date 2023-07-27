@@ -25,6 +25,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\CreateCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\EditCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\ListCategories;
@@ -33,7 +34,7 @@ class CategoryResource extends BoltResource
 {
     public static function getModel(): string
     {
-        return config('zeus-bolt.models.Category');
+        return BoltPlugin::getModel('Category');
     }
 
     protected static ?string $navigationIcon = 'clarity-tags-line';
@@ -67,8 +68,8 @@ class CategoryResource extends BoltResource
                 Toggle::make('is_active')->label(__('Is Active'))->default(1),
                 Textarea::make('description')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
                 FileUpload::make('logo')
-                    ->disk(config('zeus-bolt.uploads.disk', 'public'))
-                    ->directory(config('zeus-bolt.uploads.dir', 'logos'))
+                    ->disk(BoltPlugin::get()->getUploadDisk())
+                    ->directory(BoltPlugin::get()->getUploadDirectory())
                     ->columnSpan(['sm' => 2])
                     ->label(__('logo')),
             ]);
@@ -79,7 +80,7 @@ class CategoryResource extends BoltResource
         return $table
             ->columns([
                 ImageColumn::make('logo')
-                    ->disk(config('zeus-bolt.uploads.disk', 'public'))
+                    ->disk(BoltPlugin::get()->getUploadDisk())
                     ->toggleable()
                     ->label(__('Logo')),
                 TextColumn::make('name')

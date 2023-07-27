@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Fields;
 use Filament\Forms\Get;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -128,7 +129,7 @@ abstract class FieldsContract implements Fields, Arrayable
             $response = [$response];
         }
 
-        $values = config('zeus-bolt.models.Collection')::find($field->options['dataSource']);
+        $values = BoltPlugin::getModel('Collection')::find($field->options['dataSource']);
         if ($values === null) {
             return $response;
         }
@@ -140,7 +141,7 @@ abstract class FieldsContract implements Fields, Arrayable
 
     public static function getFieldCollectionItemsList(Field $zeusField): Collection
     {
-        $getCollection = config('zeus-bolt.models.Collection')::find($zeusField->options['dataSource'] ?? 0);
+        $getCollection = BoltPlugin::getModel('Collection')::find($zeusField->options['dataSource'] ?? 0);
 
         if ($getCollection === null) {
             return collect();

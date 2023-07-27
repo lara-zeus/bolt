@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Http\Livewire;
 
 use Filament\Forms;
 use Illuminate\Support\Facades\Mail;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -41,7 +42,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
      */
     public function mount($slug, $extensionSlug = null)
     {
-        $this->zeusForm = config('zeus-bolt.models.Form')::query()
+        $this->zeusForm = BoltPlugin::getModel('Form')::query()
             ->with([
                 'sections', 'sections.fields',
             ])
@@ -69,7 +70,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         $this->validate();
 
-        $response = config('zeus-bolt.models.Response')::create([
+        $response = BoltPlugin::getModel('Response')::create([
             'form_id' => $this->zeusForm->id,
             'user_id' => (auth()->check()) ? auth()->user()->id : null,
             'status' => 'NEW',
@@ -82,8 +83,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             if (! empty($setValue) && is_array($setValue)) {
                 $value = json_encode($value);
             }
-
-            config('zeus-bolt.models.FieldResponse')::create([
+            BoltPlugin::getModel('FieldResponse')::create([
                 'response' => (! empty($value)) ? $value : '',
                 'response_id' => $response->id,
                 'form_id' => $this->zeusForm->id,
@@ -104,7 +104,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
 
             foreach ($emails as $email) {
-                $mailable = config('zeus-bolt.default_mailable');
+                $mailable = BoltPlugin::get()->getDefaultMailable();
                 Mail::to($email)->send(new $mailable($this->zeusForm, $response));
             }
         }
@@ -115,11 +115,11 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     public function render()
     {
         seo()
-            ->title($this->zeusForm->name . ' ' . config('zeus-bolt.site_title', 'Laravel'))
-            ->description($this->zeusForm->description . ' ' . config('zeus-bolt.site_description', 'Laravel'))
-            ->site(config('zeus-bolt.site_title', 'Laravel'))
+            ->title($this->zeusForm->name . ' ' . config('zeus.site_title', 'Laravel'))
+            ->description($this->zeusForm->description . ' ' . config('zeus.site_description', 'Laravel'))
+            ->site(config('zeus.site_title', 'Laravel'))
             ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
-            ->rawTag('<meta name="theme-color" content="' . config('zeus-bolt.site_color') . '" />')
+            ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
             ->withUrl()
             ->twitter();
 
@@ -130,7 +130,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         if (! $this->zeusForm->date_available) {
             return view('zeus::errors.date-not-available')
-                ->layout(config('zeus-bolt.layout'));
+                ->layout(config('zeus.layout'));
         }
 
         if ($this->zeusForm->onePerUser()) {

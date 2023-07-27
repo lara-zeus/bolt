@@ -23,6 +23,7 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
@@ -39,7 +40,7 @@ class FormResource extends BoltResource
 
     public static function getModel(): string
     {
-        return config('zeus-bolt.models.Form');
+        return BoltPlugin::getModel('Form');
     }
 
     public static function getGloballySearchableAttributes(): array
@@ -136,7 +137,7 @@ class FormResource extends BoltResource
                     ->label(__('Inactive')),
 
                 SelectFilter::make('category_id')
-                    ->options(config('zeus-bolt.models.Category')::pluck('name', 'id'))
+                    ->options(BoltPlugin::getModel('Category')::pluck('name', 'id'))
                     ->label(__('Category')),
             ])
             ->bulkActions([

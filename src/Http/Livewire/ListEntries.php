@@ -10,6 +10,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
 
@@ -22,7 +23,7 @@ class ListEntries extends Component implements HasTable, HasForms
     {
         return $table
             ->query(
-                config('zeus-bolt.models.Response')::query()->where('user_id', auth()->user()->id)
+                BoltPlugin::getModel('Response')::query()->where('user_id', auth()->user()->id)
             )
             ->columns([
                 Split::make([
@@ -30,9 +31,9 @@ class ListEntries extends Component implements HasTable, HasForms
                         ->badge()
                         ->label(__('status'))
                         // todo
-                        //->enums(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
-                        ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
-                        ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
+                        //->enums(BoltPlugin::getModel('FormsStatus')::pluck('label', 'key')->toArray())
+                        ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
+                        ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                         ->grow(false),
                     TextColumn::make('form.name')
                         //->searchable('name')
@@ -57,11 +58,11 @@ class ListEntries extends Component implements HasTable, HasForms
     public function render()
     {
         seo()
-            ->title(__('My Responses') . ' ' . config('zeus-bolt.site_title', 'Laravel'))
-            ->description(__('My Responses') . ' ' . config('zeus-bolt.site_description', 'Laravel'))
-            ->site(config('zeus-bolt.site_title', 'Laravel'))
+            ->title(__('My Responses') . ' ' . config('zeus.site_title', 'Laravel'))
+            ->description(__('My Responses') . ' ' . config('zeus.site_description', 'Laravel'))
+            ->site(config('zeus.site_title', 'Laravel'))
             ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
-            ->rawTag('<meta name="theme-color" content="' . config('zeus-bolt.site_color') . '" />')
+            ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
             ->withUrl()
             ->twitter();
 

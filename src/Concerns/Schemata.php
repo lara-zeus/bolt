@@ -19,6 +19,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use Webbingbrasil\FilamentCopyActions\Forms\Actions\CopyAction;
 
@@ -156,7 +157,7 @@ trait Schemata
                     Select::make('category_id')
                         ->label(__('Category'))
                         ->helperText(__('optional, organize your forms into categories'))
-                        ->options(config('zeus-bolt.models.Category')::pluck('name', 'id')),
+                        ->options(BoltPlugin::getModel('Category')::pluck('name', 'id')),
                     Grid::make()
                         ->columns(2)
                         ->schema([
@@ -185,13 +186,13 @@ trait Schemata
 
             Tabs\Tab::make('extensions-tab')
                 ->label(__('Extensions'))
-                ->visible(config('zeus-bolt.extensions') !== null)
+                ->visible(BoltPlugin::get()->getExtensions() !== null)
                 ->schema([
                     Select::make('extensions')
                         ->label(__('Extensions'))
                         ->preload()
                         ->options(function () {
-                            return collect(config('zeus-bolt.extensions'))
+                            return collect(BoltPlugin::get()->getExtensions())
                                 ->mapWithKeys(function ($item): array {
                                     if (class_exists($item)) {
                                         return [$item => (new $item)->label()];

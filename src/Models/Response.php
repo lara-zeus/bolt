@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\ResponseFactory;
 
@@ -51,7 +52,7 @@ class Response extends Model
     /** @phpstan-return HasMany<FieldResponse> */
     public function fieldsResponses(): HasMany
     {
-        return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
+        return $this->hasMany(BoltPlugin::getModel('FieldResponse'));
     }
 
     public function user(): BelongsTo
@@ -62,7 +63,7 @@ class Response extends Model
     /** @return BelongsTo<Form, Response> */
     public function form()
     {
-        return $this->belongsTo(config('zeus-bolt.models.Form'));
+        return $this->belongsTo(BoltPlugin::getModel('Form'));
     }
 
     /**
@@ -70,7 +71,7 @@ class Response extends Model
      */
     public function statusDetails(): array
     {
-        $getStatues = config('zeus-bolt.models.FormsStatus')::where('key', $this->status)->first();
+        $getStatues = BoltPlugin::getModel('FormsStatus')::where('key', $this->status)->first();
 
         return [
             'class' => $getStatues->class ?? '',

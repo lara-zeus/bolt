@@ -11,6 +11,8 @@ use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 
 class BoltPlugin implements Plugin
 {
+    use Configuration;
+
     public function getId(): string
     {
         return 'zeus-bolt';
@@ -30,6 +32,11 @@ class BoltPlugin implements Plugin
     public static function make(): static
     {
         return app(static::class);
+    }
+
+    public static function get(): Plugin | \Filament\FilamentManager
+    {
+        return filament(app(static::class)->getId());
     }
 
     public function boot(Panel $panel): void

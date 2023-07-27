@@ -45,7 +45,6 @@ class BoltServiceProvider extends PackageServiceProvider
             ->hasMigrations($this->getMigrations())
             ->hasTranslations()
             ->hasCommands($this->getCommands())
-            ->hasConfigFile()
             ->hasRoute('web');
     }
 

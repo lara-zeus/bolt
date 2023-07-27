@@ -10,6 +10,7 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Models\FormsStatus;
 
@@ -17,7 +18,7 @@ class ResponseResource extends BoltResource
 {
     public static function getModel(): string
     {
-        return config('zeus-bolt.models.Response');
+        return BoltPlugin::getModel('Response');
     }
 
     protected static ?string $navigationIcon = 'clarity-data-cluster-line';
@@ -83,8 +84,8 @@ class ResponseResource extends BoltResource
                         ->label(__('status'))
                         // todo
                         //->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
-                        ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
-                        ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
+                        ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
+                        ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                         ->grow(false)
                         ->searchable('status'),
                     TextColumn::make('notes')->label(__('Notes'))->searchable(),
