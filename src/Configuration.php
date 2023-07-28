@@ -9,7 +9,7 @@ trait Configuration
     /**
      * set the default path for the contact form homepage.
      */
-    protected string $boltPrefix = 'Bolt';
+    protected string $boltPrefix = 'bolt';
 
     /**
      * the middleware you want to apply on all the blogs routes
