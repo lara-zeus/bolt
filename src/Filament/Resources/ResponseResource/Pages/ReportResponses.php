@@ -52,8 +52,6 @@ class ReportResponses extends Page implements HasForms, HasTable
             TextColumn::make('status')
                 ->badge()
                 ->label(__('status'))
-                // todo
-                //->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
                 ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
                 ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)

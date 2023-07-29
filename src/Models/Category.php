@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\CategoryFactory;
+use LaraZeus\Wind\WindPlugin;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -46,7 +47,7 @@ class Category extends Model
     protected function logoUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => Storage::disk(config('zeus-wind.uploads.disk', 'public'))->url($this->logo),
+            get: fn () => Storage::disk(WindPlugin::get()->getUploadDisk())->url($this->logo),
         );
     }
 }

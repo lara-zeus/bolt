@@ -24,7 +24,7 @@
         </li>
     </x-slot>
 
-    <x-filament::form wire:submit.prevent="store" class="mx-2">
+    <x-filament-panels::form wire:submit.prevent="store" class="mx-2">
         {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
 
         {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'render',$extensionData) !!}
@@ -46,5 +46,5 @@
         </div>
 
         {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
-    </x-filament::form>
+    </x-filament-panels::form>
 </div>

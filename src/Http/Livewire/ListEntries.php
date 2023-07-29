@@ -30,13 +30,11 @@ class ListEntries extends Component implements HasTable, HasForms
                     TextColumn::make('status')
                         ->badge()
                         ->label(__('status'))
-                        // todo
-                        //->enums(BoltPlugin::getModel('FormsStatus')::pluck('label', 'key')->toArray())
                         ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
                         ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                         ->grow(false),
                     TextColumn::make('form.name')
-                        //->searchable('name')
+                        ->searchable('name')
                         ->label(__('Form Name'))
                         ->url(fn (Response $record): string => route('bolt.entry.show', $record)),
                 ]),

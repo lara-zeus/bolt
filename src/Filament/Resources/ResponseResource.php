@@ -82,8 +82,6 @@ class ResponseResource extends BoltResource
                     TextColumn::make('status')
                         ->badge()
                         ->label(__('status'))
-                        // todo
-                        //->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
                         ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
                         ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                         ->grow(false)
@@ -102,7 +100,11 @@ class ResponseResource extends BoltResource
                     ->options(FormsStatus::query()->pluck('label', 'key'))
                     ->label(__('Status')),
                 SelectFilter::make('form')
-                    ->relationship('form', 'name')
+                    ->attribute('form_id')
+                    ->searchable()
+                    ->preload()
+                    ->options(BoltPlugin::getModel('Form')::pluck('name', 'id'))
+                    //->relationship('form', 'name') // todo
                     ->default(request('form_id', null)),
             ]);
     }
