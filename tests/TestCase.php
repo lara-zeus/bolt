@@ -7,14 +7,19 @@ use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Codeat3\BladeClarityIcons\BladeClarityIconsServiceProvider;
 use Codeat3\BladeIconpark\BladeIconparkServiceProvider;
+use Filament\Actions\ActionsServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
+use Filament\Infolists\InfolistsServiceProvider;
 use Filament\Notifications\NotificationsServiceProvider;
+use Filament\Panel;
 use Filament\SpatieLaravelTranslatablePluginServiceProvider;
 use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
+use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\BoltServiceProvider;
 use LaraZeus\Bolt\Tests\Models\User;
 use LaraZeus\Core\CoreServiceProvider;
@@ -61,6 +66,13 @@ class TestCase extends Orchestra
             BladeClarityIconsServiceProvider::class,
             BladeIconparkServiceProvider::class,
             SpatieLaravelTranslatablePluginServiceProvider::class,
+
+            Panel::class,
+            BoltPlugin::class,
+            ActionsServiceProvider::class,
+            InfolistsServiceProvider::class,
+            WidgetsServiceProvider::class,
+            AdminPanelProvider::class,
         ];
     }
 
