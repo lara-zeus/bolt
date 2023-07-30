@@ -12,14 +12,12 @@ use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
 use Filament\Infolists\InfolistsServiceProvider;
 use Filament\Notifications\NotificationsServiceProvider;
-use Filament\Panel;
 use Filament\SpatieLaravelTranslatablePluginServiceProvider;
 use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\BoltServiceProvider;
 use LaraZeus\Bolt\Tests\Models\User;
 use LaraZeus\Core\CoreServiceProvider;
@@ -51,28 +49,26 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
+            ActionsServiceProvider::class,
             BladeCaptureDirectiveServiceProvider::class,
-            FormsServiceProvider::class,
-            SupportServiceProvider::class,
-            TablesServiceProvider::class,
-            FilamentServiceProvider::class,
-            NotificationsServiceProvider::class,
-            LivewireServiceProvider::class,
-            CoreServiceProvider::class,
-            SEOServiceProvider::class,
-            BoltServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             BladeIconsServiceProvider::class,
+            FilamentServiceProvider::class,
+            FormsServiceProvider::class,
+            InfolistsServiceProvider::class,
+            LivewireServiceProvider::class,
+            NotificationsServiceProvider::class,
+            SpatieLaravelTranslatablePluginServiceProvider::class,
+            SupportServiceProvider::class,
+            TablesServiceProvider::class,
+            WidgetsServiceProvider::class,
+
+            AdminPanelProvider::class,
+            CoreServiceProvider::class,
+            BoltServiceProvider::class,
+            SEOServiceProvider::class,
             BladeClarityIconsServiceProvider::class,
             BladeIconparkServiceProvider::class,
-            SpatieLaravelTranslatablePluginServiceProvider::class,
-
-            Panel::class,
-            BoltPlugin::class,
-            ActionsServiceProvider::class,
-            InfolistsServiceProvider::class,
-            WidgetsServiceProvider::class,
-            AdminPanelProvider::class,
         ];
     }
 
@@ -80,5 +76,15 @@ class TestCase extends Orchestra
     {
         $this->loadLaravelMigrations();
         $this->loadMigrationsFrom(__DIR__ . '/migrations');
+    }
+
+    public function getEnvironmentSetUp($app): void
+    {
+        config()->set('database.default', 'testing');
+
+        /*
+        $migration = include __DIR__.'/../database/migrations/create_skeleton_table.php.stub';
+        $migration->up();
+        */
     }
 }
