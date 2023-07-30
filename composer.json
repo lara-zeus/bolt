@@ -30,6 +30,11 @@
     "require": {
         "php": "^8.0",
         "codeat3/blade-clarity-icons": "^1.7",
+        "filament/spatie-laravel-translatable-plugin": "^3.0@beta",
+        "archtechx/laravel-seo": "^0.7",
+        "calebporzio/sushi": "^2.4",
+        "codeat3/blade-iconpark": "^1.5",
+        "filament/filament": "^3.0@beta",
         "lara-zeus/core": "3.x-dev",
         "guava/filament-icon-picker": "dev-filament-v3-alpha"
     },
@@ -39,12 +44,14 @@
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^7.0",
         "nunomaduro/larastan": "^2.0.1",
-        "orchestra/testbench": "^7.0 || ^8.0",
-        "pestphp/pest-plugin-laravel": "2.x-dev",
         "pestphp/pest-plugin-livewire": "2.x-dev",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest-plugin-arch": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0"
+        "phpstan/phpstan-phpunit": "^1.0",
+        "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
         "psr-4": {
@@ -58,13 +65,13 @@
         }
     },
     "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint",
         "pint": "vendor/bin/pint",
         "test:pest": "vendor/bin/pest --parallel",
-        "test:phpstan": "vendor/bin/phpstan analyse",
-        "test": [
-            "@test:pest",
-            "@test:phpstan"
-        ]
+        "test:phpstan": "vendor/bin/phpstan analyse"
     },
     "config": {
         "sort-packages": true,
@@ -83,5 +90,6 @@
             }
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

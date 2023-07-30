@@ -17,6 +17,17 @@ class BoltServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'zeus-bolt';
 
+    public function configurePackage(Package $package): void
+    {
+        $package
+            ->name(static::$name)
+            ->hasViews('zeus')
+            ->hasMigrations($this->getMigrations())
+            ->hasTranslations()
+            ->hasCommands($this->getCommands())
+            ->hasRoute('web');
+    }
+
     public function packageBooted(): void
     {
         CoreServiceProvider::setThemePath('bolt');
@@ -35,17 +46,6 @@ class BoltServiceProvider extends PackageServiceProvider
                 __DIR__ . '/../database/factories' => database_path('factories'),
             ], 'zeus-bolt-factories');
         }
-    }
-
-    public function configurePackage(Package $package): void
-    {
-        $package
-            ->name(static::$name)
-            ->hasViews('zeus')
-            ->hasMigrations($this->getMigrations())
-            ->hasTranslations()
-            ->hasCommands($this->getCommands())
-            ->hasRoute('web');
     }
 
     /**
