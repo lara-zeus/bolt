@@ -9,6 +9,7 @@ use LaraZeus\Bolt\Models\Section;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
+
 /*
 it('can render Form List', function () {
     get(FormResource::getUrl())->assertSuccessful();
