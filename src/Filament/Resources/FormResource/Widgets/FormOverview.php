@@ -3,8 +3,8 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use Filament\Widgets\StatsOverviewWidget\Card;
 use LaraZeus\Bolt\Models\Form;
+use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class FormOverview extends BaseWidget
 {
@@ -13,9 +13,9 @@ class FormOverview extends BaseWidget
     protected function getCards(): array
     {
         return [
-            Card::make('fields', $this->record->fields()->count())->label(__('Fields')),
-            Card::make('responses', $this->record->responses()->count())->label(__('Responses')),
-            Card::make('fields_responses', $this->record->fieldsResponses()->count())->label(__('Fields Responses')),
+            Stat::make('fields', $this->record->fields()->count())->label(__('Fields')),
+            Stat::make('responses', $this->record->responses()->count())->label(__('Responses')),
+            Stat::make('fields_responses', $this->record->fieldsResponses()->count())->label(__('Fields Responses')),
         ];
     }
 }

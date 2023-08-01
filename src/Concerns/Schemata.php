@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -10,6 +9,7 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
@@ -30,7 +30,7 @@ trait Schemata
         return [
             Hidden::make('user_id')->default(auth()->user()->id ?? null),
 
-            Card::make()
+            Section::make()
                 ->schema([
                     TextInput::make('name')
                         ->maxLength(255)
@@ -48,7 +48,7 @@ trait Schemata
             Tabs::make('form-tabs')
                 ->tabs(static::getTabsSchema())
                 ->columnSpan(2),
-            Card::make()
+            Section::make()
                 ->schema([
                     Placeholder::make('section-title-placeholder')
                         ->label(__('Sections'))
