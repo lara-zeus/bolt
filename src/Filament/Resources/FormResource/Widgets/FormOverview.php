@@ -3,8 +3,8 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
-use LaraZeus\Bolt\Models\Form;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use LaraZeus\Bolt\Models\Form;
 
 class FormOverview extends BaseWidget
 {
