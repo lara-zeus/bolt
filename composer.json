@@ -30,13 +30,8 @@
     "require": {
         "php": "^8.0",
         "codeat3/blade-clarity-icons": "^1.7",
-        "filament/spatie-laravel-translatable-plugin": "^3.0@beta",
-        "archtechx/laravel-seo": "^0.7",
-        "calebporzio/sushi": "^2.4",
-        "codeat3/blade-iconpark": "^1.5",
-        "filament/filament": "^3.0@beta",
-        "lara-zeus/core": "3.x-dev",
-        "guava/filament-icon-picker": "dev-filament-v3-alpha"
+        "lara-zeus/core": "^3.0",
+        "guava/filament-icon-picker": "^2.0"
     },
     "require-dev": {
         "pestphp/pest": "^2.0",

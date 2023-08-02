@@ -12,7 +12,7 @@ trait Configuration
     protected string $boltPrefix = 'bolt';
 
     /**
-     * the middleware you want to apply on all the blogs routes
+     * the middleware you want to apply on all the blog routes
      * for example if you want to make your blog for users only, add the middleware 'auth'.
      */
     protected array $boltMiddleware = ['web'];
