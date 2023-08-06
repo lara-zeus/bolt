@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## 1.2.11 - 2023-08-06
+
+### What's Changed
+
+- add german translation by @grafst in https://github.com/lara-zeus/bolt/pull/107
+
+### New Contributors
+
+- @grafst made their first contribution in https://github.com/lara-zeus/bolt/pull/107
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.10...1.2.11
+
 ## 1.2.10 - 2023-07-13
 
 ### What's Changed
