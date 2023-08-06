@@ -4,7 +4,7 @@
     </x-slot>
     <x-slot name="breadcrumb"></x-slot>
     <div class="max-w-4xl mx-auto px-4">
-        <x-filament::card>
+        <x-filament::section>
             @if(!empty($form->options['confirmation_message']))
                 <span class="text-md text-gray-600">
                     {!! $form->options['confirmation_message'] !!}
@@ -19,6 +19,6 @@
 
             {!! \LaraZeus\Bolt\Facades\Extensions::init($form, 'SubmittedRender', ['extensionData' => $extension]) !!}
 
-        </x-filament::card>
+        </x-filament::section>
     </div>
 </div>

@@ -21,7 +21,6 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
-use Webbingbrasil\FilamentCopyActions\Forms\Actions\CopyAction;
 
 trait Schemata
 {
@@ -213,9 +212,7 @@ trait Schemata
                         ->disabled()
                         ->formatStateUsing(function (Get $get) {
                             return '<bolt>' . $get('slug') . '</bolt>';
-                        })
-                    //    ->suffixAction(CopyAction::make())
-                    ,
+                        }),
                 ]),
         ];
     }
@@ -236,16 +233,15 @@ trait Schemata
                                         ->required()
                                         ->lazy()
                                         ->label(__('Section Name')),
+                                    TextInput::make('description')
+                                        ->nullable()
+                                        ->visible(fn (Get $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->label(__('Section Description')),
                                 ]),
                             Tabs\Tab::make('section-details-tab')
                                 ->label(__('Section Details'))
                                 ->columns(2)
                                 ->schema([
-                                    TextInput::make('description')
-                                        ->nullable()
-                                        ->visible(fn (Get $get) => $get('../../options.show-as') !== 'tabs')
-                                        ->label(__('Section Description')),
-
                                     TextInput::make('columns')
                                         ->required()
                                         ->default(1)
@@ -253,11 +249,13 @@ trait Schemata
                                         ->maxValue(12)
                                         ->hint(__('From 1-12'))
                                         ->label(__('Section Columns')),
-
                                     IconPicker::make('icon')
-                                        ->visible(fn (
-                                            Get $get
-                                        ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->visible(fn (Get $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->columns([
+                                            'default' => 1,
+                                            'lg' => 3,
+                                            '2xl' => 5,
+                                        ])
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')

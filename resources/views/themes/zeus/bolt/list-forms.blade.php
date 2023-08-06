@@ -8,7 +8,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         @foreach($categories as $category)
-            <x-filament::card>
+            <x-filament::section>
                 @if($category->logo !== null)
                     <img alt="{{ $category->name }} {{ __('Logo') }}" class="w-full h-32 object-center object-cover mb-4" src="{{ $category->logo_url }}"/>
                 @endif
@@ -28,7 +28,7 @@
                         </cite>
                     </a>
                 @endforeach
-            </x-filament::card>
+            </x-filament::section>
         @endforeach
     </div>
 

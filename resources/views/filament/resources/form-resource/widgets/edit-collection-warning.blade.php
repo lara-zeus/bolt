@@ -1,5 +1,5 @@
 <x-filament-widgets::widget>
-    <x-filament::card>
+    <x-filament::section>
         <div class="text-center font-semibold">
             {{ __('any changes in the values of these items will affect the responses for the forms in') }}
             <span class="text-primary-600">
@@ -7,5 +7,5 @@
             </span>
             {{ __('field') }}
         </div>
-    </x-filament::card>
+    </x-filament::section>
 </x-filament-widgets::widget>

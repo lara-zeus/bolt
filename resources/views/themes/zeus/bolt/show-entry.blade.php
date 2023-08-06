@@ -17,7 +17,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="md:col-span-2 space-y-4">
-            <x-filament::card>
+            <x-filament::section>
                 <div class="grid grid-cols-1">
                     @foreach($response->fieldsResponses as $resp)
                         <div class="py-2 text-ellipsis overflow-auto">
@@ -27,10 +27,10 @@
                         </div>
                     @endforeach
                 </div>
-            </x-filament::card>
+            </x-filament::section>
         </div>
         <div class="md:col-span-1 space-y-4">
-            <x-filament::card class="w-full">
+            <x-filament::section class="w-full">
                 <x-slot name="heading" class="text-custom-600">
                     {{ __('User Details') }}
                 </x-slot>
@@ -46,10 +46,10 @@
                     <span class="text-base font-light">{{ __('created at') }}:</span>
                     <span class="font-semibold">{{ $response->created_at->format('Y.m/d') }}-{{ $response->created_at->format('h:i a') }}</span>
                 </p>
-            </x-filament::card>
+            </x-filament::section>
             <div>
                 <div class="space-y-2">
-                    <x-filament::card>
+                    <x-filament::section>
                         <x-slot name="heading" class="text-primary-600">
                             <p class="my-3 mx-1 text-custom-600 font-semibold">{{ __('Entry Details') }}</p>
                         </x-slot>
@@ -73,7 +73,7 @@
                             {!! nl2br($response->notes) !!}
                         </div>
 
-                    </x-filament::card>
+                    </x-filament::section>
                 </div>
             </div>
         </div>
