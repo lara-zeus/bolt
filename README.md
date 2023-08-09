@@ -20,7 +20,7 @@ _💖 if you think this has potential, star ⭐️ the project to let me know :)
 ## Support Filament
 
 <a href="https://github.com/sponsors/danharrin">
-<img width="320" alt="filament-logo" src="https://filamentadmin.com/images/sponsor-banner.jpg">
+<img alt="sponsor filament" src="https://larazeus.com/images/filament-sponsor-banner.png">
 </a>
 
 ## features
