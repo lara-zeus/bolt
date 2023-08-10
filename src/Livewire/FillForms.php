@@ -11,8 +11,6 @@ use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
-use Livewire\Features\SupportPageComponents\LayoutConfig;
-use function Livewire\store;
 
 /**
  * @property mixed $form
@@ -88,11 +86,11 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         foreach ($this->form->getState()['zeusData'] as $field => $value) {
             $setValue = $value;
 
-            if (!empty($setValue) && is_array($setValue)) {
+            if (! empty($setValue) && is_array($setValue)) {
                 $value = json_encode($value);
             }
             BoltPlugin::getModel('FieldResponse')::create([
-                'response' => (!empty($value)) ? $value : '',
+                'response' => (! empty($value)) ? $value : '',
                 'response_id' => $response->id,
                 'form_id' => $this->zeusForm->id,
                 'field_id' => $field,
@@ -109,7 +107,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         $response->update(['extension_item_id' => $extensionItemId['itemId'] ?? null]);
 
-        if (isset($this->zeusForm->options['emails-notification']) && !empty($this->zeusForm->options['emails-notification'])) {
+        if (isset($this->zeusForm->options['emails-notification']) && ! empty($this->zeusForm->options['emails-notification'])) {
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
 
             foreach ($emails as $email) {
@@ -124,19 +122,19 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     public function render()
     {
         seo()
-            ->title($this->zeusForm->name.' '.config('zeus.site_title', 'Laravel'))
-            ->description($this->zeusForm->description.' '.config('zeus.site_description', 'Laravel'))
+            ->title($this->zeusForm->name . ' ' . config('zeus.site_title', 'Laravel'))
+            ->description($this->zeusForm->description . ' ' . config('zeus.site_description', 'Laravel'))
             ->site(config('zeus.site_title', 'Laravel'))
-            ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="'.asset('favicon/favicon.ico').'">')
-            ->rawTag('<meta name="theme-color" content="'.config('zeus.site_color').'" />')
+            ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
+            ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
             ->withUrl()
             ->twitter();
 
         $view = match (true) {
             $this->zeusForm->need_login => 'zeus::errors.login-required',
-            !$this->zeusForm->date_available => 'zeus::errors.date-not-available',
+            ! $this->zeusForm->date_available => 'zeus::errors.date-not-available',
             $this->zeusForm->onePerUser() => 'zeus::errors.one-entry-per-user',
-            default => app('boltTheme').'.fill-forms',
+            default => app('boltTheme') . '.fill-forms',
         };
 
         if ($this->inline) {
