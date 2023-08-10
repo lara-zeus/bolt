@@ -122,20 +122,23 @@ class Bolt extends Facade
 
             $sectionId = $section->name . '-' . $section->id;
             if (optional($zeusForm->options)['show-as'] === 'tabs') {
-                $sections[] = Tabs\Tab::make($sectionId)
+                $sections[] = Tabs\Tab::make($section->name)
+                    ->id($sectionId)
                     ->icon($section->icon ?? null)
                     ->schema([
                         Fieldset::make()->columns($section->columns)->schema($fields),
                     ]);
             } elseif (optional($zeusForm->options)['show-as'] === 'wizard') {
-                $sections[] = Wizard\Step::make($sectionId)
+                $sections[] = Wizard\Step::make($section->name)
+                    ->id($sectionId)
                     ->description($section->description)
                     ->icon($section->icon ?? null)
                     ->schema([
                         Section::make()->columns($section->columns)->schema($fields),
                     ]);
             } else {
-                $sections[] = Section::make($sectionId)
+                $sections[] = Section::make($section->name)
+                    ->id($sectionId)
                     ->schema($fields)
                     ->aside()
                     ->aside(fn () => $section->aside)

@@ -1,15 +1,5 @@
 <?php
 
-use LaraZeus\Bolt\BoltPlugin;
-use LaraZeus\Bolt\Filament\Resources\FormResource;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\ListForms;
-use LaraZeus\Bolt\Http\Livewire\FillForms;
-use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\Section;
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\get;
-use function Pest\Livewire\livewire;
-
 /*
 it('can render Form List', function () {
     get(FormResource::getUrl())->assertSuccessful();

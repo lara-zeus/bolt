@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Http\Livewire;
+namespace LaraZeus\Bolt\Livewire;
 
 use Filament\Forms;
 use LaraZeus\Bolt\BoltPlugin;

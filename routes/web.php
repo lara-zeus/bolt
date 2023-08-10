@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use LaraZeus\Bolt\BoltPlugin;
-use LaraZeus\Bolt\Http\Livewire\FillForms;
-use LaraZeus\Bolt\Http\Livewire\ListEntries;
-use LaraZeus\Bolt\Http\Livewire\ListForms;
-use LaraZeus\Bolt\Http\Livewire\ShowEntry;
-use LaraZeus\Bolt\Http\Livewire\Submitted;
+use LaraZeus\Bolt\Livewire\FillForms;
+use LaraZeus\Bolt\Livewire\ListEntries;
+use LaraZeus\Bolt\Livewire\ListForms;
+use LaraZeus\Bolt\Livewire\ShowEntry;
+use LaraZeus\Bolt\Livewire\Submitted;
 
 if (app('filament')->hasPlugin('zeus-rain')) {
     Route::prefix(BoltPlugin::get()->getBoltPrefix())

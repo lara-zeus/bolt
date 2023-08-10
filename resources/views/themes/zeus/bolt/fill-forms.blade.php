@@ -24,27 +24,31 @@
         </li>
     </x-slot>
 
-    <x-filament-panels::form wire:submit.prevent="store" class="mx-2">
-        {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
+    @if($sent)
+        @include(app('boltTheme').'.submitted')
+    @else
+        <x-filament-panels::form wire:submit.prevent="store" class="mx-2">
+            {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
 
-        {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'render',$extensionData) !!}
+            {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'render',$extensionData) !!}
 
-        @if(!empty($zeusForm->details))
-            <div class="m-4">
-                <x-filament::section>
-                    {!! nl2br($zeusForm->details) !!}
-                </x-filament::section>
+            @if(!empty($zeusForm->details))
+                <div class="m-4">
+                    <x-filament::section :compact="true">
+                        {!! nl2br($zeusForm->details) !!}
+                    </x-filament::section>
+                </div>
+            @endif
+
+            {{ $this->form }}
+
+            <div class="px-4 py-2 text-center">
+                <x-filament::button type="submit">
+                    {{ __('Save') }}
+                </x-filament::button>
             </div>
-        @endif
 
-        {{ $this->form }}
-
-        <div class="px-4 py-2 text-center">
-            <x-filament::button type="submit">
-                {{ __('Save') }}
-            </x-filament::button>
-        </div>
-
-        {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
-    </x-filament-panels::form>
+            {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
+        </x-filament-panels::form>
+    @endif
 </div>

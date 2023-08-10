@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraZeus\Bolt\Http\Livewire;
+namespace LaraZeus\Bolt\Livewire;
 
 use LaraZeus\Bolt\BoltPlugin;
 use Livewire\Component;
