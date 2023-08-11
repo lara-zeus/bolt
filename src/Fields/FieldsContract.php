@@ -119,8 +119,8 @@ abstract class FieldsContract implements Fields, Arrayable
     {
         $response = $resp->response;
 
-        if (empty($response)) {
-            return $response;
+        if (blank($response)) {
+            return '';
         }
 
         if (Bolt::jsJson($resp->response)) {
@@ -130,13 +130,12 @@ abstract class FieldsContract implements Fields, Arrayable
         }
 
         $values = BoltPlugin::getModel('Collection')::find($field->options['dataSource']);
-        if ($values === null) {
-            return $response;
+
+        if ($values !== null) {
+            $response = $values->values->whereIn('itemKey', $response)->pluck('itemValue')->join(', ');
         }
 
-        $values = $values->values->whereIn('itemKey', $response)->pluck('itemValue')->join(', ');
-
-        return (! empty($values)) ? $values : implode(', ', $response);
+        return (! blank($values)) ? $values : implode(', ', $response);
     }
 
     public static function getFieldCollectionItemsList(Field $zeusField): Collection
