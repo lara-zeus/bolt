@@ -135,7 +135,7 @@ abstract class FieldsContract implements Fields, Arrayable
             $response = $values->values->whereIn('itemKey', $response)->pluck('itemValue')->join(', ');
         }
 
-        return (! blank($values)) ? $values : implode(', ', $response);
+        return (is_array($response)) ? implode(', ', $response) : $response;
     }
 
     public static function getFieldCollectionItemsList(Field $zeusField): Collection
