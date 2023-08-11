@@ -68,21 +68,24 @@ trait Configuration
         return $this->boltMiddleware;
     }
 
-    public function boltModels(?array $models): static
+    public function boltModels(array $models): static
     {
         $this->boltModels = $models;
 
         return $this;
     }
 
-    public function getBoltModels(): ?array
+    public function getBoltModels(): array
     {
         return $this->boltModels;
     }
 
     public static function getModel($model)
     {
-        return (new static())->getBoltModels()[$model];
+        return array_merge(
+            (new static())->boltModels,
+            (new static())::get()->getBoltModels()
+        )[$model];
     }
 
     public function uploadDisk(string $disk): static

@@ -33,7 +33,7 @@ trait Schemata
                 ->schema([
                     TextInput::make('name')
                         ->maxLength(255)
-                        ->live()
+                        ->live(onBlur: true)
                         ->label(__('Form Name')),
                 ]),
         ];
@@ -81,7 +81,7 @@ trait Schemata
                         ->hintIcon('heroicon-s-language')
                         ->required()
                         ->maxLength(255)
-                        ->live()
+                        ->live(onBlur: true)
                         ->label(__('Form Name'))
                         ->afterStateUpdated(function (Set $set, $state, $context) {
                             if ($context === 'edit') {
