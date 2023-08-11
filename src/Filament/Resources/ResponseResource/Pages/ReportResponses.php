@@ -2,12 +2,10 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Resources\Pages\Page;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -16,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
@@ -24,7 +23,7 @@ class ReportResponses extends Page implements HasForms, HasTable
 {
     use InteractsWithTable;
     use InteractsWithForms;
-    use \LaraZeus\Bolt\Concerns\EntriesAction;
+    use EntriesAction;
 
     protected static string $resource = ResponseResource::class;
 
@@ -43,9 +42,10 @@ class ReportResponses extends Page implements HasForms, HasTable
     public function table(Table $table): Table
     {
         $mainColumns = [
-            ImageColumn::make('user.avatar')
+            // todo disabled due to an issue with exporting
+            /*ImageColumn::make('user.avatar')
                 ->label(__('Avatar'))
-                ->toggleable(),
+                ->toggleable(),*/
             TextColumn::make('user.name')
                 ->label(__('User Name'))
                 ->searchable(),
@@ -84,33 +84,30 @@ class ReportResponses extends Page implements HasForms, HasTable
             )
             ->columns($mainColumns)
             ->filters([
-                SelectFilter::make('form')->relationship('form', 'name')->default(request('form_id', null)),
+                SelectFilter::make('form')
+                    ->attribute('form_id')
+                    ->searchable()
+                    ->preload()
+                    ->options(BoltPlugin::getModel('Form')::pluck('name', 'id'))
+                    //->relationship('form', 'name') // todo issue with multi lang
+                    ->default(request('form_id', null)),
                 SelectFilter::make('status')
                     ->options(FormsStatus::query()->pluck('label', 'key'))
                     ->label(__('Status')),
             ])
-            ->actions([
-                ActionGroup::make([
-                    Action::make('brows')
-                        ->icon('heroicon-o-eye')
-                        ->visible($this->form_id !== 0)
-                        ->label(__('Brows Entries'))
-                        ->url(fn (): string => ResponseResource::getUrl('brows') . '?form_id=' . request('form_id')),
-                    Action::make('list')
-                        ->icon('heroicon-o-bars-4')
-                        ->visible($this->form_id !== 0)
-                        ->label(__('List Entries'))
-                        ->url(fn (): string => ResponseResource::getUrl() . '?form_id=' . $this->form_id),
-                    Action::make('report')
-                        ->icon('heroicon-o-document-chart-bar')
-                        ->visible($this->form_id !== 0)
-                        ->label(__('Entries Report'))
-                        ->url(fn (): string => ResponseResource::getUrl('report') . '?form_id=' . $this->form_id),
-                ]),
+            ->bulkActions([
+                FilamentExportBulkAction::make('export')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->label(__('Export')),
             ])
             ->recordUrl(
                 fn (Model $record): string => ResponseResource::getUrl('view', ['record' => $record]),
             );
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return $this->getEntriesActions();
     }
 
     public function mount()

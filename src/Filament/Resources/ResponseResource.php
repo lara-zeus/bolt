@@ -16,16 +16,18 @@ use LaraZeus\Bolt\Models\FormsStatus;
 
 class ResponseResource extends BoltResource
 {
-    public static function getModel(): string
-    {
-        return BoltPlugin::getModel('Response');
-    }
-
     protected static ?string $navigationIcon = 'clarity-data-cluster-line';
 
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'responses';
+
+    protected static bool $shouldRegisterNavigation = false;
+
+    public static function getModel(): string
+    {
+        return BoltPlugin::getModel('Response');
+    }
 
     public static function getLabel(): string
     {
@@ -104,7 +106,7 @@ class ResponseResource extends BoltResource
                     ->searchable()
                     ->preload()
                     ->options(BoltPlugin::getModel('Form')::pluck('name', 'id'))
-                    //->relationship('form', 'name') // todo
+                    //->relationship('form', 'name') // todo issue with multi lang
                     ->default(request('form_id', null)),
             ]);
     }

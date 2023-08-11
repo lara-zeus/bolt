@@ -27,7 +27,9 @@ trait EntriesAction
                     ->visible($this->form_id !== 0)
                     ->label(__('Entries Report'))
                     ->url(fn (): string => ResponseResource::getUrl('report') . '?form_id=' . $this->form_id),
-            ]),
+            ])
+                ->tooltip(__('View Mode'))
+                ->icon('heroicon-o-cog'),
         ];
     }
 }

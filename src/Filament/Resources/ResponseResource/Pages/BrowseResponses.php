@@ -5,18 +5,19 @@ namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use Closure;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
+use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\BoltPlugin;
-use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
+use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\FormsStatus;
 
 class BrowseResponses extends Page implements Tables\Contracts\HasTable
 {
-    use Tables\Concerns\InteractsWithTable;
-    use \LaraZeus\Bolt\Concerns\EntriesAction;
+    use InteractsWithTable;
+    use EntriesAction;
 
     protected static string $resource = ResponseResource::class;
 
@@ -78,13 +79,6 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
             SelectFilter::make('status')
                 ->options(FormsStatus::query()->pluck('label', 'key'))
                 ->label(__('Status')),
-        ];
-    }
-
-    protected function getTableActions(): array
-    {
-        return [
-            SetResponseStatus::make(),
         ];
     }
 

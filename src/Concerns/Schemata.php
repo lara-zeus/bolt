@@ -177,9 +177,6 @@ trait Schemata
                             TextInput::make('options.emails-notification')
                                 ->label(__('Emails Notifications'))
                                 ->helperText(__('optional, enter the emails (comma separated) you want to receive notification when ever you got a new entry')),
-                            /*TextInput::make('options.web-hook')
-                                ->label(__('enter webHook URL'))
-                                ->helperText(__('Send the form data to a webHook')),*/
                         ]),
                 ]),
 
