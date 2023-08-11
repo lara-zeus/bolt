@@ -55,7 +55,7 @@ class CategoryResource extends BoltResource
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255)
-                    ->live()
+                    ->live(onBlur: true)
                     ->label(__('Name'))
                     ->afterStateUpdated(function (Set $set, $state, $context) {
                         if ($context === 'edit') {
