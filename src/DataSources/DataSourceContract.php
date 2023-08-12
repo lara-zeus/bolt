@@ -7,9 +7,9 @@ use LaraZeus\Bolt\Contracts\DataSource;
 
 abstract class DataSourceContract implements DataSource, Arrayable
 {
-    public $disabled = false;
+    public bool $disabled = false;
 
-    public function getSort()
+    public function getSort():int
     {
         return 1;
     }

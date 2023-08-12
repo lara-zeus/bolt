@@ -6,9 +6,11 @@ interface DataSource
 {
     public function title(): string;
 
-    public static function getValuesUsing(): string;
+    public function getSort(): int;
 
-    public static function getKeysUsing(): string;
+    public function getValuesUsing(): string;
+
+    public function getKeysUsing(): string;
 
     public function getModel(): string;
 }
