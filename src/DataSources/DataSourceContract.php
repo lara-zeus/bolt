@@ -9,7 +9,7 @@ abstract class DataSourceContract implements DataSource, Arrayable
 {
     public bool $disabled = false;
 
-    public function getSort():int
+    public function getSort(): int
     {
         return 1;
     }
