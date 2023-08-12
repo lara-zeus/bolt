@@ -67,14 +67,7 @@ trait HasOptions
                             return [];
                         }
 
-                        if ((int) $getRelated->options['dataSource'] !== 0) {
-                            return FieldsContract::getFieldCollectionItemsList($getRelated);
-                        } else {
-                            $dataSourceClass = new $getRelated->options['dataSource'];
-
-                            return $dataSourceClass->getModel()::query()
-                                ->pluck($dataSourceClass->getValuesUsing(), $dataSourceClass->getKeysUsing());
-                        }
+                        return FieldsContract::getFieldCollectionItemsList($getRelated);
                     }),
             ])
             ->columns(1);
