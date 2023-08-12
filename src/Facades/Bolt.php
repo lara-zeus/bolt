@@ -27,16 +27,16 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
-            $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            $coreFields = Collectors::collectClasses(__DIR__.'/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Collectors::collectClasses(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
 
             $fields = collect();
 
-            if (! $coreFields->isEmpty()) {
+            if (!$coreFields->isEmpty()) {
                 $fields = $fields->merge($coreFields);
             }
 
-            if (! $appFields->isEmpty()) {
+            if (!$appFields->isEmpty()) {
                 $fields = $fields->merge($appFields);
             }
 
@@ -51,20 +51,12 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.dataSources', Carbon::parse('1 month'), function () {
-            $core = Collectors::collectClasses(__DIR__ . '/../DataSources/Classes', 'LaraZeus\\Bolt\\DataSources\\Classes\\');
-            $app = Collectors::collectClasses(app_path('Zeus/DataSources'), 'App\\Zeus\\DataSources\\');
-
-            $dataSources = collect();
-
-            if (! $core->isEmpty()) {
-                $dataSources = $dataSources->merge($core);
-            }
-
-            if (! $app->isEmpty()) {
-                $dataSources = $dataSources->merge($app);
-            }
-
-            return $dataSources->sortBy('sort');
+            return Collectors::collectClasses
+            (
+                app_path('Zeus/DataSources'),
+                'App\\Zeus\\DataSources\\'
+            )
+                ->sortBy('sort');
         });
     }
 
@@ -96,7 +88,7 @@ class Bolt extends Facade
                 $fields[] = static::renderHook('zeus-form-field.before');
 
                 $fieldClass = new $zeusField->type;
-                $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
+                $component = $fieldClass->renderClass::make('zeusData.'.$zeusField->id);
 
                 $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
@@ -105,7 +97,7 @@ class Bolt extends Facade
 
             $fields[] = static::renderHook('zeus-form-section.after');
 
-            $sectionId = $section->name . '-' . $section->id;
+            $sectionId = $section->name.'-'.$section->id;
             if (optional($zeusForm->options)['show-as'] === 'tabs') {
                 $sections[] = Tabs\Tab::make($section->name)
                     ->id($sectionId)
@@ -126,7 +118,7 @@ class Bolt extends Facade
                     ->id($sectionId)
                     ->schema($fields)
                     ->aside()
-                    ->aside(fn () => $section->aside)
+                    ->aside(fn() => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);
             }
@@ -145,15 +137,15 @@ class Bolt extends Facade
 
     public static function renderHook($hook): Placeholder
     {
-        return Placeholder::make('placeholder-' . $hook)
+        return Placeholder::make('placeholder-'.$hook)
             ->label('')
             ->content(Filament::renderHook($hook))
-            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
+            ->visible(!empty(Filament::renderHook($hook)->toHtml()));
     }
 
     public static function renderHookBlade($hook)
     {
-        if (! empty(Filament::renderHook($hook)->toHtml())) {
+        if (!empty(Filament::renderHook($hook)->toHtml())) {
             return Filament::renderHook($hook);
         }
     }

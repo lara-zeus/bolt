@@ -111,7 +111,6 @@ trait HasOptions
                 Select::make('options.dataSource')
                     ->required()
                     ->options($dataSources)
-                    //->options(BoltPlugin::getModel('Collection')::pluck('name', 'id'))
                     ->label(__('Data Source')),
             ])
             ->columns(1);

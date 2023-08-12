@@ -40,6 +40,8 @@ class CheckboxList extends FieldsContract
 
         if (request()->filled($zeusField->options['htmlId'])) {
             $component = $component->default(request($zeusField->options['htmlId']));
+
+            //todo set default items for datasources
         } elseif ($selected = $options->where('itemIsDefault', true)->pluck('itemKey')->isNotEmpty()) {
             $component = $component->default($selected);
         }
