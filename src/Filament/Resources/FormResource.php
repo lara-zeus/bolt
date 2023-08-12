@@ -48,12 +48,12 @@ class FormResource extends BoltResource
         return ['name', 'slug'];
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('Form');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Forms');
     }

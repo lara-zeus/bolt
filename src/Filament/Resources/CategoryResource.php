@@ -144,7 +144,7 @@ class CategoryResource extends BoltResource
         ];
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('Category');
     }

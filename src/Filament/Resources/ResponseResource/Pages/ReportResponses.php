@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\EntriesAction;
+use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
@@ -61,15 +62,15 @@ class ReportResponses extends Page implements HasForms, HasTable
         ];
 
         foreach ($this->form->fields->sortBy('ordering') as $field) {
-            $mainColumns[] = TextColumn::make('zeusData.' . $field->id)
+            $mainColumns[] = TextColumn::make('zeusData.'.$field->id)
                 ->label($field->name)
                 ->searchable(query: function (Builder $query, string $search): Builder {
                     return $query
                         ->whereHas('fieldsResponses', function ($query) use ($search) {
-                            $query->where('response', 'like', '%' . $search . '%');
+                            $query->where('response', 'like', '%'.$search.'%');
                         });
                 })
-                ->getStateUsing(fn (Model $record) => $this->getFieldResponseValue($record, $field))
+                ->getStateUsing(fn(Model $record) => $this->getFieldResponseValue($record, $field))
                 ->html()
                 ->toggleable();
         }
@@ -84,13 +85,6 @@ class ReportResponses extends Page implements HasForms, HasTable
             )
             ->columns($mainColumns)
             ->filters([
-                SelectFilter::make('form')
-                    ->attribute('form_id')
-                    ->searchable()
-                    ->preload()
-                    ->options(BoltPlugin::getModel('Form')::pluck('name', 'id'))
-                    //->relationship('form', 'name') // todo issue with multi lang
-                    ->default(request('form_id', null)),
                 SelectFilter::make('status')
                     ->options(FormsStatus::query()->pluck('label', 'key'))
                     ->label(__('Status')),
@@ -101,7 +95,7 @@ class ReportResponses extends Page implements HasForms, HasTable
                     ->label(__('Export')),
             ])
             ->recordUrl(
-                fn (Model $record): string => ResponseResource::getUrl('view', ['record' => $record]),
+                fn(Model $record): string => ResponseResource::getUrl('view', ['record' => $record]),
             );
     }
 
@@ -131,5 +125,16 @@ class ReportResponses extends Page implements HasForms, HasTable
         }
 
         return (new $fieldResponse->field->type)->getResponse($fieldResponse->field, $fieldResponse);
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        $breadcrumb = $this->getBreadcrumb();
+
+        return [
+            FormResource::getUrl() => FormResource::getBreadcrumb(),
+            FormResource::getUrl('view', ['record' => $this->form->slug]) => $this->form->name,
+            ...(filled($breadcrumb) ? [$breadcrumb] : []),
+        ];
     }
 }

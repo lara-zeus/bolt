@@ -8,8 +8,10 @@ use Illuminate\Support\Collection;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
+use LaraZeus\Bolt\DataSources\DataSourceContract;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
+use function PHPUnit\Framework\isJson;
 
 abstract class FieldsContract implements Fields, Arrayable
 {
@@ -19,26 +21,19 @@ abstract class FieldsContract implements Fields, Arrayable
 
     public string $renderClass;
 
-    public string $code;
-
     public int $sort;
 
     public function toArray(): array
     {
         return [
             'disabled' => $this->disabled,
-            'class' => '\\' . get_called_class(),
+            'class' => '\\'.get_called_class(),
             'renderClass' => $this->renderClass,
             'hasOptions' => $this->hasOptions(),
-            'code' => $this->getCode(),
+            'code' => class_basename($this),
             'sort' => $this->sort,
             'title' => $this->title(),
         ];
-    }
-
-    public function getCode(): string
-    {
-        return class_basename($this);
     }
 
     public function title(): string
@@ -81,7 +76,7 @@ abstract class FieldsContract implements Fields, Arrayable
 
         $component = $component
             ->visible(function ($record, Get $get) use ($zeusField) {
-                if (! isset($zeusField->options['visibility']) || ! $zeusField->options['visibility']['active']) {
+                if (!isset($zeusField->options['visibility']) || !$zeusField->options['visibility']['active']) {
                     return true;
                 }
 
@@ -103,13 +98,13 @@ abstract class FieldsContract implements Fields, Arrayable
                 if ($getRelatedField->type === '\LaraZeus\Bolt\Fields\Classes\Toggle') {
                     $collection = ['true', 'false'];
                 } else {
-                    $collection = FieldsContract::getFieldCollectionItemsList($getRelatedField)
+                    $collection = DataSourceContract::getFieldCollectionItemsList($getRelatedField)
                         ->where('itemKey', $relatedFieldsValues)
                         ->pluck('itemKey')
                         ->toArray();
                 }
 
-                return in_array($get('zeusData.' . $relatedFields), $collection);
+                return in_array($get('zeusData.'.$relatedFields), $collection);
             });
 
         return $component->live(onBlur: true);
@@ -123,16 +118,26 @@ abstract class FieldsContract implements Fields, Arrayable
             return '';
         }
 
-        if (Bolt::jsJson($resp->response)) {
+        if (Bolt::jsJson($response)) {
             $response = json_decode($response);
+            if (!is_array($response)) {
+                $response = [$response];
+            }
         } else {
             $response = [$response];
         }
 
-        $values = BoltPlugin::getModel('Collection')::find($field->options['dataSource']);
-
-        if ($values !== null) {
-            $response = $values->values->whereIn('itemKey', $response)->pluck('itemValue')->join(', ');
+        // to not braking old dataSource structure
+        if ((int) $field->options['dataSource'] !== 0) {
+            $response = BoltPlugin::getModel('Collection')::query()
+                ->find($field->options['dataSource'])
+                ->values->whereIn('itemKey', $response)->pluck('itemValue')->join(', ');
+        } else {
+            $dataSourceClass = new $field->options['dataSource'];
+            $response = $dataSourceClass->getModel()::query()
+                ->whereIn($dataSourceClass->getKeysUsing(), $response)
+                ->pluck($dataSourceClass->getValuesUsing())
+                ->join(', ');
         }
 
         return (is_array($response)) ? implode(', ', $response) : $response;
@@ -140,12 +145,24 @@ abstract class FieldsContract implements Fields, Arrayable
 
     public static function getFieldCollectionItemsList(Field $zeusField): Collection
     {
-        $getCollection = BoltPlugin::getModel('Collection')::find($zeusField->options['dataSource'] ?? 0);
+        // to not braking old dataSource structure
+        if ((int) $zeusField->options['dataSource'] === 0) {
+            $dataSourceClass = new $zeusField->options['dataSource'];
+            $getCollection = $dataSourceClass->getModel()::pluck(
+                $dataSourceClass->getValuesUsing(),
+                $dataSourceClass->getKeysUsing()
+            );
+        } else {
+            $getCollection = BoltPlugin::getModel('Collection')::query()
+                ->find($zeusField->options['dataSource'] ?? 0)
+                ->values
+                ->pluck('itemValue', 'itemKey');
+        }
 
         if ($getCollection === null) {
             return collect();
         }
 
-        return $getCollection->values;
+        return $getCollection;
     }
 }

@@ -33,12 +33,12 @@ class CollectionResource extends BoltResource
         return ['name', 'values'];
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('Collection');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Collections');
     }

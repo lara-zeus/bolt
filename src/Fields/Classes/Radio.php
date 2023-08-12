@@ -38,8 +38,7 @@ class Radio extends FieldsContract
 
         $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 
-        $component = $component
-            ->options($options->pluck('itemValue', 'itemKey'));
+        $component = $component->options($options);
 
         if (isset($zeusField->options['is_inline']) && $zeusField->options['is_inline']) {
             $component->inline();

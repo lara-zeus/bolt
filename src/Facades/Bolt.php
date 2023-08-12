@@ -8,13 +8,10 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Wizard;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use LaraZeus\Bolt\Models\Form;
-use Symfony\Component\Finder\Finder;
 
 class Bolt extends Facade
 {
@@ -30,16 +27,16 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
-            $coreFields = Bolt::collectFields(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
-            $appFields = Bolt::collectFields(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
+            $coreFields = Collectors::collectClasses(__DIR__.'/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            $appFields = Collectors::collectClasses(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
 
             $fields = collect();
 
-            if (! $coreFields->isEmpty()) {
+            if (!$coreFields->isEmpty()) {
                 $fields = $fields->merge($coreFields);
             }
 
-            if (! $appFields->isEmpty()) {
+            if (!$appFields->isEmpty()) {
                 $fields = $fields->merge($appFields);
             }
 
@@ -47,40 +44,28 @@ class Bolt extends Facade
         });
     }
 
-    public static function collectFields($path, $namespace): Collection
+    public static function availableDataSource()
     {
-        if (! is_dir($path)) {
-            return collect();
+        if (app()->isLocal()) {
+            Cache::forget('bolt.dataSources');
         }
-        $classes = Bolt::loadClasses($path, $namespace);
-        $allFields = Bolt::setFields($classes);
 
-        return collect($allFields);
-    }
+        return Cache::remember('bolt.dataSources', Carbon::parse('1 month'), function () {
+            $core = Collectors::collectClasses(__DIR__.'/../DataSources/Classes', 'LaraZeus\\Bolt\\DataSources\\Classes\\');
+            $app = Collectors::collectClasses(app_path('Zeus/DataSources'), 'App\\Zeus\\DataSources\\');
 
-    protected static function setFields($classes): array
-    {
-        $allFields = [];
-        foreach ($classes as $class) {
-            $fieldClass = new $class();
-            if (! $fieldClass->disabled) {
-                $allFields[] = $fieldClass->toArray();
+            $dataSources = collect();
+
+            if (!$core->isEmpty()) {
+                $dataSources = $dataSources->merge($core);
             }
-        }
 
-        return $allFields;
-    }
+            if (!$app->isEmpty()) {
+                $dataSources = $dataSources->merge($app);
+            }
 
-    public static function loadClasses($path, $namespace): array
-    {
-        $classes = [];
-        $path = array_unique(Arr::wrap($path));
-
-        foreach ((new Finder())->in($path)->files() as $className) {
-            $classes[] = $namespace . $className->getFilenameWithoutExtension();
-        }
-
-        return $classes;
+            return $dataSources->sortBy('sort');
+        });
     }
 
     public static function prepareFieldsAndSectionToRender(Form $zeusForm): array
@@ -111,7 +96,7 @@ class Bolt extends Facade
                 $fields[] = static::renderHook('zeus-form-field.before');
 
                 $fieldClass = new $zeusField->type;
-                $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
+                $component = $fieldClass->renderClass::make('zeusData.'.$zeusField->id);
 
                 $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
@@ -120,7 +105,7 @@ class Bolt extends Facade
 
             $fields[] = static::renderHook('zeus-form-section.after');
 
-            $sectionId = $section->name . '-' . $section->id;
+            $sectionId = $section->name.'-'.$section->id;
             if (optional($zeusForm->options)['show-as'] === 'tabs') {
                 $sections[] = Tabs\Tab::make($section->name)
                     ->id($sectionId)
@@ -141,7 +126,7 @@ class Bolt extends Facade
                     ->id($sectionId)
                     ->schema($fields)
                     ->aside()
-                    ->aside(fn () => $section->aside)
+                    ->aside(fn() => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);
             }
@@ -160,15 +145,15 @@ class Bolt extends Facade
 
     public static function renderHook($hook): Placeholder
     {
-        return Placeholder::make('placeholder-' . $hook)
+        return Placeholder::make('placeholder-'.$hook)
             ->label('')
             ->content(Filament::renderHook($hook))
-            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
+            ->visible(!empty(Filament::renderHook($hook)->toHtml()));
     }
 
     public static function renderHookBlade($hook)
     {
-        if (! empty(Filament::renderHook($hook)->toHtml())) {
+        if (!empty(Filament::renderHook($hook)->toHtml())) {
             return Filament::renderHook($hook);
         }
     }
@@ -176,6 +161,10 @@ class Bolt extends Facade
     public static function jsJson($string): bool
     {
         if ($string === '') {
+            return false;
+        }
+
+        if (is_int($string)) {
             return false;
         }
 

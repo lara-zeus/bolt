@@ -40,7 +40,8 @@ class Select extends FieldsContract
 
         $component = $component
             ->searchable()
-            ->options($options->pluck('itemValue', 'itemKey'));
+            ->preload()
+            ->options($options);
 
         if (isset($zeusField->options['allow_multiple']) && $zeusField->options['allow_multiple']) {
             $component = $component->multiple();
