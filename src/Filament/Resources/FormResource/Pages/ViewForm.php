@@ -27,7 +27,7 @@ class ViewForm extends ViewRecord
                 Section::make()->schema([
                     TextEntry::make('name'),
                     TextEntry::make('slug'),
-                ])
+                ]),
             ]);
     }
 
@@ -42,7 +42,7 @@ class ViewForm extends ViewRecord
                 ->icon('heroicon-o-arrow-top-right-on-square')
                 ->tooltip(__('view form'))
                 ->color('warning')
-                ->url(fn() => route('bolt.form.show', $this->record))
+                ->url(fn () => route('bolt.form.show', $this->record))
                 ->openUrlInNewTab(),
         ];
     }
