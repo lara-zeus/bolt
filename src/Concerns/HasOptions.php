@@ -23,8 +23,8 @@ trait HasOptions
                 Select::make('options.visibility.fieldID')
                     ->label(__('show when the field:'))
                     ->live()
-                    ->visible(fn(Get $get): bool => !empty($get('options.visibility.active')))
-                    ->required(fn(Get $get): bool => !empty($get('options.visibility.active')))
+                    ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
+                    ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->options(function ($livewire, $record) {
                         if ($record === null) {
                             return [];
@@ -45,8 +45,8 @@ trait HasOptions
                 Select::make('options.visibility.values')
                     ->label(__('has the value:'))
                     ->live()
-                    ->required(fn(Get $get): bool => !empty($get('options.visibility.fieldID')))
-                    ->visible(fn(Get $get): bool => !empty($get('options.visibility.fieldID')))
+                    ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
+                    ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->options(function (Get $get, $livewire) {
                         if ($get('options.visibility.fieldID') === null) {
                             return [];
@@ -62,7 +62,7 @@ trait HasOptions
                             ];
                         }
 
-                        if (!isset($getRelated->options['dataSource'])) {
+                        if (! isset($getRelated->options['dataSource'])) {
                             return [];
                         }
 
@@ -90,7 +90,7 @@ trait HasOptions
                     $key => [
                         'title' => $item['name'],
                         'class' => $item['id'],
-                    ]
+                    ],
                 ];
             })
             ->merge(
@@ -100,7 +100,7 @@ trait HasOptions
                             $key => [
                                 'title' => $item['title'],
                                 'class' => $item['class'],
-                            ]
+                            ],
                         ];
                     })
             )

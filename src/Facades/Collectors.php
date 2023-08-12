@@ -10,7 +10,7 @@ class Collectors
 {
     public static function collectClasses($path, $namespace): Collection
     {
-        if (!is_dir($path)) {
+        if (! is_dir($path)) {
             return collect();
         }
 
@@ -26,7 +26,7 @@ class Collectors
         $allClasses = [];
         foreach ($classes as $class) {
             $getClass = new $class();
-            if (!$getClass->disabled) {
+            if (! $getClass->disabled) {
                 $allClasses[] = $getClass->toArray();
             }
         }
@@ -40,7 +40,7 @@ class Collectors
         $path = array_unique(Arr::wrap($path));
 
         foreach ((new Finder())->in($path)->files() as $className) {
-            $classes[] = $namespace.$className->getFilenameWithoutExtension();
+            $classes[] = $namespace . $className->getFilenameWithoutExtension();
         }
 
         return $classes;

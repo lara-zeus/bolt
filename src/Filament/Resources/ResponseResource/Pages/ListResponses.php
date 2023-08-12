@@ -44,7 +44,7 @@ class ListResponses extends ListRecords
         return [
             FormResource::getUrl() => FormResource::getBreadcrumb(),
             FormResource::getUrl('view', ['record' => $this->form->slug]) => $this->form->name,
-            '#'=>__('List Entries'),
+            '#' => __('List Entries'),
         ];
     }
 }

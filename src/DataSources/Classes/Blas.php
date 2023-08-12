@@ -7,19 +7,23 @@ use LaraZeus\Bolt\DataSources\DataSourceContract;
 
 class Blas extends DataSourceContract
 {
-    public function title(): string{
+    public function title(): string
+    {
         return 'Blas';
     }
 
-    public static function getValuesUsing(): string{
+    public static function getValuesUsing(): string
+    {
         return 'name';
     }
 
-    public static function getKeysUsing(): string{
+    public static function getKeysUsing(): string
+    {
         return 'code';
     }
 
-    public function getModel(): string{
+    public function getModel(): string
+    {
         return Bla::class;
     }
 }

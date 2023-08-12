@@ -11,6 +11,7 @@ trait EntriesAction
     public function getEntriesActions($formId = null): array
     {
         $formId = $formId ?? $this->form_id;
+
         return [
             ActionGroup::make([
                 Action::make('brows')
