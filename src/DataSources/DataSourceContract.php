@@ -22,7 +22,7 @@ abstract class DataSourceContract implements DataSource, Arrayable
             'getModel' => $this->getModel(),
             'title' => $this->title(),
             'sort' => $this->getSort(),
-            'class' => '\\'.get_called_class(),
+            'class' => '\\' . get_called_class(),
         ];
     }
 }

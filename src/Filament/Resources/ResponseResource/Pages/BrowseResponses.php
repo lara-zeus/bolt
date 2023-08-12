@@ -79,5 +79,4 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
             ...(filled($breadcrumb) ? [$breadcrumb] : []),
         ];
     }
-
 }

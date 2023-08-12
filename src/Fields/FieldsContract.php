@@ -8,10 +8,8 @@ use Illuminate\Support\Collection;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
-use LaraZeus\Bolt\DataSources\DataSourceContract;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
-use function PHPUnit\Framework\isJson;
 
 abstract class FieldsContract implements Fields, Arrayable
 {
@@ -27,7 +25,7 @@ abstract class FieldsContract implements Fields, Arrayable
     {
         return [
             'disabled' => $this->disabled,
-            'class' => '\\'.get_called_class(),
+            'class' => '\\' . get_called_class(),
             'renderClass' => $this->renderClass,
             'hasOptions' => $this->hasOptions(),
             'code' => class_basename($this),
@@ -76,35 +74,22 @@ abstract class FieldsContract implements Fields, Arrayable
 
         $component = $component
             ->visible(function ($record, Get $get) use ($zeusField) {
-                if (!isset($zeusField->options['visibility']) || !$zeusField->options['visibility']['active']) {
+                if (! isset($zeusField->options['visibility']) || ! $zeusField->options['visibility']['active']) {
                     return true;
                 }
 
-                $relatedFields = $zeusField->options['visibility']['fieldID'];
-                $relatedFieldsValues = $zeusField->options['visibility']['values'];
+                $relatedField = $zeusField->options['visibility']['fieldID'];
+                $relatedFieldValues = $zeusField->options['visibility']['values'];
 
-                if (empty($relatedFields) || empty($relatedFieldsValues)) {
+                if (empty($relatedField) || empty($relatedFieldValues)) {
                     return true;
                 }
 
-                $getRelatedField = $record->fields()
-                    ->where('fields.id', $relatedFields)
-                    ->first();
-
-                if ($getRelatedField === null) {
-                    return true;
+                if (is_array($get('zeusData.' . $relatedField))) {
+                    return in_array($relatedFieldValues, $get('zeusData.' . $relatedField));
                 }
 
-                if ($getRelatedField->type === '\LaraZeus\Bolt\Fields\Classes\Toggle') {
-                    $collection = ['true', 'false'];
-                } else {
-                    $collection = DataSourceContract::getFieldCollectionItemsList($getRelatedField)
-                        ->where('itemKey', $relatedFieldsValues)
-                        ->pluck('itemKey')
-                        ->toArray();
-                }
-
-                return in_array($get('zeusData.'.$relatedFields), $collection);
+                return $relatedFieldValues === $get('zeusData.' . $relatedField);
             });
 
         return $component->live(onBlur: true);
@@ -120,7 +105,7 @@ abstract class FieldsContract implements Fields, Arrayable
 
         if (Bolt::jsJson($response)) {
             $response = json_decode($response);
-            if (!is_array($response)) {
+            if (! is_array($response)) {
                 $response = [$response];
             }
         } else {

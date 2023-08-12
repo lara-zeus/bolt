@@ -30,6 +30,7 @@
     "require": {
         "php": "^8.1",
         "codeat3/blade-clarity-icons": "^1.7",
+        "filament/filament": "^3.0",
         "lara-zeus/core": "^3.0",
         "guava/filament-icon-picker": "^2.0",
         "alperenersoy/filament-export": "v3.0.0-beta"

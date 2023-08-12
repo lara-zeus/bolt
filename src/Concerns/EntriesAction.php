@@ -11,13 +11,14 @@ trait EntriesAction
     public function getEntriesActions($formId = null): array
     {
         $formId = $formId ?? $this->form_id;
+
         return [
             ActionGroup::make([
                 Action::make('brows')
                     ->icon('heroicon-o-eye')
                     ->visible($formId !== 0)
                     ->label(__('Brows Entries'))
-                    ->url(fn (): string => ResponseResource::getUrl('brows') . '?form_id=' . request('form_id')),
+                    ->url(fn (): string => ResponseResource::getUrl('brows') . '?form_id=' . $formId),
                 Action::make('list')
                     ->icon('heroicon-o-bars-4')
                     ->visible($formId !== 0)

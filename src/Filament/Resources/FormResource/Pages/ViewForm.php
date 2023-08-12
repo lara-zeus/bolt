@@ -35,7 +35,7 @@ class ViewForm extends ViewRecord
                 TextEntry::make('slug'),
 
                 IconEntry::make('status')
-                    ->icon(fn(string $state): string => match ($state) {
+                    ->icon(fn (string $state): string => match ($state) {
                         'draft' => 'heroicon-o-pencil',
                         'reviewing' => 'heroicon-o-clock',
                         'published' => 'heroicon-o-check-circle',
@@ -54,15 +54,15 @@ class ViewForm extends ViewRecord
                 Action::make('brows')
                     ->icon('heroicon-o-eye')
                     ->label(__('Brows Entries'))
-                    ->url(fn(): string => ResponseResource::getUrl('brows').'?form_id='.$this->record->id),
+                    ->url(fn (): string => ResponseResource::getUrl('brows') . '?form_id=' . $this->record->id),
                 Action::make('list')
                     ->icon('heroicon-o-bars-4')
                     ->label(__('List Entries'))
-                    ->url(fn(): string => ResponseResource::getUrl().'?form_id='.$this->record->id),
+                    ->url(fn (): string => ResponseResource::getUrl() . '?form_id=' . $this->record->id),
                 Action::make('report')
                     ->icon('heroicon-o-document-chart-bar')
                     ->label(__('Entries Report'))
-                    ->url(fn(): string => ResponseResource::getUrl('report').'?form_id='.$this->record->id),
+                    ->url(fn (): string => ResponseResource::getUrl('report') . '?form_id=' . $this->record->id),
             ])
                 ->button()
                 ->color('info')
@@ -75,7 +75,7 @@ class ViewForm extends ViewRecord
                 ->icon('heroicon-o-arrow-top-right-on-square')
                 ->tooltip(__('view form'))
                 ->color('warning')
-                ->url(fn() => route('bolt.form.show', $this->record))
+                ->url(fn () => route('bolt.form.show', $this->record))
                 ->openUrlInNewTab(),
         ];
     }
