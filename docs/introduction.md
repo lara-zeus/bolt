@@ -22,9 +22,10 @@ included a UI for the frontend built with filament
 - 🔥 Limit submissions with one entry for a user (if auth is required only)
 - 🔥 Conditional Visibility for fields.
 - 🔥 Extensions
-- 🔥 Embed the form in sky posts and pages, or as a livewire component
+- 🔥 Embed the form in sky posts and pages, or as a livewire component.
 - 🔥 Add any field from filament plugins
 - 🔥 Create your field
+- 🔥 Create Custom Collections
 - 🔥 All the options for filament fields are available
 - 🔥 Validation rules for text input
 - 🔥 Collections for datasets
@@ -39,8 +40,8 @@ included a UI for the frontend built with filament
 - 🔥 Multiple events ready to listen to
 - 🔥 Show the entries for the users
 - 🔥 List all forms for the users
-- 🔥 Exam module (set correct answer, the mark for each question, autocorrection for all responses, send the mark to the user, and display the result) (soon)
-- 🔥 Poll module (custom layout to show the form as a poll and display the result as a chart) (soon)
+- Exam Module: (set correct answer, the mark for each question, autocorrection for all responses, send the mark to the user, and display the result) (soon)
+- Poll Module: (custom layout to show the form as a poll and display the result as a chart) (soon)
 
 ## Support
 available support channels:

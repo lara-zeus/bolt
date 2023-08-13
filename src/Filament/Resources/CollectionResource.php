@@ -33,12 +33,12 @@ class CollectionResource extends BoltResource
         return ['name', 'values'];
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('Collection');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Collections');
     }
@@ -60,11 +60,13 @@ class CollectionResource extends BoltResource
                         'lg' => 3,
                     ])
                     ->label(__('Collections Values'))
+                    ->columnSpan(2)
+                    ->columns(1)
                     ->schema([
                         TextInput::make('itemKey')->required()->label(__('Key'))->hint(__('what store in the form')),
                         TextInput::make('itemValue')->required()->label(__('Value'))->hint(__('what the user will see')),
                         Toggle::make('itemIsDefault')->label(__('selected by default')),
-                    ])->columnSpan(2)->columns(1),
+                    ]),
             ]);
     }
 
@@ -72,8 +74,17 @@ class CollectionResource extends BoltResource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label(__('Collections Name'))->searchable()->sortable()->toggleable(),
-                TextColumn::make('values-list')->html()->label(__('Collections Values'))->searchable(['values'])->toggleable(),
+                TextColumn::make('name')
+                    ->label(__('Collections Name'))
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('values-list')
+                    ->badge()
+                    ->separator(',')
+                    ->label(__('Collections Values'))
+                    ->searchable(['values'])
+                    ->toggleable(),
             ])
             ->actions([
                 ActionGroup::make([

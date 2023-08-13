@@ -8,6 +8,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
@@ -66,8 +67,7 @@ trait HasOptions
                             return [];
                         }
 
-                        return FieldsContract::getFieldCollectionItemsList($getRelated)
-                            ->pluck('itemValue', 'itemKey');
+                        return FieldsContract::getFieldCollectionItemsList($getRelated);
                     }),
             ])
             ->columns(1);
@@ -84,11 +84,33 @@ trait HasOptions
 
     public static function dataSource(): Grid
     {
+        $dataSources = BoltPlugin::getModel('Collection')::get()
+            ->mapWithKeys(function ($item, $key) {
+                return [
+                    $key => [
+                        'title' => $item['name'],
+                        'class' => $item['id'],
+                    ],
+                ];
+            })
+            ->merge(
+                Bolt::availableDataSource()
+                    ->mapWithKeys(function ($item, $key) {
+                        return [
+                            $key => [
+                                'title' => $item['title'],
+                                'class' => $item['class'],
+                            ],
+                        ];
+                    })
+            )
+            ->pluck('title', 'class');
+
         return Grid::make()
             ->schema([
                 Select::make('options.dataSource')
                     ->required()
-                    ->options(BoltPlugin::getModel('Collection')::pluck('name', 'id'))
+                    ->options($dataSources)
                     ->label(__('Data Source')),
             ])
             ->columns(1);

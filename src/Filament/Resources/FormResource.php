@@ -48,12 +48,12 @@ class FormResource extends BoltResource
         return ['name', 'slug'];
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('Form');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Forms');
     }
@@ -71,6 +71,7 @@ class FormResource extends BoltResource
     public static function table(Table $table): Table
     {
         return $table
+            ->reorderable('ordering')
             ->columns([
                 TextColumn::make('name')->searchable()->sortable()->label(__('Form Name'))->toggleable(),
                 TextColumn::make('category.name')->searchable()->label(__('Category'))->sortable()->toggleable(),

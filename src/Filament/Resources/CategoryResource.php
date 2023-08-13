@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -32,16 +33,16 @@ use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\ListCategories;
 
 class CategoryResource extends BoltResource
 {
-    public static function getModel(): string
-    {
-        return BoltPlugin::getModel('Category');
-    }
-
     protected static ?string $navigationIcon = 'clarity-tags-line';
 
     protected static ?int $navigationSort = 4;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getModel(): string
+    {
+        return BoltPlugin::getModel('Category');
+    }
 
     public static function getGloballySearchableAttributes(): array
     {
@@ -52,26 +53,30 @@ class CategoryResource extends BoltResource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->maxLength(255)
-                    ->live(onBlur: true)
-                    ->label(__('Name'))
-                    ->afterStateUpdated(function (Set $set, $state, $context) {
-                        if ($context === 'edit') {
-                            return;
-                        }
-                        $set('slug', Str::slug($state));
-                    }),
-                TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
-                TextInput::make('ordering')->required()->numeric()->label(__('ordering')),
-                Toggle::make('is_active')->label(__('Is Active'))->default(1),
-                Textarea::make('description')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
-                FileUpload::make('logo')
-                    ->disk(BoltPlugin::get()->getUploadDisk())
-                    ->directory(BoltPlugin::get()->getUploadDirectory())
-                    ->columnSpan(['sm' => 2])
-                    ->label(__('logo')),
+                Section::make()
+                    ->columns(2)
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->maxLength(255)
+                            ->live(onBlur: true)
+                            ->label(__('Name'))
+                            ->afterStateUpdated(function (Set $set, $state, $context) {
+                                if ($context === 'edit') {
+                                    return;
+                                }
+                                $set('slug', Str::slug($state));
+                            }),
+                        TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
+                        TextInput::make('ordering')->required()->numeric()->label(__('ordering')),
+                        Toggle::make('is_active')->label(__('Is Active'))->default(1),
+                        Textarea::make('description')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
+                        FileUpload::make('logo')
+                            ->disk(BoltPlugin::get()->getUploadDisk())
+                            ->directory(BoltPlugin::get()->getUploadDirectory())
+                            ->columnSpan(['sm' => 2])
+                            ->label(__('logo')),
+                    ]),
             ]);
     }
 
@@ -144,12 +149,12 @@ class CategoryResource extends BoltResource
         ];
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('Category');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Categories');
     }

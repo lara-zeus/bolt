@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\ViewField;
 use Filament\Forms\Form;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
@@ -11,6 +12,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Models\FormsStatus;
 
@@ -29,12 +31,12 @@ class ResponseResource extends BoltResource
         return BoltPlugin::getModel('Response');
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('Entries');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Entries');
     }
@@ -97,17 +99,14 @@ class ResponseResource extends BoltResource
                 'xl' => 3,
             ])
             ->defaultSort('created_at', 'description')
+            ->actions([
+                ViewAction::make(),
+                SetResponseStatus::make(),
+            ])
             ->filters([
                 SelectFilter::make('status')
                     ->options(FormsStatus::query()->pluck('label', 'key'))
                     ->label(__('Status')),
-                SelectFilter::make('form')
-                    ->attribute('form_id')
-                    ->searchable()
-                    ->preload()
-                    ->options(BoltPlugin::getModel('Form')::pluck('name', 'id'))
-                    //->relationship('form', 'name') // todo issue with multi lang
-                    ->default(request('form_id', null)),
             ]);
     }
 

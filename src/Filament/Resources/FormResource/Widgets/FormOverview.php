@@ -10,7 +10,7 @@ class FormOverview extends BaseWidget
 {
     public Form $record;
 
-    protected function getCards(): array
+    protected function getStats(): array
     {
         return [
             Stat::make('fields', $this->record->fields()->count())->label(__('Fields')),

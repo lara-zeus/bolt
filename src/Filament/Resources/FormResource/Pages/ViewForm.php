@@ -6,52 +6,57 @@ use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Pages\ViewRecord;
+use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
+use LaraZeus\Bolt\Models\Form;
 
 class ViewForm extends ViewRecord
 {
     use ViewRecord\Concerns\Translatable;
+    use EntriesAction;
 
     protected static string $resource = FormResource::class;
-
-    /*protected function getFormSchema(): array
-    {
-        return FormResource::getMainFormSchemaForView();
-    }*/
 
     public function infolist(Infolist $infolist): Infolist
     {
         return $infolist
             ->record($this->getRecord())
             ->schema([
-                TextEntry::make('name'),
-                TextEntry::make('slug'),
+                Section::make()->schema([
+                    TextEntry::make('name'),
+                    TextEntry::make('slug')
+                        ->url(fn (Form $record) => route('bolt.form.show', ['slug' => $record->slug]))
+                        ->openUrlInNewTab(),
+                    TextEntry::make('description'),
+                    IconEntry::make('is_active')
+                        ->icon(fn (string $state): string => match ($state) {
+                            '1' => 'clarity-check-circle-line',
+                            '0' => 'clarity-times-circle-solid',
+                            default => 'clarity-check-circle-line',
+                        })
+                        ->color(fn (string $state): string => match ($state) {
+                            '0' => 'warning',
+                            '1' => 'success',
+                            default => 'gray',
+                        }),
 
-                IconEntry::make('status')
-                    ->icon(fn (string $state): string => match ($state) {
-                        'draft' => 'heroicon-o-pencil',
-                        'reviewing' => 'heroicon-o-clock',
-                        'published' => 'heroicon-o-check-circle',
-                    }),
-
+                    TextEntry::make('start_date')->dateTime(),
+                    TextEntry::make('end_date')->dateTime(),
+                ])
+                    ->columns(2),
             ]);
     }
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             LocaleSwitcher::make(),
             EditAction::make(),
-            Action::make('entries')
-                ->label(__('Entries'))
-                ->icon('clarity-data-cluster-line')
-                ->tooltip(__('view all entries'))
-                ->color('info')
-                ->url(fn () => url('admin/responses?form_id=' . $this->record->id)),
-
+            ...$this->getEntriesActions($this->record->id),
             Action::make('view')
                 ->label(__('View'))
                 ->icon('heroicon-o-arrow-top-right-on-square')
@@ -62,7 +67,7 @@ class ViewForm extends ViewRecord
         ];
     }
 
-    protected function getHeaderWidgets(): array
+    protected function getFooterWidgets(): array
     {
         return [
             FormResource\Widgets\FormOverview::class,

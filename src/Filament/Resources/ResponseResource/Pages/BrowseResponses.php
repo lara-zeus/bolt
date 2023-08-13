@@ -2,15 +2,14 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
-use Closure;
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Table;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\EntriesAction;
+use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\FormsStatus;
 
@@ -34,6 +33,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
     public function mount(): void
     {
         $this->form_id = request('form_id', 0);
+        $this->form = BoltPlugin::getModel('Form')::findOrFail($this->form_id);
     }
 
     public function getTableRecordsPerPage(): int
@@ -41,49 +41,42 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
         return 1;
     }
 
-    protected function getTableRecordsPerPageSelectOptions(): array
-    {
-        return [1];
-    }
-
-    protected function getTableRecordClassesUsing(): ?Closure
-    {
-        return fn (Model $record) => 'bg-gray-100';
-    }
-
     public function getTitle(): string
     {
         return __('Browse Entries');
     }
 
-    protected function getTableColumns(): array
+    public function table(Table $table): Table
     {
-        return [
-            Tables\Columns\ViewColumn::make('response')
-                ->label(__('Browse Entries'))
-                ->view('zeus::filament.resources.response-resource.pages.show-entry'),
-        ];
+        return $table
+            ->paginated([1])
+            ->recordClasses('bg-gray-100')
+            ->query(BoltPlugin::getModel('Response')::query()->where('form_id', $this->form_id))
+            ->columns([
+                Tables\Columns\ViewColumn::make('response')
+                    ->label(__('Browse Entries'))
+                    ->view('zeus::filament.resources.response-resource.pages.show-entry'),
+            ])
+            ->filters([
+                SelectFilter::make('status')
+                    ->options(FormsStatus::query()->pluck('label', 'key'))
+                    ->label(__('Status')),
+            ]);
     }
 
-    protected function getTableQuery(): Builder
-    {
-        return BoltPlugin::getModel('Response')::query()->where('form_id', $this->form_id);
-    }
-
-    protected function getTableFilters(): array
-    {
-        return [
-            SelectFilter::make('form')
-                ->relationship('form', 'name')
-                ->default($this->form_id),
-            SelectFilter::make('status')
-                ->options(FormsStatus::query()->pluck('label', 'key'))
-                ->label(__('Status')),
-        ];
-    }
-
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return $this->getEntriesActions();
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        $breadcrumb = $this->getBreadcrumb();
+
+        return [
+            FormResource::getUrl() => FormResource::getBreadcrumb(),
+            FormResource::getUrl('view', ['record' => $this->form->slug]) => $this->form->name,
+            ...(filled($breadcrumb) ? [$breadcrumb] : []),
+        ];
     }
 }

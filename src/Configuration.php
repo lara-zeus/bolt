@@ -4,8 +4,6 @@ namespace LaraZeus\Bolt;
 
 trait Configuration
 {
-    //BoltPlugin::get()->getWindPrefix()
-
     /**
      * set the default path for the contact form homepage.
      */
