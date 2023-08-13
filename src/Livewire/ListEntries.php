@@ -25,6 +25,11 @@ class ListEntries extends Component implements HasTable, HasForms
             ->query(
                 BoltPlugin::getModel('Response')::query()->where('user_id', auth()->user()->id)
             )
+            ->contentGrid([
+                'sm' => 1,
+                'md' => 2,
+                'xl' => 3,
+            ])
             ->columns([
                 Split::make([
                     TextColumn::make('status')
@@ -43,15 +48,6 @@ class ListEntries extends Component implements HasTable, HasForms
                 ]),
             ]);
     }
-
-    /* protected function getTableContentGrid(): ?array
-     {
-         return [
-             'sm' => 1,
-             'md' => 2,
-             'xl' => 3,
-         ];
-     }*/
 
     public function render()
     {

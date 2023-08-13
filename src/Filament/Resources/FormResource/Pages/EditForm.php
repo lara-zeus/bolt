@@ -15,7 +15,7 @@ class EditForm extends EditRecord
 
     protected static string $resource = FormResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             LocaleSwitcher::make(),

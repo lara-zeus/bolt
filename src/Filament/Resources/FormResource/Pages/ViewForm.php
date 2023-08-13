@@ -5,12 +5,14 @@ namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Actions\LocaleSwitcher;
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Pages\ViewRecord;
 use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
+use LaraZeus\Bolt\Models\Form;
 
 class ViewForm extends ViewRecord
 {
@@ -26,8 +28,26 @@ class ViewForm extends ViewRecord
             ->schema([
                 Section::make()->schema([
                     TextEntry::make('name'),
-                    TextEntry::make('slug'),
-                ]),
+                    TextEntry::make('slug')
+                        ->url(fn (Form $record) => route('bolt.form.show', ['slug' => $record->slug]))
+                        ->openUrlInNewTab(),
+                    TextEntry::make('description'),
+                    IconEntry::make('is_active')
+                        ->icon(fn (string $state): string => match ($state) {
+                            '1' => 'clarity-check-circle-line',
+                            '0' => 'clarity-times-circle-solid',
+                            default => 'clarity-check-circle-line',
+                        })
+                        ->color(fn (string $state): string => match ($state) {
+                            '0' => 'warning',
+                            '1' => 'success',
+                            default => 'gray',
+                        }),
+
+                    TextEntry::make('start_date')->dateTime(),
+                    TextEntry::make('end_date')->dateTime(),
+                ])
+                    ->columns(2),
             ]);
     }
 
@@ -47,7 +67,7 @@ class ViewForm extends ViewRecord
         ];
     }
 
-    protected function getHeaderWidgets(): array
+    protected function getFooterWidgets(): array
     {
         return [
             FormResource\Widgets\FormOverview::class,

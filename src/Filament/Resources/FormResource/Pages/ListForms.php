@@ -13,7 +13,7 @@ class ListForms extends ListRecords
 
     protected static string $resource = FormResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Actions\LocaleSwitcher::make(),
@@ -26,10 +26,5 @@ class ListForms extends ListRecords
                 ->url(fn () => route('bolt.forms.list'))
                 ->openUrlInNewTab(),
         ];
-    }
-
-    protected function getTableReorderColumn(): ?string
-    {
-        return 'ordering';
     }
 }

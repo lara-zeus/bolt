@@ -71,6 +71,7 @@ class FormResource extends BoltResource
     public static function table(Table $table): Table
     {
         return $table
+            ->reorderable('ordering')
             ->columns([
                 TextColumn::make('name')->searchable()->sortable()->label(__('Form Name'))->toggleable(),
                 TextColumn::make('category.name')->searchable()->label(__('Category'))->sortable()->toggleable(),
