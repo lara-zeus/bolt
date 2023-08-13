@@ -17,7 +17,7 @@ composer require yepsua/filament-rating-field
 Create the field using the following command, passing the fully qualified name of the form component:
 
 ```bash
-php artisan make:Zeus-field \\Yepsua\\Filament\\Forms\\Components\\Rating
+php artisan make:zeus-field \\Yepsua\\Filament\\Forms\\Components\\Rating
 ```
 
 ## Caching

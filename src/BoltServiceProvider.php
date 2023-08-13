@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt;
 
 use LaraZeus\Bolt\Commands\PublishCommand;
+use LaraZeus\Bolt\Commands\ZeusDatasourceCommand;
 use LaraZeus\Bolt\Commands\ZeusFieldCommand;
 use LaraZeus\Bolt\Livewire\FillForms;
 use LaraZeus\Bolt\Livewire\ListEntries;
@@ -56,6 +57,7 @@ class BoltServiceProvider extends PackageServiceProvider
         return [
             PublishCommand::class,
             ZeusFieldCommand::class,
+            ZeusDatasourceCommand::class,
         ];
     }
 
