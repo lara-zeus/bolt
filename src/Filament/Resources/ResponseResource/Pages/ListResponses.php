@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
-use LaraZeus\Bolt\Models\Form;
+use Livewire\Attributes\Url;
 
 class ListResponses extends ListRecords
 {
@@ -15,19 +15,8 @@ class ListResponses extends ListRecords
 
     protected static string $resource = ResponseResource::class;
 
+    #[Url(history: true, keep: true)]
     public int $form_id = 0;
-
-    public Form $form;
-
-    protected $queryString = [
-        'form_id',
-    ];
-
-    public function mount(): void
-    {
-        $this->form_id = request('form_id', 0);
-        $this->form = BoltPlugin::getModel('Form')::findOrFail($this->form_id);
-    }
 
     protected function getHeaderActions(): array
     {
@@ -41,9 +30,11 @@ class ListResponses extends ListRecords
 
     public function getBreadcrumbs(): array
     {
+        $form = BoltPlugin::getModel('Form')::findOrFail($this->form_id);
+
         return [
             FormResource::getUrl() => FormResource::getBreadcrumb(),
-            FormResource::getUrl('view', ['record' => $this->form->slug]) => $this->form->name,
+            FormResource::getUrl('view', ['record' => $form->slug]) => $form->name,
             '#' => __('List Entries'),
         ];
     }
