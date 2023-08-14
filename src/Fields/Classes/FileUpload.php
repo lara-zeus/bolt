@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class FileUpload extends FieldsContract
@@ -28,8 +29,11 @@ class FileUpload extends FieldsContract
 
     public function getResponse($field, $resp): string
     {
+        $responseValue = (filled($resp->response) && Bolt::isJson($resp->response)) ? json_decode($resp->response) : [$resp->response];
+
         return view('zeus::filament.fields.file-upload')
             ->with('resp', $resp)
+            ->with('responseValue', $responseValue)
             ->with('field', $field)
             ->render();
     }

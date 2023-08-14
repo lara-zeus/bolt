@@ -11,10 +11,12 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Models\FormsStatus;
+use Livewire\Attributes\Url;
 
 class ResponseResource extends BoltResource
 {
@@ -25,6 +27,9 @@ class ResponseResource extends BoltResource
     protected static ?string $slug = 'responses';
 
     protected static bool $shouldRegisterNavigation = false;
+
+    #[Url(history: true, keep: true)]
+    public int $form_id = 0;
 
     public static function getModel(): string
     {
@@ -98,6 +103,9 @@ class ResponseResource extends BoltResource
                 'md' => 2,
                 'xl' => 3,
             ])
+            ->modifyQueryUsing(function (Builder $query, Table $table) {
+                return $query->where('form_id', $table->getLivewire()->form_id);
+            })
             ->defaultSort('created_at', 'description')
             ->actions([
                 ViewAction::make(),

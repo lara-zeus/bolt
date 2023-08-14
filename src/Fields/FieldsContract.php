@@ -103,7 +103,7 @@ abstract class FieldsContract implements Fields, Arrayable
             return '';
         }
 
-        if (Bolt::jsJson($response)) {
+        if (Bolt::isJson($response)) {
             $response = json_decode($response);
             if (! is_array($response)) {
                 $response = [$response];

@@ -149,7 +149,7 @@ class Bolt extends Facade
         }
     }
 
-    public static function jsJson($string): bool
+    public static function isJson($string): bool
     {
         if ($string === '') {
             return false;

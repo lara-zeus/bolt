@@ -19,6 +19,7 @@ use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
+use Livewire\Attributes\Url;
 
 class ReportResponses extends Page implements HasForms, HasTable
 {
@@ -34,11 +35,8 @@ class ReportResponses extends Page implements HasForms, HasTable
 
     public $form;
 
+    #[Url(history: true, keep: true)]
     public int $form_id = 0;
-
-    protected $queryString = [
-        'form_id',
-    ];
 
     public function table(Table $table): Table
     {

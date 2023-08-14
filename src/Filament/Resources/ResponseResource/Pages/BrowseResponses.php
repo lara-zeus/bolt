@@ -12,6 +12,7 @@ use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\FormsStatus;
+use Livewire\Attributes\Url;
 
 class BrowseResponses extends Page implements Tables\Contracts\HasTable
 {
@@ -24,22 +25,8 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 
+    #[Url(history: true, keep: true)]
     public int $form_id = 0;
-
-    protected $queryString = [
-        'form_id',
-    ];
-
-    public function mount(): void
-    {
-        $this->form_id = request('form_id', 0);
-        $this->form = BoltPlugin::getModel('Form')::findOrFail($this->form_id);
-    }
-
-    public function getTableRecordsPerPage(): int
-    {
-        return 1;
-    }
 
     public function getTitle(): string
     {
@@ -71,11 +58,12 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
 
     public function getBreadcrumbs(): array
     {
+        $form = BoltPlugin::getModel('Form')::findOrFail($this->form_id);
         $breadcrumb = $this->getBreadcrumb();
 
         return [
             FormResource::getUrl() => FormResource::getBreadcrumb(),
-            FormResource::getUrl('view', ['record' => $this->form->slug]) => $this->form->name,
+            FormResource::getUrl('view', ['record' => $form->slug]) => $form->name,
             ...(filled($breadcrumb) ? [$breadcrumb] : []),
         ];
     }
