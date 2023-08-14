@@ -107,7 +107,7 @@ class Bolt extends Facade
 
             $fields[] = static::renderHook('zeus-form-section.before');
 
-            $hasVisibility = $section->fields()->pluck('options')->where('visibility.active','!=',false)->isNotEmpty();
+            $hasVisibility = $section->fields()->pluck('options')->where('visibility.active', '!=', false)->isNotEmpty();
 
             foreach ($section->fields()->orderBy('ordering')->get() as $zeusField) {
                 $fields[] = static::renderHook('zeus-form-field.before');

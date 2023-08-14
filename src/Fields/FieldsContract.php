@@ -111,7 +111,7 @@ abstract class FieldsContract implements Fields, Arrayable
                 return in_array($get('zeusData.' . $relatedFields), $collection);
             });
 
-        if($hasVisibility) {
+        if ($hasVisibility) {
             return $component->debounce();
         }
 
