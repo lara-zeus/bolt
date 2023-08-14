@@ -60,15 +60,15 @@ class ReportResponses extends Page implements HasForms, HasTable
         ];
 
         foreach ($this->form->fields->sortBy('ordering') as $field) {
-            $mainColumns[] = TextColumn::make('zeusData.'.$field->id)
+            $mainColumns[] = TextColumn::make('zeusData.' . $field->id)
                 ->label($field->name)
                 ->searchable(query: function (Builder $query, string $search): Builder {
                     return $query
                         ->whereHas('fieldsResponses', function ($query) use ($search) {
-                            $query->where('response', 'like', '%'.$search.'%');
+                            $query->where('response', 'like', '%' . $search . '%');
                         });
                 })
-                ->getStateUsing(fn(Model $record) => $this->getFieldResponseValue($record, $field))
+                ->getStateUsing(fn (Model $record) => $this->getFieldResponseValue($record, $field))
                 ->html()
                 ->toggleable();
         }
@@ -93,7 +93,7 @@ class ReportResponses extends Page implements HasForms, HasTable
                     ->label(__('Export')),
             ])
             ->recordUrl(
-                fn(Model $record): string => ResponseResource::getUrl('view', ['record' => $record]),
+                fn (Model $record): string => ResponseResource::getUrl('view', ['record' => $record]),
             );
     }
 

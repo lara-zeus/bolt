@@ -11,12 +11,12 @@ use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Models\FormsStatus;
 use Livewire\Attributes\Url;
-use Illuminate\Database\Eloquent\Builder;
 
 class ResponseResource extends BoltResource
 {
@@ -86,7 +86,7 @@ class ResponseResource extends BoltResource
                 TextColumn::make('form.name')
                     ->label(__('form'))
                     ->searchable()
-                    ->visible(!request()->filled('form_id')),
+                    ->visible(! request()->filled('form_id')),
                 Stack::make([
                     TextColumn::make('status')
                         ->badge()
