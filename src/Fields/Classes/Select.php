@@ -32,9 +32,9 @@ class Select extends FieldsContract
         return $this->getCollectionsValuesForResponse($field, $resp);
     }
 
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions($component, $zeusField, $hasVisibility = false)
     {
-        parent::appendFilamentComponentsOptions($component, $zeusField);
+        parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
         $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 

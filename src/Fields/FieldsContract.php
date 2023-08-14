@@ -55,7 +55,7 @@ abstract class FieldsContract implements Fields, Arrayable
         return $resp->response;
     }
 
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions($component, $zeusField, $hasVisibility = false)
     {
         $component
             ->label($zeusField->name)
@@ -111,7 +111,11 @@ abstract class FieldsContract implements Fields, Arrayable
                 return in_array($get('zeusData.' . $relatedFields), $collection);
             });
 
-        return $component->debounce();
+        if($hasVisibility) {
+            return $component->debounce();
+        }
+
+        return $component;
     }
 
     public function getCollectionsValuesForResponse($field, $resp): string

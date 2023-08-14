@@ -58,9 +58,9 @@ public static function getOptions(): array
 
 And to apply these options to the field in the frontend:
 ```php
-public function appendFilamentComponentsOptions($component, $zeusField)
+public function appendFilamentComponentsOptions($component, $zeusField, $hasVisibility = false)
 {
-    parent::appendFilamentComponentsOptions($component, $zeusField);
+    parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
     if (isset($zeusField->options['is_required']) && $zeusField->options['is_required']) {
         $component = $component->required();

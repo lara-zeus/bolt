@@ -33,9 +33,9 @@ class FileUpload extends FieldsContract
             ->render();
     }
 
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions($component, $zeusField, $hasVisibility = false)
     {
-        parent::appendFilamentComponentsOptions($component, $zeusField);
+        parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
         $component->disk(config('zeus-bolt.uploads.disk'))
             ->directory(config('zeus-bolt.uploads.directory'));
