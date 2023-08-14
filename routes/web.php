@@ -8,7 +8,7 @@ use LaraZeus\Bolt\Livewire\ListForms;
 use LaraZeus\Bolt\Livewire\ShowEntry;
 use LaraZeus\Bolt\Livewire\Submitted;
 
-if (app('filament')->hasPlugin('zeus-rain')) {
+if (app('filament')->hasPlugin('zeus-bolt')) {
     Route::prefix(BoltPlugin::get()->getBoltPrefix())
         ->name('bolt.')
         ->middleware(BoltPlugin::get()->getMiddleware())
