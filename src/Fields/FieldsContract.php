@@ -111,7 +111,7 @@ abstract class FieldsContract implements Fields, Arrayable
                 return in_array($get('zeusData.' . $relatedFields), $collection);
             });
 
-        return $component->reactive();
+        return $component->debounce();
     }
 
     public function getCollectionsValuesForResponse($field, $resp): string
