@@ -26,16 +26,16 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
-            $coreFields = Collectors::collectClasses(__DIR__.'/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Collectors::collectClasses(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
 
             $fields = collect();
 
-            if (!$coreFields->isEmpty()) {
+            if (! $coreFields->isEmpty()) {
                 $fields = $fields->merge($coreFields);
             }
 
-            if (!$appFields->isEmpty()) {
+            if (! $appFields->isEmpty()) {
                 $fields = $fields->merge($appFields);
             }
 
@@ -86,7 +86,7 @@ class Bolt extends Facade
                 $fields[] = static::renderHook('zeus-form-field.before');
 
                 $fieldClass = new $zeusField->type;
-                $component = $fieldClass->renderClass::make('zeusData.'.$zeusField->id);
+                $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
 
                 $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
@@ -95,7 +95,7 @@ class Bolt extends Facade
 
             $fields[] = static::renderHook('zeus-form-section.after');
 
-            $sectionId = $section->name.'-'.$section->id;
+            $sectionId = $section->name . '-' . $section->id;
             if (optional($zeusForm->options)['show-as'] === 'tabs') {
                 $sections[] = Tabs\Tab::make($section->name)
                     ->id($sectionId)
@@ -116,7 +116,7 @@ class Bolt extends Facade
                     ->id($sectionId)
                     ->schema($fields)
                     ->aside()
-                    ->aside(fn() => $section->aside)
+                    ->aside(fn () => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);
             }
@@ -137,7 +137,7 @@ class Bolt extends Facade
     {
         $hookRendered = \Filament\Support\Facades\FilamentView::renderHook($hook);
 
-        return Placeholder::make('placeholder-'.$hook)
+        return Placeholder::make('placeholder-' . $hook)
             ->label('')
             ->content($hookRendered)
             ->visible(filled($hookRendered->toHtml()));
