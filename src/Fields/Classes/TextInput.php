@@ -22,7 +22,7 @@ class TextInput extends FieldsContract
     {
         return [
             Select::make('options.dateType')
-                ->label(__('Date type'))
+                ->label(__('Data type'))
                 ->required()
                 ->options([
                     'string' => __('text'),
