@@ -65,7 +65,7 @@ trait Schemata
                 ->collapsible()
                 ->collapsed()
                 ->minItems(1)
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -174,7 +174,7 @@ trait Schemata
                                 }),
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
-                        ->getOptionLabelFromRecordUsing(fn(Category $record) => "{$record->name}"),
+                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
                     Grid::make()
                         ->columns(2)
                         ->schema([
@@ -219,14 +219,14 @@ trait Schemata
 
             Tabs\Tab::make('embed-tab')
                 ->label(__('Embed'))
-                ->visible(fn(string $operation): bool => class_exists(\LaraZeus\Sky\SkyServiceProvider::class) && $operation === 'edit')
+                ->visible(fn (string $operation): bool => class_exists(\LaraZeus\Sky\SkyServiceProvider::class) && $operation === 'edit')
                 ->schema([
                     TextInput::make('form_embed')
                         ->label(__('to embed the form in any post or page'))
                         ->dehydrated(false)
                         ->disabled()
                         ->formatStateUsing(function (Get $get) {
-                            return '<bolt>'.$get('slug').'</bolt>';
+                            return '<bolt>' . $get('slug') . '</bolt>';
                         }),
                 ]),
         ];
@@ -250,7 +250,7 @@ trait Schemata
                                         ->label(__('Section Name')),
                                     TextInput::make('description')
                                         ->nullable()
-                                        ->visible(fn(Get $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn (Get $get) => $get('../../options.show-as') !== 'tabs')
                                         ->label(__('Section Description')),
                                 ]),
                             Tabs\Tab::make('section-details-tab')
@@ -265,7 +265,8 @@ trait Schemata
                                         ->hint(__('From 1-12'))
                                         ->label(__('Section Columns')),
                                     IconPicker::make('icon')
-                                        ->visible(fn(Get $get
+                                        ->visible(fn (
+                                            Get $get
                                         ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->columns([
                                             'default' => 1,
@@ -275,7 +276,7 @@ trait Schemata
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')
-                                        ->visible(fn(
+                                        ->visible(fn (
                                             Get $get
                                         ) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
                                         ->label(__('show as aside')),
@@ -299,7 +300,7 @@ trait Schemata
                     '2xl' => 4,
                 ])
                 ->label('')
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->addActionLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];
