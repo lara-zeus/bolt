@@ -145,8 +145,10 @@ class Bolt extends Facade
 
     public static function renderHookBlade($hook)
     {
-        if (!empty(\Filament\Support\Facades\FilamentView::renderHook($hook)->toHtml())) {
-            return \Filament\Support\Facades\FilamentView::renderHook($hook);
+        $hookRendered = \Filament\Support\Facades\FilamentView::renderHook($hook);
+
+        if (filled($hookRendered->toHtml())) {
+            return $hookRendered;
         }
     }
 
