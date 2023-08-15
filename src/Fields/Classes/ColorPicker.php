@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use LaraZeus\Bolt\Fields\FieldsContract;
 use Filament\Forms\Components\ColorPicker as ColorPickerAlias;
+use LaraZeus\Bolt\Fields\FieldsContract;
 
 class ColorPicker extends FieldsContract
 {
@@ -36,7 +36,7 @@ class ColorPicker extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        if (!empty($zeusField['options']['colorType'])) {
+        if (! empty($zeusField['options']['colorType'])) {
             call_user_func([$component, $zeusField['options']['colorType']]);
         }
 

@@ -2,9 +2,9 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Textarea as TextareaAlias;
 use Filament\Forms\Components\TextInput;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use Filament\Forms\Components\Textarea as TextareaAlias;
 
 class Textarea extends FieldsContract
 {
@@ -31,7 +31,6 @@ class Textarea extends FieldsContract
 
             TextInput::make('options.maxLength')
                 ->label(__('max maxLength')),
-
 
             self::required(),
             self::htmlID(),
