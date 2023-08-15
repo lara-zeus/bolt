@@ -4,6 +4,9 @@ namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -27,6 +30,7 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
+use Filament\Infolists\Infolist;
 
 class FormResource extends BoltResource
 {
@@ -63,6 +67,35 @@ class FormResource extends BoltResource
         return __('Forms');
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Section::make()->schema([
+                    TextEntry::make('name'),
+                    TextEntry::make('slug')
+                        ->url(fn(ZeusForm $record) => route('bolt.form.show', ['slug' => $record->slug]))
+                        ->openUrlInNewTab(),
+                    TextEntry::make('description'),
+                    IconEntry::make('is_active')
+                        ->icon(fn(string $state): string => match ($state) {
+                            '1' => 'clarity-check-circle-line',
+                            '0' => 'clarity-times-circle-solid',
+                            default => 'clarity-check-circle-line',
+                        })
+                        ->color(fn(string $state): string => match ($state) {
+                            '0' => 'warning',
+                            '1' => 'success',
+                            default => 'gray',
+                        }),
+
+                    TextEntry::make('start_date')->dateTime(),
+                    TextEntry::make('end_date')->dateTime(),
+                ])
+                    ->columns(2),
+            ]);
+    }
+
     public static function form(Form $form): Form
     {
         return $form->schema(static::getMainFormSchema());
@@ -90,19 +123,19 @@ class FormResource extends BoltResource
                         ->label(__('Entries'))
                         ->icon('clarity-data-cluster-line')
                         ->tooltip(__('view all entries'))
-                        ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
+                        ->url(fn(ZeusForm $record): string => url('admin/responses?form_id='.$record->id)),
                     Action::make('show')
                         ->color('warning')
                         ->label(__('View Form'))
                         ->icon('heroicon-o-arrow-top-right-on-square')
                         ->tooltip(__('view form'))
-                        ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
+                        ->url(fn(ZeusForm $record): string => route('bolt.form.show', $record))
                         ->openUrlInNewTab(),
                     ReplicateAction::make()
                         ->label(__('Replicate'))
                         ->excludeAttributes(['name', 'slug'])
                         ->form([
-                            TextInput::make('name.' . app()->getLocale())->required(),
+                            TextInput::make('name.'.app()->getLocale())->required(),
                             TextInput::make('slug')->required(),
                         ])
                         ->beforeReplicaSaved(function (ZeusForm $replica, ZeusForm $record, array $data): void {
@@ -129,12 +162,12 @@ class FormResource extends BoltResource
                 TrashedFilter::make(),
                 Filter::make('is_active')
                     ->toggle()
-                    ->query(fn (Builder $query): Builder => $query->where('is_active', true))
+                    ->query(fn(Builder $query): Builder => $query->where('is_active', true))
                     ->label(__('Is Active')),
 
                 Filter::make('not_active')
                     ->toggle()
-                    ->query(fn (Builder $query): Builder => $query->where('is_active', false))
+                    ->query(fn(Builder $query): Builder => $query->where('is_active', false))
                     ->label(__('Inactive')),
 
                 SelectFilter::make('category_id')
