@@ -4,6 +4,10 @@ namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -61,6 +65,35 @@ class FormResource extends BoltResource
     public static function getNavigationLabel(): string
     {
         return __('Forms');
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Section::make()->schema([
+                    TextEntry::make('name'),
+                    TextEntry::make('slug')
+                        ->url(fn (ZeusForm $record) => route('bolt.form.show', ['slug' => $record->slug]))
+                        ->openUrlInNewTab(),
+                    TextEntry::make('description'),
+                    IconEntry::make('is_active')
+                        ->icon(fn (string $state): string => match ($state) {
+                            '1' => 'clarity-check-circle-line',
+                            '0' => 'clarity-times-circle-solid',
+                            default => 'clarity-check-circle-line',
+                        })
+                        ->color(fn (string $state): string => match ($state) {
+                            '0' => 'warning',
+                            '1' => 'success',
+                            default => 'gray',
+                        }),
+
+                    TextEntry::make('start_date')->dateTime(),
+                    TextEntry::make('end_date')->dateTime(),
+                ])
+                    ->columns(2),
+            ]);
     }
 
     public static function form(Form $form): Form

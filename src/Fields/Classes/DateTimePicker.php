@@ -8,7 +8,7 @@ class DateTimePicker extends FieldsContract
 {
     public string $renderClass = \Filament\Forms\Components\DateTimePicker::class;
 
-    public int $sort = 7;
+    public int $sort = 5;
 
     public function title(): string
     {
