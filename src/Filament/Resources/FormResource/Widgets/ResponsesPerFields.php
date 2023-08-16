@@ -18,7 +18,7 @@ class ResponsesPerFields extends PieChartWidget
 
     public function getHeading(): string
     {
-        return __('Responses Status');
+        return __('Responses Entries');
     }
 
     protected function getData(): array
