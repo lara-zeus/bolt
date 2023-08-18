@@ -2,7 +2,7 @@
 
 Bolt is a form builder for your users, with so many use cases included a UI for the frontend built with filament
 
-## Features:
+## Features
 
 - 🔥 built with [filament](https://filamentadmin.com)
 - 🔥 Frontend scaffolding, highly customizable.
@@ -14,7 +14,7 @@ Bolt is a form builder for your users, with so many use cases included a UI for 
 - 🔥 Conditional Visibility.
 - 🔥 Events.
 
-## Screenshots:
+## Screenshots
 
 * **UI Form Manager:** beautifully designed form builder, data collections, and Categories
 
