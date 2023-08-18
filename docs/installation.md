@@ -3,6 +3,8 @@ title: Installation
 weight: 3
 ---
 
+before you continue, please make sure you already installed filament, and all working prefecture for you.
+
 ## Composer
 
 You can install the package via composer:

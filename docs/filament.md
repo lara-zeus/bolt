@@ -1,10 +1,3 @@
-<!-- TOC -->
-* [Zeus Bolt](#zeus-bolt)
-  * [Features:](#features)
-  * [Screenshots:](#screenshots)
-  * [More Details](#more-details)
-<!-- TOC -->
-
 # Zeus Bolt
 
 Bolt is a form builder for your users, with so many use cases included a UI for the frontend built with filament
