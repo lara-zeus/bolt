@@ -2,11 +2,13 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
-use Closure;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Get;
+use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
@@ -16,14 +18,14 @@ trait HasOptions
         return Grid::make()
             ->schema([
                 Toggle::make('options.visibility.active')
-                    ->reactive()
+                    ->live()
                     ->label(__('Conditional Visibility')),
 
                 Select::make('options.visibility.fieldID')
                     ->label(__('show when the field:'))
-                    ->reactive()
-                    ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
-                    ->required(fn (Closure $get): bool => ! empty($get('options.visibility.active')))
+                    ->live()
+                    ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
+                    ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->options(function ($livewire, $record) {
                         if ($record === null) {
                             return [];
@@ -42,11 +44,11 @@ trait HasOptions
                     }),
 
                 Select::make('options.visibility.values')
-                    ->label(__('show when the field:'))
-                    ->reactive()
-                    ->required(fn (Closure $get): bool => ! empty($get('options.visibility.fieldID')))
-                    ->visible(fn (Closure $get): bool => ! empty($get('options.visibility.fieldID')))
-                    ->options(function (Closure $get, $livewire) {
+                    ->label(__('has the value:'))
+                    ->live()
+                    ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
+                    ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
+                    ->options(function (Get $get, $livewire) {
                         if ($get('options.visibility.fieldID') === null) {
                             return [];
                         }
@@ -65,8 +67,7 @@ trait HasOptions
                             return [];
                         }
 
-                        return FieldsContract::getFieldCollectionItemsList($getRelated)
-                            ->pluck('itemValue', 'itemKey');
+                        return FieldsContract::getFieldCollectionItemsList($getRelated);
                     }),
             ])
             ->columns(1);
@@ -83,11 +84,33 @@ trait HasOptions
 
     public static function dataSource(): Grid
     {
+        $dataSources = BoltPlugin::getModel('Collection')::get()
+            ->mapWithKeys(function ($item, $key) {
+                return [
+                    $key => [
+                        'title' => $item['name'],
+                        'class' => $item['id'],
+                    ],
+                ];
+            })
+            ->merge(
+                Bolt::availableDataSource()
+                    ->mapWithKeys(function ($item, $key) {
+                        return [
+                            $key => [
+                                'title' => $item['title'],
+                                'class' => $item['class'],
+                            ],
+                        ];
+                    })
+            )
+            ->pluck('title', 'class');
+
         return Grid::make()
             ->schema([
                 Select::make('options.dataSource')
                     ->required()
-                    ->options(config('zeus-bolt.models.Collection')::pluck('name', 'id'))
+                    ->options($dataSources)
                     ->label(__('Data Source')),
             ])
             ->columns(1);

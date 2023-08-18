@@ -1,0 +1,29 @@
+<?php
+
+namespace {{ namespace }};
+
+use LaraZeus\Bolt\DataSources\DataSourceContract;
+
+class {{ class }} extends DataSourceContract
+{
+    public function title(): string
+    {
+        return '{{ class }}';
+    }
+
+    public function getValuesUsing(): string
+    {
+        return 'name';
+    }
+
+    public function getKeysUsing(): string
+    {
+        return 'id';
+    }
+
+    public function getModel(): string
+    {
+        return \App\Models\{{ class }}::class;
+    }
+}
+

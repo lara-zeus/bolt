@@ -10,15 +10,15 @@ class ResponsesPerFields extends PieChartWidget
 {
     public Form $record;
 
-    protected int|string|array $columnSpan = [
+    protected int | string | array $columnSpan = [
         'sm' => 1,
     ];
 
     protected static ?string $maxHeight = '300px';
 
-    protected function getHeading(): string
+    public function getHeading(): string
     {
-        return __('Responses Status');
+        return __('Responses Entries');
     }
 
     protected function getData(): array

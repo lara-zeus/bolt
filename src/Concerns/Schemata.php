@@ -2,8 +2,6 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
-use Closure;
-use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
@@ -11,15 +9,19 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
-use Webbingbrasil\FilamentCopyActions\Forms\Actions\CopyAction;
+use LaraZeus\Bolt\Models\Category;
 
 trait Schemata
 {
@@ -28,11 +30,11 @@ trait Schemata
         return [
             Hidden::make('user_id')->default(auth()->user()->id ?? null),
 
-            Card::make()
+            Section::make()
                 ->schema([
                     TextInput::make('name')
                         ->maxLength(255)
-                        ->reactive()
+                        ->live(onBlur: true)
                         ->label(__('Form Name')),
                 ]),
         ];
@@ -46,7 +48,7 @@ trait Schemata
             Tabs::make('form-tabs')
                 ->tabs(static::getTabsSchema())
                 ->columnSpan(2),
-            Card::make()
+            Section::make()
                 ->schema([
                     Placeholder::make('section-title-placeholder')
                         ->label(__('Sections'))
@@ -57,8 +59,8 @@ trait Schemata
                 ->label('')
                 ->schema(static::getSectionsSchema())
                 ->relationship()
-                ->orderable('ordering')
-                ->createItemButtonLabel(__('Add Section'))
+                ->orderColumn('ordering')
+                ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
                 ->collapsed()
@@ -77,12 +79,12 @@ trait Schemata
                 ->schema([
                     TextInput::make('name')
                         ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-translate')
+                        ->hintIcon('heroicon-s-language')
                         ->required()
                         ->maxLength(255)
-                        ->reactive()
+                        ->live(onBlur: true)
                         ->label(__('Form Name'))
-                        ->afterStateUpdated(function (Closure $set, $state, $context) {
+                        ->afterStateUpdated(function (Set $set, $state, $context) {
                             if ($context === 'edit') {
                                 return;
                             }
@@ -100,12 +102,12 @@ trait Schemata
                 ->schema([
                     Textarea::make('description')
                         ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-translate')
+                        ->hintIcon('heroicon-s-language')
                         ->label(__('Form Description'))
                         ->helperText(__('shown under the title of the form and used in SEO')),
                     RichEditor::make('details')
                         ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-translate')
+                        ->hintIcon('heroicon-s-language')
                         ->label(__('Form Details'))
                         ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
                     RichEditor::make('options.confirmation-message')
@@ -123,17 +125,17 @@ trait Schemata
                     Toggle::make('options.require-login')
                         ->label(__('require Login'))
                         ->helperText(__('User must be logged in or create an account before can submit a new entry'))
-                        ->reactive(),
+                        ->live(),
                     Toggle::make('options.one-entry-per-user')
                         ->label(__('One Entry Per User'))
                         ->helperText(__('to check if the user already submitted an entry in this form'))
-                        ->visible(function (Closure $get) {
+                        ->visible(function (Get $get) {
                             return $get('options.require-login');
                         }),
 
                     Radio::make('options.show-as')
                         ->label(__('Show the form as'))
-                        ->reactive()
+                        ->live()
                         ->default('page')
                         ->descriptions([
                             'page' => __('show all sections on one page'),
@@ -154,8 +156,25 @@ trait Schemata
                 ->schema([
                     Select::make('category_id')
                         ->label(__('Category'))
+                        ->searchable()
+                        ->preload()
+                        ->relationship('category', 'name')
                         ->helperText(__('optional, organize your forms into categories'))
-                        ->options(config('zeus-bolt.models.Category')::pluck('name', 'id')),
+                        ->createOptionForm([
+                            TextInput::make('name')
+                                ->required()
+                                ->maxLength(255)
+                                ->live(onBlur: true)
+                                ->label(__('Name'))
+                                ->afterStateUpdated(function (Set $set, $state, $context) {
+                                    if ($context === 'edit') {
+                                        return;
+                                    }
+                                    $set('slug', Str::slug($state));
+                                }),
+                            TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
+                        ])
+                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
                     Grid::make()
                         ->columns(2)
                         ->schema([
@@ -176,21 +195,18 @@ trait Schemata
                             TextInput::make('options.emails-notification')
                                 ->label(__('Emails Notifications'))
                                 ->helperText(__('optional, enter the emails (comma separated) you want to receive notification when ever you got a new entry')),
-                            /*TextInput::make('options.web-hook')
-                                ->label(__('enter webHook URL'))
-                                ->helperText(__('Send the form data to a webHook')),*/
                         ]),
                 ]),
 
             Tabs\Tab::make('extensions-tab')
                 ->label(__('Extensions'))
-                ->visible(config('zeus-bolt.extensions') !== null)
+                ->visible(BoltPlugin::get()->getExtensions() !== null)
                 ->schema([
                     Select::make('extensions')
                         ->label(__('Extensions'))
                         ->preload()
                         ->options(function () {
-                            return collect(config('zeus-bolt.extensions'))
+                            return collect(BoltPlugin::get()->getExtensions())
                                 ->mapWithKeys(function ($item): array {
                                     if (class_exists($item)) {
                                         return [$item => (new $item)->label()];
@@ -203,16 +219,15 @@ trait Schemata
 
             Tabs\Tab::make('embed-tab')
                 ->label(__('Embed'))
-                ->visible(class_exists(\LaraZeus\Sky\SkyServiceProvider::class))
+                ->visible(fn (string $operation): bool => class_exists(\LaraZeus\Sky\SkyServiceProvider::class) && $operation === 'edit')
                 ->schema([
                     TextInput::make('form_embed')
                         ->label(__('to embed the form in any post or page'))
                         ->dehydrated(false)
                         ->disabled()
-                        ->formatStateUsing(function (Closure $get) {
+                        ->formatStateUsing(function (Get $get) {
                             return '<bolt>' . $get('slug') . '</bolt>';
-                        })
-                        ->suffixAction(CopyAction::make()),
+                        }),
                 ]),
         ];
     }
@@ -233,16 +248,15 @@ trait Schemata
                                         ->required()
                                         ->lazy()
                                         ->label(__('Section Name')),
+                                    TextInput::make('description')
+                                        ->nullable()
+                                        ->visible(fn (Get $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->label(__('Section Description')),
                                 ]),
                             Tabs\Tab::make('section-details-tab')
                                 ->label(__('Section Details'))
                                 ->columns(2)
                                 ->schema([
-                                    TextInput::make('description')
-                                        ->nullable()
-                                        ->visible(fn (Closure $get) => $get('../../options.show-as') !== 'tabs')
-                                        ->label(__('Section Description')),
-
                                     TextInput::make('columns')
                                         ->required()
                                         ->default(1)
@@ -250,16 +264,20 @@ trait Schemata
                                         ->maxValue(12)
                                         ->hint(__('From 1-12'))
                                         ->label(__('Section Columns')),
-
                                     IconPicker::make('icon')
                                         ->visible(fn (
-                                            Closure $get
+                                            Get $get
                                         ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->columns([
+                                            'default' => 1,
+                                            'lg' => 3,
+                                            '2xl' => 5,
+                                        ])
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')
                                         ->visible(fn (
-                                            Closure $get
+                                            Get $get
                                         ) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
                                         ->label(__('show as aside')),
                                 ]),
@@ -270,7 +288,7 @@ trait Schemata
             Repeater::make('fields')
                 ->relationship()
                 ->label('')
-                ->orderable('ordering')
+                ->orderColumn('ordering')
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
@@ -283,7 +301,7 @@ trait Schemata
                 ])
                 ->label('')
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
-                ->createItemButtonLabel(__('Add field'))
+                ->addActionLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];
     }
@@ -294,7 +312,7 @@ trait Schemata
             Tabs::make('fields-tab')
                 ->tabs([
                     Tabs\Tab::make('type-text-tab')
-                        ->icon('heroicon-o-menu-alt-2')
+                        ->icon('heroicon-o-bars-3-bottom-left')
                         ->label(__('Type & title'))
                         ->schema([
                             TextInput::make('name')
@@ -306,7 +324,7 @@ trait Schemata
                             Select::make('type')
                                 ->required()
                                 ->options(Bolt::availableFields()->pluck('title', 'class'))
-                                ->reactive()
+                                ->live()
                                 ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
                                 ->label(__('Field Type')),
                         ]),
@@ -320,7 +338,7 @@ trait Schemata
                                     'lg' => 2,
                                 ])
                                 ->label(__('Field Options'))
-                                ->visible(function (Closure $get) {
+                                ->visible(function (Get $get) {
                                     $class = $get('type');
                                     if (class_exists($class)) {
                                         return (new $class)->hasOptions();
@@ -328,7 +346,7 @@ trait Schemata
 
                                     return false;
                                 })
-                                ->schema(function (Closure $get) {
+                                ->schema(function (Get $get) {
                                     return $get('type')::getOptions();
                                 })
                                 ->columns(1),

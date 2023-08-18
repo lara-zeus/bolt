@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\CategoryFactory;
+use LaraZeus\Wind\WindPlugin;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -36,7 +38,7 @@ class Category extends Model
     /** @return HasMany<Form> */
     public function forms(): HasMany
     {
-        return $this->hasMany(config('zeus-bolt.models.Form'));
+        return $this->hasMany(BoltPlugin::getModel('Form'));
     }
 
     /**
@@ -45,7 +47,7 @@ class Category extends Model
     protected function logoUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => Storage::disk(config('zeus-wind.uploads.disk', 'public'))->url($this->logo),
+            get: fn () => Storage::disk(WindPlugin::get()->getUploadDisk())->url($this->logo),
         );
     }
 }

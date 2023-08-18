@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
 
 class FormFactory extends Factory
@@ -23,7 +24,7 @@ class FormFactory extends Factory
             'description' => $this->faker->text(),
             'slug' => $this->faker->slug(),
             'is_active' => 1,
-            'category_id' => config('zeus-bolt.models.Category')::factory(),
+            'category_id' => BoltPlugin::getModel('Category')::factory(),
             'start_date' => $this->faker->dateTime(),
             'end_date' => $this->faker->dateTime(),
         ];

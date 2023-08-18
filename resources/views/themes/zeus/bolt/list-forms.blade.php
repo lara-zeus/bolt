@@ -8,7 +8,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         @foreach($categories as $category)
-            <x-filament::card>
+            <x-filament::section>
                 @if($category->logo !== null)
                     <img alt="{{ $category->name }} {{ __('Logo') }}" class="w-full h-32 object-center object-cover mb-4" src="{{ $category->logo_url }}"/>
                 @endif
@@ -23,12 +23,12 @@
                         <span class="text-primary-600 dark:text-primary-500 hover:dark:text-primary-300">
                             {{ $form->name ?? '' }}
                         </span>
-                        <cite class="text-secondary-600 dark:text-secondary-500 hover:dark:text-secondary-300">
+                        <cite class="text-custom-600 dark:text-custom-500 hover:dark:text-custom-300">
                             {{ $form->description }}
                         </cite>
                     </a>
                 @endforeach
-            </x-filament::card>
+            </x-filament::section>
         @endforeach
     </div>
 

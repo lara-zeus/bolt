@@ -2,38 +2,29 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
-use Filament\Pages\Actions\Action;
-use Filament\Pages\Actions\EditAction;
-use Filament\Pages\Actions\LocaleSwitcher;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
+use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;
+use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 
 class ViewForm extends ViewRecord
 {
     use ViewRecord\Concerns\Translatable;
+    use EntriesAction;
 
     protected static string $resource = FormResource::class;
 
-    protected function getFormSchema(): array
-    {
-        return FormResource::getMainFormSchemaForView();
-    }
-
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             LocaleSwitcher::make(),
             EditAction::make(),
-            Action::make('entries')
-                ->label(__('Entries'))
-                ->icon('clarity-data-cluster-line')
-                ->tooltip(__('view all entries'))
-                ->color('secondary')
-                ->url(fn () => url('admin/responses?form_id=' . $this->record->id)),
-
+            ...$this->getEntriesActions($this->record->id),
             Action::make('view')
                 ->label(__('View'))
-                ->icon('heroicon-o-external-link')
+                ->icon('heroicon-o-arrow-top-right-on-square')
                 ->tooltip(__('view form'))
                 ->color('warning')
                 ->url(fn () => route('bolt.form.show', $this->record))
@@ -41,7 +32,7 @@ class ViewForm extends ViewRecord
         ];
     }
 
-    protected function getHeaderWidgets(): array
+    protected function getFooterWidgets(): array
     {
         return [
             FormResource\Widgets\FormOverview::class,

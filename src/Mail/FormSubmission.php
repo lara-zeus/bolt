@@ -43,7 +43,7 @@ class FormSubmission extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            markdown: 'zeus-bolt::emails.form-submission',
+            markdown: 'zeus::emails.form-submission',
             with: [
                 'url' => url(config('filament.path') . '/responses/' . $this->response->id),
             ],

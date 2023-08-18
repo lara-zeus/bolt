@@ -3,84 +3,64 @@
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
-use Closure;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Filament\Resources\Pages\Page;
-use Filament\Tables;
-use Filament\Tables\Columns\BadgeColumn;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\EntriesAction;
+use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\FormsStatus;
+use Livewire\Attributes\Url;
 
-class ReportResponses extends Page implements Tables\Contracts\HasTable
+class ReportResponses extends Page implements HasForms, HasTable
 {
-    use Tables\Concerns\InteractsWithTable;
-    use \LaraZeus\Bolt\Concerns\EntriesAction;
+    use InteractsWithTable;
+    use InteractsWithForms;
+    use EntriesAction;
 
     protected static string $resource = ResponseResource::class;
 
-    protected static string $view = 'zeus-bolt::filament.pages.reports.entries';
+    protected static string $view = 'zeus::filament.pages.reports.entries';
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 
     public $form;
 
+    #[Url(history: true, keep: true)]
     public int $form_id = 0;
 
-    protected $queryString = [
-        'form_id',
-    ];
-
-    public function mount()
-    {
-        abort_unless(request()->filled('form_id'), 404);
-
-        $this->form_id = request('form_id', 0);
-        $this->form = Form::with(['fields'])->find($this->form_id);
-    }
-
-    protected function getTitle(): string
-    {
-        return __('Entries Report');
-    }
-
-    protected function getTableRecordUrlUsing(): ?Closure
-    {
-        return fn (Model $record): string => ResponseResource::getUrl('view', $record);
-    }
-
-    protected function getTableQuery(): Builder
-    {
-        return config('zeus-bolt.models.Response')::query()
-            ->where('form_id', $this->form_id)
-            ->with(['fieldsResponses']);
-    }
-
-    protected function getTableColumns(): array
+    public function table(Table $table): Table
     {
         $mainColumns = [
-            ImageColumn::make('user.avatar')
+            // todo disabled due to an issue with exporting
+            /*ImageColumn::make('user.avatar')
                 ->label(__('Avatar'))
-                ->toggleable(),
-            Tables\Columns\TextColumn::make('user.name')
+                ->toggleable(),*/
+            TextColumn::make('user.name')
                 ->label(__('User Name'))
                 ->searchable(),
-            BadgeColumn::make('status')
+            TextColumn::make('status')
+                ->badge()
                 ->label(__('status'))
-                ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
-                ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
-                ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
+                ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
+                ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)
                 ->searchable('status'),
 
-            Tables\Columns\TextColumn::make('notes')->toggleable(),
+            TextColumn::make('notes')->toggleable(),
         ];
 
         foreach ($this->form->fields->sortBy('ordering') as $field) {
-            $mainColumns[] = Tables\Columns\TextColumn::make('zeusData.' . $field->id)
+            $mainColumns[] = TextColumn::make('zeusData.' . $field->id)
                 ->label($field->name)
                 ->searchable(query: function (Builder $query, string $search): Builder {
                     return $query
@@ -93,9 +73,46 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
                 ->toggleable();
         }
 
-        $mainColumns[] = Tables\Columns\TextColumn::make('created_at')->toggleable();
+        $mainColumns[] = TextColumn::make('created_at')->toggleable();
 
-        return $mainColumns;
+        return $table
+            ->query(
+                BoltPlugin::getModel('Response')::query()
+                    ->where('form_id', $this->form_id)
+                    ->with(['fieldsResponses'])
+            )
+            ->columns($mainColumns)
+            ->filters([
+                SelectFilter::make('status')
+                    ->options(FormsStatus::query()->pluck('label', 'key'))
+                    ->label(__('Status')),
+            ])
+            ->bulkActions([
+                FilamentExportBulkAction::make('export')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->label(__('Export')),
+            ])
+            ->recordUrl(
+                fn (Model $record): string => ResponseResource::getUrl('view', ['record' => $record]),
+            );
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return $this->getEntriesActions();
+    }
+
+    public function mount()
+    {
+        abort_unless(request()->filled('form_id'), 404);
+
+        $this->form_id = request('form_id', 0);
+        $this->form = Form::with(['fields'])->find($this->form_id);
+    }
+
+    public function getTitle(): string
+    {
+        return __('Entries Report');
     }
 
     public function getFieldResponseValue($record, $field)
@@ -108,25 +125,14 @@ class ReportResponses extends Page implements Tables\Contracts\HasTable
         return (new $fieldResponse->field->type)->getResponse($fieldResponse->field, $fieldResponse);
     }
 
-    protected function getTableFilters(): array
+    public function getBreadcrumbs(): array
     {
-        return [
-            SelectFilter::make('form')->relationship('form', 'name')->default(request('form_id', null)),
-            SelectFilter::make('status')
-                ->options(FormsStatus::query()->pluck('label', 'key'))
-                ->label(__('Status')),
-        ];
-    }
+        $breadcrumb = $this->getBreadcrumb();
 
-    protected function getTableBulkActions(): array
-    {
         return [
-            FilamentExportBulkAction::make('export')->label(__('Export')),
+            FormResource::getUrl() => FormResource::getBreadcrumb(),
+            FormResource::getUrl('view', ['record' => $this->form->slug]) => $this->form->name,
+            ...(filled($breadcrumb) ? [$breadcrumb] : []),
         ];
-    }
-
-    protected function getActions(): array
-    {
-        return $this->getEntriesActions();
     }
 }

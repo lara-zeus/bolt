@@ -5,44 +5,45 @@ namespace LaraZeus\Bolt\Filament\Resources;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
+use Filament\Forms\Form;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Widgets\EditCollectionWarning;
 
 class CollectionResource extends BoltResource
 {
-    public static function getModel(): string
-    {
-        return config('zeus-bolt.models.Collection');
-    }
-
     protected static ?string $navigationIcon = 'clarity-folder-open-outline-badged';
 
     protected static ?int $navigationSort = 3;
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModel(): string
+    {
+        return BoltPlugin::getModel('Collection');
+    }
+
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'values'];
     }
 
-    public static function getLabel(): string
+    public static function getModelLabel(): string
     {
         return __('Collection');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Collections');
     }
 
-    protected static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('Collections');
     }
@@ -59,11 +60,13 @@ class CollectionResource extends BoltResource
                         'lg' => 3,
                     ])
                     ->label(__('Collections Values'))
+                    ->columnSpan(2)
+                    ->columns(1)
                     ->schema([
                         TextInput::make('itemKey')->required()->label(__('Key'))->hint(__('what store in the form')),
                         TextInput::make('itemValue')->required()->label(__('Value'))->hint(__('what the user will see')),
                         Toggle::make('itemIsDefault')->label(__('selected by default')),
-                    ])->columnSpan(2)->columns(1),
+                    ]),
             ]);
     }
 
@@ -71,8 +74,17 @@ class CollectionResource extends BoltResource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->label(__('Collections Name'))->searchable()->sortable()->toggleable(),
-                TextColumn::make('values-list')->html()->label(__('Collections Values'))->searchable(['values'])->toggleable(),
+                TextColumn::make('name')
+                    ->label(__('Collections Name'))
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                TextColumn::make('values-list')
+                    ->badge()
+                    ->separator(',')
+                    ->label(__('Collections Values'))
+                    ->searchable(['values'])
+                    ->toggleable(),
             ])
             ->actions([
                 ActionGroup::make([

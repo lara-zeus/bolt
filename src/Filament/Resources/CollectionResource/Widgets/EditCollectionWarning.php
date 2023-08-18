@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class EditCollectionWarning extends Widget
 {
-    protected int|string|array $columnSpan = 'full';
+    protected int | string | array $columnSpan = 'full';
 
     public ?Model $record = null;
 
-    protected static string $view = 'zeus-bolt::filament.resources.form-resource.widgets.edit-collection-warning';
+    protected static string $view = 'zeus::filament.resources.form-resource.widgets.edit-collection-warning';
 }

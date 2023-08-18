@@ -4,31 +4,19 @@ namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
-use LaraZeus\Bolt\Filament\Resources\CollectionResource\Widgets\EditCollectionWarning;
+use LaraZeus\Bolt\BoltPlugin;
 
 class BoltResource extends Resource
 {
     use Translatable;
 
-    protected static function getNavigationBadge(): ?string
+    public static function getNavigationBadge(): ?string
     {
         return (string) static::getModel()::query()->count();
     }
 
-    public static function getTranslatableLocales(): array
+    public static function getNavigationGroup(): ?string
     {
-        return config('zeus-bolt.translatable_Locales');
-    }
-
-    protected static function getNavigationGroup(): ?string
-    {
-        return __(config('zeus-bolt.navigation_group_label', 'Bolt'));
-    }
-
-    public static function getWidgets(): array
-    {
-        return [
-            EditCollectionWarning::class,
-        ];
+        return BoltPlugin::get()->getNavigationGroupLabel();
     }
 }

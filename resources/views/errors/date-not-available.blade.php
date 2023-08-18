@@ -4,10 +4,10 @@
     </x-slot>
 
     <div class="max-w-4xl mx-auto px-4">
-        <x-filament::card>
+        <x-filament::section :compact="true">
             <x-slot name="heading">
                 <div class="flex items-center justify-center gap-2">
-                    <x-heroicon-o-exclamation class="w-5 h-5 text-secondary-600"/>
+                    @svg('heroicon-o-exclamation-triangle','w-5 h-5 text-custom-600')
                     <span class="text-md">
                         {{ __('Date Not Available') }}
                     </span>
@@ -18,10 +18,10 @@
 
             <x-slot name="actions">
                 <span class="text-sm text-gray-500">{{ __('Start date') }}</span>:
-                <span class="text-sm">{{ $zeusForm->start_date->format(config('zeus-bolt.default_date_format')) }}</span>,
+                <span class="text-sm">{{ $zeusForm->start_date->format(\Filament\Tables\Table::$defaultDateTimeDisplayFormat) }}</span>,
                 <span class="text-sm text-gray-500">{{ __('End date') }}</span>:
-                <span class="text-sm">{{ $zeusForm->end_date->format(config('zeus-bolt.default_date_format')) }}</span>
+                <span class="text-sm">{{ $zeusForm->end_date->format(\Filament\Tables\Table::$defaultDateTimeDisplayFormat) }}</span>
             </x-slot>
-        </x-filament::card>
+        </x-filament::section>
     </div>
 </div>

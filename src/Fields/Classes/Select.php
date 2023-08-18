@@ -40,7 +40,8 @@ class Select extends FieldsContract
 
         $component = $component
             ->searchable()
-            ->options($options->pluck('itemValue', 'itemKey'));
+            ->preload()
+            ->options($options);
 
         if (isset($zeusField->options['allow_multiple']) && $zeusField->options['allow_multiple']) {
             $component = $component->multiple();
@@ -48,6 +49,7 @@ class Select extends FieldsContract
 
         if (request()->filled($zeusField->options['htmlId'])) {
             $component = $component->default(request($zeusField->options['htmlId']));
+            //todo set default items for datasources
         } elseif ($selected = $options->where('itemIsDefault', true)->pluck('itemKey')->isNotEmpty()) {
             $component = $component->default($selected);
         }

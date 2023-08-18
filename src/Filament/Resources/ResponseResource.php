@@ -3,41 +3,50 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Filament\Forms\Components\ViewField;
-use Filament\Resources\Form;
-use Filament\Resources\Table;
-use Filament\Tables\Columns\BadgeColumn;
+use Filament\Forms\Form;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 use LaraZeus\Bolt\Models\FormsStatus;
+use Livewire\Attributes\Url;
 
 class ResponseResource extends BoltResource
 {
-    public static function getModel(): string
-    {
-        return config('zeus-bolt.models.Response');
-    }
-
     protected static ?string $navigationIcon = 'clarity-data-cluster-line';
 
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'responses';
 
-    public static function getLabel(): string
+    protected static bool $shouldRegisterNavigation = false;
+
+    #[Url(history: true, keep: true)]
+    public int $form_id = 0;
+
+    public static function getModel(): string
+    {
+        return BoltPlugin::getModel('Response');
+    }
+
+    public static function getModelLabel(): string
     {
         return __('Entries');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('Entries');
     }
 
-    protected static function getNavigationLabel(): string
+    public static function getNavigationLabel(): string
     {
         return __('Entries');
     }
@@ -46,7 +55,8 @@ class ResponseResource extends BoltResource
     {
         return $form
             ->schema([
-                ViewField::make('response')->view('zeus-bolt::filament.resources.response-resource.components.view-responses')
+                ViewField::make('response')
+                    ->view('zeus::filament.resources.response-resource.components.view-responses')
                     ->label('')
                     ->columnSpan(2),
             ]);
@@ -70,7 +80,7 @@ class ResponseResource extends BoltResource
                             ->extraAttributes(['class' => 'text-gray-400'])
                             ->size('sm')
                             ->weight('medium')
-                            ->icon('heroicon-s-mail'),
+                            ->icon('heroicon-s-envelope'),
                     ]),
                 ]),
                 TextColumn::make('form.name')
@@ -78,11 +88,11 @@ class ResponseResource extends BoltResource
                     ->searchable()
                     ->visible(! request()->filled('form_id')),
                 Stack::make([
-                    BadgeColumn::make('status')
+                    TextColumn::make('status')
+                        ->badge()
                         ->label(__('status'))
-                        ->enum(config('zeus-bolt.models.FormsStatus')::pluck('label', 'key')->toArray())
-                        ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
-                        ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
+                        ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
+                        ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                         ->grow(false)
                         ->searchable('status'),
                     TextColumn::make('notes')->label(__('Notes'))->searchable(),
@@ -93,14 +103,18 @@ class ResponseResource extends BoltResource
                 'md' => 2,
                 'xl' => 3,
             ])
+            ->modifyQueryUsing(function (Builder $query, Table $table) {
+                return $query->where('form_id', $table->getLivewire()->form_id);
+            })
             ->defaultSort('created_at', 'description')
+            ->actions([
+                ViewAction::make(),
+                SetResponseStatus::make(),
+            ])
             ->filters([
                 SelectFilter::make('status')
                     ->options(FormsStatus::query()->pluck('label', 'key'))
                     ->label(__('Status')),
-                SelectFilter::make('form')
-                    ->relationship('form', 'name')
-                    ->default(request('form_id', null)),
             ]);
     }
 

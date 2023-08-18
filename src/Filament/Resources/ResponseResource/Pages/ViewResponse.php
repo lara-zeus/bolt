@@ -2,9 +2,9 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
+use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\FormsStatus;
@@ -14,7 +14,7 @@ class ViewResponse extends ViewRecord
 {
     protected static string $resource = ResponseResource::class;
 
-    protected function getActions(): array
+    protected function getHeaderActions(): array
     {
         return [
             Action::make('set-status')

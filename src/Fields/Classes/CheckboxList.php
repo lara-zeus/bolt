@@ -8,7 +8,7 @@ class CheckboxList extends FieldsContract
 {
     public string $renderClass = \Filament\Forms\Components\CheckboxList::class;
 
-    public int $sort = 6;
+    public int $sort = 3;
 
     public function title(): string
     {
@@ -36,11 +36,12 @@ class CheckboxList extends FieldsContract
 
         $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 
-        $component = $component
-            ->options($options->pluck('itemValue', 'itemKey'));
+        $component = $component->options($options);
 
         if (request()->filled($zeusField->options['htmlId'])) {
             $component = $component->default(request($zeusField->options['htmlId']));
+
+            //todo set default items for datasources
         } elseif ($selected = $options->where('itemIsDefault', true)->pluck('itemKey')->isNotEmpty()) {
             $component = $component->default($selected);
         }

@@ -3,6 +3,8 @@ title: Installation
 weight: 3
 ---
 
+before you continue, please make sure you already installed filament, and all working prefecture for you.
+
 ## Composer
 
 You can install the package via composer:
@@ -12,33 +14,35 @@ composer require lara-zeus/bolt
 ```
 
 ## Migrations
-to publish the migrations files
+Publish the migrations files
 
 ```bash
 php artisan vendor:publish --tag=zeus-bolt-migrations
 ```
 
-optionally, if you want to seed the database, publish the seeder and factories with:
-
-```bash
-php artisan vendor:publish --tag=zeus-bolt-seeder
-php artisan vendor:publish --tag=zeus-bolt-factories
-```
-
 ## Assets
-to publish the assets files for the frontend:
+Publish the assets files for the frontend:
 
 ```bash
 php artisan vendor:publish --tag=zeus-assets
 ```
 
 ## Run Migration
-finally, run the migration:
+Finally, run the migration:
 
 ```bash
 php artisan migrate
 ```
 
+## Filament Setup
+
+Set up the plugin with filament you need to add it to your panel provider, The default one is `adminPanelProvider`
+
+```php
+SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
+BoltPlugin::make()
+```
+
 ## Usage
 
-visit the url `/admin` , and `/bolt` to access the forms.
+Visit the url `/admin` , and `/bolt` to access the forms.

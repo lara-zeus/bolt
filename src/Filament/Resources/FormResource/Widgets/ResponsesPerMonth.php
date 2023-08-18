@@ -10,11 +10,11 @@ class ResponsesPerMonth extends LineChartWidget
 {
     public Form $record;
 
-    protected int|string|array $columnSpan = 'full';
+    protected int | string | array $columnSpan = 'full';
 
     protected static ?string $maxHeight = '300px';
 
-    protected function getHeading(): string
+    public function getHeading(): string
     {
         return __('Responses Count');
     }
