@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
-use LaraZeus\Bolt\Models\FormsStatus;
 use Livewire\Attributes\Url;
 
 class ResponseResource extends BoltResource
