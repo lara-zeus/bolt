@@ -2,10 +2,11 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
-use Filament\Widgets\PieChartWidget;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\FormsStatus;
 use LaraZeus\Bolt\Models\Response;
+use Filament\Widgets\PieChartWidget;
+use LaraZeus\Bolt\Models\FormsStatus;
 
 class ResponsesPerStatus extends PieChartWidget
 {
@@ -25,7 +26,7 @@ class ResponsesPerStatus extends PieChartWidget
     protected function getData(): array
     {
         $dataset = [];
-        $statuses = FormsStatus::get();
+        $statuses = BoltPlugin::getModel('FormsStatus')::get();
         foreach ($statuses as $status) {
             $dataset[] = Response::query()
                 ->where('form_id', $this->record->id)
