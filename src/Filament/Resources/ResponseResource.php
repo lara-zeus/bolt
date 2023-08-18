@@ -113,7 +113,7 @@ class ResponseResource extends BoltResource
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->options(FormsStatus::query()->pluck('label', 'key'))
+                    ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
                     ->label(__('Status')),
             ]);
     }

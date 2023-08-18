@@ -6,7 +6,7 @@ use Closure;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Actions\Action;
-use LaraZeus\Bolt\Models\FormsStatus;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 
 /**
@@ -43,7 +43,7 @@ class SetResponseStatus extends Action
             Select::make('status')
                 ->label(__('status'))
                 ->default(fn (Response $record) => $record->status)
-                ->options(FormsStatus::query()->pluck('label', 'key'))
+                ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
                 ->required(),
             Textarea::make('notes')
                 ->default(fn (Response $record) => $record->notes)

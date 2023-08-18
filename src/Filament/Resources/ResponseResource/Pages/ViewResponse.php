@@ -3,12 +3,13 @@
 namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
 use Filament\Actions\Action;
+use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Models\Response;
 use Filament\Forms\Components\Select;
+use LaraZeus\Bolt\Models\FormsStatus;
 use Filament\Forms\Components\Textarea;
 use Filament\Resources\Pages\ViewRecord;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
-use LaraZeus\Bolt\Models\FormsStatus;
-use LaraZeus\Bolt\Models\Response;
 
 class ViewResponse extends ViewRecord
 {
@@ -32,7 +33,7 @@ class ViewResponse extends ViewRecord
                     Select::make('status')
                         ->label(__('status'))
                         ->default(fn (Response $record) => $record->status)
-                        ->options(FormsStatus::query()->pluck('label', 'key'))
+                        ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
                         ->required(),
                     Textarea::make('notes')
                         ->default(fn (Response $record) => $record->notes)
