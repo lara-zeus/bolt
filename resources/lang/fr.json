@@ -168,5 +168,6 @@
   "any changes in the values of these items will affect the responses for the forms in": "any changes in the values of these items will affect the responses for the forms in",
   "field": "field",
   "End date": "End date",
-  "Extension": "Extension"
+  "Extension": "Extension",
+  "the submission period is ended for the form": "the submission period is ended for the form",
 }
