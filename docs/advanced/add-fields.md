@@ -5,19 +5,22 @@ weight: 6
 
 ## Create Custom Fields
 
-Add any custom fields you want that is available on the [filament core](https://filamentphp.com/docs/2.x/forms/fields) or [filament plugins](https://filamentphp.com/plugins).
+Add any custom fields you want that is available on the [filament core](https://filamentphp.com/docs/3.x/forms/fields/getting-started) or [filament plugins](https://filamentphp.com/plugins).
 
-For example, we want to allow our users to use ratings in the forms:
-First, install the package:
+For example, we want to allow our users to use icon picker in the forms.
+
+### First, install the package:
 
 ```bash
-composer require yepsua/filament-rating-field
+composer require guava/filament-icon-picker
 ```
+
+### Create bolt field
 
 Create the field using the following command, passing the fully qualified name of the form component:
 
 ```bash
-php artisan make:zeus-field \\Yepsua\\Filament\\Forms\\Components\\Rating
+php artisan make:zeus-field \\Guava\\FilamentIconPicker\\Forms\\IconPicker
 ```
 
 ## Caching

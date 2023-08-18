@@ -1,14 +1,36 @@
 ---
 title: Configuration
-weight: 4
+weight: 5
 ---
 
 ## Configuration
 
-to publish the config file run the command:
+to configure the plugin Bolt, you can pass the configuration to the plugin in `adminPanelProvider` 
 
-```bash
-php artisan vendor:publish --tag=zeus-bolt-config
+these all the available configuration, and their defaults values
+
+```php
+BoltPlugin::make()
+    ->boltPrefix('')
+    ->boltMiddleware(['web'])
+    ->boltModels([
+        'Category' => \LaraZeus\Bolt\Models\Category::class,
+        'Collection' => \LaraZeus\Bolt\Models\Collection::class,
+        'Field' => \LaraZeus\Bolt\Models\Field::class,
+        'FieldResponse' => \LaraZeus\Bolt\Models\FieldResponse::class,
+        'Form' => \LaraZeus\Bolt\Models\Form::class,
+        'FormsStatus' => \LaraZeus\Bolt\Models\FormsStatus::class,
+        'Response' => \LaraZeus\Bolt\Models\Response::class,
+        'Section' => \LaraZeus\Bolt\Models\Section::class,
+    ])
+    ->defaultMailable(
+        \LaraZeus\Bolt\Mail\FormSubmission::class
+    )
+    ->extensions([
+        Thunder::class,
+    ])
+    ->uploadDisk('public')
+    ->uploadDirectory('forms')
+    ->navigationGroupLabel('Bolt')
+,
 ```
-
-you can pass `--force` option to force publishing the config file

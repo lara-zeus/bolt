@@ -37,16 +37,6 @@ class BoltServiceProvider extends PackageServiceProvider
         Livewire::component('bolt.fill-form', FillForms::class);
         Livewire::component('bolt.list-forms', ListForms::class);
         Livewire::component('bolt.list-entries', ListEntries::class);
-
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../database/seeders' => database_path('seeders'),
-            ], 'zeus-bolt-seeder');
-
-            $this->publishes([
-                __DIR__ . '/../database/factories' => database_path('factories'),
-            ], 'zeus-bolt-factories');
-        }
     }
 
     /**

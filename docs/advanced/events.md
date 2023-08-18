@@ -1,6 +1,6 @@
 ---
 title: Events
-weight: 5
+weight: 7
 ---
 
 ## Available Events
