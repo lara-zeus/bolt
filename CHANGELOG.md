@@ -2,6 +2,10 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v2.0.0 - 2023-08-19
+
+finally 🚀
+
 ## 1.2.12 - 2023-08-14
 
 ### What's Changed
