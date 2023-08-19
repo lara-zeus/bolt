@@ -29,7 +29,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public bool $sent = false;
 
-    private bool $inline = false;
+    public bool $inline = false;
 
     protected function getFormSchema(): array
     {
@@ -121,14 +121,16 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public function render()
     {
-        seo()
-            ->title($this->zeusForm->name . ' ' . config('zeus.site_title', 'Laravel'))
-            ->description($this->zeusForm->description . ' ' . config('zeus.site_description', 'Laravel'))
-            ->site(config('zeus.site_title', 'Laravel'))
-            ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
-            ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
-            ->withUrl()
-            ->twitter();
+        if (!$this->inline) {
+            seo()
+                ->title($this->zeusForm->name . ' - ' . __('Forms') .' - '. config('zeus.site_title', 'Laravel'))
+                ->description($this->zeusForm->description.' - '.config('zeus.site_description').' '.config('zeus.site_title'))
+                ->site(config('zeus.site_title', 'Laravel'))
+                ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
+                ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
+                ->withUrl()
+                ->twitter();
+        }
 
         $view = match (true) {
             $this->zeusForm->need_login => 'zeus::errors.login-required',
