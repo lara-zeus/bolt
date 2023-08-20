@@ -5,7 +5,6 @@ weight: 2
 
 ## Overview
 here is the structure of the table; it will give you an idea of how Bolt works:
-.
 
 ![bolt-diagram](https://larazeus.com/images/screenshots/bolt/bolt-diagram.png)
 

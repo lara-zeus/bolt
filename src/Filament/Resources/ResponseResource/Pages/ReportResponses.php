@@ -18,7 +18,6 @@ use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\FormsStatus;
 use Livewire\Attributes\Url;
 
 class ReportResponses extends Page implements HasForms, HasTable

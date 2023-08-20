@@ -2,13 +2,12 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
+use Filament\Widgets\ChartWidget;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
-use Filament\Widgets\PieChartWidget;
-use LaraZeus\Bolt\Models\FormsStatus;
 
-class ResponsesPerStatus extends PieChartWidget
+class ResponsesPerStatus extends ChartWidget
 {
     public Form $record;
 
@@ -46,5 +45,10 @@ class ResponsesPerStatus extends PieChartWidget
 
             'labels' => $statuses->pluck('label'),
         ];
+    }
+
+    protected function getType(): string
+    {
+        return 'pie';
     }
 }
