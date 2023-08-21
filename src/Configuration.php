@@ -5,16 +5,18 @@ namespace LaraZeus\Bolt;
 trait Configuration
 {
     /**
-     * set the default path for the contact form homepage.
+     * set the default path for the forms homepage.
      */
     protected string $boltPrefix = 'bolt';
 
     /**
-     * the middleware you want to apply on all the blog routes
-     * for example if you want to make your blog for users only, add the middleware 'auth'.
+     * the middleware you want to apply on all the forms routes
      */
     protected array $boltMiddleware = ['web'];
 
+    /**
+     * you can overwrite any model and use your own
+     */
     protected array $boltModels = [
         'Category' => \LaraZeus\Bolt\Models\Category::class,
         'Collection' => \LaraZeus\Bolt\Models\Collection::class,
@@ -36,10 +38,19 @@ trait Configuration
      */
     protected ?array $extensions = null;
 
+    /**
+     * where to upload all files when using the file upload field
+     */
     protected string $uploadDisk = 'public';
 
+    /**
+     * the directory name
+     */
     protected string $uploadDirectory = 'forms';
 
+    /**
+     * the resources navigation group
+     */
     protected string $navigationGroupLabel = 'Bolt';
 
     public function boltPrefix(string $prefix): static

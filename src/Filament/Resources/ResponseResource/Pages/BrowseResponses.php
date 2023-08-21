@@ -11,7 +11,6 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
-use LaraZeus\Bolt\Models\FormsStatus;
 use Livewire\Attributes\Url;
 
 class BrowseResponses extends Page implements Tables\Contracts\HasTable
@@ -46,7 +45,7 @@ class BrowseResponses extends Page implements Tables\Contracts\HasTable
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->options(FormsStatus::query()->pluck('label', 'key'))
+                    ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
                     ->label(__('Status')),
             ]);
     }

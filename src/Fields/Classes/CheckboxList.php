@@ -8,7 +8,7 @@ class CheckboxList extends FieldsContract
 {
     public string $renderClass = \Filament\Forms\Components\CheckboxList::class;
 
-    public int $sort = 6;
+    public int $sort = 3;
 
     public function title(): string
     {

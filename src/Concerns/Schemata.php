@@ -21,6 +21,7 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
+use LaraZeus\Bolt\Models\Category;
 
 trait Schemata
 {
@@ -155,8 +156,25 @@ trait Schemata
                 ->schema([
                     Select::make('category_id')
                         ->label(__('Category'))
+                        ->searchable()
+                        ->preload()
+                        ->relationship('category', 'name')
                         ->helperText(__('optional, organize your forms into categories'))
-                        ->options(BoltPlugin::getModel('Category')::pluck('name', 'id')),
+                        ->createOptionForm([
+                            TextInput::make('name')
+                                ->required()
+                                ->maxLength(255)
+                                ->live(onBlur: true)
+                                ->label(__('Name'))
+                                ->afterStateUpdated(function (Set $set, $state, $context) {
+                                    if ($context === 'edit') {
+                                        return;
+                                    }
+                                    $set('slug', Str::slug($state));
+                                }),
+                            TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
+                        ])
+                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
                     Grid::make()
                         ->columns(2)
                         ->schema([
@@ -247,7 +265,9 @@ trait Schemata
                                         ->hint(__('From 1-12'))
                                         ->label(__('Section Columns')),
                                     IconPicker::make('icon')
-                                        ->visible(fn (Get $get) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->visible(fn (
+                                            Get $get
+                                        ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
                                         ->columns([
                                             'default' => 1,
                                             'lg' => 3,

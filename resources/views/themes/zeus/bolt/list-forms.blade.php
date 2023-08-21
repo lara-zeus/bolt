@@ -4,6 +4,16 @@
         <h2>{{ __('List All Forms') }}</h2>
     </x-slot>
 
+    <x-slot name="breadcrumbs">
+        <li class="flex items-center">
+            <a href="{{ url('/') }}">{{ __('Home') }}</a>
+            @svg('iconpark-rightsmall-o','fill-current w-4 h-4 mx-3 rtl:rotate-180')
+        </li>
+        <li class="flex items-center">
+            {{ __('Forms') }}
+        </li>
+    </x-slot>
+
     {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-forms.before') }}
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">

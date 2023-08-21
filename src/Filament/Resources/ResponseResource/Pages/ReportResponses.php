@@ -18,7 +18,6 @@ use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\FormsStatus;
 use Livewire\Attributes\Url;
 
 class ReportResponses extends Page implements HasForms, HasTable
@@ -84,7 +83,7 @@ class ReportResponses extends Page implements HasForms, HasTable
             ->columns($mainColumns)
             ->filters([
                 SelectFilter::make('status')
-                    ->options(FormsStatus::query()->pluck('label', 'key'))
+                    ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
                     ->label(__('Status')),
             ])
             ->bulkActions([
