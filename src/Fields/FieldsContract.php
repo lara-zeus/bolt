@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields;
 
+use Filament\Forms\Components\Field as FilamentField;
 use Filament\Forms\Get;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
@@ -10,7 +11,9 @@ use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\FieldResponse;
 
+/** @phpstan-return Arrayable<string,mixed> */
 abstract class FieldsContract implements Fields, Arrayable
 {
     use HasOptions;
@@ -44,12 +47,12 @@ abstract class FieldsContract implements Fields, Arrayable
         return method_exists(get_called_class(), 'getOptions');
     }
 
-    public function getResponse($field, $resp): string
+    public function getResponse(Field $field, FieldResponse $resp): string
     {
         return $resp->response;
     }
 
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions(FilamentField $component, Field $zeusField): FilamentField
     {
         $component
             ->label($zeusField->name)
@@ -57,6 +60,7 @@ abstract class FieldsContract implements Fields, Arrayable
             ->helperText($zeusField->description);
 
         if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {
+            // @phpstan-ignore-next-line
             $component = $component->prefix($zeusField->options['prefix']);
         }
 
@@ -95,7 +99,7 @@ abstract class FieldsContract implements Fields, Arrayable
         return $component->live(onBlur: true);
     }
 
-    public function getCollectionsValuesForResponse($field, $resp): string
+    public function getCollectionsValuesForResponse(Field $field, FieldResponse $resp): string
     {
         $response = $resp->response;
 

@@ -26,7 +26,7 @@ class ZeusFieldCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $filamentPluginFullNamespace = $this->argument('plugin');
         $fieldClassName = str($filamentPluginFullNamespace)->explode('\\')->last();

@@ -2,9 +2,12 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Field as FilamentField;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
+use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\FieldResponse;
 
 class FileUpload extends FieldsContract
 {
@@ -27,7 +30,7 @@ class FileUpload extends FieldsContract
         ];
     }
 
-    public function getResponse($field, $resp): string
+    public function getResponse(Field $field, FieldResponse $resp): string
     {
         $responseValue = (filled($resp->response) && Bolt::isJson($resp->response)) ? json_decode($resp->response) : [$resp->response];
 
@@ -38,14 +41,16 @@ class FileUpload extends FieldsContract
             ->render();
     }
 
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions(FilamentField $component, Field $zeusField): FilamentField
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
+        // @phpstan-ignore-next-line
         $component->disk(BoltPlugin::get()->getUploadDisk())
             ->directory(BoltPlugin::get()->getUploadDirectory());
 
         if (isset($zeusField->options['allow_multiple']) && $zeusField->options['allow_multiple']) {
+            // @phpstan-ignore-next-line
             $component = $component->multiple();
         }
 

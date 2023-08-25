@@ -8,7 +8,7 @@ use Symfony\Component\Finder\Finder;
 
 class Collectors
 {
-    public static function collectClasses($path, $namespace): Collection
+    public static function collectClasses(string $path, string $namespace): Collection
     {
         if (! is_dir($path)) {
             return collect();
@@ -21,7 +21,7 @@ class Collectors
         );
     }
 
-    protected static function buildClasses($classes): array
+    protected static function buildClasses(array $classes): array
     {
         $allClasses = [];
         foreach ($classes as $class) {
@@ -34,7 +34,7 @@ class Collectors
         return $allClasses;
     }
 
-    public static function loadClasses($path, $namespace): array
+    public static function loadClasses(string $path, string $namespace): array
     {
         $classes = [];
         $path = array_unique(Arr::wrap($path));

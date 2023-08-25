@@ -206,8 +206,9 @@ trait Schemata
                         ->label(__('Extensions'))
                         ->preload()
                         ->options(function () {
+                            // @phpstan-ignore-next-line
                             return collect(BoltPlugin::get()->getExtensions())
-                                ->mapWithKeys(function ($item): array {
+                                ->mapWithKeys(function (string $item): array {
                                     if (class_exists($item)) {
                                         return [$item => (new $item)->label()];
                                     }

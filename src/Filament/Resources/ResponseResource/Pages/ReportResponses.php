@@ -17,7 +17,9 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
+use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\Form;
+use LaraZeus\Bolt\Models\Response;
 use Livewire\Attributes\Url;
 
 class ReportResponses extends Page implements HasForms, HasTable
@@ -32,7 +34,7 @@ class ReportResponses extends Page implements HasForms, HasTable
 
     protected static ?string $navigationIcon = 'heroicon-o-eye';
 
-    public $form;
+    public Form $form;
 
     #[Url(history: true, keep: true)]
     public int $form_id = 0;
@@ -58,6 +60,9 @@ class ReportResponses extends Page implements HasForms, HasTable
             TextColumn::make('notes')->toggleable(),
         ];
 
+        /**
+         * @var Field $field.
+         */
         foreach ($this->form->fields->sortBy('ordering') as $field) {
             $mainColumns[] = TextColumn::make('zeusData.' . $field->id)
                 ->label($field->name)
@@ -67,7 +72,7 @@ class ReportResponses extends Page implements HasForms, HasTable
                             $query->where('response', 'like', '%' . $search . '%');
                         });
                 })
-                ->getStateUsing(fn (Model $record) => $this->getFieldResponseValue($record, $field))
+                ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
                 ->html()
                 ->toggleable();
         }
@@ -101,7 +106,7 @@ class ReportResponses extends Page implements HasForms, HasTable
         return $this->getEntriesActions();
     }
 
-    public function mount()
+    public function mount(): void
     {
         abort_unless(request()->filled('form_id'), 404);
 
@@ -114,7 +119,7 @@ class ReportResponses extends Page implements HasForms, HasTable
         return __('Entries Report');
     }
 
-    public function getFieldResponseValue($record, $field)
+    public function getFieldResponseValue(Response $record, Field $field): string
     {
         $fieldResponse = $record->fieldsResponses->where('field_id', $field->id)->first();
         if ($fieldResponse === null) {

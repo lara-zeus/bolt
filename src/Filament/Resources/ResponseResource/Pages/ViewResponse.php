@@ -10,6 +10,9 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Response;
 
+/**
+ * @property Response $record.
+ */
 class ViewResponse extends ViewRecord
 {
     protected static string $resource = ResponseResource::class;

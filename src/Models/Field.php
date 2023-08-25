@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -14,6 +13,8 @@ use LaraZeus\Bolt\Database\Factories\FieldFactory;
 use Spatie\Translatable\HasTranslations;
 
 /**
+ * @property string $name
+ * @property string $description
  * @property string $updated_at
  * @property string $type
  * @property int $id
@@ -48,7 +49,7 @@ class Field extends Model
         });
     }
 
-    protected static function newFactory(): Factory
+    protected static function newFactory(): FieldFactory
     {
         return FieldFactory::new();
     }

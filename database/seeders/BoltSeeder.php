@@ -10,7 +10,7 @@ class BoltSeeder extends Seeder
     /**
      * @throws \JsonException
      */
-    public function run()
+    public function run(): void
     {
         $collection = DB::table('collections')->insertGetId([
             'name' => 'numbers range 1-5',

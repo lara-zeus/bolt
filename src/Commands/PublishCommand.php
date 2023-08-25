@@ -22,10 +22,8 @@ class PublishCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-migrations', '--force' => $this->option('force')]);
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-seeder', '--force' => $this->option('force')]);

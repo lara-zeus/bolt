@@ -10,6 +10,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Illuminate\View\View;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
@@ -49,7 +50,7 @@ class ListEntries extends Component implements HasTable, HasForms
             ]);
     }
 
-    public function render()
+    public function render(): View
     {
         seo()
             ->title(__('My Responses') . ' ' . config('zeus.site_title', 'Laravel'))

@@ -2,11 +2,11 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
-use Filament\Widgets\PieChartWidget;
+use Filament\Widgets\ChartWidget;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Form;
 
-class ResponsesPerFields extends PieChartWidget
+class ResponsesPerFields extends ChartWidget
 {
     public Form $record;
 
@@ -15,6 +15,11 @@ class ResponsesPerFields extends PieChartWidget
     ];
 
     protected static ?string $maxHeight = '300px';
+
+    protected function getType(): string
+    {
+        return 'pie';
+    }
 
     public function getHeading(): string
     {

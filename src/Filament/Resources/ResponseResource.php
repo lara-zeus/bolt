@@ -103,6 +103,7 @@ class ResponseResource extends BoltResource
                 'xl' => 3,
             ])
             ->modifyQueryUsing(function (Builder $query, Table $table) {
+                //@phpstan-ignore-next-line
                 return $query->where('form_id', $table->getLivewire()->form_id);
             })
             ->defaultSort('created_at', 'description')
