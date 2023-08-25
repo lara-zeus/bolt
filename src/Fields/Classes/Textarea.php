@@ -2,11 +2,9 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Field as FilamentField;
 use Filament\Forms\Components\Textarea as TextareaAlias;
 use Filament\Forms\Components\TextInput;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use LaraZeus\Bolt\Models\Field;
 
 class Textarea extends FieldsContract
 {
@@ -40,24 +38,21 @@ class Textarea extends FieldsContract
         ];
     }
 
-    public function appendFilamentComponentsOptions(FilamentField $component, Field $zeusField): FilamentField
+    // @phpstan-ignore-next-line
+    public function appendFilamentComponentsOptions($component, $zeusField)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
         if (filled($zeusField['options']['maxLength'])) {
-            // @phpstan-ignore-next-line
             $component->maxLength($zeusField['options']['maxLength']);
         }
         if (filled($zeusField['options']['maxLength'])) {
-            // @phpstan-ignore-next-line
             $component->maxLength($zeusField['options']['maxLength']);
         }
         if (filled($zeusField['options']['rows'])) {
-            // @phpstan-ignore-next-line
             $component->rows($zeusField['options']['rows']);
         }
         if (filled($zeusField['options']['cols'])) {
-            // @phpstan-ignore-next-line
             $component->cols($zeusField['options']['cols']);
         }
 

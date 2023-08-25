@@ -3,9 +3,7 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\ColorPicker as ColorPickerAlias;
-use Filament\Forms\Components\Field as FilamentField;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use LaraZeus\Bolt\Models\Field;
 
 class ColorPicker extends FieldsContract
 {
@@ -34,7 +32,8 @@ class ColorPicker extends FieldsContract
         ];
     }
 
-    public function appendFilamentComponentsOptions(FilamentField $component, Field $zeusField): FilamentField
+    // @phpstan-ignore-next-line
+    public function appendFilamentComponentsOptions($component, $zeusField)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 

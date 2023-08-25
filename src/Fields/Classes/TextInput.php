@@ -2,12 +2,10 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Field as FilamentField;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput as TextInputAlias;
 use Filament\Forms\Get;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use LaraZeus\Bolt\Models\Field;
 
 class TextInput extends FieldsContract
 {
@@ -65,7 +63,8 @@ class TextInput extends FieldsContract
         ];
     }
 
-    public function appendFilamentComponentsOptions(FilamentField $component, Field $zeusField): FilamentField
+    // @phpstan-ignore-next-line
+    public function appendFilamentComponentsOptions($component, $zeusField)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 

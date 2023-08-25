@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Field as FilamentField;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
@@ -35,13 +34,13 @@ class Select extends FieldsContract
         return $this->getCollectionsValuesForResponse($field, $resp);
     }
 
-    public function appendFilamentComponentsOptions(FilamentField $component, Field $zeusField): FilamentField
+    // @phpstan-ignore-next-line
+    public function appendFilamentComponentsOptions($component, $zeusField)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
         $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 
-        // @phpstan-ignore-next-line
         $component = $component
             ->searchable()
             ->preload()

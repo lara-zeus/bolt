@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Field as FilamentField;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
@@ -41,16 +40,15 @@ class FileUpload extends FieldsContract
             ->render();
     }
 
-    public function appendFilamentComponentsOptions(FilamentField $component, Field $zeusField): FilamentField
+    // @phpstan-ignore-next-line
+    public function appendFilamentComponentsOptions($component, $zeusField)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        // @phpstan-ignore-next-line
         $component->disk(BoltPlugin::get()->getUploadDisk())
             ->directory(BoltPlugin::get()->getUploadDirectory());
 
         if (isset($zeusField->options['allow_multiple']) && $zeusField->options['allow_multiple']) {
-            // @phpstan-ignore-next-line
             $component = $component->multiple();
         }
 

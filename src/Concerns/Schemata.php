@@ -220,7 +220,9 @@ trait Schemata
 
             Tabs\Tab::make('embed-tab')
                 ->label(__('Embed'))
-                ->visible(fn (string $operation): bool => class_exists(\LaraZeus\Sky\SkyServiceProvider::class) && $operation === 'edit')
+                ->visible(fn (
+                    string $operation
+                ): bool => class_exists(\LaraZeus\Sky\SkyServiceProvider::class) && $operation === 'edit')
                 ->schema([
                     TextInput::make('form_embed')
                         ->label(__('to embed the form in any post or page'))
@@ -330,6 +332,14 @@ trait Schemata
                                 ->label(__('Field Type')),
                         ]),
                     Tabs\Tab::make('options-tab')
+                        ->visible(function (Get $get) {
+                            $class = $get('type');
+                            if (class_exists($class)) {
+                                return (new $class)->hasOptions();
+                            }
+
+                            return false;
+                        })
                         ->label(__('Options'))
                         ->icon('heroicon-o-cog')
                         ->schema([
@@ -339,16 +349,16 @@ trait Schemata
                                     'lg' => 2,
                                 ])
                                 ->label(__('Field Options'))
-                                ->visible(function (Get $get) {
+                                ->schema(function (Get $get) {
                                     $class = $get('type');
                                     if (class_exists($class)) {
-                                        return (new $class)->hasOptions();
+                                        $newClass = (new $class);
+                                        if ($newClass->hasOptions()) {
+                                            return $newClass->getOptions();
+                                        }
                                     }
 
-                                    return false;
-                                })
-                                ->schema(function (Get $get) {
-                                    return $get('type')::getOptions();
+                                    return [];
                                 })
                                 ->columns(1),
                         ]),

@@ -9,7 +9,5 @@ interface Fields
 {
     public function title(): string;
 
-    public static function getOptions(): array;
-
     public function getResponse(Field $field, FieldResponse $resp): string;
 }

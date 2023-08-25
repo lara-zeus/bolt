@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Fields;
 
-use Filament\Forms\Components\Field as FilamentField;
 use Filament\Forms\Get;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
@@ -52,7 +51,8 @@ abstract class FieldsContract implements Fields, Arrayable
         return $resp->response;
     }
 
-    public function appendFilamentComponentsOptions(FilamentField $component, Field $zeusField): FilamentField
+    // @phpstan-ignore-next-line
+    public function appendFilamentComponentsOptions($component, $zeusField)
     {
         $component
             ->label($zeusField->name)
@@ -60,7 +60,6 @@ abstract class FieldsContract implements Fields, Arrayable
             ->helperText($zeusField->description);
 
         if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {
-            // @phpstan-ignore-next-line
             $component = $component->prefix($zeusField->options['prefix']);
         }
 
