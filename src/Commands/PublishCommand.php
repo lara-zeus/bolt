@@ -18,7 +18,7 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $description = 'PublishCommand all Zeus and Wind components and resources';
+    protected $description = 'PublishCommand all Zeus and Bolt components and resources';
 
     /**
      * Execute the console command.
