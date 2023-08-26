@@ -43,7 +43,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     /**
      * @throws \Throwable
      */
-    public function mount(string $slug, array $extensionSlug = null, bool $inline = false): void
+    public function mount(string $slug, string $extensionSlug = null, bool $inline = false): void
     {
         $this->inline = $inline;
 
