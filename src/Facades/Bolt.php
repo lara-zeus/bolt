@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Facades;
 
-use Filament\Facades\Filament;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
@@ -136,16 +135,20 @@ class Bolt extends Facade
 
     public static function renderHook($hook): Placeholder
     {
+        $hookRendered = \Filament\Support\Facades\FilamentView::renderHook($hook);
+
         return Placeholder::make('placeholder-' . $hook)
             ->label('')
-            ->content(Filament::renderHook($hook))
-            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
+            ->content($hookRendered)
+            ->visible(filled($hookRendered->toHtml()));
     }
 
     public static function renderHookBlade($hook)
     {
-        if (! empty(Filament::renderHook($hook)->toHtml())) {
-            return Filament::renderHook($hook);
+        $hookRendered = \Filament\Support\Facades\FilamentView::renderHook($hook);
+
+        if (filled($hookRendered->toHtml())) {
+            return $hookRendered;
         }
     }
 

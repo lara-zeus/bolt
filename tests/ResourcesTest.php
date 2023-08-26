@@ -3,11 +3,10 @@
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
-use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\ListForms;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
+use LaraZeus\Bolt\Models\Form;
 
 use function Pest\Laravel\get;
-use function Pest\Livewire\livewire;
 
 it('can test', function () {
     expect(true)->toBeTrue();
@@ -18,14 +17,6 @@ it('can render Category List', function () {
 
     get(CategoryResource::getUrl())
         ->assertSuccessful();
-});
-
-/*
-it('can list posts', function () {
-    $forms = \LaraZeus\Bolt\Models\Form::factory()->count(10)->create();
-
-    livewire(ListForms::class)
-        ->assertCanSeeTableRecords($forms);
 });
 
 it('can render Collection List', function () {
@@ -39,6 +30,7 @@ it('can render Form List', function () {
 });
 
 it('can render Response List', function () {
-    get(ResponseResource::getUrl())
+    $form = Form::factory()->create();
+    get(ResponseResource::getUrl('index', ['form_id' => $form->id]))
         ->assertSuccessful();
-});*/
+});
