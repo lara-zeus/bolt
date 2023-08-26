@@ -169,5 +169,7 @@
   "view the entry": "عرض السجل",
   "any changes in the values of these items will affect the responses for the forms in": "اي تعديلات في القيم ستؤثر على السجلات في",
   "field": "حقل",
-  "Extension": "الملحقات"
+  "Extension": "الملحقات",
+  "min length": "الحد الادنى",
+  "max length" :"الحد الافصى"
 }

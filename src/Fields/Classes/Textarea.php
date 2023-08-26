@@ -27,10 +27,10 @@ class Textarea extends FieldsContract
                 ->label(__('cols')),
 
             TextInput::make('options.minLength')
-                ->label(__('min minLength')),
+                ->label(__('min length')),
 
             TextInput::make('options.maxLength')
-                ->label(__('max maxLength')),
+                ->label(__('max length')),
 
             self::required(),
             self::htmlID(),
