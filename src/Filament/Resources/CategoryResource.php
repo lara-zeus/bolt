@@ -30,6 +30,7 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\CreateCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\EditCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\ListCategories;
+use LaraZeus\Bolt\Models\Category;
 
 class CategoryResource extends BoltResource
 {
@@ -132,6 +133,7 @@ class CategoryResource extends BoltResource
             ]);
     }
 
+    /** @phpstan-return Builder<Category> */
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

@@ -7,7 +7,11 @@ use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\EditRecord;
 use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
+use LaraZeus\Bolt\Models\Form;
 
+/**
+ * @property Form $record.
+ */
 class EditForm extends EditRecord
 {
     use EditRecord\Concerns\Translatable;

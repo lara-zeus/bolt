@@ -6,7 +6,7 @@ use Carbon\Carbon;
 
 trait HasUpdates
 {
-    public function getLastUpdatedAttribute($value): string
+    public function getLastUpdatedAttribute(): string
     {
         return '<span class="text-xs text-gray-600">' . Carbon::parse($this->updated_at)->format(config('zeus.defaultDateFormat')) . '</span>';
     }

@@ -3,10 +3,11 @@
 namespace LaraZeus\Bolt\Facades;
 
 use LaraZeus\Bolt\Contracts\Extension;
+use LaraZeus\Bolt\Models\Form;
 
 class Extensions
 {
-    public static function init($form, $hook, $data = null, $action = 'create'): null | Extension | array | string
+    public static function init(Form $form, string $hook, array $data = null, string $action = 'create'): null | Extension | array | string
     {
         if ($form->extensions !== null) {
             if (class_exists($form->extensions)) {

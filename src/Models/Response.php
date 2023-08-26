@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Models;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +17,7 @@ use LaraZeus\Bolt\Database\Factories\ResponseFactory;
  * @property int $user_id
  * @property string $status
  * @property string $notes
+ * @property string $response
  */
 class Response extends Model
 {
@@ -44,7 +44,7 @@ class Response extends Model
         });
     }
 
-    protected static function newFactory(): Factory
+    protected static function newFactory(): ResponseFactory
     {
         return ResponseFactory::new();
     }

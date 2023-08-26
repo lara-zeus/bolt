@@ -181,6 +181,7 @@ class FormResource extends BoltResource
             ]);
     }
 
+    /** @phpstan-return Builder<ZeusForm> */
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()

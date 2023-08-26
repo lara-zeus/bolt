@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Livewire;
 
 use Filament\Forms;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
@@ -21,11 +22,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public Form $zeusForm;
 
-    public $extensionData;
+    public array $extensionData;
 
-    public $extensions;
-
-    public $zeusData = [];
+    public array $zeusData = [];
 
     public bool $sent = false;
 
@@ -44,7 +43,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     /**
      * @throws \Throwable
      */
-    public function mount($slug, $extensionSlug = null, $inline = false)
+    public function mount(string $slug, array $extensionSlug = null, bool $inline = false): void
     {
         $this->inline = $inline;
 
@@ -67,12 +66,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         event(new FormMounted($this->zeusForm));
     }
 
-    public function resetAll()
-    {
-        $this->reset();
-    }
-
-    public function store()
+    public function store(): void
     {
         $this->validate();
 
@@ -119,7 +113,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $this->sent = true;
     }
 
-    public function render()
+    public function render(): View
     {
         if (! $this->inline) {
             seo()

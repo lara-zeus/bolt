@@ -2,12 +2,13 @@
 
 namespace LaraZeus\Bolt\Livewire;
 
+use Illuminate\View\View;
 use LaraZeus\Bolt\BoltPlugin;
 use Livewire\Component;
 
 class ListForms extends Component
 {
-    public function render()
+    public function render(): View
     {
         seo()
             ->site(config('zeus.site_title', 'Laravel'))

@@ -1,6 +1,5 @@
 <?php
 
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Fields\Classes\TextInput;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
@@ -26,7 +25,7 @@ it('can render list Forms', function () {
 
 it('can render show Form', function () {
     $form = Form::factory()->create();
-    get(BoltPlugin::get()->getBoltPrefix() . '/' . $form->slug)->assertSuccessful();
+    get('bolt/' . $form->slug)->assertSuccessful();
 });
 
 it('the form can be rendered', function () {
