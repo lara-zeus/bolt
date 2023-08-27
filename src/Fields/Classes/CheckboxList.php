@@ -19,6 +19,7 @@ class CheckboxList extends FieldsContract
     {
         return [
             self::dataSource(),
+            self::columnSpanFull(),
             self::required(),
             self::htmlID(),
             self::visibility(),

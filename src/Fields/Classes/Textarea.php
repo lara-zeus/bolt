@@ -33,6 +33,7 @@ class Textarea extends FieldsContract
                 ->label(__('max length')),
 
             self::required(),
+            self::columnSpanFull(),
             self::htmlID(),
             self::visibility(),
         ];
