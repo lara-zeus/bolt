@@ -57,9 +57,9 @@ class TextInput extends FieldsContract
                 ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
                 ->label(__('max value')),
 
+            self::htmlID(),
             self::required(),
             self::columnSpanFull(),
-            self::htmlID(),
             self::visibility(),
         ];
     }

@@ -86,7 +86,9 @@ trait HasOptions
     {
         return Grid::make()
             ->schema([
-                Toggle::make('options.column_span_full')->label('Column Span Full')->translateLabel(),
+                Toggle::make('options.column_span_full')
+                    ->helperText(__('show this field in full width row'))
+                    ->label('Full Width'),
             ])
             ->columns(1);
     }

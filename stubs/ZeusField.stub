@@ -11,10 +11,17 @@ class {{ class }} extends FieldsContract
 
     public int $sort = 20;
 
+    public function title(): string
+    {
+        return __('Checkbox List');
+    }
+
     public static function getOptions(): array
     {
         return [
-            Toggle::make('options.is_required')->label(__('Is Required')),
+            self::htmlID(),
+            self::required(),
+            self::columnSpanFull(),
         ];
     }
 }

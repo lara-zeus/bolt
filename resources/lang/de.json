@@ -171,5 +171,8 @@
     "End date": "Enddatum",
     "Extension": "Erweiterung",
     "min length": "Mindestlänge",
-    "max length": "Maximale Länge"
+    "max length": "Maximale Länge",
+    "fields per row" :"fields per row",
+    "Full Width" :"Full Width",
+    "show this field in full width row" :"show this field in full width row"
 }

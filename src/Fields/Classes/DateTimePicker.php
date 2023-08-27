@@ -18,9 +18,9 @@ class DateTimePicker extends FieldsContract
     public static function getOptions(): array
     {
         return [
+            self::htmlID(),
             self::required(),
             self::columnSpanFull(),
-            self::htmlID(),
             self::visibility(),
         ];
     }

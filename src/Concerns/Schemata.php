@@ -239,7 +239,7 @@ trait Schemata
     {
         return [
             Grid::make()
-                ->columns(2)
+                ->columns()
                 ->schema([
                     Tabs::make('section-tab')
                         ->columnSpan(2)
@@ -260,17 +260,14 @@ trait Schemata
                                 ->label(__('Section Details'))
                                 ->columns(2)
                                 ->schema([
-                                    TextInput::make('columns')
+                                    Select::make('columns')
+                                        ->options(fn (): array => range(1, 12))
                                         ->required()
                                         ->default(1)
-                                        ->minValue(1)
-                                        ->maxValue(12)
-                                        ->hint(__('From 1-12'))
+                                        ->hint(__('fields per row'))
                                         ->label(__('Section Columns')),
                                     IconPicker::make('icon')
-                                        ->visible(fn (
-                                            Get $get
-                                        ) => $get('../../options.show-as') === 'wizard' || $get('../../options.show-as') === 'tabs')
+                                        ->visible(fn (Get $get) => in_array($get('../../options.show-as'), ['wizard', 'tabs']))
                                         ->columns([
                                             'default' => 1,
                                             'lg' => 3,
@@ -279,9 +276,8 @@ trait Schemata
                                         ->label(__('Section icon')),
 
                                     Toggle::make('aside')
-                                        ->visible(fn (
-                                            Get $get
-                                        ) => $get('../../options.show-as') !== 'wizard' && $get('../../options.show-as') !== 'tabs')
+                                        ->inline(false)
+                                        ->visible(fn (Get $get) => $get('../../options.show-as') === 'page')
                                         ->label(__('show as aside')),
                                 ]),
                         ]),
@@ -290,7 +286,6 @@ trait Schemata
                 ->label(__('Section Fields')),
             Repeater::make('fields')
                 ->relationship()
-                ->label('')
                 ->orderColumn('ordering')
                 ->cloneable()
                 ->minItems(1)

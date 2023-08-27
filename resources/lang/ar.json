@@ -171,5 +171,8 @@
   "field": "حقل",
   "Extension": "الملحقات",
   "min length": "الحد الادنى",
-  "max length" :"الحد الافصى"
+  "max length" :"الحد الافصى",
+  "fields per row" :"عدد الحقول في كل صف",
+  "Full Width" :"كامل العرض",
+  "show this field in full width row" :"عرض هذا الحقل في صف منفصل"
 }

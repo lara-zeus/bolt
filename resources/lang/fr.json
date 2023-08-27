@@ -171,5 +171,8 @@
   "Extension": "Extension",
   "the submission period is ended for the form": "the submission period is ended for the form",
   "min length": "Longueur minimale",
-  "max length" :"Longueur maximal"
+  "max length" :"Longueur maximal",
+  "fields per row" :"fields per row",
+  "Full Width" :"Full Width",
+  "show this field in full width row" :"show this field in full width row"
 }

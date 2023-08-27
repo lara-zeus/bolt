@@ -32,9 +32,9 @@ class Textarea extends FieldsContract
             TextInput::make('options.maxLength')
                 ->label(__('max length')),
 
+            self::htmlID(),
             self::required(),
             self::columnSpanFull(),
-            self::htmlID(),
             self::visibility(),
         ];
     }
