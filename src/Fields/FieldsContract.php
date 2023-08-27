@@ -54,9 +54,11 @@ abstract class FieldsContract implements Fields, Arrayable
     // @phpstan-ignore-next-line
     public function appendFilamentComponentsOptions($component, $zeusField)
     {
+        $htmlId =  $zeusField->options['htmlId'] ?? str()->random(6);
+
         $component
             ->label($zeusField->name)
-            ->id($zeusField->options['htmlId'] ?? str()->random(6))
+            ->id($htmlId)
             ->helperText($zeusField->description);
 
         if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {
@@ -71,8 +73,8 @@ abstract class FieldsContract implements Fields, Arrayable
             $component = $component->required();
         }
 
-        if (request()->filled($zeusField->options['htmlId'])) {
-            $component = $component->default(request($zeusField->options['htmlId']));
+        if (request()->filled($htmlId)) {
+            $component = $component->default(request($htmlId));
         }
 
         $component = $component
