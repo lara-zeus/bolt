@@ -77,6 +77,10 @@ abstract class FieldsContract implements Fields, Arrayable
             $component = $component->default(request($htmlId));
         }
 
+        if (optional($zeusField->options)['column_span_full']) {
+            $component = $component->columnSpanFull();
+        }
+
         $component = $component
             ->visible(function ($record, Get $get) use ($zeusField) {
                 if (! isset($zeusField->options['visibility']) || ! $zeusField->options['visibility']['active']) {

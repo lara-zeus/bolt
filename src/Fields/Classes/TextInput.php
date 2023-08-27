@@ -6,6 +6,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput as TextInputAlias;
 use Filament\Forms\Get;
 use LaraZeus\Bolt\Fields\FieldsContract;
+use Filament\Forms\Components\Toggle;
 
 class TextInput extends FieldsContract
 {
@@ -57,7 +58,8 @@ class TextInput extends FieldsContract
                 ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
                 ->label(__('max value')),
 
-            self::required(),
+                self::required(),
+                self::columnSpanFull(),
             self::htmlID(),
             self::visibility(),
         ];

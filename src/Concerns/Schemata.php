@@ -300,7 +300,7 @@ trait Schemata
                     'default' => 1,
                     'md' => 2,
                     'xl' => 3,
-                    '2xl' => 4,
+                    '2xl' => 3,
                 ])
                 ->label('')
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)

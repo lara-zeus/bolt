@@ -19,6 +19,7 @@ class DatePicker extends FieldsContract
     {
         return [
             self::required(),
+            self::columnSpanFull(),
             self::htmlID(),
             self::visibility(),
         ];

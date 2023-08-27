@@ -82,6 +82,15 @@ trait HasOptions
             ->columns(1);
     }
 
+    public static function columnSpanFull(): Grid
+    {
+        return Grid::make()
+            ->schema([
+                Toggle::make('options.column_span_full')->label('Column Span Full')->translateLabel(),
+            ])
+            ->columns(1);
+    }
+
     public static function dataSource(): Grid
     {
         $dataSources = BoltPlugin::getModel('Collection')::get()
