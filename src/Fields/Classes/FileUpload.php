@@ -23,6 +23,7 @@ class FileUpload extends FieldsContract
     {
         return [
             \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
+            self::htmlID(),
             self::required(),
             self::htmlID(),
             self::visibility(),

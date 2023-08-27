@@ -25,6 +25,8 @@ class Select extends FieldsContract
             self::required(),
             Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
             self::htmlID(),
+            self::required(),
+            Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
             self::visibility(),
         ];
     }

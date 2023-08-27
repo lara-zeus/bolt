@@ -18,6 +18,7 @@ class DatePicker extends FieldsContract
     public static function getOptions(): array
     {
         return [
+            self::htmlID(),
             self::required(),
             self::htmlID(),
             self::visibility(),

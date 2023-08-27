@@ -171,5 +171,6 @@
   "field": "حقل",
   "Extension": "الملحقات",
   "min length": "الحد الادنى",
-  "max length" :"الحد الافصى"
+  "max length" :"الحد الافصى",
+  "fields per row" :"عدد الحقول في كل صف"
 }

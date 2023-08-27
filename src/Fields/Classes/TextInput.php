@@ -59,6 +59,7 @@ class TextInput extends FieldsContract
 
             self::required(),
             self::htmlID(),
+            self::required(),
             self::visibility(),
         ];
     }
