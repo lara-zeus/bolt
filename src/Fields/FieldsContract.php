@@ -69,7 +69,7 @@ abstract class FieldsContract implements Fields, Arrayable
             $component = $component->suffix($zeusField->options['suffix']);
         }
 
-        if (isset($zeusField->options['is_required']) && $zeusField->options['is_required']) {
+        if (optional($zeusField->options['is_required'])) {
             $component = $component->required();
         }
 
