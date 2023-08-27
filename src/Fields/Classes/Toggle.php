@@ -20,6 +20,7 @@ class Toggle extends FieldsContract
         return [
             self::htmlID(),
             self::required(),
+            self::columnSpanFull(),
             self::htmlID(),
             self::visibility(),
         ];

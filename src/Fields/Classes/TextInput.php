@@ -58,6 +58,7 @@ class TextInput extends FieldsContract
                 ->label(__('max value')),
 
             self::required(),
+            self::columnSpanFull(),
             self::htmlID(),
             self::required(),
             self::visibility(),

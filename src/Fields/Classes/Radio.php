@@ -25,6 +25,7 @@ class Radio extends FieldsContract
             self::htmlID(),
             Toggle::make('options.is_inline')->label(__('Is inline')),
             self::required(),
+            self::columnSpanFull(),
             self::htmlID(),
             self::visibility(),
         ];
