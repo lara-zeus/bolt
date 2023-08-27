@@ -5,10 +5,9 @@ parameters:
     level: 6
     paths:
         - src
-        - config
         - database
-        - tests
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
     checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false

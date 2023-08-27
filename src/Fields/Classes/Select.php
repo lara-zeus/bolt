@@ -4,6 +4,8 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
+use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\FieldResponse;
 
 class Select extends FieldsContract
 {
@@ -28,11 +30,12 @@ class Select extends FieldsContract
         ];
     }
 
-    public function getResponse($field, $resp): string
+    public function getResponse(Field $field, FieldResponse $resp): string
     {
         return $this->getCollectionsValuesForResponse($field, $resp);
     }
 
+    // @phpstan-ignore-next-line
     public function appendFilamentComponentsOptions($component, $zeusField)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);

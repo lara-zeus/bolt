@@ -2,13 +2,14 @@
 
 namespace LaraZeus\Bolt\Facades;
 
-use Filament\Facades\Filament;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Wizard;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
 use LaraZeus\Bolt\Models\Form;
@@ -20,7 +21,7 @@ class Bolt extends Facade
         return 'bolt';
     }
 
-    public static function availableFields()
+    public static function availableFields(): Collection
     {
         if (app()->isLocal()) {
             Cache::forget('bolt.fields');
@@ -44,7 +45,7 @@ class Bolt extends Facade
         });
     }
 
-    public static function availableDataSource()
+    public static function availableDataSource(): Collection
     {
         if (app()->isLocal()) {
             Cache::forget('bolt.dataSources');
@@ -134,30 +135,36 @@ class Bolt extends Facade
         return $sections;
     }
 
-    public static function renderHook($hook): Placeholder
+    public static function renderHook(string $hook): Placeholder
     {
+        $hookRendered = \Filament\Support\Facades\FilamentView::renderHook($hook);
+
         return Placeholder::make('placeholder-' . $hook)
             ->label('')
-            ->content(Filament::renderHook($hook))
-            ->visible(! empty(Filament::renderHook($hook)->toHtml()));
+            ->content($hookRendered)
+            ->visible(filled($hookRendered->toHtml()));
     }
 
-    public static function renderHookBlade($hook)
+    public static function renderHookBlade(string $hook): ?Htmlable
     {
-        if (! empty(Filament::renderHook($hook)->toHtml())) {
-            return Filament::renderHook($hook);
+        $hookRendered = \Filament\Support\Facades\FilamentView::renderHook($hook);
+
+        if (filled($hookRendered->toHtml())) {
+            return $hookRendered;
         }
+
+        return null;
     }
 
-    public static function isJson($string): bool
+    public static function isJson(string $string): bool
     {
         if ($string === '') {
             return false;
         }
 
-        if (is_int($string)) {
+        /*if (is_int($string)) {
             return false;
-        }
+        }*/
 
         json_decode($string);
 

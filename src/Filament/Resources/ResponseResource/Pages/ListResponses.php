@@ -30,7 +30,8 @@ class ListResponses extends ListRecords
 
     public function getBreadcrumbs(): array
     {
-        $form = BoltPlugin::getModel('Form')::findOrFail($this->form_id);
+        $form = BoltPlugin::getModel('Form')::find($this->form_id);
+        abort_if($form === null, 404);
 
         return [
             FormResource::getUrl() => FormResource::getBreadcrumb(),

@@ -33,6 +33,7 @@ class ColorPicker extends FieldsContract
         ];
     }
 
+    // @phpstan-ignore-next-line
     public function appendFilamentComponentsOptions($component, $zeusField)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);

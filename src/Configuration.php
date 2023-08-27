@@ -89,7 +89,7 @@ trait Configuration
         return $this->boltModels;
     }
 
-    public static function getModel($model)
+    public static function getModel(string $model): string
     {
         return array_merge(
             (new static())->boltModels,
@@ -121,9 +121,9 @@ trait Configuration
         return $this->uploadDirectory;
     }
 
-    public function navigationGroupLabel(string $lable): static
+    public function navigationGroupLabel(string $label): static
     {
-        $this->navigationGroupLabel = $lable;
+        $this->navigationGroupLabel = $label;
 
         return $this;
     }

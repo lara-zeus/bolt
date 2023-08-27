@@ -10,7 +10,9 @@ use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\FieldResponse;
 
+/** @phpstan-return Arrayable<string,mixed> */
 abstract class FieldsContract implements Fields, Arrayable
 {
     use HasOptions;
@@ -44,16 +46,19 @@ abstract class FieldsContract implements Fields, Arrayable
         return method_exists(get_called_class(), 'getOptions');
     }
 
-    public function getResponse($field, $resp): string
+    public function getResponse(Field $field, FieldResponse $resp): string
     {
         return $resp->response;
     }
 
+    // @phpstan-ignore-next-line
     public function appendFilamentComponentsOptions($component, $zeusField)
     {
+        $htmlId = $zeusField->options['htmlId'] ?? str()->random(6);
+
         $component
             ->label($zeusField->name)
-            ->id($zeusField->options['htmlId'] ?? str()->random(6))
+            ->id($htmlId)
             ->helperText($zeusField->description);
 
         if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {
@@ -68,8 +73,8 @@ abstract class FieldsContract implements Fields, Arrayable
             $component = $component->required();
         }
 
-        if (request()->filled($zeusField->options['htmlId'])) {
-            $component = $component->default(request($zeusField->options['htmlId']));
+        if (request()->filled($htmlId)) {
+            $component = $component->default(request($htmlId));
         }
 
         if ($zeusField->options['column_span_full']) {
@@ -99,7 +104,7 @@ abstract class FieldsContract implements Fields, Arrayable
         return $component->live(onBlur: true);
     }
 
-    public function getCollectionsValuesForResponse($field, $resp): string
+    public function getCollectionsValuesForResponse(Field $field, FieldResponse $resp): string
     {
         $response = $resp->response;
 

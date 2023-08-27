@@ -2,17 +2,22 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
-use Filament\Widgets\LineChartWidget;
+use Filament\Widgets\ChartWidget;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
 
-class ResponsesPerMonth extends LineChartWidget
+class ResponsesPerMonth extends ChartWidget
 {
     public Form $record;
 
     protected int | string | array $columnSpan = 'full';
 
     protected static ?string $maxHeight = '300px';
+
+    protected function getType(): string
+    {
+        return 'line';
+    }
 
     public function getHeading(): string
     {

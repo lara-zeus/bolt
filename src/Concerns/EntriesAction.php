@@ -6,9 +6,12 @@ use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 
+/**
+ * @property int $form_id.
+ */
 trait EntriesAction
 {
-    public function getEntriesActions($formId = null): array
+    public function getEntriesActions(int $formId = null): array
     {
         $formId = $formId ?? $this->form_id;
 

@@ -130,6 +130,7 @@ trait HasOptions
         return Grid::make()
             ->schema([
                 TextInput::make('options.htmlId')
+                    ->required()
                     ->default(str()->random(6))
                     ->label(__('HTML ID')),
             ])

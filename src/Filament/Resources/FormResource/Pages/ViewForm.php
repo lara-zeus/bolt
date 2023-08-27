@@ -8,7 +8,11 @@ use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;
 use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
+use LaraZeus\Bolt\Models\Form;
 
+/**
+ * @property Form $record.
+ */
 class ViewForm extends ViewRecord
 {
     use ViewRecord\Concerns\Translatable;

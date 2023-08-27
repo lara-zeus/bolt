@@ -18,14 +18,12 @@ class PublishCommand extends Command
      *
      * @var string
      */
-    protected $description = 'PublishCommand all Zeus and Wind components and resources';
+    protected $description = 'PublishCommand all Zeus and Bolt components and resources';
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-migrations', '--force' => $this->option('force')]);
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-seeder', '--force' => $this->option('force')]);
