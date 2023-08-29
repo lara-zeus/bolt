@@ -18,10 +18,10 @@ class ListForms extends ListRecords
         return [
             Actions\LocaleSwitcher::make(),
             Actions\CreateAction::make('create'),
-            Action::make('view')
-                ->label(__('View'))
+            Action::make('open')
+                ->label(__('Open'))
                 ->icon('heroicon-o-arrow-top-right-on-square')
-                ->tooltip(__('view all forms'))
+                ->tooltip(__('open all forms'))
                 ->color('warning')
                 ->url(fn () => route('bolt.forms.list'))
                 ->openUrlInNewTab(),

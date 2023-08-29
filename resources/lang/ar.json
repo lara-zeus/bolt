@@ -60,7 +60,7 @@
   "Entries": "السجلات",
   "view all entries": "عرض كافة السجلات",
   "View": "عرض",
-  "view form": "عرض النموذج",
+  "open form": "عرض النموذج",
   "User avatar": "صورة المستخدم",
   "User Name": "اسم المستخدم",
   "User Email": "بريد المستخدم",
@@ -68,7 +68,7 @@
   "Status": "الحالة",
   "Notes": "الملاحظات",
   "Created Date": "تاريخ الإنشاء",
-  "view all forms": "عرض كافة النماذج",
+  "open all forms": "عرض كافة النماذج",
   "Sections": "الأقسام",
   "sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form": "الأقسام تساعدك على تنظيم الحقول في النموذج، كما يمكنك عرضها كمعالج متعدد الخطوات من خيارات النموذج، في حالة وجود قسم واحد فقط في النموذج لن يتم عرضه",
   "Add Section": "اضف قسم",
@@ -174,5 +174,7 @@
   "max length" :"الحد الافصى",
   "fields per row" :"عدد الحقول في كل صف",
   "Full Width" :"كامل العرض",
-  "show this field in full width row" :"عرض هذا الحقل في صف منفصل"
+  "show this field in full width row" :"عرض هذا الحقل في صف منفصل",
+  "open" :"عرض",
+  "Open Form" :"عرض النموذج"
 }

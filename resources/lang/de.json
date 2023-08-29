@@ -60,7 +60,7 @@
     "Entries": "Einträge",
     "view all entries": "Alle Einträge anzeigen",
     "View": "Ansehen",
-    "view form": "Formular anzeigen",
+    "open form": "Formular anzeigen",
     "User avatar": "Benutzer-Avatar",
     "User Name": "Benutzername",
     "User Email": "Benutzer-E-Mail",
@@ -68,7 +68,7 @@
     "Status": "Status",
     "Notes": "Anmerkungen",
     "Created Date": "Erstellungsdatum",
-    "view all forms": "Alle Formulare anzeigen",
+    "open all forms": "Alle Formulare anzeigen",
     "Sections": "Abschnitte",
     "sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form": "Abschnitte dienen dazu, die Felder zu gruppieren, und Sie können sie als Seiten aus den Formularoptionen anzeigen. Wenn Sie einen Abschnitt haben, wird dieser nicht im Formular angezeigt",
     "Add Section": "Abschnitt hinzufügen",
@@ -174,5 +174,7 @@
     "max length": "Maximale Länge",
     "fields per row" :"fields per row",
     "Full Width" :"Full Width",
-    "show this field in full width row" :"show this field in full width row"
+    "show this field in full width row" :"show this field in full width row",
+    "open" :"open",
+    "Open Form" :"Open Form"
 }
