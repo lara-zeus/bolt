@@ -15,4 +15,11 @@ class Paragraph extends FieldsContract
     {
         return __('Paragraph');
     }
+
+    public static function getOptions(): array
+    {
+        return [
+            self::columnSpanFull(),
+        ];
+    }
 }
