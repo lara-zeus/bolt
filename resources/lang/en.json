@@ -60,7 +60,7 @@
   "Entries": "Entries",
   "view all entries": "view all entries",
   "View": "View",
-  "view form": "view form",
+  "open form": "view form",
   "User avatar": "User avatar",
   "User Name": "User Name",
   "User Email": "User Email",
@@ -68,7 +68,7 @@
   "Status": "Status",
   "Notes": "Notes",
   "Created Date": "Created Date",
-  "view all forms": "view all forms",
+  "open all forms": "open all forms",
   "Sections": "Sections",
   "sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form": "sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form",
   "Add Section": "Add Section",
@@ -174,5 +174,7 @@
   "max length" :"max length",
   "fields per row" :"fields per row",
   "Full Width" :"Full Width",
-  "show this field in full width row" :"show this field in full width row"
+  "show this field in full width row" :"show this field in full width row",
+  "open" :"open",
+  "Open Form" :"Open Form"
 }

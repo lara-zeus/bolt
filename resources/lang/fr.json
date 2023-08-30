@@ -60,7 +60,7 @@
   "Entries": "Entrées",
   "view all entries": "voir toutes les entrées",
   "View": "Voir",
-  "view form": "voir le formulaire",
+  "open form": "voir le formulaire",
   "User avatar": "Avatar de l'utilisateur",
   "User Name": "Nom d'utilisateur",
   "User Email": "Email de l'utilisateur",
@@ -68,7 +68,7 @@
   "Status": "Statut",
   "Notes": "Notes",
   "Created Date": "Date de création",
-  "view all forms": "voir tous les formulaires",
+  "open all forms": "voir tous les formulaires",
   "Sections": "Sections",
   "sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form": "les sections sont là pour regrouper les champs, et vous pouvez les afficher comme des pages à partir des options de formulaire. si vous avez une seule section, elle ne s'affichera pas dans le formulaire",
   "Add Section": "Ajouter une section",
@@ -174,5 +174,7 @@
   "max length" :"Longueur maximal",
   "fields per row" :"fields per row",
   "Full Width" :"Full Width",
-  "show this field in full width row" :"show this field in full width row"
+  "show this field in full width row" :"show this field in full width row",
+  "open" :"open",
+  "Open Form" :"Open Form"
 }

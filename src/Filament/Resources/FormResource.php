@@ -124,11 +124,11 @@ class FormResource extends BoltResource
                         ->icon('clarity-data-cluster-line')
                         ->tooltip(__('view all entries'))
                         ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
-                    Action::make('show')
+                    Action::make('open')
                         ->color('warning')
-                        ->label(__('View Form'))
+                        ->label(__('Open Form'))
                         ->icon('heroicon-o-arrow-top-right-on-square')
-                        ->tooltip(__('view form'))
+                        ->tooltip(__('open form'))
                         ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
                         ->openUrlInNewTab(),
                     ReplicateAction::make()

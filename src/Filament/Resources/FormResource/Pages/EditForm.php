@@ -24,10 +24,10 @@ class EditForm extends EditRecord
         return [
             LocaleSwitcher::make(),
             ...$this->getEntriesActions($this->record->id),
-            Action::make('view')
-                ->label(__('View'))
+            Action::make('open')
+                ->label(__('Open'))
                 ->icon('heroicon-o-arrow-top-right-on-square')
-                ->tooltip(__('view form'))
+                ->tooltip(__('open form'))
                 ->color('warning')
                 ->url(fn () => route('bolt.form.show', $this->record))
                 ->openUrlInNewTab(),
