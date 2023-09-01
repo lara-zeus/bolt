@@ -20,9 +20,9 @@ use Spatie\Translatable\HasTranslations;
  */
 class Section extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasTranslations;
+    use SoftDeletes;
 
     public array $translatable = ['name'];
 
