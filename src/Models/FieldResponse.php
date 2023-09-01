@@ -17,8 +17,8 @@ use LaraZeus\Bolt\Database\Factories\FieldResponseFactory;
  */
 class FieldResponse extends Model
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     protected $with = ['field'];
 

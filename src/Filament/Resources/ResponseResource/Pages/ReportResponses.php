@@ -24,9 +24,9 @@ use Livewire\Attributes\Url;
 
 class ReportResponses extends Page implements HasForms, HasTable
 {
-    use InteractsWithTable;
-    use InteractsWithForms;
     use EntriesAction;
+    use InteractsWithForms;
+    use InteractsWithTable;
 
     protected static string $resource = ResponseResource::class;
 

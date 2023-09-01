@@ -20,10 +20,10 @@ use Spatie\Translatable\HasTranslations;
  */
 class Category extends Model
 {
-    use SoftDeletes;
     use HasFactory;
-    use HasUpdates;
     use HasTranslations;
+    use HasUpdates;
+    use SoftDeletes;
 
     public array $translatable = ['name', 'description'];
 

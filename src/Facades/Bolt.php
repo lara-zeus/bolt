@@ -7,6 +7,7 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Wizard;
+use Filament\Support\Facades\FilamentView;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -63,7 +64,7 @@ class Bolt extends Facade
     public static function prepareFieldsAndSectionToRender(Form $zeusForm): array
     {
         $sections = [];
-        $zeusSections = $zeusForm->sections()->orderBy('ordering')->get();
+        $zeusSections = $zeusForm->sections->sortBy('ordering');
 
         $getExtComponent = Extensions::init($zeusForm, 'formComponents');
         if ($getExtComponent !== null) {
@@ -84,7 +85,7 @@ class Bolt extends Facade
 
             $fields[] = static::renderHook('zeus-form-section.before');
 
-            foreach ($section->fields()->orderBy('ordering')->get() as $zeusField) {
+            foreach ($section->fields->sortBy('ordering') as $zeusField) {
                 $fields[] = static::renderHook('zeus-form-field.before');
 
                 $fieldClass = new $zeusField->type;
@@ -137,7 +138,7 @@ class Bolt extends Facade
 
     public static function renderHook(string $hook): Placeholder
     {
-        $hookRendered = \Filament\Support\Facades\FilamentView::renderHook($hook);
+        $hookRendered = FilamentView::renderHook($hook);
 
         return Placeholder::make('placeholder-' . $hook)
             ->label('')
@@ -147,7 +148,7 @@ class Bolt extends Facade
 
     public static function renderHookBlade(string $hook): ?Htmlable
     {
-        $hookRendered = \Filament\Support\Facades\FilamentView::renderHook($hook);
+        $hookRendered = FilamentView::renderHook($hook);
 
         if (filled($hookRendered->toHtml())) {
             return $hookRendered;

@@ -5,7 +5,7 @@ namespace LaraZeus\Bolt\DataSources;
 use Illuminate\Contracts\Support\Arrayable;
 use LaraZeus\Bolt\Contracts\DataSource;
 
-abstract class DataSourceContract implements DataSource, Arrayable
+abstract class DataSourceContract implements Arrayable, DataSource
 {
     public bool $disabled = false;
 

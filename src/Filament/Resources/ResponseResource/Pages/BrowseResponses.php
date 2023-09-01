@@ -15,8 +15,8 @@ use Livewire\Attributes\Url;
 
 class BrowseResponses extends Page implements Tables\Contracts\HasTable
 {
-    use InteractsWithTable;
     use EntriesAction;
+    use InteractsWithTable;
 
     protected static string $resource = ResponseResource::class;
 
