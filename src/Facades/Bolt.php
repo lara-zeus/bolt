@@ -83,12 +83,12 @@ class Bolt extends Facade
         foreach ($zeusSections as $section) {
             $fields = [];
 
-            if(!$inline){
+            if (! $inline) {
                 $fields[] = static::renderHook('zeus-form-section.before');
             }
 
             foreach ($section->fields->sortBy('ordering') as $zeusField) {
-                if(!$inline) {
+                if (! $inline) {
                     $fields[] = static::renderHook('zeus-form-field.before');
                 }
 
@@ -97,12 +97,12 @@ class Bolt extends Facade
 
                 $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
-                if(!$inline) {
+                if (! $inline) {
                     $fields[] = static::renderHook('zeus-form-field.after');
                 }
             }
 
-            if(!$inline) {
+            if (! $inline) {
                 $fields[] = static::renderHook('zeus-form-section.after');
             }
 
