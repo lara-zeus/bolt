@@ -32,7 +32,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     protected function getFormSchema(): array
     {
-        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm);
+        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm, $this->inline);
     }
 
     protected function getFormModel(): Form

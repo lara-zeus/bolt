@@ -61,7 +61,7 @@ class Bolt extends Facade
         });
     }
 
-    public static function prepareFieldsAndSectionToRender(Form $zeusForm): array
+    public static function prepareFieldsAndSectionToRender(Form $zeusForm, $inline = false): array
     {
         $sections = [];
         $zeusSections = $zeusForm->sections->sortBy('ordering');
@@ -83,20 +83,28 @@ class Bolt extends Facade
         foreach ($zeusSections as $section) {
             $fields = [];
 
-            $fields[] = static::renderHook('zeus-form-section.before');
+            if (! $inline) {
+                $fields[] = static::renderHook('zeus-form-section.before');
+            }
 
             foreach ($section->fields->sortBy('ordering') as $zeusField) {
-                $fields[] = static::renderHook('zeus-form-field.before');
+                if (! $inline) {
+                    $fields[] = static::renderHook('zeus-form-field.before');
+                }
 
                 $fieldClass = new $zeusField->type;
                 $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
 
                 $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
-                $fields[] = static::renderHook('zeus-form-field.after');
+                if (! $inline) {
+                    $fields[] = static::renderHook('zeus-form-field.after');
+                }
             }
 
-            $fields[] = static::renderHook('zeus-form-section.after');
+            if (! $inline) {
+                $fields[] = static::renderHook('zeus-form-section.after');
+            }
 
             $sectionId = $section->name . '-' . $section->id;
             if (optional($zeusForm->options)['show-as'] === 'tabs') {
