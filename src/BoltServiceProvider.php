@@ -8,7 +8,6 @@ use LaraZeus\Bolt\Commands\ZeusFieldCommand;
 use LaraZeus\Bolt\Livewire\FillForms;
 use LaraZeus\Bolt\Livewire\ListEntries;
 use LaraZeus\Bolt\Livewire\ListForms;
-use LaraZeus\Bolt\Livewire\Submitted;
 use LaraZeus\Core\CoreServiceProvider;
 use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Package;
@@ -33,7 +32,6 @@ class BoltServiceProvider extends PackageServiceProvider
     {
         CoreServiceProvider::setThemePath('bolt');
 
-        Livewire::component('bolt.submitted', Submitted::class);
         Livewire::component('bolt.fill-form', FillForms::class);
         Livewire::component('bolt.list-forms', ListForms::class);
         Livewire::component('bolt.list-entries', ListEntries::class);
