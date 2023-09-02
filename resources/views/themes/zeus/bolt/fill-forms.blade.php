@@ -27,10 +27,12 @@
     @endif
 
     @if($sent)
-        @include(app('boltTheme').'.submitted')
+        @include($boltTheme.'.submitted')
     @else
         <x-filament-panels::form wire:submit.prevent="store" class="mx-2">
-            {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
+            @if(!$inline)
+                {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
+            @endif
 
             {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'render',$extensionData) !!}
 
@@ -50,7 +52,9 @@
                 </x-filament::button>
             </div>
 
-            {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
+            @if(!$inline)
+                {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.after') }}
+            @endif
         </x-filament-panels::form>
     @endif
 </div>

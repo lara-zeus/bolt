@@ -6,7 +6,6 @@ use LaraZeus\Bolt\Livewire\FillForms;
 use LaraZeus\Bolt\Livewire\ListEntries;
 use LaraZeus\Bolt\Livewire\ListForms;
 use LaraZeus\Bolt\Livewire\ShowEntry;
-use LaraZeus\Bolt\Livewire\Submitted;
 
 if (! defined('__PHPSTAN_RUNNING__') && app('filament')->hasPlugin('zeus-bolt')) {
     Route::prefix(BoltPlugin::get()->getBoltPrefix())
@@ -15,9 +14,6 @@ if (! defined('__PHPSTAN_RUNNING__') && app('filament')->hasPlugin('zeus-bolt'))
         ->group(function () {
             Route::get('/', ListForms::class)
                 ->name('forms.list');
-
-            Route::get('submitted/{slug}/{extension?}', Submitted::class)
-                ->name('submitted');
 
             Route::get('/entries', ListEntries::class)->name('entries.list')
                 ->middleware('auth');
