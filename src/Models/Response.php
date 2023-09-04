@@ -21,9 +21,9 @@ use LaraZeus\Bolt\Database\Factories\ResponseFactory;
  */
 class Response extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasUpdates;
+    use SoftDeletes;
 
     protected $with = ['form', 'user'];
 

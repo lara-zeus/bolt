@@ -15,8 +15,8 @@ use LaraZeus\Bolt\Models\Form;
  */
 class ViewForm extends ViewRecord
 {
-    use ViewRecord\Concerns\Translatable;
     use EntriesAction;
+    use ViewRecord\Concerns\Translatable;
 
     protected static string $resource = FormResource::class;
 

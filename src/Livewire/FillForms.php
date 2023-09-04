@@ -32,7 +32,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     protected function getFormSchema(): array
     {
-        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm);
+        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm, $this->inline);
     }
 
     protected function getFormModel(): Form
@@ -48,11 +48,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         $this->inline = $inline;
 
         $this->zeusForm = BoltPlugin::getModel('Form')::query()
-            ->with([
-                'sections', 'sections.fields',
-            ])
-            ->whereSlug($slug)
-            ->whereIsActive(1)
+            ->with(['fields', 'sections.fields'])
+            ->where('slug', $slug)
+            ->where('is_active', true)
             ->firstOrFail();
 
         $this->extensionData = Extensions::init($this->zeusForm, 'canView', ['extensionSlug' => $extensionSlug]) ?? [];

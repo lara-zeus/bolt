@@ -15,9 +15,9 @@ use LaraZeus\Bolt\Database\Factories\CollectionFactory;
  */
 class Collection extends Model
 {
-    use SoftDeletes;
     use HasFactory;
     use HasUpdates;
+    use SoftDeletes;
 
     protected $fillable = ['name', 'values', 'user_id'];
 

@@ -13,7 +13,7 @@ use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
 
 /** @phpstan-return Arrayable<string,mixed> */
-abstract class FieldsContract implements Fields, Arrayable
+abstract class FieldsContract implements Arrayable, Fields
 {
     use HasOptions;
 

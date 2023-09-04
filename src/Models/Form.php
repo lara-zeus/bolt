@@ -32,11 +32,11 @@ use Spatie\Translatable\HasTranslations;
  */
 class Form extends Model
 {
-    use SoftDeletes;
-    use HasFactory;
-    use HasUpdates;
     use HasActive;
+    use HasFactory;
     use HasTranslations;
+    use HasUpdates;
+    use SoftDeletes;
 
     public array $translatable = ['name', 'description', 'details'];
 
