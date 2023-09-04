@@ -17,6 +17,6 @@ class BoltResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __(BoltPlugin::get()->getNavigationGroupLabel());
+        return BoltPlugin::get()->getNavigationGroupLabel();
     }
 }
