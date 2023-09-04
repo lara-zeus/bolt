@@ -248,6 +248,8 @@ trait Schemata
                                 ->label(__('Section Info'))
                                 ->schema([
                                     TextInput::make('name')
+                                        ->hint(__('Translatable'))
+                                        ->hintIcon('heroicon-s-language')
                                         ->required()
                                         ->lazy()
                                         ->label(__('Section Name')),
@@ -314,6 +316,8 @@ trait Schemata
                         ->label(__('Type & title'))
                         ->schema([
                             TextInput::make('name')
+                                ->hint(__('Translatable'))
+                                ->hintIcon('heroicon-s-language')
                                 ->required()
                                 ->lazy()
                                 ->label(__('Field Name')),
