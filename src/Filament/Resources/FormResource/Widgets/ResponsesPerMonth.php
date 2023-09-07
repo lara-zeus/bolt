@@ -5,7 +5,6 @@ namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 use Filament\Widgets\ChartWidget;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\Response;
 
 class ResponsesPerMonth extends ChartWidget
 {
