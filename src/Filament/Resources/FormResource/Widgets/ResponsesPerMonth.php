@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
 
@@ -30,7 +31,7 @@ class ResponsesPerMonth extends ChartWidget
 
         for ($m = 1; $m <= 12; $m++) {
             $month = date('m', mktime(0, 0, 0, $m, 1, (int) now()->format('Y')));
-            $dataset[] = Response::query()
+            $dataset[] = BoltPlugin::getModel('Response')::query()
                 ->where('form_id', $this->record->id)
                 ->whereYear('created_at', '=', now()->format('Y'))
                 ->whereMonth('created_at', '=', $month)
