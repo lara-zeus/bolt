@@ -1,9 +1,9 @@
 <div>
     <div class="max-w-4xl mx-auto px-4">
         <x-filament::section>
-            @if(!empty($zeusForm->options['confirmation_message']))
+            @if(!empty($zeusForm->options['confirmation-message']))
                 <span class="text-md text-gray-600">
-                    {!! $zeusForm->options['confirmation_message'] !!}
+                    {!! $zeusForm->options['confirmation-message'] !!}
                 </span>
             @else
                 <span class="text-md text-gray-600">
