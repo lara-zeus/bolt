@@ -32,7 +32,7 @@
         "codeat3/blade-clarity-icons": "^1.7",
         "lara-zeus/core": "^3.0",
         "guava/filament-icon-picker": "dev-main",
-        "alperenersoy/filament-export": "v3.0.0-beta"
+        "alperenersoy/filament-export": "dev-fix-there"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
@@ -89,5 +89,11 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "github",
+            "url": "https://github.com/lara-zeus/filament-export"
+        }
+    ]
 }
