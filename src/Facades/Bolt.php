@@ -61,7 +61,7 @@ class Bolt extends Facade
         });
     }
 
-    public static function prepareFieldsAndSectionToRender(Form $zeusForm, $inline = false): array
+    public static function prepareFieldsAndSectionToRender(Form $zeusForm, bool $inline = false): array
     {
         $sections = [];
         $zeusSections = $zeusForm->sections->sortBy('ordering');

@@ -31,7 +31,7 @@
         "php": "^8.1",
         "codeat3/blade-clarity-icons": "^1.7",
         "lara-zeus/core": "^3.0",
-        "guava/filament-icon-picker": "dev-main",
+        "guava/filament-icon-picker": "^2.0",
         "alperenersoy/filament-export": "dev-fix-there"
     },
     "require-dev": {
@@ -43,12 +43,9 @@
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-arch": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
-        "pestphp/pest-plugin-livewire": "2.x-dev",
+        "pestphp/pest-plugin-livewire": "^2.1",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.1",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^10.2",
-        "spatie/laravel-ray": "^1.26"
+        "phpstan/phpstan-deprecation-rules": "^1.1"
     },
     "autoload": {
         "psr-4": {

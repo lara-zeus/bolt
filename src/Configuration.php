@@ -2,12 +2,14 @@
 
 namespace LaraZeus\Bolt;
 
+use Closure;
+
 trait Configuration
 {
     /**
      * set the default path for the forms homepage.
      */
-    protected string $boltPrefix = 'bolt';
+    protected Closure | string $boltPrefix = 'bolt';
 
     /**
      * the middleware you want to apply on all the forms routes
@@ -41,28 +43,28 @@ trait Configuration
     /**
      * where to upload all files when using the file upload field
      */
-    protected string $uploadDisk = 'public';
+    protected Closure | string $uploadDisk = 'public';
 
     /**
      * the directory name
      */
-    protected string $uploadDirectory = 'forms';
+    protected Closure | string $uploadDirectory = 'forms';
 
     /**
      * the resources navigation group
      */
-    protected string $navigationGroupLabel = 'Bolt';
+    protected Closure | string $navigationGroupLabel = 'Bolt';
 
-    public function boltPrefix(string $prefix): static
+    public function boltPrefix(Closure | string $prefix): static
     {
         $this->boltPrefix = $prefix;
 
         return $this;
     }
 
-    public function getBoltPrefix(): string
+    public function getBoltPrefix(): Closure | string
     {
-        return $this->boltPrefix;
+        return $this->evaluate($this->boltPrefix);
     }
 
     public function boltMiddleware(array $middleware): static
@@ -97,40 +99,40 @@ trait Configuration
         )[$model];
     }
 
-    public function uploadDisk(string $disk): static
+    public function uploadDisk(Closure | string $disk): static
     {
         $this->uploadDisk = $disk;
 
         return $this;
     }
 
-    public function getUploadDisk(): string
+    public function getUploadDisk(): Closure | string
     {
-        return $this->uploadDisk;
+        return $this->evaluate($this->uploadDisk);
     }
 
-    public function uploadDirectory(string $dir): static
+    public function uploadDirectory(Closure | string $dir): static
     {
         $this->uploadDirectory = $dir;
 
         return $this;
     }
 
-    public function getUploadDirectory(): string
+    public function getUploadDirectory(): Closure | string
     {
-        return $this->uploadDirectory;
+        return $this->evaluate($this->uploadDirectory);
     }
 
-    public function navigationGroupLabel(string $label): static
+    public function navigationGroupLabel(Closure | string $label): static
     {
         $this->navigationGroupLabel = $label;
 
         return $this;
     }
 
-    public function getNavigationGroupLabel(): string
+    public function getNavigationGroupLabel(): Closure | string
     {
-        return $this->navigationGroupLabel;
+        return $this->evaluate($this->navigationGroupLabel);
     }
 
     public function defaultMailable(string $mailable): static
