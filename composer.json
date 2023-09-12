@@ -29,10 +29,11 @@
     ],
     "require": {
         "php": "^8.1",
+        "alperenersoy/filament-export": "dev-fix-there",
         "codeat3/blade-clarity-icons": "^1.7",
-        "lara-zeus/core": "^3.0",
+        "flowframe/laravel-trend": "^0.1.5",
         "guava/filament-icon-picker": "dev-main",
-        "alperenersoy/filament-export": "dev-fix-there"
+        "lara-zeus/core": "^3.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
