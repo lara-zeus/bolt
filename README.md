@@ -42,7 +42,12 @@ And more on the way.
 
 ## Full Documentation
 
-> Visit our website to get the complete documentation: https://larazeus.com/bolt
+> Visit our website to get the complete documentation: https://larazeus.com/docs/bolt
+
+## Quick start
+
+[![starter-kit](https://larazeus.com/images/starter-kit-mini.png?v=2)](https://github.com/lara-zeus/zeus)
+[![artemis](https://larazeus.com/images/artemis-mini.png?v=2)](https://github.com/lara-zeus/artemis)
 
 ## Changelog
 
