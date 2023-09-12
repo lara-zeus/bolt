@@ -2,11 +2,11 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
+use Filament\Widgets\ChartWidget;
 use Flowframe\Trend\Trend;
+use Flowframe\Trend\TrendValue;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
-use Flowframe\Trend\TrendValue;
-use Filament\Widgets\ChartWidget;
 
 class ResponsesPerMonth extends ChartWidget
 {
@@ -43,7 +43,7 @@ class ResponsesPerMonth extends ChartWidget
         $data = [];
 
         if ($this->filter == 'per_day') {
-            $label = __("Per day");
+            $label = __('Per day');
             $data = Trend::model(BoltPlugin::getModel('Response'))
                 ->between(
                     start: now()->startOfYear(),
@@ -52,7 +52,7 @@ class ResponsesPerMonth extends ChartWidget
                 ->perDay()
                 ->count();
         } elseif ($this->filter == 'per_month') {
-            $label = __("Per month");
+            $label = __('Per month');
             $data = Trend::model(BoltPlugin::getModel('Response'))
                 ->between(
                     start: now()->startOfYear(),
@@ -61,7 +61,7 @@ class ResponsesPerMonth extends ChartWidget
                 ->perMonth()
                 ->count();
         } elseif ($this->filter == 'per_year') {
-            $label = __("Per year");
+            $label = __('Per year');
             $data = Trend::model(BoltPlugin::getModel('Response'))
                 ->between(
                     start: now()->startOfYear(),
@@ -70,7 +70,6 @@ class ResponsesPerMonth extends ChartWidget
                 ->perYear()
                 ->count();
         }
-
 
         return [
             'datasets' => [
