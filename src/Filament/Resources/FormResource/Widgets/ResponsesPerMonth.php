@@ -3,6 +3,8 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 
 use Filament\Widgets\ChartWidget;
+use Flowframe\Trend\Trend;
+use Flowframe\Trend\TrendValue;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
 
@@ -14,9 +16,20 @@ class ResponsesPerMonth extends ChartWidget
 
     protected static ?string $maxHeight = '300px';
 
+    public ?string $filter = 'per_day';
+
     protected function getType(): string
     {
         return 'line';
+    }
+
+    protected function getFilters(): ?array
+    {
+        return [
+            'per_day' => 'Per Day',
+            'per_month' => 'Per month',
+            'per_year' => 'Per year',
+        ];
     }
 
     public function getHeading(): string
@@ -26,25 +39,46 @@ class ResponsesPerMonth extends ChartWidget
 
     protected function getData(): array
     {
-        $dataset = [];
+        $label = null;
+        $data = [];
 
-        for ($m = 1; $m <= 12; $m++) {
-            $month = date('m', mktime(0, 0, 0, $m, 1, (int) now()->format('Y')));
-            $dataset[] = BoltPlugin::getModel('Response')::query()
-                ->where('form_id', $this->record->id)
-                ->whereYear('created_at', '=', now()->format('Y'))
-                ->whereMonth('created_at', '=', $month)
+        if ($this->filter == 'per_day') {
+            $label = __('Per day');
+            $data = Trend::model(BoltPlugin::getModel('Response'))
+                ->between(
+                    start: now()->startOfYear(),
+                    end: now()->endOfYear(),
+                )
+                ->perDay()
+                ->count();
+        } elseif ($this->filter == 'per_month') {
+            $label = __('Per month');
+            $data = Trend::model(BoltPlugin::getModel('Response'))
+                ->between(
+                    start: now()->startOfYear(),
+                    end: now()->endOfYear(),
+                )
+                ->perMonth()
+                ->count();
+        } elseif ($this->filter == 'per_year') {
+            $label = __('Per year');
+            $data = Trend::model(BoltPlugin::getModel('Response'))
+                ->between(
+                    start: now()->startOfYear(),
+                    end: now()->endOfYear(),
+                )
+                ->perYear()
                 ->count();
         }
 
         return [
             'datasets' => [
                 [
-                    'label' => __('entries per month'),
-                    'data' => $dataset,
+                    'label' => $label,
+                    'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],
-            'labels' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            'labels' => $data->map(fn (TrendValue $value) => $value->date),
         ];
     }
 }
