@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Support\Concerns\EvaluatesClosures;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
@@ -12,6 +13,7 @@ use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 final class BoltPlugin implements Plugin
 {
     use Configuration;
+    use EvaluatesClosures;
 
     public function getId(): string
     {
