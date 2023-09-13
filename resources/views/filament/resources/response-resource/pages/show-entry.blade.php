@@ -22,15 +22,23 @@
                 <x-slot name="heading" class="text-custom-600">
                     {{ __('User Details') }}
                 </x-slot>
-                <p>
-                    <span class="text-base font-light">{{ __('By') }}</span>:
-                    @if($getRecord()->user_id === null)
-                        {{ __('Visitor') }}
-                    @else
-                        {{ ($getRecord()->user->name) ?? '' }}
-                    @endif
-                </p>
-                <p class="flex flex-col">
+                @if($getRecord()->user_id === null)
+                    <span>{{ __('By') }} {{ __('Visitor') }}</span>
+                @else
+                    <div class="flex gap-2 items-center">
+                        <x-filament::avatar
+                            class="rounded-full"
+                            size="lg"
+                            :src="$getRecord()->user->avatar"
+                            :alt="($getRecord()->user->name) ?? ''"
+                        />
+                        <p class="flex flex-col gap-1">
+                            <span>{{ ($getRecord()->user->name) ?? '' }}</span>
+                            <span>{{ ($getRecord()->user->email) ?? '' }}</span>
+                        </p>
+                    </div>
+                @endif
+                <p class="flex flex-col my-1 gap-1">
                     <span class="text-base font-light">{{ __('created at') }}:</span>
                     <span class="font-semibold">{{ $getRecord()->created_at->format('Y.m/d') }}-{{ $getRecord()->created_at->format('h:i a') }}</span>
                 </p>
@@ -39,7 +47,7 @@
                 <div class="space-y-2">
                     <x-filament::section>
                         <x-slot name="heading" class="text-primary-600">
-                            <p class="my-3 mx-1 text-custom-600 font-semibold">{{ __('Entry Details') }}</p>
+                            <p class="text-custom-600 font-semibold">{{ __('Entry Details') }}</p>
                         </x-slot>
 
                         <div class="flex flex-col">

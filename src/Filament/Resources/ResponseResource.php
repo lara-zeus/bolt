@@ -66,9 +66,11 @@ class ResponseResource extends BoltResource
         return $table
             ->columns([
                 Split::make([
+                    ImageColumn::make('user.avatar')
+                        ->circular()
+                        ->grow(false)
+                        ->label(__('Avatar')),
                     Stack::make([
-                        ImageColumn::make('user.avatar')
-                            ->label(__('Avatar')),
                         TextColumn::make('user.name')
                             ->label(__('User Name'))
                             ->searchable(),
@@ -87,6 +89,7 @@ class ResponseResource extends BoltResource
                     ->searchable()
                     ->visible(! request()->filled('form_id')),
                 Stack::make([
+                    TextColumn::make('created_at')->label(__('Created Date'))->dateTime()->sortable()->searchable(),
                     TextColumn::make('status')
                         ->badge()
                         ->label(__('status'))
@@ -95,7 +98,6 @@ class ResponseResource extends BoltResource
                         ->grow(false)
                         ->searchable('status'),
                     TextColumn::make('notes')->label(__('Notes'))->searchable(),
-                    TextColumn::make('created_at')->label(__('Created Date'))->dateTime()->sortable()->searchable(),
                 ]),
             ])
             ->contentGrid([
