@@ -23,6 +23,7 @@ class Radio extends FieldsContract
         return [
             self::dataSource(),
             self::htmlID(),
+            self::hintOptions(),
             Toggle::make('options.is_inline')->label(__('Is inline')),
             self::required(),
             self::columnSpanFull(),

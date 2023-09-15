@@ -176,5 +176,15 @@
   "Full Width" :"Full Width",
   "show this field in full width row" :"show this field in full width row",
   "open" :"open",
-  "Open Form" :"Open Form"
+  "Open Form" :"Open Form",
+  "Conditional Visibility" :"Conditional Visibility",
+  "show when the field:" :"show when the field:",
+  "has the value:" :"has the value:",
+  "Embed" :"Embed:",
+  "Hint Text" :"Hint Text",
+  "Hint Icon" :"Hint Icon",
+  "Hint Color" :"Hint Color",
+  "Textarea": "Textarea",
+  "Paragraph": "Paragraph",
+  "Color Picker": "Color Picker"
 }

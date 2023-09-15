@@ -19,6 +19,7 @@ class Paragraph extends FieldsContract
     public static function getOptions(): array
     {
         return [
+            self::hintOptions(),
             self::columnSpanFull(),
         ];
     }

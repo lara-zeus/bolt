@@ -16,6 +16,7 @@ use Filament\SpatieLaravelTranslatablePluginServiceProvider;
 use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
+use Guava\FilamentIconPicker\FilamentIconPickerServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use LaraZeus\Bolt\BoltServiceProvider;
@@ -69,6 +70,7 @@ class TestCase extends Orchestra
             SEOServiceProvider::class,
             BladeClarityIconsServiceProvider::class,
             BladeIconparkServiceProvider::class,
+            FilamentIconPickerServiceProvider::class,
         ];
     }
 

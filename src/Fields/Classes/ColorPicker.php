@@ -27,6 +27,7 @@ class ColorPicker extends FieldsContract
                     'rgba' => 'rgba',
                 ]),
             self::htmlID(),
+            self::hintOptions(),
             self::required(),
             self::columnSpanFull(),
             self::visibility(),

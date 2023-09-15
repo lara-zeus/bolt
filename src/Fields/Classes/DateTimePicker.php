@@ -19,6 +19,7 @@ class DateTimePicker extends FieldsContract
     {
         return [
             self::htmlID(),
+            self::hintOptions(),
             self::required(),
             self::columnSpanFull(),
             self::visibility(),
