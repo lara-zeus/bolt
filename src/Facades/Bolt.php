@@ -2,7 +2,7 @@
 
 namespace LaraZeus\Bolt\Facades;
 
-use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
@@ -112,7 +112,7 @@ class Bolt extends Facade
                     ->id($sectionId)
                     ->icon($section->icon ?? null)
                     ->schema([
-                        Fieldset::make()->columns($section->columns)->schema($fields),
+                        Grid::make()->columns($section->columns)->schema($fields),
                     ]);
             } elseif (optional($zeusForm->options)['show-as'] === 'wizard') {
                 $sections[] = Wizard\Step::make($section->name)
@@ -120,13 +120,15 @@ class Bolt extends Facade
                     ->description($section->description)
                     ->icon($section->icon ?? null)
                     ->schema([
-                        Section::make()->columns($section->columns)->schema($fields),
+                        Grid::make()->columns($section->columns)->schema($fields),
                     ]);
             } else {
                 $sections[] = Section::make($section->name)
                     ->id($sectionId)
+                    ->icon($section->icon ?? null)
                     ->schema($fields)
-                    ->aside()
+                    ->collapsible()
+                    ->compact()
                     ->aside(fn () => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);

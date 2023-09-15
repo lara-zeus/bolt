@@ -269,7 +269,6 @@ trait Schemata
                                         ->hint(__('fields per row'))
                                         ->label(__('Section Columns')),
                                     IconPicker::make('icon')
-                                        ->visible(fn (Get $get) => in_array($get('../../options.show-as'), ['wizard', 'tabs']))
                                         ->columns([
                                             'default' => 1,
                                             'lg' => 3,
