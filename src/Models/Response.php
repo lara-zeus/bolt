@@ -27,7 +27,7 @@ class Response extends Model
 
     protected $with = ['form', 'user'];
 
-    protected $fillable = ['form_id', 'status', 'notes', 'user_id'];
+    protected $guarded = [];
 
     protected static function booted(): void
     {
