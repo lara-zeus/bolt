@@ -19,7 +19,7 @@ class Collection extends Model
     use HasUpdates;
     use SoftDeletes;
 
-    protected $fillable = ['name', 'values', 'user_id'];
+    protected $guarded = [];
 
     protected $casts = [
         'values' => 'collection',

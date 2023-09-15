@@ -22,7 +22,7 @@ class FieldResponse extends Model
 
     protected $with = ['field'];
 
-    protected $fillable = ['form_id', 'field_id', 'response_id', 'response'];
+    protected $guarded = [];
 
     protected static function newFactory(): FieldResponseFactory
     {
