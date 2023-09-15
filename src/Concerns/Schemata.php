@@ -63,7 +63,7 @@ trait Schemata
                 ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->collapsed()
+                ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->minItems(1)
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
@@ -263,7 +263,7 @@ trait Schemata
                                 ->columns(2)
                                 ->schema([
                                     Select::make('columns')
-                                        ->options(fn (): array => range(1, 12))
+                                        ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
                                         ->required()
                                         ->default(1)
                                         ->hint(__('fields per row'))
@@ -292,7 +292,7 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                ->collapsed()
+                ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,
