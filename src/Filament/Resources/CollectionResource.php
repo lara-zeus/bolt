@@ -6,6 +6,8 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
@@ -52,7 +54,9 @@ class CollectionResource extends BoltResource
     {
         return $form
             ->schema([
-                TextInput::make('name')->label(__('Collections Name'))->required()->maxLength(255)->columnSpan(2),
+                TextInput::make('name')
+                    ->live(onBlur: true)
+                    ->label(__('Collections Name'))->required()->maxLength(255)->columnSpan(2),
                 Repeater::make('values')
                     ->grid([
                         'default' => 1,
@@ -63,8 +67,17 @@ class CollectionResource extends BoltResource
                     ->columnSpan(2)
                     ->columns(1)
                     ->schema([
-                        TextInput::make('itemKey')->required()->label(__('Key'))->hint(__('what store in the form')),
-                        TextInput::make('itemValue')->required()->label(__('Value'))->hint(__('what the user will see')),
+                        TextInput::make('itemValue')
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (Set $set, Get $get, string $operation) {
+                                if ($operation === 'create') {
+                                    $set('itemKey', $get('itemValue'));
+                                }
+                            })
+                            ->required()->label(__('Value'))->hint(__('what the user will see')),
+                        TextInput::make('itemKey')
+                            ->live(onBlur: true)
+                            ->required()->label(__('Key'))->hint(__('what store in the form')),
                         Toggle::make('itemIsDefault')->label(__('selected by default')),
                     ]),
             ]);
