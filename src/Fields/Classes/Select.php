@@ -23,6 +23,7 @@ class Select extends FieldsContract
         return [
             self::dataSource(),
             self::htmlID(),
+            self::hintOptions(),
             Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
             self::required(),
             self::columnSpanFull(),

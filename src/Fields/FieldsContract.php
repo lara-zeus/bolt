@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Fields;
 
 use Filament\Forms\Get;
+use Filament\Support\Colors\Color;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use LaraZeus\Bolt\BoltPlugin;
@@ -79,6 +80,18 @@ abstract class FieldsContract implements Arrayable, Fields
 
         if (optional($zeusField->options)['column_span_full']) {
             $component = $component->columnSpanFull();
+        }
+
+        if (optional($zeusField->options)['hint']) {
+            if (optional($zeusField->options)['hint']['text']) {
+                $component = $component->hint($zeusField->options['hint']['text']);
+            }
+            if (optional($zeusField->options)['hint']['icon']) {
+                $component = $component->hintIcon($zeusField->options['hint']['icon'], tooltip: $zeusField->options['hint']['text']);
+            }
+            if (optional($zeusField->options)['hint']['color']) {
+                $component = $component->hintColor(fn () => Color::hex($zeusField->options['hint']['color']));
+            }
         }
 
         $component = $component

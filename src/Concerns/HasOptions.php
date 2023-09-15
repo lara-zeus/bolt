@@ -2,11 +2,13 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
+use Guava\FilamentIconPicker\Forms\IconPicker;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
@@ -82,13 +84,31 @@ trait HasOptions
             ->columns(1);
     }
 
+    public static function hintOptions(): Grid
+    {
+        return Grid::make()
+            ->schema([
+                TextInput::make('options.hint.text')
+                    ->label(__('Hint Text')),
+                IconPicker::make('options.hint.icon')
+                    ->columns([
+                        'default' => 1,
+                        'lg' => 3,
+                        '2xl' => 5,
+                    ])
+                    ->label(__('Hint Icon')),
+                ColorPicker::make('options.hint.color')->label(__('Hint Color')),
+            ])
+            ->columns(1);
+    }
+
     public static function columnSpanFull(): Grid
     {
         return Grid::make()
             ->schema([
                 Toggle::make('options.column_span_full')
                     ->helperText(__('show this field in full width row'))
-                    ->label('Full Width'),
+                    ->label(__('Full Width')),
             ])
             ->columns(1);
     }
