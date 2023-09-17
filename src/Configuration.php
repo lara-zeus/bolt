@@ -161,15 +161,15 @@ trait Configuration
         return $this->extensions;
     }
 
-    public function domain(?string $domain): static
+    public function domain(Closure | string | null $domain): static
     {
         $this->domain = $domain;
 
         return $this;
     }
 
-    public function getDomain(): ?string
+    public function getDomain(): Closure | string | null
     {
-        return $this->domain;
+        return $this->evaluate($this->domain);
     }
 }
