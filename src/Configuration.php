@@ -55,6 +55,8 @@ trait Configuration
      */
     protected Closure | string $navigationGroupLabel = 'Bolt';
 
+    protected Closure | string | null $domain = null;
+
     public function boltPrefix(Closure | string $prefix): static
     {
         $this->boltPrefix = $prefix;
@@ -157,5 +159,17 @@ trait Configuration
     public function getExtensions(): ?array
     {
         return $this->extensions;
+    }
+
+    public function domain(?string $domain): static
+    {
+        $this->domain = $domain;
+
+        return $this;
+    }
+
+    public function getDomain(): ?string
+    {
+        return $this->domain;
     }
 }
