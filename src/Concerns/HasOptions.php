@@ -171,7 +171,6 @@ trait HasOptions
                             ]),
                     ])
                     ->createOptionUsing(function (array $data) {
-                        $data['company_id'] = session('company.id');
                         $collection = new Collection();
                         $collection->fill($data);
                         $collection->save();
