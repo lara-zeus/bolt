@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Fields;
 use Filament\Forms\Get;
 use Filament\Support\Colors\Color;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasOptions;
@@ -127,12 +128,9 @@ abstract class FieldsContract implements Arrayable, Fields
 
         if (Bolt::isJson($response)) {
             $response = json_decode($response);
-            if (! is_array($response)) {
-                $response = [$response];
-            }
-        } else {
-            $response = [$response];
         }
+
+        $response = Arr::wrap($response);
 
         // to not braking old dataSource structure
         if ((int) $field->options['dataSource'] !== 0) {
