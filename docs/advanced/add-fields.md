@@ -29,6 +29,7 @@ Bolt will automatically list the field in the form builder.
 There is a cache for all fields, so remember to flush the key `bolt.fields`
 
 ## Customization
+
 check out the contract `LaraZeus\Bolt\Fields\FieldsContract` and see all the available methods.
 
 ### Disabling
@@ -48,6 +49,7 @@ public function title(): string
 ```
 
 ### Field Options
+
 you can add any options to be shown on the admin page when creating the form
 
 ```php
@@ -60,6 +62,7 @@ public static function getOptions(): array
 ```
 
 And to apply these options to the field in the frontend:
+
 ```php
 public function appendFilamentComponentsOptions($component, $zeusField)
 {
@@ -72,7 +75,9 @@ public function appendFilamentComponentsOptions($component, $zeusField)
 ```
 
 ### Disable the options tab
+
 if your field doesn't have any options, you can turn off the options tab by removing the method `getOptions` or returning false:
+
 ```php
 public function hasOptions(): bool
 {
@@ -81,6 +86,7 @@ public function hasOptions(): bool
 ```
 
 ### View the Response
+
 you can control how to view the response on the entries pages
 
 ```php

@@ -1,11 +1,11 @@
 ---
-title: Thems and Assets
+title: Themes and Assets
 weight: 6
 ---
 
 ## Compiling assets
-* make sure to include all the assets needed to render the form,
-* take a look at creating [custom themes](https://filamentphp.com/docs/2.x/admin/appearance#building-themes) for Filament.
+
+we use [tailwind Css](https://tailwindcss.com/) and custom themes by filament, make sure you are familiar with [tailwindcss configuration](https://tailwindcss.com/docs/configuration), and how to make custom [filament theme](https://filamentphp.com/docs/2.x/admin/appearance#building-themes).
 
 ### Custom Classes:
 

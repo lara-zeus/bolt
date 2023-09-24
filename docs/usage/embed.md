@@ -1,11 +1,13 @@
 ---
 title: Embed the Form
-weight: 8
+weight: 3
 ---
 
 ## Embed the Form
 
-to Embed the Form in any blade page, simply use:
+@zeus Bolt forms are simply a livewire component, you can embed it in any page.in your frontend or filament pages.
+
+to embed the Form in any blade page, simply use:
 
 ```blade
 <livewire:bolt.fill-form slug="feedback" inline="true" />
@@ -13,9 +15,9 @@ to Embed the Form in any blade page, simply use:
 
 and [this](https://demo.larazeus.com/embed) is how the form look in an empty page.
 
-## embed in the Sky
+## Embed in the Sky
 
-if you are using our package [Sky](https://larazeus.com/sky), you can embed the forms by using the code:
+if you are using our package @zeus [Sky](https://larazeus.com/sky), you can embed the forms by using the code:
 ```html
 <bolt>formSlug</bolt>
 ```
