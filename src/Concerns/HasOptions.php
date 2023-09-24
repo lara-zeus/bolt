@@ -14,7 +14,6 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use LaraZeus\Bolt\Models\Collection;
 
 trait HasOptions
 {
