@@ -128,7 +128,6 @@ class Bolt extends Facade
                     ->icon($section->icon ?? null)
                     ->schema($fields)
                     ->collapsible()
-                    ->compact()
                     ->aside(fn () => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);

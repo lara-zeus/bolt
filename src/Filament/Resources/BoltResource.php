@@ -12,7 +12,7 @@ class BoltResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return !in_array(static::class, BoltPlugin::get()->getHiddenResources())
+        return ! in_array(static::class, BoltPlugin::get()->getHiddenResources())
             && parent::canViewAny();
     }
 
