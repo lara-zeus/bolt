@@ -30,6 +30,8 @@ trait Configuration
         'Section' => \LaraZeus\Bolt\Models\Section::class,
     ];
 
+    protected array $hideResources = [];
+
     /**
      * default mailable for new entries
      */
@@ -171,5 +173,17 @@ trait Configuration
     public function getDomain(): Closure | string | null
     {
         return $this->evaluate($this->domain);
+    }
+
+    public function hideResources(array $resources): static
+    {
+        $this->hideResources = $resources;
+
+        return $this;
+    }
+
+    public function getHiddenResources(): ?array
+    {
+        return $this->hideResources;
     }
 }
