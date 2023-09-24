@@ -14,7 +14,6 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
-use LaraZeus\Bolt\Models\Collection;
 
 trait HasOptions
 {
@@ -171,7 +170,8 @@ trait HasOptions
                             ]),
                     ])
                     ->createOptionUsing(function (array $data) {
-                        $collection = new Collection();
+                        $collectionModel = BoltPlugin::getModel('Collection');
+                        $collection = new $collectionModel;
                         $collection->fill($data);
                         $collection->save();
 
