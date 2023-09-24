@@ -10,6 +10,12 @@ class BoltResource extends Resource
 {
     use Translatable;
 
+    public static function canViewAny(): bool
+    {
+        return ! in_array(static::class, BoltPlugin::get()->getHiddenResources())
+            && parent::canViewAny();
+    }
+
     public static function getNavigationBadge(): ?string
     {
         return (string) static::getModel()::query()->count();
