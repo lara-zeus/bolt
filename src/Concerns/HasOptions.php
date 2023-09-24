@@ -171,7 +171,8 @@ trait HasOptions
                             ]),
                     ])
                     ->createOptionUsing(function (array $data) {
-                        $collection = new Collection();
+                        $collectionModel = BoltPlugin::getModel('Collection');
+                        $collection = new $collectionModel;
                         $collection->fill($data);
                         $collection->save();
 
