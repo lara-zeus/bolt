@@ -47,8 +47,8 @@ class FileUpload extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        $component->disk(BoltPlugin::get()->getUploadDisk())
-            ->directory(BoltPlugin::get()->getUploadDirectory());
+        $component->disk(config('zeus-bolt.uploadDisk'))
+            ->directory(config('zeus-bolt.uploadDirectory'));
 
         if (isset($zeusField->options['allow_multiple']) && $zeusField->options['allow_multiple']) {
             $component = $component->multiple();

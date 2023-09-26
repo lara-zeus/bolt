@@ -46,7 +46,7 @@ class Category extends Model
     protected function logoUrl(): Attribute
     {
         return Attribute::make(
-            get: fn () => Storage::disk(BoltPlugin::get()->getUploadDisk())->url($this->logo),
+            get: fn () => Storage::disk(config('zeus-bolt.uploadDisk'))->url($this->logo),
         );
     }
 }

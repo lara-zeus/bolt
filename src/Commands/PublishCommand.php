@@ -26,8 +26,7 @@ class PublishCommand extends Command
     public function handle(): void
     {
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-migrations', '--force' => $this->option('force')]);
-        $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-seeder', '--force' => $this->option('force')]);
-        $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-factories', '--force' => $this->option('force')]);
+        $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-config', '--force' => $this->option('force')]);
 
         // publish Zeus files
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-config', '--force' => $this->option('force')]);

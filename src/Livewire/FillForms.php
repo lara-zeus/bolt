@@ -103,7 +103,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $emails = explode(',', $this->zeusForm->options['emails-notification']);
 
             foreach ($emails as $email) {
-                $mailable = BoltPlugin::get()->getDefaultMailable();
+                $mailable = config('zeus-bolt.defaultMailable');
                 Mail::to($email)->send(new $mailable($this->zeusForm, $response));
             }
         }

@@ -1,17 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Livewire\FillForms;
 use LaraZeus\Bolt\Livewire\ListEntries;
 use LaraZeus\Bolt\Livewire\ListForms;
 use LaraZeus\Bolt\Livewire\ShowEntry;
 
 if (! defined('__PHPSTAN_RUNNING__') && app('filament')->hasPlugin('zeus-bolt')) {
-    Route::domain(BoltPlugin::get()->getDomain())
-        ->prefix(BoltPlugin::get()->getBoltPrefix())
+    Route::domain(config('zeus-bolt.domain'))
+        ->prefix(config('zeus-bolt.prefix'))
         ->name('bolt.')
-        ->middleware(BoltPlugin::get()->getMiddleware())
+        ->middleware(config('zeus-bolt.middleware'))
         ->group(function () {
             Route::get('/', ListForms::class)
                 ->name('forms.list');

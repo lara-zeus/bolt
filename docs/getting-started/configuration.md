@@ -5,6 +5,10 @@ weight: 5
 
 ## Configuration
 
+There is two different set of configuration, for filament, and for the frontend pages
+
+## Filament Configuration
+
 to configure the plugin Bolt, you can pass the configuration to the plugin in `adminPanelProvider` 
 
 these all the available configuration, and their defaults values
@@ -14,39 +18,48 @@ these all the available configuration, and their defaults values
 
 ```php
 BoltPlugin::make()
-    ->domain('forms.app.test')
-    
-    ->boltPrefix('')
-    
-    ->boltMiddleware(['web'])
-    
+    // the default models, by default Bolt will read from the config file 'zeus-bolt'.
+    // but if you want to customize the models per panel, you can do it here 
     ->boltModels([
+        // ...
         'Category' => \LaraZeus\Bolt\Models\Category::class,
-        'Collection' => \LaraZeus\Bolt\Models\Collection::class,
-        'Field' => \LaraZeus\Bolt\Models\Field::class,
-        'FieldResponse' => \LaraZeus\Bolt\Models\FieldResponse::class,
-        'Form' => \LaraZeus\Bolt\Models\Form::class,
-        'FormsStatus' => \LaraZeus\Bolt\Models\FormsStatus::class,
-        'Response' => \LaraZeus\Bolt\Models\Response::class,
-        'Section' => \LaraZeus\Bolt\Models\Section::class,
     ])
     
     ->hideResources([
         FormResource::class
     ])
     
-    ->defaultMailable(
-        \LaraZeus\Bolt\Mail\FormSubmission::class
-    )
+    ->navigationGroupLabel('Bolt')
     
     ->extensions([
         Thunder::class,
     ])
-    
-    ->uploadDisk('public')
-    
-    ->uploadDirectory('forms')
-    
-    ->navigationGroupLabel('Bolt')
 ,
+```
+
+## Customize Filament Resources
+
+you can customize all Bolt resources icons and sorting by adding the following code to your `AppServiceProvider` boot method
+
+```php
+FormResource::navigationSort(100);
+FormResource::navigationIcon('heroicon-o-home');
+FormResource::navigationGroup('New Name');
+```
+
+available resources:
+
+- CategoryResource,
+- CollectionResource,
+- FormResource,
+- ResponseResource,
+
+## Frontend Configuration
+
+use the file `zeu-bolt.php`, to customize the frontend, like the prefix,domain, and middleware for each content type.
+
+to publish the configuration:
+
+```bash
+php artisan vendor:publish --tag=zeus-bolt-config
 ```
