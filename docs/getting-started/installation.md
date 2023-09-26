@@ -33,11 +33,13 @@ The install command will publish the migrations and the necessary assets for the
 To set up the plugin with filament, you need to add it to your panel provider; The default one is `adminPanelProvider`
 
 ```php
-SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
-BoltPlugin::make()
+->plugins([
+    SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
+    BoltPlugin::make()
+])
 ```
 
-### Filament Export
+### Note about Filament Export
 
 pleasse note if you are using `alperenersoy/filament-export` in your app, then you must add the following to your composer.json file:
 
