@@ -47,12 +47,14 @@ trait Configuration
 
     /**
      * where to upload all files when using the file upload field
+     *
      * @deprecated deprecated since version 2.1
      */
     protected Closure | string $uploadDisk = 'public';
 
     /**
      * the directory name
+     *
      * @deprecated deprecated since version 2.1
      */
     protected Closure | string $uploadDirectory = 'forms';
