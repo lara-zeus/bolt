@@ -27,7 +27,7 @@ class Collectors
         foreach ($classes as $class) {
             $getClass = new $class();
             if (! $getClass->disabled) {
-                $allClasses[] = $getClass->toArray();
+                $allClasses[str($class)->explode('\\')->last()] = $getClass->toArray();
             }
         }
 
