@@ -6,23 +6,21 @@ use LaraZeus\Bolt\Livewire\ListEntries;
 use LaraZeus\Bolt\Livewire\ListForms;
 use LaraZeus\Bolt\Livewire\ShowEntry;
 
-if (! defined('__PHPSTAN_RUNNING__') && app('filament')->hasPlugin('zeus-bolt')) {
-    Route::domain(config('zeus-bolt.domain'))
-        ->prefix(config('zeus-bolt.prefix'))
-        ->name('bolt.')
-        ->middleware(config('zeus-bolt.middleware'))
-        ->group(function () {
-            Route::get('/', ListForms::class)
-                ->name('forms.list');
+Route::domain(config('zeus-bolt.domain'))
+    ->prefix(config('zeus-bolt.prefix'))
+    ->name('bolt.')
+    ->middleware(config('zeus-bolt.middleware'))
+    ->group(function () {
+        Route::get('/', ListForms::class)
+            ->name('forms.list');
 
-            Route::get('/entries', ListEntries::class)->name('entries.list')
-                ->middleware('auth');
+        Route::get('/entries', ListEntries::class)->name('entries.list')
+            ->middleware('auth');
 
-            Route::get('/entry/{responseID}', ShowEntry::class)
-                ->name('entry.show')
-                ->middleware('auth');
+        Route::get('/entry/{responseID}', ShowEntry::class)
+            ->name('entry.show')
+            ->middleware('auth');
 
-            Route::get('{slug}/{extensionSlug?}', FillForms::class)
-                ->name('form.show');
-        });
-}
+        Route::get('{slug}/{extensionSlug?}', FillForms::class)
+            ->name('form.show');
+    });
