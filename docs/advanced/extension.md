@@ -104,7 +104,9 @@ class Items implements Extension
 ```
 
 ## Enabling The Extension
+
 in your `zeus-bolt` config file, add your extension to the array:
+
 ```php 
 'extensions' => [
     \App\Zeus\Extensions\Items::class,

@@ -43,6 +43,10 @@ For example, you can use it as a job board, appointments, ticketing, survey, and
 - Exam Module: (set correct answer, the mark for each question, autocorrection for all responses, send the mark to the user, and display the result) (soon)
 - Product Module: (show an order form with products and pricing) (soon)
 
+## Bolt Pro
+
+[![bolt-pro](https://larazeus.com/images/bolt-pro-ad.png)](https://larazeus.com/bolt-pro)
+
 ## Support
 
 Available support channels:

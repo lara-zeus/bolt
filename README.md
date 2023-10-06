@@ -32,6 +32,10 @@ _💖 if you think this has potential, star ⭐️ the project to let me know :)
 
 And more on the way.
 
+## Bolt Pro
+
+[![bolt-pro](https://larazeus.com/images/bolt-pro-ad.png)](https://larazeus.com/bolt-pro)
+
 ## Overview
 [read more](https://larazeus.com/docs/bolt/v1/overview) about the idea and how Bolt works.
 

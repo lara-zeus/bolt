@@ -14,6 +14,7 @@ class InstallCommand extends Command
     {
         $this->info('publishing migrations...');
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-migrations']);
+        $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-config']);
 
         $this->info('publishing assets...');
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-assets']);

@@ -73,8 +73,8 @@ class CategoryResource extends BoltResource
                         Toggle::make('is_active')->label(__('Is Active'))->default(1),
                         Textarea::make('description')->maxLength(65535)->columnSpan(['sm' => 2])->label(__('Description')),
                         FileUpload::make('logo')
-                            ->disk(BoltPlugin::get()->getUploadDisk())
-                            ->directory(BoltPlugin::get()->getUploadDirectory())
+                            ->disk(config('zeus-bolt.uploadDisk'))
+                            ->directory(config('zeus-bolt.uploadDisk'))
                             ->columnSpan(['sm' => 2])
                             ->label(__('logo')),
                     ]),
@@ -86,7 +86,7 @@ class CategoryResource extends BoltResource
         return $table
             ->columns([
                 ImageColumn::make('logo')
-                    ->disk(BoltPlugin::get()->getUploadDisk())
+                    ->disk(config('zeus-bolt.uploadDisk'))
                     ->toggleable()
                     ->label(__('Logo')),
                 TextColumn::make('name')

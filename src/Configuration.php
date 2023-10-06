@@ -7,11 +7,13 @@ use Closure;
 trait Configuration
 {
     /**
+     * @deprecated deprecated since version 2.1
      * set the default path for the forms homepage.
      */
     protected Closure | string $boltPrefix = 'bolt';
 
     /**
+     * @deprecated deprecated since version 2.1
      * the middleware you want to apply on all the forms routes
      */
     protected array $boltMiddleware = ['web'];
@@ -33,6 +35,7 @@ trait Configuration
     protected array $hideResources = [];
 
     /**
+     * @deprecated deprecated since version 2.1
      * default mailable for new entries
      */
     protected string $defaultMailable = \LaraZeus\Bolt\Mail\FormSubmission::class;
@@ -44,11 +47,15 @@ trait Configuration
 
     /**
      * where to upload all files when using the file upload field
+     *
+     * @deprecated deprecated since version 2.1
      */
     protected Closure | string $uploadDisk = 'public';
 
     /**
      * the directory name
+     *
+     * @deprecated deprecated since version 2.1
      */
     protected Closure | string $uploadDirectory = 'forms';
 
@@ -57,8 +64,14 @@ trait Configuration
      */
     protected Closure | string $navigationGroupLabel = 'Bolt';
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     protected Closure | string | null $domain = null;
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function boltPrefix(Closure | string $prefix): static
     {
         $this->boltPrefix = $prefix;
@@ -66,11 +79,17 @@ trait Configuration
         return $this;
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function getBoltPrefix(): Closure | string
     {
         return $this->evaluate($this->boltPrefix);
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function boltMiddleware(array $middleware): static
     {
         $this->boltMiddleware = $middleware;
@@ -78,6 +97,9 @@ trait Configuration
         return $this;
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function getMiddleware(): array
     {
         return $this->boltMiddleware;
@@ -98,11 +120,14 @@ trait Configuration
     public static function getModel(string $model): string
     {
         return array_merge(
-            (new static())->boltModels,
+            config('zeus-bolt.models'),
             (new static())::get()->getBoltModels()
         )[$model];
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function uploadDisk(Closure | string $disk): static
     {
         $this->uploadDisk = $disk;
@@ -110,11 +135,17 @@ trait Configuration
         return $this;
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function getUploadDisk(): Closure | string
     {
         return $this->evaluate($this->uploadDisk);
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function uploadDirectory(Closure | string $dir): static
     {
         $this->uploadDirectory = $dir;
@@ -122,6 +153,9 @@ trait Configuration
         return $this;
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function getUploadDirectory(): Closure | string
     {
         return $this->evaluate($this->uploadDirectory);
@@ -139,6 +173,9 @@ trait Configuration
         return $this->evaluate($this->navigationGroupLabel);
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function defaultMailable(string $mailable): static
     {
         $this->defaultMailable = $mailable;
@@ -146,6 +183,9 @@ trait Configuration
         return $this;
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function getDefaultMailable(): string
     {
         return $this->defaultMailable;
@@ -163,6 +203,9 @@ trait Configuration
         return $this->extensions;
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function domain(Closure | string | null $domain): static
     {
         $this->domain = $domain;
@@ -170,6 +213,9 @@ trait Configuration
         return $this;
     }
 
+    /*
+     * @deprecated deprecated since version 2.1
+     */
     public function getDomain(): Closure | string | null
     {
         return $this->evaluate($this->domain);
