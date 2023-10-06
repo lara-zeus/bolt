@@ -50,12 +50,12 @@
                             <p class="text-custom-600 font-semibold">{{ __('Entry Details') }}</p>
                         </x-slot>
 
-                        <div class="flex flex-col">
+                        <div class="flex flex-col mb-4">
                             <span class="text-gray-600">{{ __('Form') }}:</span>
-                            {{ $getRecord()->form->name ?? '' }}
+                            <span>{{ $getRecord()->form->name ?? '' }}</span>
                         </div>
 
-                        <div>
+                        <div class="mb-4">
                             <span>{{ __('status') }}</span>
                             @php $getStatues = $getRecord()->statusDetails() @endphp
                             <span class="{{ $getStatues['class']}}" x-tooltip.raw="{{ __('status') }}">
