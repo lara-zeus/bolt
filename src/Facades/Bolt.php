@@ -132,20 +132,20 @@ class Bolt extends Facade
                         Grid::make()->columns($section->columns)->schema($fields),
                     ]);
             } else {
-                if($section->compact){
+                if ($section->compact) {
                     $sections[] = Fieldset::make($section->name)
-                    ->id($sectionId)
-                    ->schema($fields)
-                    ->columns($section->columns);
+                        ->id($sectionId)
+                        ->schema($fields)
+                        ->columns($section->columns);
                 } else {
                     $sections[] = Section::make($section->name)
-                    ->id($sectionId)
-                    ->icon($section->icon ?? null)
-                    ->schema($fields)
-                    ->collapsible()
-                    ->aside(fn () => $section->aside)
-                    ->description($section->description)
-                    ->columns($section->columns);
+                        ->id($sectionId)
+                        ->icon($section->icon ?? null)
+                        ->schema($fields)
+                        ->collapsible()
+                        ->aside(fn () => $section->aside)
+                        ->description($section->description)
+                        ->columns($section->columns);
                 }
             }
         }
