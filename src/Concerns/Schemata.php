@@ -25,21 +25,6 @@ use LaraZeus\Bolt\Models\Category;
 
 trait Schemata
 {
-    public static function getMainFormSchemaForView(): array
-    {
-        return [
-            Hidden::make('user_id')->default(auth()->user()->id ?? null),
-
-            Section::make()
-                ->schema([
-                    TextInput::make('name')
-                        ->maxLength(255)
-                        ->live(onBlur: true)
-                        ->label(__('Form Name')),
-                ]),
-        ];
-    }
-
     public static function getMainFormSchema(): array
     {
         return [
