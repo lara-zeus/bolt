@@ -280,6 +280,11 @@ trait Schemata
                                         ->inline(false)
                                         ->visible(fn (Get $get) => $get('../../options.show-as') === 'page')
                                         ->label(__('show as aside')),
+
+                                    Toggle::make('compact')
+                                        ->inline(false)
+                                        ->visible(fn (Get $get) => $get('../../options.show-as') === 'page')
+                                        ->label(__('compact section')),
                                 ]),
                         ]),
                 ]),

@@ -16,7 +16,8 @@ use Spatie\Translatable\HasTranslations;
  * @property string $name
  * @property string $columns
  * @property string $description
- * @property string $aside
+ * @property boolean $aside
+ * @property boolean $compact
  */
 class Section extends Model
 {

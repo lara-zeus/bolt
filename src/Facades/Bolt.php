@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Facades;
 
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
@@ -131,7 +132,13 @@ class Bolt extends Facade
                         Grid::make()->columns($section->columns)->schema($fields),
                     ]);
             } else {
-                $sections[] = Section::make($section->name)
+                if($section->compact){
+                    $sections[] = Fieldset::make($section->name)
+                    ->id($sectionId)
+                    ->schema($fields)
+                    ->columns($section->columns);
+                } else {
+                    $sections[] = Section::make($section->name)
                     ->id($sectionId)
                     ->icon($section->icon ?? null)
                     ->schema($fields)
@@ -139,6 +146,7 @@ class Bolt extends Facade
                     ->aside(fn () => $section->aside)
                     ->description($section->description)
                     ->columns($section->columns);
+                }
             }
         }
 
