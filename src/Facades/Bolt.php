@@ -32,10 +32,6 @@ class Bolt extends Facade
             $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Collectors::collectClasses(app_path('Zeus/Fields'), 'App\\Zeus\\Fields\\');
 
-            if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
-                $boltProFields = Collectors::collectClasses(base_path('vendor/lara-zeus/bolt-pro/src/Fields'), 'LaraZeus\\BoltPro\\Fields\\');
-            }
-
             $fields = collect();
 
             if ($coreFields->isNotEmpty()) {
@@ -46,8 +42,11 @@ class Bolt extends Facade
                 $fields = $fields->merge($appFields);
             }
 
-            if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && $boltProFields->isNotEmpty()) {
-                $fields = $fields->merge($boltProFields);
+            if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
+                $boltProFields = Collectors::collectClasses(base_path('vendor/lara-zeus/bolt-pro/src/Fields'), 'LaraZeus\\BoltPro\\Fields\\');
+                if ($boltProFields->isNotEmpty()) {
+                    $fields = $fields->merge($boltProFields);
+                }
             }
 
             return $fields->sortBy('sort');

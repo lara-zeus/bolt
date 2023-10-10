@@ -15,7 +15,7 @@ class ListForms extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
+        $actions = [
             Actions\LocaleSwitcher::make(),
             Actions\CreateAction::make('create'),
             Action::make('open')
@@ -26,5 +26,13 @@ class ListForms extends ListRecords
                 ->url(fn () => route('bolt.forms.list'))
                 ->openUrlInNewTab(),
         ];
+
+        if (class_exists(\LaraZeus\BoltPreset\Facades\BoltPreset::class)) {
+            //@phpstan-ignore-next-line
+            $actions[] = \LaraZeus\BoltPreset\Actions\PresetAction::make('new from preset')
+                ->visible(config('zeus-bolt.show_presets'));
+        }
+
+        return $actions;
     }
 }
