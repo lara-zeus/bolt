@@ -26,9 +26,9 @@ class ResponsesPerMonth extends ChartWidget
     protected function getFilters(): ?array
     {
         return [
-            'per_day' => 'Per Day',
-            'per_month' => 'Per month',
-            'per_year' => 'Per year',
+            'per_day' => __('Per Day'),
+            'per_month' => __('Per month'),
+            'per_year' => __('Per year'),
         ];
     }
 
@@ -40,36 +40,25 @@ class ResponsesPerMonth extends ChartWidget
     protected function getData(): array
     {
         $label = null;
-        $data = [];
+
+        $data = Trend::model(BoltPlugin::getModel('Response'))
+            ->between(
+                start: now()->startOfYear(),
+                end: now()->endOfYear(),
+            );
 
         if ($this->filter == 'per_day') {
             $label = __('Per day');
-            $data = Trend::model(BoltPlugin::getModel('Response'))
-                ->between(
-                    start: now()->startOfYear(),
-                    end: now()->endOfYear(),
-                )
-                ->perDay()
-                ->count();
+            $data = $data->perDay();
         } elseif ($this->filter == 'per_month') {
             $label = __('Per month');
-            $data = Trend::model(BoltPlugin::getModel('Response'))
-                ->between(
-                    start: now()->startOfYear(),
-                    end: now()->endOfYear(),
-                )
-                ->perMonth()
-                ->count();
+            $data = $data->perMonth();
         } elseif ($this->filter == 'per_year') {
             $label = __('Per year');
-            $data = Trend::model(BoltPlugin::getModel('Response'))
-                ->between(
-                    start: now()->startOfYear(),
-                    end: now()->endOfYear(),
-                )
-                ->perYear()
-                ->count();
+            $data = $data->perYear();
         }
+
+        $data = $data->count();
 
         return [
             'datasets' => [
