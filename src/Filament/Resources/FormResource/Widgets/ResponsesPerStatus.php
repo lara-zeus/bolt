@@ -5,17 +5,38 @@ namespace LaraZeus\Bolt\Filament\Resources\FormResource\Widgets;
 use Filament\Widgets\ChartWidget;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\Response;
 
 class ResponsesPerStatus extends ChartWidget
 {
     public Form $record;
 
-    protected int | string | array $columnSpan = [
-        'sm' => 1,
+    protected static ?string $maxHeight = '300px';
+
+    protected static ?array $options = [
+        'scales' => [
+            'y' => [
+                'grid' => [
+                    'display' => false,
+                ],
+                'ticks' => [
+                    'display' => false,
+                ],
+            ],
+            'x' => [
+                'grid' => [
+                    'display' => false,
+                ],
+                'ticks' => [
+                    'display' => false,
+                ],
+            ],
+        ],
     ];
 
-    protected static ?string $maxHeight = '300px';
+    protected int | string | array $columnSpan = [
+        'lg' => 1,
+        'md' => 2,
+    ];
 
     public function getHeading(): string
     {
@@ -26,9 +47,14 @@ class ResponsesPerStatus extends ChartWidget
     {
         $dataset = [];
         $statuses = BoltPlugin::getModel('FormsStatus')::get();
+
+        $form = BoltPlugin::getModel('Form')::query()
+            ->with(['responses'])
+            ->where('id', $this->record->id)
+            ->first();
+
         foreach ($statuses as $status) {
-            $dataset[] = Response::query()
-                ->where('form_id', $this->record->id)
+            $dataset[] = $form->responses
                 ->where('status', $status->key)
                 ->count();
         }

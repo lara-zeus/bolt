@@ -38,11 +38,18 @@ class ViewForm extends ViewRecord
 
     protected function getFooterWidgets(): array
     {
-        return [
+        $widgets = [
             FormResource\Widgets\FormOverview::class,
             FormResource\Widgets\ResponsesPerMonth::class,
             FormResource\Widgets\ResponsesPerStatus::class,
             FormResource\Widgets\ResponsesPerFields::class,
         ];
+
+        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
+            //@phpstan-ignore-next-line
+            $widgets[] = \LaraZeus\BoltPro\Widgets\ResponsesPerCollection::class;
+        }
+
+        return $widgets;
     }
 }
