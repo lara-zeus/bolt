@@ -13,6 +13,7 @@ use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
+use LaraZeus\BoltPreset\Models\Field as FieldPreset;
 
 /** @phpstan-return Arrayable<string,mixed> */
 abstract class FieldsContract implements Arrayable, Fields
@@ -151,18 +152,28 @@ abstract class FieldsContract implements Arrayable, Fields
         return (is_array($response)) ? implode(', ', $response) : $response;
     }
 
-    public static function getFieldCollectionItemsList(Field $zeusField): Collection
+    //@phpstan-ignore-next-line
+    public static function getFieldCollectionItemsList(Field | FieldPreset $zeusField): Collection
     {
         $getCollection = collect();
 
+        //@phpstan-ignore-next-line
+        if ($zeusField instanceof FieldPreset && is_string($zeusField->options)) {
+            //@phpstan-ignore-next-line
+            $zeusField->options = json_decode($zeusField->options, true);
+        }
+
         // to not braking old dataSource structure
+        //@phpstan-ignore-next-line
         if ((int) $zeusField->options['dataSource'] !== 0) {
             $getCollection = BoltPlugin::getModel('Collection')::query()
+                //@phpstan-ignore-next-line
                 ->find($zeusField->options['dataSource'] ?? 0)
                 ->values
                 ->pluck('itemValue', 'itemKey');
         } else {
             if (class_exists($zeusField->options['dataSource'])) {
+                //@phpstan-ignore-next-line
                 $dataSourceClass = new $zeusField->options['dataSource'];
                 $getCollection = $dataSourceClass->getModel()::pluck(
                     $dataSourceClass->getValuesUsing(),
