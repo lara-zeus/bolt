@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Concerns;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
@@ -15,6 +16,7 @@ use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\ViewField;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
@@ -82,6 +84,7 @@ trait Schemata
                         ->unique(ignoreRecord: true)
                         ->label(__('Form Slug')),
                 ]),
+
             Tabs\Tab::make('text-details-tab')
                 ->label(__('Text & Details'))
                 ->schema([
@@ -99,6 +102,7 @@ trait Schemata
                         ->label(__('Confirmation Message'))
                         ->helperText(__('optional, show a massage whenever any one submit a new entry')),
                 ]),
+
             Tabs\Tab::make('display-access-tab')
                 ->label(__('Display & Access'))
                 ->columns(2)
@@ -136,6 +140,7 @@ trait Schemata
                         ->label(__('ordering'))
                         ->default(1),
                 ]),
+
             Tabs\Tab::make('advanced-tab')
                 ->label(__('Advanced'))
                 ->schema([
@@ -216,6 +221,26 @@ trait Schemata
                         ->formatStateUsing(function (Get $get) {
                             return '<bolt>' . $get('slug') . '</bolt>';
                         }),
+                ]),
+
+            Tabs\Tab::make('design')
+                ->label(__('Design'))
+                ->visible(fn (): bool => class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
+                ->schema([
+                    ViewField::make('options.primary_color')
+                        ->view('zeus::filament.components.color-picker'),
+                    FileUpload::make('options.logo')
+                        ->disk(config('zeus-bolt.uploadDisk'))
+                        ->directory(config('zeus-bolt.uploadDisk'))
+                        ->image()
+                        ->imageEditor()
+                        ->label(__('Logo')),
+                    FileUpload::make('options.cover')
+                        ->disk(config('zeus-bolt.uploadDisk'))
+                        ->directory(config('zeus-bolt.uploadDisk'))
+                        ->image()
+                        ->imageEditor()
+                        ->label(__('Cover')),
                 ]),
         ];
     }
