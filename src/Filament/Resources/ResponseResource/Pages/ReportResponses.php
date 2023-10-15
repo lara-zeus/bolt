@@ -48,8 +48,12 @@ class ReportResponses extends Page implements HasForms, HasTable
                 ->toggleable(),*/
             TextColumn::make('user.name')
                 ->label(__('User Name'))
+                ->toggleable()
+                ->sortable()
                 ->searchable(),
             TextColumn::make('status')
+                ->toggleable()
+                ->sortable()
                 ->badge()
                 ->label(__('status'))
                 ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
@@ -57,7 +61,10 @@ class ReportResponses extends Page implements HasForms, HasTable
                 ->grow(false)
                 ->searchable('status'),
 
-            TextColumn::make('notes')->toggleable(),
+            TextColumn::make('notes')
+                ->label(__('notes'))
+                ->sortable()
+                ->toggleable(),
         ];
 
         /**
@@ -77,7 +84,10 @@ class ReportResponses extends Page implements HasForms, HasTable
                 ->toggleable();
         }
 
-        $mainColumns[] = TextColumn::make('created_at')->toggleable();
+        $mainColumns[] = TextColumn::make('created_at')
+            ->sortable()
+            ->label(__('created at'))
+            ->toggleable();
 
         return $table
             ->query(
