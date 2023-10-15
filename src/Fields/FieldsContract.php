@@ -170,11 +170,25 @@ abstract class FieldsContract implements Arrayable, Fields
         // to not braking old dataSource structure
         //@phpstan-ignore-next-line
         if ((int) $zeusField->options['dataSource'] !== 0) {
-            $getCollection = BoltPlugin::getModel('Collection')::query()
+            //@phpstan-ignore-next-line
+            if ($zeusField instanceof FieldPreset) {
                 //@phpstan-ignore-next-line
-                ->find($zeusField->options['dataSource'] ?? 0)
-                ->values
-                ->pluck('itemValue', 'itemKey');
+                $getCollection = \LaraZeus\BoltPreset\Models\Collection::query()
+                    //@phpstan-ignore-next-line
+                    ->find($zeusField->options['dataSource'] ?? 0)
+                    ->values;
+                //@phpstan-ignore-next-line
+                $getCollection = collect(json_decode($getCollection, true))
+                    ->pluck('itemValue', 'itemKey');
+            } else {
+                $getCollection = BoltPlugin::getModel('Collection')::query()
+                    ->find($zeusField->options['dataSource'] ?? 0);
+                if ($getCollection === null) {
+                    $getCollection = collect();
+                } else {
+                    $getCollection = $getCollection->values->pluck('itemValue', 'itemKey');
+                }
+            }
         } else {
             if (class_exists($zeusField->options['dataSource'])) {
                 //@phpstan-ignore-next-line
