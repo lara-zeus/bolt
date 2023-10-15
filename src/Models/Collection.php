@@ -33,7 +33,7 @@ class Collection extends Model
             return $allValues
                 ->take(5)
                 ->map(function ($item) {
-                    return $item['itemValue'];
+                    return $item['itemValue'] ?? null;
                 })
                 ->join(',');
         }
