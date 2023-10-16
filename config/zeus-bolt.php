@@ -38,4 +38,6 @@ return [
     'uploadDisk' => 'public',
 
     'uploadDirectory' => 'forms',
+
+    'show_presets' => false,
 ];
