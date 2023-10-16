@@ -40,4 +40,6 @@ return [
     'uploadDirectory' => 'forms',
 
     'show_presets' => false,
+
+    'allow_design' => false,
 ];
