@@ -225,7 +225,7 @@ trait Schemata
 
             Tabs\Tab::make('design')
                 ->label(__('Design'))
-                ->visible(fn (): bool => class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
+                ->visible(fn (): bool => class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
                 ->schema([
                     ViewField::make('options.primary_color')
                         ->view('zeus::filament.components.color-picker'),
