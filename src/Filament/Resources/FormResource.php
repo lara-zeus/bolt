@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
+use Closure;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\IconEntry;
@@ -41,6 +42,8 @@ class FormResource extends BoltResource
     protected static ?int $navigationSort = 1;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected static Closure | array | null $boltFormSchema = null;
 
     public static function getModel(): string
     {
@@ -98,7 +101,17 @@ class FormResource extends BoltResource
 
     public static function form(Form $form): Form
     {
-        return $form->schema(static::getMainFormSchema());
+        return $form->schema(static::$boltFormSchema ?? static::getMainFormSchema());
+    }
+
+    public function getBoltFormSchema(): array | Closure | null
+    {
+        return static::$boltFormSchema;
+    }
+
+    public static function getBoltFormSchemaUsing(array | Closure | null $form): void
+    {
+        static::$boltFormSchema = $form;
     }
 
     public static function table(Table $table): Table

@@ -15,8 +15,11 @@ Get additional fields for bolt. more options to build professional forms
 - 🔥 Icon Picker, allow your users pick an icon!
 - 🔥 Image Picker, allow users to pick an image.
 - 🔥 Dynamic Textbox, allow users to add multiple text values
-- 🔥 Signature Pad, collect users signature
-- 🔥 terms and conditions
+- 🔥 Signature Pad, collect users signature 
+- 🔥 terms and conditions with custom URLs 
+- 🔥 Advanced widgets and stats
+- 🔥 Forms API
+- 🔥 Custom colors and branding per form
 
 ### Get Bolt Pro from [here](https://larazeus.com/bolt-pro)
 
@@ -31,3 +34,12 @@ composer require lara-zeus/bolt-pro
 and that is all :).
 
 you will get more details after you purchasing the package.
+
+## Configuration
+
+if you want to disable the preset button, add this to `zeus-bolt` config file:
+
+```php
+'allow_design' => false,
+```
+
