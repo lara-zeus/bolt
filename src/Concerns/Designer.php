@@ -88,7 +88,7 @@ trait Designer
         return $fields;
     }
 
-    private static function drawSections(Form $zeusForm, \LaraZeus\Bolt\Models\Section $section, array $fields): Tab | Step | Section
+    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tab | Step | Section
     {
         $component = Section::make($section->name)
             ->description($section->description)
