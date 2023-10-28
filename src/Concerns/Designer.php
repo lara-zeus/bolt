@@ -39,7 +39,7 @@ trait Designer
         return $sections;
     }
 
-    private static function handelExt(Form $zeusForm): Section|array
+    private static function handelExt(Form $zeusForm): Section | array
     {
         $getExtComponent = Extensions::init($zeusForm, 'formComponents');
         if ($getExtComponent === null) {
@@ -62,38 +62,38 @@ trait Designer
     {
         $fields = [];
 
-        if (!$inline) {
+        if (! $inline) {
             $fields[] = Bolt::renderHook('zeus-form-section.before');
         }
 
         foreach ($section->fields->sortBy('ordering') as $zeusField) {
-            if (!$inline) {
+            if (! $inline) {
                 $fields[] = Bolt::renderHook('zeus-form-field.before');
             }
 
             $fieldClass = new $zeusField->type;
-            $component = $fieldClass->renderClass::make('zeusData.'.$zeusField->id);
+            $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
 
             $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
 
-            if (!$inline) {
+            if (! $inline) {
                 $fields[] = Bolt::renderHook('zeus-form-field.after');
             }
         }
 
-        if (!$inline) {
+        if (! $inline) {
             $fields[] = Bolt::renderHook('zeus-form-section.after');
         }
 
         return $fields;
     }
 
-    private static function handelSections($zeusForm, $section, $fields): Tab|Step|Fieldset|Section
+    private static function handelSections($zeusForm, $section, $fields): Tab | Step | Fieldset | Section
     {
         $component = Section::make($section->name)
             ->description($section->description)
-            ->aside(fn() => $section->aside)
-            ->compact(fn() => $section->compact)
+            ->aside(fn () => $section->aside)
+            ->compact(fn () => $section->compact)
             ->collapsible();
 
         if (optional($zeusForm->options)['show-as'] === 'tabs') {
@@ -108,6 +108,7 @@ trait Designer
         }
 
         $component->visible(function ($record, Get $get) use ($zeusForm,$section) {
+
             if (! isset($section->options['visibility']) || ! $section->options['visibility']['active']) {
                 return true;
             }
@@ -127,7 +128,7 @@ trait Designer
         });
 
         return $component
-            ->id(str($section->name)->slug().'-'.$section->id)
+            ->id(str($section->name)->slug() . '-' . $section->id)
             ->schema($fields)
             //->visible(false)
             ->columns($section->columns);
