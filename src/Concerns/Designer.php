@@ -28,11 +28,11 @@ trait Designer
         }
 
         if (optional($zeusForm->options)['show-as'] === 'tabs') {
-            return [Tabs::make('tabs')->tabs($sections)];
+            return [Tabs::make('tabs')->live()->tabs($sections)];
         }
 
         if (optional($zeusForm->options)['show-as'] === 'wizard') {
-            return [Wizard::make($sections)];
+            return [Wizard::make($sections)->live()->skippable()];
         }
 
         return $sections;
@@ -103,6 +103,7 @@ trait Designer
 
         if (optional($zeusForm->options)['show-as'] === 'wizard') {
             $component = Step::make($section->name)
+                ->live()
                 ->description($section->description)
                 ->icon($section->icon ?? null);
         }
@@ -130,6 +131,7 @@ trait Designer
         return $component
             ->id(str($section->name)->slug() . '-' . $section->id)
             ->schema($fields)
+            ->live()
             ->columns($section->columns);
     }
 }
