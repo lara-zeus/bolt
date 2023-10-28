@@ -51,6 +51,6 @@ class CheckboxList extends FieldsContract
             $component = $component->default($selected);
         }
 
-        return $component;
+        return $component->live();
     }
 }

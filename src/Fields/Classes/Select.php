@@ -59,6 +59,6 @@ class Select extends FieldsContract
             $component = $component->default($selected);
         }
 
-        return $component;
+        return $component->live();
     }
 }

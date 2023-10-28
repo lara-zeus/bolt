@@ -6,6 +6,7 @@ use Filament\Forms;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\Designer;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -19,6 +20,7 @@ use Livewire\Component;
 class FillForms extends Component implements Forms\Contracts\HasForms
 {
     use Forms\Concerns\InteractsWithForms;
+    use Designer;
 
     public Form $zeusForm;
 
@@ -32,7 +34,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     protected function getFormSchema(): array
     {
-        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm, $this->inline);
+        return static::ui($this->zeusForm, $this->inline);
     }
 
     protected function getFormModel(): Form

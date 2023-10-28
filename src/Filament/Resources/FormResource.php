@@ -29,6 +29,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
@@ -36,6 +37,7 @@ use LaraZeus\Bolt\Models\Form as ZeusForm;
 class FormResource extends BoltResource
 {
     use Schemata;
+    use HasOptions;
 
     protected static ?string $navigationIcon = 'clarity-form-line';
 

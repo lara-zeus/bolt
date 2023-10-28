@@ -69,6 +69,7 @@ class BoltServiceProvider extends PackageServiceProvider
             'add_extension_item_responses',
             'alter_tables_constraints',
             'add_compact_to_section',
+            'add_options_to_section',
         ];
     }
 }
