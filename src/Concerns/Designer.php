@@ -107,7 +107,7 @@ trait Designer
                 ->icon($section->icon ?? null);
         }
 
-        $component->visible(function ($record, Get $get) use ($zeusForm,$section) {
+        $component->visible(function ($record, Get $get) use ($section) {
 
             if (! isset($section->options['visibility']) || ! $section->options['visibility']['active']) {
                 return true;
