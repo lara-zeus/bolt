@@ -108,8 +108,6 @@ trait Designer
         }
 
         $component->visible(function ($record, Get $get) use ($zeusForm,$section) {
-            //dump(1,$zeusForm->fields()->whereJsonContains('sections.options->visibility->active',true)->count());
-
             if (! isset($section->options['visibility']) || ! $section->options['visibility']['active']) {
                 return true;
             }
