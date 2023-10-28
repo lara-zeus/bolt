@@ -17,7 +17,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
 {
-    public static function visibility($type = 'field'): Grid
+    public static function visibility(string $type = 'field'): Grid
     {
         return Grid::make()
             ->schema([

@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
@@ -18,13 +17,13 @@ trait Designer
 {
     public static function ui(Form $zeusForm, bool $inline = false): array
     {
-        $sections = static::drawExt($zeusForm);
+        $sections = self::drawExt($zeusForm);
 
         foreach ($zeusForm->sections->sortBy('ordering') as $section) {
-            $sections[] = static::drawSections(
+            $sections[] = self::drawSections(
                 $zeusForm,
                 $section,
-                static::drawFields($section, $inline)
+                self::drawFields($section, $inline)
             );
         }
 
@@ -89,7 +88,7 @@ trait Designer
         return $fields;
     }
 
-    private static function drawSections($zeusForm, $section, $fields): Tab | Step | Fieldset | Section
+    private static function drawSections(Form $zeusForm, \LaraZeus\Bolt\Models\Section $section, array $fields): Tab | Step | Section
     {
         $component = Section::make($section->name)
             ->description($section->description)
