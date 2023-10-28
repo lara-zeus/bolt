@@ -32,14 +32,14 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public bool $inline = false;
 
-    protected static string | null $boltFormDesigner = null;
+    protected static ?string $boltFormDesigner = null;
 
-    public function getBoltFormDesigner(): string | null
+    public function getBoltFormDesigner(): ?string
     {
         return static::$boltFormDesigner;
     }
 
-    public static function getBoltFormDesignerUsing(string | null $form): void
+    public static function getBoltFormDesignerUsing(?string $form): void
     {
         static::$boltFormDesigner = $form;
     }
