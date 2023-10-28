@@ -1,6 +1,6 @@
 ---
 title: Render hooks
-weight: 8
+weight: 2
 ---
 
 ## Render Hooks

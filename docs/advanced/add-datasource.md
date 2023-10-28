@@ -1,6 +1,6 @@
 ---
 title: Custom Datasource
-weight: 6
+weight: 5
 ---
 
 ## Create Custom Datasource

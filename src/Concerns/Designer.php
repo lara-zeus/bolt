@@ -18,13 +18,13 @@ trait Designer
 {
     public static function ui(Form $zeusForm, bool $inline = false): array
     {
-        $sections = static::handelExt($zeusForm);
+        $sections = static::drawExt($zeusForm);
 
         foreach ($zeusForm->sections->sortBy('ordering') as $section) {
-            $sections[] = static::handelSections(
+            $sections[] = static::drawSections(
                 $zeusForm,
                 $section,
-                static::handelFields($section, $inline)
+                static::drawFields($section, $inline)
             );
         }
 
@@ -39,9 +39,10 @@ trait Designer
         return $sections;
     }
 
-    private static function handelExt(Form $zeusForm): Section | array
+    private static function drawExt(Form $zeusForm): Section | array
     {
         $getExtComponent = Extensions::init($zeusForm, 'formComponents');
+
         if ($getExtComponent === null) {
             return [];
         }
@@ -58,7 +59,7 @@ trait Designer
             ->schema($getExtComponent);
     }
 
-    private static function handelFields(ZeusSection $section, bool $inline): array
+    private static function drawFields(ZeusSection $section, bool $inline): array
     {
         $fields = [];
 
@@ -88,7 +89,7 @@ trait Designer
         return $fields;
     }
 
-    private static function handelSections($zeusForm, $section, $fields): Tab | Step | Fieldset | Section
+    private static function drawSections($zeusForm, $section, $fields): Tab | Step | Fieldset | Section
     {
         $component = Section::make($section->name)
             ->description($section->description)

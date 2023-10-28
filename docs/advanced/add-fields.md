@@ -1,6 +1,6 @@
 ---
 title: Custom Fields
-weight: 6
+weight: 4
 ---
 
 ## Create Custom Fields

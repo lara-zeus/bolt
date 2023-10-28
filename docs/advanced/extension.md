@@ -1,6 +1,6 @@
 ---
 title: Extensions
-weight: 9
+weight: 3
 ---
 
 ## Extensions
