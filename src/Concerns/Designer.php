@@ -32,7 +32,11 @@ trait Designer
         }
 
         if (optional($zeusForm->options)['show-as'] === 'wizard') {
-            return [Wizard::make($sections)->live()->skippable()];
+            return [
+                Wizard::make($sections)
+                    ->live()
+                    //->skippable() // todo still not working
+            ];
         }
 
         return $sections;
