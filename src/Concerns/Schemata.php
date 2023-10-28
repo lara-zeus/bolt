@@ -50,9 +50,9 @@ trait Schemata
                 ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                ->collapsed(fn(string $operation) => $operation === 'edit')
                 ->minItems(1)
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -164,7 +164,7 @@ trait Schemata
                                 }),
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
-                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
+                        ->getOptionLabelFromRecordUsing(fn(Category $record) => "{$record->name}"),
                     Grid::make()
                         ->columns(2)
                         ->schema([
@@ -210,7 +210,7 @@ trait Schemata
 
             Tabs\Tab::make('embed-tab')
                 ->label(__('Embed'))
-                ->visible(fn (
+                ->visible(fn(
                     string $operation
                 ): bool => class_exists(\LaraZeus\Sky\SkyServiceProvider::class) && $operation === 'edit')
                 ->schema([
@@ -219,13 +219,14 @@ trait Schemata
                         ->dehydrated(false)
                         ->disabled()
                         ->formatStateUsing(function (Get $get) {
-                            return '<bolt>' . $get('slug') . '</bolt>';
+                            return '<bolt>'.$get('slug').'</bolt>';
                         }),
                 ]),
 
             Tabs\Tab::make('design')
                 ->label(__('Design'))
-                ->visible(fn (): bool => class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
+                ->visible(fn(
+                ): bool => class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
                 ->schema([
                     ViewField::make('options.primary_color')
                         ->view('zeus::filament.components.color-picker'),
@@ -265,7 +266,7 @@ trait Schemata
                                         ->label(__('Section Name')),
                                     TextInput::make('description')
                                         ->nullable()
-                                        ->visible(fn (Get $get) => $get('../../options.show-as') !== 'tabs')
+                                        ->visible(fn(Get $get) => $get('../../options.show-as') !== 'tabs')
                                         ->label(__('Section Description')),
                                 ]),
                             Tabs\Tab::make('section-details-tab')
@@ -273,7 +274,7 @@ trait Schemata
                                 ->columns(2)
                                 ->schema([
                                     Select::make('columns')
-                                        ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
+                                        ->options(fn(): array => array_combine(range(1, 12), range(1, 12)))
                                         ->required()
                                         ->default(1)
                                         ->hint(__('fields per row'))
@@ -288,14 +289,14 @@ trait Schemata
 
                                     Toggle::make('aside')
                                         ->inline(false)
-                                        ->visible(fn (Get $get) => $get('../../options.show-as') === 'page')
+                                        ->visible(fn(Get $get) => $get('../../options.show-as') === 'page')
                                         ->label(__('show as aside')),
 
                                     Toggle::make('compact')
                                         ->inline(false)
-                                        ->visible(fn (Get $get) => $get('../../options.show-as') === 'page')
+                                        ->visible(fn(Get $get) => $get('../../options.show-as') === 'page')
                                         ->label(__('compact section')),
-                                    self::visibility(),
+                                    self::visibility('section'),
                                 ]),
                         ]),
                 ]),
@@ -307,7 +308,7 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                ->collapsed(fn(string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,
@@ -315,7 +316,7 @@ trait Schemata
                     '2xl' => 3,
                 ])
                 ->label('')
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->addActionLabel(__('Add field'))
                 ->schema(static::getFieldsSchema()),
         ];

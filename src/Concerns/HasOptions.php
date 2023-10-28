@@ -17,7 +17,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
 {
-    public static function visibility(): Grid
+    public static function visibility($type = 'field'): Grid
     {
         return Grid::make()
             ->schema([
@@ -28,17 +28,21 @@ trait HasOptions
                 Select::make('options.visibility.fieldID')
                     ->label(__('show when the field:'))
                     ->live()
-                    ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
-                    ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
-                    ->options(function ($livewire, $record) {
+                    ->visible(fn(Get $get): bool => !empty($get('options.visibility.active')))
+                    ->required(fn(Get $get): bool => !empty($get('options.visibility.active')))
+                    ->options(function ($livewire, $record) use ($type) {
                         if ($record === null) {
                             return [];
                         }
 
                         return $livewire->record
                             ->fields()
-                            ->where('fields.id', '!=', $record->id ?? null)
-                            ->where('fields.options', '!=', $record->id ?? null)
+                            ->when($type === 'field', function ($query) use ($record) {
+                                return $query->where('fields.id', '!=', $record->id);
+                            })
+                            ->when($type === 'section', function ($query) use ($record) {
+                                return $query->where('section_id', '!=', $record->id);
+                            })
                             ->where(function ($query) {
                                 $query->whereNotNull('fields.options->dataSource');
                                 $query->orWhere('type', '\LaraZeus\Bolt\Fields\Classes\Toggle');
@@ -50,8 +54,8 @@ trait HasOptions
                 Select::make('options.visibility.values')
                     ->label(__('has the value:'))
                     ->live()
-                    ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
-                    ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
+                    ->required(fn(Get $get): bool => !empty($get('options.visibility.fieldID')))
+                    ->visible(fn(Get $get): bool => !empty($get('options.visibility.fieldID')))
                     ->options(function (Get $get, $livewire) {
                         if ($get('options.visibility.fieldID') === null) {
                             return [];
@@ -67,7 +71,7 @@ trait HasOptions
                             ];
                         }
 
-                        if (! isset($getRelated->options['dataSource'])) {
+                        if (!isset($getRelated->options['dataSource'])) {
                             return [];
                         }
 

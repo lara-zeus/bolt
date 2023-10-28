@@ -130,7 +130,6 @@ trait Designer
         return $component
             ->id(str($section->name)->slug() . '-' . $section->id)
             ->schema($fields)
-            //->visible(false)
             ->columns($section->columns);
     }
 }
