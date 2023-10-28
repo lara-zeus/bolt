@@ -36,8 +36,8 @@ use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class FormResource extends BoltResource
 {
-    use Schemata;
     use HasOptions;
+    use Schemata;
 
     protected static ?string $navigationIcon = 'clarity-form-line';
 

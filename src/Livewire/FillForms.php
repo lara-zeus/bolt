@@ -9,7 +9,6 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\Designer;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
-use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
@@ -19,8 +18,8 @@ use Livewire\Component;
  */
 class FillForms extends Component implements Forms\Contracts\HasForms
 {
-    use Forms\Concerns\InteractsWithForms;
     use Designer;
+    use Forms\Concerns\InteractsWithForms;
 
     public Form $zeusForm;
 

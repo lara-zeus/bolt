@@ -30,7 +30,7 @@ class Toggle extends FieldsContract
     public function appendFilamentComponentsOptions($component, $zeusField)
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
-        
+
         return $component->live();
     }
 }
