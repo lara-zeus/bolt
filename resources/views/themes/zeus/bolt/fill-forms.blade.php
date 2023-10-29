@@ -5,6 +5,9 @@
 @endphp
 
 <div class="not-prose" style="{{ $colors }}">
+
+    @include($boltTheme.'.loading')
+
     @if(class_exists(\LaraZeus\Bolt\BoltProServiceProvider::class) && optional($zeusForm->options)['logo'] !== null && optional($zeusForm)->options['cover'] !== null)
         <div style="background-image: url('{{ \Illuminate\Support\Facades\Storage::disk(config('zeus-bolt.uploadDisk'))->url($zeusForm->options['cover']) }}')"
              class="flex justify-start items-center px-4 py-6 gap-4 rounded-lg bg-clip-border bg-origin-border bg-cover bg-center">
