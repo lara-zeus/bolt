@@ -18,6 +18,7 @@ use Spatie\Translatable\HasTranslations;
  * @property string $description
  * @property bool $aside
  * @property bool $compact
+ * @property mixed $fields
  */
 class Section extends Model
 {
@@ -28,6 +29,10 @@ class Section extends Model
     public array $translatable = ['name'];
 
     protected $guarded = [];
+
+    protected $casts = [
+        'options' => 'array',
+    ];
 
     protected static function booted(): void
     {

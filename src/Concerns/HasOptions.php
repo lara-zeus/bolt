@@ -17,7 +17,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
 {
-    public static function visibility(): Grid
+    public static function visibility(string $type = 'field'): Grid
     {
         return Grid::make()
             ->schema([
@@ -30,15 +30,19 @@ trait HasOptions
                     ->live()
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
-                    ->options(function ($livewire, $record) {
+                    ->options(function ($livewire, $record) use ($type) {
                         if ($record === null) {
                             return [];
                         }
 
                         return $livewire->record
                             ->fields()
-                            ->where('fields.id', '!=', $record->id ?? null)
-                            ->where('fields.options', '!=', $record->id ?? null)
+                            ->when($type === 'field', function ($query) use ($record) {
+                                return $query->where('fields.id', '!=', $record->id);
+                            })
+                            ->when($type === 'section', function ($query) use ($record) {
+                                return $query->where('section_id', '!=', $record->id);
+                            })
                             ->where(function ($query) {
                                 $query->whereNotNull('fields.options->dataSource');
                                 $query->orWhere('type', '\LaraZeus\Bolt\Fields\Classes\Toggle');

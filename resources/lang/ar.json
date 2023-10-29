@@ -186,5 +186,10 @@
   "Hint Color" :"لون التلميحة",
   "Textarea": "نص مطول",
   "Paragraph": "فقرة نصية",
-  "Color Picker": "اختيار اللون"
+  "Color Picker": "اختيار اللون",
+  "Entries Report": "تقرير السجلات",
+  "List Entries": "عرض السجلات",
+  "notes": "ملاحظات",
+  "Open": "عرض",
+  "Preset": "القوالب"
 }

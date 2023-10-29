@@ -3,12 +3,13 @@
 namespace LaraZeus\Bolt\Livewire;
 
 use Filament\Forms;
+use Filament\Forms\Concerns\InteractsWithForms;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\Designer;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
-use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
@@ -18,7 +19,8 @@ use Livewire\Component;
  */
 class FillForms extends Component implements Forms\Contracts\HasForms
 {
-    use Forms\Concerns\InteractsWithForms;
+    use Designer;
+    use InteractsWithForms;
 
     public Form $zeusForm;
 
@@ -30,9 +32,23 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public bool $inline = false;
 
+    protected static ?string $boltFormDesigner = null;
+
+    public function getBoltFormDesigner(): ?string
+    {
+        return static::$boltFormDesigner;
+    }
+
+    public static function getBoltFormDesignerUsing(?string $form): void
+    {
+        static::$boltFormDesigner = $form;
+    }
+
     protected function getFormSchema(): array
     {
-        return Bolt::prepareFieldsAndSectionToRender($this->zeusForm, $this->inline);
+        $getDesignerClass = $this->getBoltFormDesigner() ?? Designer::class;
+
+        return $getDesignerClass::ui($this->zeusForm, $this->inline);
     }
 
     protected function getFormModel(): Form

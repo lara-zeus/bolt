@@ -29,6 +29,8 @@ use Spatie\Translatable\HasTranslations;
  * @property bool $date_available
  * @property bool $need_login
  * @property bool $onePerUser
+ * @property mixed $sections
+ * @property mixed $fields
  */
 class Form extends Model
 {

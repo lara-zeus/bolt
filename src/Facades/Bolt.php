@@ -2,19 +2,13 @@
 
 namespace LaraZeus\Bolt\Facades;
 
-use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\Wizard;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
-use LaraZeus\Bolt\Models\Form;
 
 class Bolt extends Facade
 {
@@ -67,97 +61,6 @@ class Bolt extends Facade
             )
                 ->sortBy('sort');
         });
-    }
-
-    public static function prepareFieldsAndSectionToRender(Form $zeusForm, bool $inline = false): array
-    {
-        $sections = [];
-        $zeusSections = $zeusForm->sections->sortBy('ordering');
-
-        $getExtComponent = Extensions::init($zeusForm, 'formComponents');
-        if ($getExtComponent !== null) {
-            $sections[] = Section::make('extensions')
-                ->heading(function () use ($zeusForm) {
-                    $class = $zeusForm->extensions;
-                    if (class_exists($class)) {
-                        return (new $class)->label();
-                    }
-
-                    return __('Extension');
-                })
-                ->schema($getExtComponent);
-        }
-
-        foreach ($zeusSections as $section) {
-            $fields = [];
-
-            if (! $inline) {
-                $fields[] = static::renderHook('zeus-form-section.before');
-            }
-
-            foreach ($section->fields->sortBy('ordering') as $zeusField) {
-                if (! $inline) {
-                    $fields[] = static::renderHook('zeus-form-field.before');
-                }
-
-                $fieldClass = new $zeusField->type;
-                $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
-
-                $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
-
-                if (! $inline) {
-                    $fields[] = static::renderHook('zeus-form-field.after');
-                }
-            }
-
-            if (! $inline) {
-                $fields[] = static::renderHook('zeus-form-section.after');
-            }
-
-            $sectionId = $section->name . '-' . $section->id;
-            if (optional($zeusForm->options)['show-as'] === 'tabs') {
-                $sections[] = Tabs\Tab::make($section->name)
-                    ->id($sectionId)
-                    ->icon($section->icon ?? null)
-                    ->schema([
-                        Grid::make()->columns($section->columns)->schema($fields),
-                    ]);
-            } elseif (optional($zeusForm->options)['show-as'] === 'wizard') {
-                $sections[] = Wizard\Step::make($section->name)
-                    ->id($sectionId)
-                    ->description($section->description)
-                    ->icon($section->icon ?? null)
-                    ->schema([
-                        Grid::make()->columns($section->columns)->schema($fields),
-                    ]);
-            } else {
-                if ($section->compact) {
-                    $sections[] = Fieldset::make($section->name)
-                        ->id($sectionId)
-                        ->schema($fields)
-                        ->columns($section->columns);
-                } else {
-                    $sections[] = Section::make($section->name)
-                        ->id($sectionId)
-                        ->icon($section->icon ?? null)
-                        ->schema($fields)
-                        ->collapsible()
-                        ->aside(fn () => $section->aside)
-                        ->description($section->description)
-                        ->columns($section->columns);
-                }
-            }
-        }
-
-        if (optional($zeusForm->options)['show-as'] === 'tabs') {
-            return [Tabs::make('tabs')->tabs($sections)];
-        }
-
-        if (optional($zeusForm->options)['show-as'] === 'wizard') {
-            return [Wizard::make($sections)];
-        }
-
-        return $sections;
     }
 
     public static function renderHook(string $hook): Placeholder

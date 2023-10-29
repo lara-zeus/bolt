@@ -25,4 +25,12 @@ class Toggle extends FieldsContract
             self::visibility(),
         ];
     }
+
+    // @phpstan-ignore-next-line
+    public function appendFilamentComponentsOptions($component, $zeusField)
+    {
+        parent::appendFilamentComponentsOptions($component, $zeusField);
+
+        return $component->live();
+    }
 }
