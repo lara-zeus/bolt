@@ -50,16 +50,18 @@ trait Designer
             return [];
         }
 
-        return Section::make('extensions')
-            ->heading(function () use ($zeusForm) {
-                $class = $zeusForm->extensions;
-                if (class_exists($class)) {
-                    return (new $class)->label();
-                }
+        return [
+            Section::make('extensions')
+                ->heading(function () use ($zeusForm) {
+                    $class = $zeusForm->extensions;
+                    if (class_exists($class)) {
+                        return (new $class)->label();
+                    }
 
-                return __('Extension');
-            })
-            ->schema($getExtComponent);
+                    return __('Extension');
+                })
+                ->schema($getExtComponent),
+        ];
     }
 
     private static function drawFields(ZeusSection $section, bool $inline): array
