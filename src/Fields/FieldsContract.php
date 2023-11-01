@@ -13,7 +13,7 @@ use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
-use LaraZeus\BoltPreset\Models\Field as FieldPreset;
+use LaraZeus\BoltPro\Models\Field as FieldPreset;
 
 /** @phpstan-return Arrayable<string,mixed> */
 abstract class FieldsContract implements Arrayable, Fields
@@ -173,7 +173,7 @@ abstract class FieldsContract implements Arrayable, Fields
             //@phpstan-ignore-next-line
             if ($zeusField instanceof FieldPreset) {
                 //@phpstan-ignore-next-line
-                $getCollection = \LaraZeus\BoltPreset\Models\Collection::query()
+                $getCollection = \LaraZeus\BoltPro\Models\Collection::query()
                     //@phpstan-ignore-next-line
                     ->find($zeusField->options['dataSource'] ?? 0)
                     ->values;
