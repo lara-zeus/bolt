@@ -42,7 +42,7 @@ trait Designer
         return $sections;
     }
 
-    private static function drawExt(Form $zeusForm): Section | array
+    private static function drawExt(Form $zeusForm): array
     {
         $getExtComponent = Extensions::init($zeusForm, 'formComponents');
 
