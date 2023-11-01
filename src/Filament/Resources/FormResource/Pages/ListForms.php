@@ -27,9 +27,9 @@ class ListForms extends ListRecords
                 ->openUrlInNewTab(),
         ];
 
-        if (class_exists(\LaraZeus\BoltPreset\Facades\BoltPreset::class)) {
+        if (class_exists(\LaraZeus\BoltPro\Facades\BoltPro::class)) {
             //@phpstan-ignore-next-line
-            $actions[] = \LaraZeus\BoltPreset\Actions\PresetAction::make('new from preset')
+            $actions[] = \LaraZeus\BoltPro\Actions\PresetAction::make('new from preset')
                 ->visible(config('zeus-bolt.show_presets'));
         }
 
