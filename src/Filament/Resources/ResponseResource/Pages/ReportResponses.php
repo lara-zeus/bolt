@@ -47,15 +47,16 @@ class ReportResponses extends Page implements HasForms, HasTable
                 ->label(__('Avatar'))
                 ->toggleable(),*/
             TextColumn::make('user.name')
-                ->label(__('User Name'))
+                ->label(__('Name'))
                 ->toggleable()
                 ->sortable()
+                ->default(__('guest'))
                 ->searchable(),
             TextColumn::make('status')
                 ->toggleable()
                 ->sortable()
                 ->badge()
-                ->label(__('status'))
+                ->label(__('response status'))
                 ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
                 ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)
@@ -86,6 +87,7 @@ class ReportResponses extends Page implements HasForms, HasTable
 
         $mainColumns[] = TextColumn::make('created_at')
             ->sortable()
+            ->dateTime()
             ->label(__('created at'))
             ->toggleable();
 
