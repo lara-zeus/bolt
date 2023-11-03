@@ -31,7 +31,7 @@ final class BoltPlugin implements Plugin
                 CategoryResource::class,
             ]);
 
-        if(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)){
+        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
             $panel
                 ->discoverWidgets(in: base_path('vendor/lara-zeus/bolt-pro/src/Widgets'), for: 'LaraZeus\\BoltPro\\Widgets');
         }
