@@ -23,18 +23,12 @@ final class BoltPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel
-            ->discoverWidgets(in: base_path('vendor/lara-zeus/bolt/src/Filament/Resources/FormResource/Widgets'), for: 'LaraZeus\\Bolt\\Filament\\Resources\\FormResource\\Widgets')
             ->resources([
                 CollectionResource::class,
                 FormResource::class,
                 ResponseResource::class,
                 CategoryResource::class,
             ]);
-
-        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
-            $panel
-                ->discoverWidgets(in: base_path('vendor/lara-zeus/bolt-pro/src/Widgets'), for: 'LaraZeus\\BoltPro\\Widgets');
-        }
     }
 
     public static function make(): static

@@ -214,4 +214,21 @@ class FormResource extends BoltResource
             'view' => Pages\ViewForm::route('/{record}'),
         ];
     }
+
+    public static function getWidgets(): array
+    {
+        $widgets = [
+            FormResource\Widgets\FormOverview::class,
+            FormResource\Widgets\ResponsesPerMonth::class,
+            FormResource\Widgets\ResponsesPerStatus::class,
+            FormResource\Widgets\ResponsesPerFields::class,
+        ];
+
+        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
+            //@phpstan-ignore-next-line
+            $widgets[] = \LaraZeus\BoltPro\Widgets\ResponsesPerCollection::class;
+        }
+
+        return $widgets;
+    }
 }
