@@ -6,15 +6,16 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Resources\Pages\Page;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\EntriesAction;
+use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Field;
@@ -42,10 +43,10 @@ class ReportResponses extends Page implements HasForms, HasTable
     public function table(Table $table): Table
     {
         $mainColumns = [
-            // todo disabled due to an issue with exporting
-            /*ImageColumn::make('user.avatar')
+            ImageColumn::make('user.avatar')
                 ->label(__('Avatar'))
-                ->toggleable(),*/
+                ->circular()
+                ->toggleable(),
             TextColumn::make('user.name')
                 ->label(__('Name'))
                 ->toggleable()
@@ -72,17 +73,11 @@ class ReportResponses extends Page implements HasForms, HasTable
          * @var Field $field.
          */
         foreach ($this->form->fields->sortBy('ordering') as $field) {
-            $mainColumns[] = TextColumn::make('zeusData.' . $field->id)
-                ->label($field->name)
-                ->searchable(query: function (Builder $query, string $search): Builder {
-                    return $query
-                        ->whereHas('fieldsResponses', function ($query) use ($search) {
-                            $query->where('response', 'like', '%' . $search . '%');
-                        });
-                })
-                ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
-                ->html()
-                ->toggleable();
+            $getFieldTableColumn = (new $field->type)->TableColumn($field);
+
+            if ($getFieldTableColumn !== null) {
+                $mainColumns[] = $getFieldTableColumn;
+            }
         }
 
         $mainColumns[] = TextColumn::make('created_at')
@@ -98,6 +93,9 @@ class ReportResponses extends Page implements HasForms, HasTable
                     ->with(['fieldsResponses'])
             )
             ->columns($mainColumns)
+            ->actions([
+                SetResponseStatus::make(),
+            ])
             ->filters([
                 SelectFilter::make('status')
                     ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
