@@ -4,7 +4,10 @@ namespace LaraZeus\Bolt\Fields;
 
 use Filament\Forms\Get;
 use Filament\Support\Colors\Color;
+use Filament\Tables\Columns\Column;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LaraZeus\Bolt\BoltPlugin;
@@ -13,6 +16,7 @@ use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
+use LaraZeus\Bolt\Models\Response;
 use LaraZeus\BoltPro\Models\Field as FieldPreset;
 
 /** @phpstan-return Arrayable<string,mixed> */
@@ -191,7 +195,6 @@ abstract class FieldsContract implements Arrayable, Fields
             }
         } else {
             if (class_exists($zeusField->options['dataSource'])) {
-                //@phpstan-ignore-next-line
                 $dataSourceClass = new $zeusField->options['dataSource'];
                 $getCollection = $dataSourceClass->getModel()::pluck(
                     $dataSourceClass->getValuesUsing(),
@@ -201,5 +204,30 @@ abstract class FieldsContract implements Arrayable, Fields
         }
 
         return $getCollection;
+    }
+
+    public function TableColumn(Field $field): ?Column
+    {
+        return TextColumn::make('zeusData.' . $field->id)
+            ->label($field->name)
+            ->searchable(query: function (Builder $query, string $search): Builder {
+                return $query
+                    ->whereHas('fieldsResponses', function ($query) use ($search) {
+                        $query->where('response', 'like', '%' . $search . '%');
+                    });
+            })
+            ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
+            ->html()
+            ->toggleable();
+    }
+
+    public function getFieldResponseValue(Response $record, Field $field): string
+    {
+        $fieldResponse = $record->fieldsResponses->where('field_id', $field->id)->first();
+        if ($fieldResponse === null) {
+            return '';
+        }
+
+        return (new $field->type)->getResponse($field, $fieldResponse);
     }
 }
