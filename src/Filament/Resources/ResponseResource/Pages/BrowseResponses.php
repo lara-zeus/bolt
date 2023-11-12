@@ -4,8 +4,6 @@ namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
 use Filament\Resources\Pages\Page;
 use Filament\Tables;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;

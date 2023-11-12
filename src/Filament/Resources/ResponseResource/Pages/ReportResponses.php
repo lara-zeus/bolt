@@ -6,8 +6,6 @@ use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Resources\Pages\Page;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -77,8 +75,8 @@ class ReportResponses extends Page implements HasForms, HasTable
         foreach ($this->form->fields->sortBy('ordering') as $field) {
             $getFieldTableColumn = (new $field->type)->TableColumn($field);
 
-            if($getFieldTableColumn !== null){
-               $mainColumns[] = $getFieldTableColumn;
+            if ($getFieldTableColumn !== null) {
+                $mainColumns[] = $getFieldTableColumn;
             }
         }
 
