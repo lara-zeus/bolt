@@ -18,6 +18,14 @@
             </x-filament::section>
         </div>
         <div class="md:col-span-1 space-y-4">
+            @if(isset($this->table))
+                <x-filament-tables::actions
+                    :actions="$this->table->getActions()"
+                    alignment="start md:end"
+                    :record="$getRecord()"
+                    wrap="-sm"
+                />
+            @endif
             <x-filament::section class="w-full">
                 <x-slot name="heading" class="text-custom-600">
                     {{ __('User Details') }}
