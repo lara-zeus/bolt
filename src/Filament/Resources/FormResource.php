@@ -3,7 +3,6 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Closure;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
@@ -16,7 +15,6 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\ReplicateAction;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Actions\ViewAction;
@@ -31,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Concerns\Schemata;
+use LaraZeus\Bolt\Filament\Actions\ReplicateFormAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
 
@@ -133,12 +132,14 @@ class FormResource extends BoltResource
                 ActionGroup::make([
                     ViewAction::make(),
                     EditAction::make('edit'),
+
                     Action::make('entries')
                         ->color('info')
                         ->label(__('Entries'))
                         ->icon('clarity-data-cluster-line')
                         ->tooltip(__('view all entries'))
                         ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
+
                     Action::make('open')
                         ->color('warning')
                         ->label(__('Open Form'))
@@ -146,28 +147,8 @@ class FormResource extends BoltResource
                         ->tooltip(__('open form'))
                         ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
                         ->openUrlInNewTab(),
-                    ReplicateAction::make()
-                        ->label(__('Replicate'))
-                        ->excludeAttributes(['name', 'slug'])
-                        ->form([
-                            TextInput::make('name.' . app()->getLocale())->required(),
-                            TextInput::make('slug')->required(),
-                        ])
-                        ->beforeReplicaSaved(function (ZeusForm $replica, ZeusForm $record, array $data): void {
-                            $repForm = $replica->fill($data);
-                            $repForm->save();
-                            $formID = $repForm->id;
-                            $record->sections->each(function ($item) use ($formID) {
-                                $repSec = $item->replicate()->fill(['form_id' => $formID]);
-                                $repSec->save();
-                                $sectionID = $repSec->id;
-                                $item->fields->each(function ($item) use ($sectionID) {
-                                    $repField = $item->replicate()->fill(['section_id' => $sectionID]);
-                                    $repField->save();
-                                });
-                            });
-                        }),
 
+                    ReplicateFormAction::make(),
                     DeleteAction::make(),
                     ForceDeleteAction::make(),
                     RestoreAction::make(),
