@@ -22,7 +22,14 @@ BoltPlugin::make()
     // but if you want to customize the models per panel, you can do it here 
     ->boltModels([
         // ...
-        'Category' => \LaraZeus\Bolt\Models\Category::class,
+        'Category' => \App\Models\Bolt\Category::class,
+        'Collection' => \App\Models\Bolt\Collection::class,
+        'Field' => \App\Models\Bolt\Field::class,
+        'FieldResponse' => \App\Models\Bolt\FieldResponse::class,
+        'Form' => \App\Models\Bolt\Form::class,
+        'FormsStatus' => \App\Models\Bolt\FormsStatus::class,
+        'Response' => \App\Models\Bolt\Response::class,
+        'Section' => \App\Models\Bolt\Section::class,
     ])
     
     ->hideResources([
