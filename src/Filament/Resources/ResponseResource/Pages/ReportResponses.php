@@ -121,7 +121,7 @@ class ReportResponses extends Page implements HasForms, HasTable
         abort_unless(request()->filled('form_id'), 404);
 
         $this->form_id = request('form_id', 0);
-        $this->form = Form::with(['fields'])->find($this->form_id);
+        $this->form = BoltPlugin::getModel('Form')::with(['fields'])->find($this->form_id);
     }
 
     public function getTitle(): string
