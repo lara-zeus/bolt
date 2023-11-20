@@ -38,13 +38,13 @@ trait HasOptions
                         return $livewire->record
                             ->fields()
                             ->when($type === 'field', function ($query) use ($record) {
-                                return $query->where('fields.id', '!=', $record->id);
+                                return $query->where($record->getTable().'.id', '!=', $record->id);
                             })
                             ->when($type === 'section', function ($query) use ($record) {
                                 return $query->where('section_id', '!=', $record->id);
                             })
-                            ->where(function ($query) {
-                                $query->whereNotNull('fields.options->dataSource');
+                            ->where(function ($query) use ($record) {
+                                $query->whereNotNull($record->getTable().'.options->dataSource');
                                 $query->orWhere('type', '\LaraZeus\Bolt\Fields\Classes\Toggle');
                             })
                             ->get()
@@ -56,12 +56,12 @@ trait HasOptions
                     ->live()
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
-                    ->options(function (Get $get, $livewire) {
+                    ->options(function (Get $get, $livewire, $record) {
                         if ($get('options.visibility.fieldID') === null) {
                             return [];
                         }
                         $getRelated = $livewire->getRecord()->fields()
-                            ->where('fields.id', $get('options.visibility.fieldID'))
+                            ->where($record->getTable().'.id', $get('options.visibility.fieldID'))
                             ->first();
 
                         if ($getRelated->type === '\LaraZeus\Bolt\Fields\Classes\Toggle') {
