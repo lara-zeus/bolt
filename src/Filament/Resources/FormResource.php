@@ -32,6 +32,7 @@ use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Actions\ReplicateFormAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
+use LaraZeus\BoltPro\Livewire\PrefilledForm;
 
 class FormResource extends BoltResource
 {
@@ -140,13 +141,14 @@ class FormResource extends BoltResource
                         ->tooltip(__('view all entries'))
                         ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
 
-                    Action::make('open')
-                        ->color('warning')
-                        ->label(__('Open Form'))
-                        ->icon('heroicon-o-arrow-top-right-on-square')
-                        ->tooltip(__('open form'))
-                        ->url(fn (ZeusForm $record): string => route('bolt.form.show', $record))
-                        ->openUrlInNewTab(),
+                    Action::make('prefilledLink')
+                        ->label(__('Prefilled Link'))
+                        ->icon('heroicon-o-link')
+                        ->tooltip(__('Get Prefilled Link'))
+                        ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
+                        ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record])),
+
+                    ReplicateFormAction::make(),
 
                     ReplicateFormAction::make(),
                     DeleteAction::make(),
@@ -188,12 +190,19 @@ class FormResource extends BoltResource
 
     public static function getPages(): array
     {
-        return [
+        $pages = [
             'index' => Pages\ListForms::route('/'),
             'create' => Pages\CreateForm::route('/create'),
             'edit' => Pages\EditForm::route('/{record}/edit'),
             'view' => Pages\ViewForm::route('/{record}'),
         ];
+
+        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
+            //@phpstan-ignore-next-line
+            $pages['prefilled'] = PrefilledForm::route('/{record}/prefilled');
+        }
+
+        return $pages;
     }
 
     public static function getWidgets(): array
