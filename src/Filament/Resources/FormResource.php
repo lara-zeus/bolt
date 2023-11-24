@@ -32,7 +32,6 @@ use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Actions\ReplicateFormAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
-use LaraZeus\BoltPro\Livewire\PrefilledForm;
 
 class FormResource extends BoltResource
 {
@@ -199,7 +198,7 @@ class FormResource extends BoltResource
 
         if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
             //@phpstan-ignore-next-line
-            $pages['prefilled'] = PrefilledForm::route('/{record}/prefilled');
+            $pages['prefilled'] = \LaraZeus\BoltPro\Livewire\PrefilledForm::route('/{record}/prefilled');
         }
 
         return $pages;

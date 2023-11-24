@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Livewire;
 
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use LaraZeus\Bolt\BoltPlugin;
@@ -91,7 +92,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             'notes' => '',
         ]);
 
-        foreach ($this->form->getState()['zeusData'] as $field => $value) {
+        $fieldsData = Arr::except($this->form->getState()['zeusData'], 'extensions');
+
+        foreach ($fieldsData as $field => $value) {
             $setValue = $value;
 
             if (! empty($setValue) && is_array($setValue)) {
@@ -108,7 +111,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         event(new FormSent($response));
 
         $this->extensionData['response'] = $response;
-        $this->extensionData['extensionsComponent'] = $this->form->getState()['extensions'] ?? [];
+        $this->extensionData['extensionsComponent'] = $this->form->getState()['zeusData']['extensions'] ?? [];
 
         $extensionItemId = Extensions::init($this->zeusForm, 'store', $this->extensionData) ?? [];
         $this->extensionData['extInfo'] = $extensionItemId;
