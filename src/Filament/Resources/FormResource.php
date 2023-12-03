@@ -128,33 +128,7 @@ class FormResource extends BoltResource
                 IconColumn::make('responses_exists')->boolean()->exists('responses')->label(__('Responses Exists'))->sortable()->toggleable(),
                 TextColumn::make('responses_count')->counts('responses')->label(__('Responses Count'))->sortable()->toggleable(),
             ])
-            ->actions([
-                ActionGroup::make([
-                    ViewAction::make(),
-                    EditAction::make('edit'),
-
-                    Action::make('entries')
-                        ->color('info')
-                        ->label(__('Entries'))
-                        ->icon('clarity-data-cluster-line')
-                        ->tooltip(__('view all entries'))
-                        ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
-
-                    Action::make('prefilledLink')
-                        ->label(__('Prefilled Link'))
-                        ->icon('heroicon-o-link')
-                        ->tooltip(__('Get Prefilled Link'))
-                        ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
-                        ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record])),
-
-                    ReplicateFormAction::make(),
-
-                    ReplicateFormAction::make(),
-                    DeleteAction::make(),
-                    ForceDeleteAction::make(),
-                    RestoreAction::make(),
-                ]),
-            ])
+            ->actions(static::getActions())
             ->filters([
                 TrashedFilter::make(),
                 Filter::make('is_active')
@@ -219,5 +193,44 @@ class FormResource extends BoltResource
         }
 
         return $widgets;
+    }
+
+    public static function getActions(): array
+    {
+        $action = [
+            ActionGroup::make([
+                ViewAction::make(),
+                EditAction::make('edit'),
+
+                Action::make('entries')
+                    ->color('info')
+                    ->label(__('Entries'))
+                    ->icon('clarity-data-cluster-line')
+                    ->tooltip(__('view all entries'))
+                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
+
+                Action::make('prefilledLink')
+                    ->label(__('Prefilled Link'))
+                    ->icon('heroicon-o-link')
+                    ->tooltip(__('Get Prefilled Link'))
+                    ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
+                    ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record])),
+
+                ReplicateFormAction::make(),
+
+                ReplicateFormAction::make(),
+                DeleteAction::make(),
+                ForceDeleteAction::make(),
+                RestoreAction::make(),
+            ]),
+        ];
+
+        if (class_exists(\LaraZeus\Helen\HelenServiceProvider::class)) {
+            //@phpstan-ignore-next-line
+            $action[] = \LaraZeus\Helen\Actions\ShortUrlAction::make('get-link')
+                ->distUrl(fn (ZeusForm $record) => route('bolt.form.show', $record));
+        }
+
+        return $action;
     }
 }
