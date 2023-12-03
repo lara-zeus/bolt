@@ -198,31 +198,24 @@ class FormResource extends BoltResource
     public static function getActions(): array
     {
         $action = [
-            ActionGroup::make([
-                ViewAction::make(),
-                EditAction::make('edit'),
-
-                Action::make('entries')
-                    ->color('info')
-                    ->label(__('Entries'))
-                    ->icon('clarity-data-cluster-line')
-                    ->tooltip(__('view all entries'))
-                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
-
-                Action::make('prefilledLink')
-                    ->label(__('Prefilled Link'))
-                    ->icon('heroicon-o-link')
-                    ->tooltip(__('Get Prefilled Link'))
-                    ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
-                    ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record])),
-
-                ReplicateFormAction::make(),
-
-                ReplicateFormAction::make(),
-                DeleteAction::make(),
-                ForceDeleteAction::make(),
-                RestoreAction::make(),
-            ]),
+            ViewAction::make(),
+            EditAction::make('edit'),
+            Action::make('entries')
+                ->color('info')
+                ->label(__('Entries'))
+                ->icon('clarity-data-cluster-line')
+                ->tooltip(__('view all entries'))
+                ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
+            Action::make('prefilledLink')
+                ->label(__('Prefilled Link'))
+                ->icon('heroicon-o-link')
+                ->tooltip(__('Get Prefilled Link'))
+                ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
+                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record])),
+            ReplicateFormAction::make(),
+            DeleteAction::make(),
+            ForceDeleteAction::make(),
+            RestoreAction::make(),
         ];
 
         if (class_exists(\LaraZeus\Helen\HelenServiceProvider::class)) {
@@ -231,6 +224,6 @@ class FormResource extends BoltResource
                 ->distUrl(fn (ZeusForm $record) => route('bolt.form.show', $record));
         }
 
-        return $action;
+        return [ActionGroup::make($action)];
     }
 }
