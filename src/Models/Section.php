@@ -26,7 +26,7 @@ class Section extends Model
     use HasTranslations;
     use SoftDeletes;
 
-    public array $translatable = ['name'];
+    public array $translatable = ['name', 'fields'];
 
     protected $guarded = [];
 
