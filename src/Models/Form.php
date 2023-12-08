@@ -40,7 +40,7 @@ class Form extends Model
     use HasUpdates;
     use SoftDeletes;
 
-    public array $translatable = ['name', 'description', 'details', 'sections'];
+    public array $translatable = ['name', 'description', 'details'];
 
     protected $guarded = [];
 
