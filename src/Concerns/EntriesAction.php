@@ -11,7 +11,7 @@ use LaraZeus\Bolt\Filament\Resources\ResponseResource;
  */
 trait EntriesAction
 {
-    public function getEntriesActions(?int $formId = null): array
+    public function getEntriesActions(int $formId = null): array
     {
         $formId = $formId ?? $this->form_id;
 
