@@ -31,6 +31,7 @@ use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Actions\ReplicateFormAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
+use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages\ListResponses;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class FormResource extends BoltResource
@@ -205,7 +206,7 @@ class FormResource extends BoltResource
                 ->label(__('Entries'))
                 ->icon('clarity-data-cluster-line')
                 ->tooltip(__('view all entries'))
-                ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
+                ->url(fn (ZeusForm $record): string => ListResponses::getUrl(['form_id' => $record->id])),
             Action::make('prefilledLink')
                 ->label(__('Prefilled Link'))
                 ->icon('heroicon-o-link')
