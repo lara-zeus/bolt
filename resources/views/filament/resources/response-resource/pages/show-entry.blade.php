@@ -27,7 +27,7 @@
                 />
             @endif
             <x-filament::section class="w-full">
-                <x-slot name="heading" class="text-custom-600">
+                <x-slot name="heading" class="text-primary-600">
                     {{ __('User Details') }}
                 </x-slot>
                 @if($getRecord()->user_id === null)
@@ -55,7 +55,7 @@
                 <div class="space-y-2">
                     <x-filament::section>
                         <x-slot name="heading" class="text-primary-600">
-                            <p class="text-custom-600 font-semibold">{{ __('Entry Details') }}</p>
+                            <p class="text-primary-600 font-semibold">{{ __('Entry Details') }}</p>
                         </x-slot>
 
                         <div class="flex flex-col mb-4">

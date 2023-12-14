@@ -13,22 +13,22 @@
              class="flex justify-start items-center px-4 py-6 gap-4 rounded-lg bg-clip-border bg-origin-border bg-cover bg-center">
             <div>
                 <img
-                    class="bg-white rounded-full shadow-md shadow-custom-100 sm:h-24 sm:w-24 object-cover"
+                    class="bg-white rounded-full shadow-md shadow-primary-100 sm:h-24 sm:w-24 object-cover"
                     src="{{ \Illuminate\Support\Facades\Storage::disk(config('zeus-bolt.uploadDisk'))->url($zeusForm->options['logo']) }}"
                     alt="logo"
                 />
             </div>
             <div class="bg-white/40 p-4 space-y-1 rounded-lg w-full text-left">
-                <h4 class="text-custom-600 text-2xl font-bold dark:text-white">
+                <h4 class="text-primary-600 text-2xl font-bold dark:text-white">
                     {{ $zeusForm->name ?? '' }}
                 </h4>
                 @if(filled($zeusForm->description))
-                    <h5 class="text-custom-600 font-normal">
+                    <h5 class="text-primary-600 font-normal">
                         {{ $zeusForm->description ?? '' }}
                     </h5>
                 @endif
                 @if($zeusForm->start_date !== null)
-                    <div class="text-custom-800 flex items-center justify-start gap-2 text-sm">
+                    <div class="text-primary-800 flex items-center justify-start gap-2 text-sm">
                         @svg('heroicon-o-calendar','h-5 w-5 inline-flex')
                         <span class="flex items-center justify-center gap-1">
                             <span>{{ __('Available from') }}:</span>

@@ -31,7 +31,7 @@
         </div>
         <div class="md:col-span-1 space-y-4">
             <x-filament::section class="w-full">
-                <x-slot name="heading" class="text-custom-600">
+                <x-slot name="heading" class="text-primary-600">
                     {{ __('User Details') }}
                 </x-slot>
                 <p>
@@ -51,7 +51,7 @@
                 <div class="space-y-2">
                     <x-filament::section>
                         <x-slot name="heading" class="text-primary-600">
-                            <p class="my-3 mx-1 text-custom-600 font-semibold">{{ __('Entry Details') }}</p>
+                            <p class="my-3 mx-1 text-primary-600 font-semibold">{{ __('Entry Details') }}</p>
                         </x-slot>
 
                         <div class="flex flex-col">

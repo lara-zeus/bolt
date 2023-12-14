@@ -7,7 +7,7 @@
         <x-filament::section :compact="true">
             <x-slot name="heading">
                 <div class="flex items-center justify-center gap-2">
-                    @svg('heroicon-o-exclamation-triangle','w-5 h-5 text-custom-600')
+                    @svg('heroicon-o-exclamation-triangle','w-5 h-5 text-primary-600')
                     <span class="text-md">
                         {{ __('Login Required') }}
                     </span>

@@ -43,11 +43,10 @@ Bolt is a form builder for your users, with so many use cases included a UI for 
 
 ## Bolt Pro
 
-[![bolt-pro](https://larazeus.com/images/bolt-pro-ad.png)](https://larazeus.com/bolt-pro)
-
-[![bolt-preset](https://larazeus.com/images/bolt-preset-ad.png)](https://larazeus.com/bolt-preset)
+[![bolt-pro](https://larazeus.com/images/bolt-pro-ad.png)](https://filamentphp.com/plugins/lara-zeus-bolt-pro)
 
 ## More Details
+
 **✨ to learn more about Bolt the form builder, please visit:**
 
 - [Discord](https://discord.com/channels/883083792112300104/1121563279668555897)
