@@ -36,8 +36,6 @@ And more on the way.
 
 [![bolt-pro](https://larazeus.com/images/bolt-pro-ad.png)](https://larazeus.com/bolt-pro)
 
-[![bolt-preset](https://larazeus.com/images/bolt-preset-ad.png)](https://larazeus.com/bolt-preset)
-
 ## Overview
 [read more](https://larazeus.com/docs/bolt/v1/overview) about the idea and how Bolt works.
 
