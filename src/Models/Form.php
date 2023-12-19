@@ -102,31 +102,31 @@ class Form extends Model
     /** @phpstan-return BelongsTo<Form, Category> */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(BoltPlugin::getModel('Category'));
+        return $this->belongsTo(config('zeus-bolt.models.Category'));
     }
 
     /** @phpstan-return hasMany<Section> */
     public function sections(): HasMany
     {
-        return $this->hasMany(BoltPlugin::getModel('Section'));
+        return $this->hasMany(config('zeus-bolt.models.Section'));
     }
 
     /** @phpstan-return hasManyThrough<Field> */
     public function fields(): HasManyThrough
     {
-        return $this->hasManyThrough(BoltPlugin::getModel('Field'), BoltPlugin::getModel('Section'));
+        return $this->hasManyThrough(config('zeus-bolt.models.Field'), config('zeus-bolt.models.Section'));
     }
 
     /** @phpstan-return hasMany<Response> */
     public function responses(): hasMany
     {
-        return $this->hasMany(BoltPlugin::getModel('Response'));
+        return $this->hasMany(config('zeus-bolt.models.Response'));
     }
 
     /** @phpstan-return hasMany<FieldResponse> */
     public function fieldsResponses(): HasMany
     {
-        return $this->hasMany(BoltPlugin::getModel('FieldResponse'));
+        return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
     }
 
     /**

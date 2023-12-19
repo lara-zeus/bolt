@@ -64,7 +64,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         $this->inline = $inline;
 
-        $this->zeusForm = BoltPlugin::getModel('Form')::query()
+        $this->zeusForm = config('zeus-bolt.models.Form')::query()
             ->with(['fields', 'sections.fields'])
             ->where('slug', $slug)
             ->where('is_active', true)
@@ -85,7 +85,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         $this->validate();
 
-        $response = BoltPlugin::getModel('Response')::create([
+        $response = config('zeus-bolt.models.Response')::create([
             'form_id' => $this->zeusForm->id,
             'user_id' => (auth()->check()) ? auth()->user()->id : null,
             'status' => 'NEW',
@@ -100,7 +100,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             if (! empty($setValue) && is_array($setValue)) {
                 $value = json_encode($value);
             }
-            BoltPlugin::getModel('FieldResponse')::create([
+            config('zeus-bolt.models.FieldResponse')::create([
                 'response' => (! empty($value)) ? $value : '',
                 'response_id' => $response->id,
                 'form_id' => $this->zeusForm->id,

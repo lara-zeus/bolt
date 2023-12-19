@@ -24,7 +24,7 @@ class ListEntries extends Component implements HasForms, HasTable
     {
         return $table
             ->query(
-                BoltPlugin::getModel('Response')::query()->where('user_id', auth()->user()->id)
+                config('zeus-bolt.models.Response')::query()->where('user_id', auth()->user()->id)
             )
             ->contentGrid([
                 'sm' => 1,
@@ -36,8 +36,8 @@ class ListEntries extends Component implements HasForms, HasTable
                     TextColumn::make('status')
                         ->badge()
                         ->label(__('status'))
-                        ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
-                        ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
+                        ->colors(config('zeus-bolt.models.FormsStatus')::pluck('key', 'color')->toArray())
+                        ->icons(config('zeus-bolt.models.FormsStatus')::pluck('key', 'icon')->toArray())
                         ->grow(false),
                     TextColumn::make('form.name')
                         ->searchable('name')

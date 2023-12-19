@@ -22,7 +22,7 @@ class ListForms extends Component
         return view(app('boltTheme') . '.list-forms')
             ->with(
                 'categories',
-                BoltPlugin::getModel('Category')::query()
+                config('zeus-bolt.models.Category')::query()
                     ->whereHas('forms', function ($query) {
                         $query->whereNull('extensions');
                     })
