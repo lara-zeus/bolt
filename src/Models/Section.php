@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Database\Factories\SectionFactory;
 use Spatie\Translatable\HasTranslations;
 

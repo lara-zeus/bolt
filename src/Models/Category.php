@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\CategoryFactory;
 use Spatie\Translatable\HasTranslations;

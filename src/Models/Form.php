@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasActive;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\FormFactory;

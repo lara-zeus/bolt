@@ -4,7 +4,6 @@ namespace LaraZeus\Bolt\Livewire;
 
 use Filament\Forms;
 use Illuminate\View\View;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
 

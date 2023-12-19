@@ -11,7 +11,6 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\View\View;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
 

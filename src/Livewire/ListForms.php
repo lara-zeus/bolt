@@ -3,7 +3,6 @@
 namespace LaraZeus\Bolt\Livewire;
 
 use Illuminate\View\View;
-use LaraZeus\Bolt\BoltPlugin;
 use Livewire\Component;
 
 class ListForms extends Component
