@@ -45,5 +45,5 @@ You will need a separate license for the Advanced Tables plugin to activate thes
 
 - [Discord](https://discord.com/channels/883083792112300104/1121563279668555897)
 - [Docs](https://larazeus.com/docs/bolt/v2/bolt-pro)
-- [Demo](https://demo.larazeus.com/admin)
+- [Demo](https://demo.larazeus.com/admin/forms/bolt-pro)
 

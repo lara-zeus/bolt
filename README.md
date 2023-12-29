@@ -60,7 +60,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on recent changes.
 ## Support
 available support channels:
 * open an issue on [GitHub](https://github.com/lara-zeus/bolt/issues)
-* Email us using the [contact center](https://still-code.com/contact-us/lara-zeus)
+* Email us using the [contact center](https://larazeus.com/contact-us)
 
 ## Contributing
 
