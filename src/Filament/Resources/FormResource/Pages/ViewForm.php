@@ -3,10 +3,8 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
 use Filament\Actions\Action;
-use Filament\Actions\EditAction;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;
-use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
 
@@ -15,7 +13,6 @@ use LaraZeus\Bolt\Models\Form;
  */
 class ViewForm extends ViewRecord
 {
-    use EntriesAction;
     use ViewRecord\Concerns\Translatable;
 
     protected static string $resource = FormResource::class;
@@ -24,8 +21,6 @@ class ViewForm extends ViewRecord
     {
         return [
             LocaleSwitcher::make(),
-            EditAction::make(),
-            ...$this->getEntriesActions($this->record->id),
             Action::make('open')
                 ->label(__('Open'))
                 ->icon('heroicon-o-arrow-top-right-on-square')
@@ -51,5 +46,10 @@ class ViewForm extends ViewRecord
         }
 
         return $widgets;
+    }
+
+    public function hasCombinedRelationManagerTabsWithContent(): bool
+    {
+        return true;
     }
 }

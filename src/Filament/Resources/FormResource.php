@@ -8,6 +8,8 @@ use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
+use Filament\Pages\SubNavigationPosition;
+use Filament\Resources\Pages\Page;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -31,7 +33,6 @@ use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Concerns\Schemata;
 use LaraZeus\Bolt\Filament\Actions\ReplicateFormAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
-use LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages\ListResponses;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
 
 class FormResource extends BoltResource
@@ -46,6 +47,8 @@ class FormResource extends BoltResource
     protected static ?string $recordTitleAttribute = 'name';
 
     protected static Closure | array | null $boltFormSchema = null;
+
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
     public static function getModel(): string
     {
@@ -116,6 +119,9 @@ class FormResource extends BoltResource
         static::$boltFormSchema = $form;
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function table(Table $table): Table
     {
         return $table
@@ -169,6 +175,9 @@ class FormResource extends BoltResource
             'create' => Pages\CreateForm::route('/create'),
             'edit' => Pages\EditForm::route('/{record}/edit'),
             'view' => Pages\ViewForm::route('/{record}'),
+            'report' => Pages\ManageResponses::route('/{record}/report'),
+            'browse' => Pages\BrowseResponses::route('/{record}/browse'),
+            'viewResponse' => Pages\ViewResponse::route('/{record}/response/{responseID}'),
         ];
 
         if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
@@ -201,12 +210,6 @@ class FormResource extends BoltResource
         $action = [
             ViewAction::make(),
             EditAction::make('edit'),
-            Action::make('entries')
-                ->color('info')
-                ->label(__('Entries'))
-                ->icon('clarity-data-cluster-line')
-                ->tooltip(__('view all entries'))
-                ->url(fn (ZeusForm $record): string => ListResponses::getUrl(['form_id' => $record->id])),
             Action::make('prefilledLink')
                 ->label(__('Prefilled Link'))
                 ->icon('heroicon-o-link')
@@ -226,5 +229,15 @@ class FormResource extends BoltResource
         }
 
         return [ActionGroup::make($action)];
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\ViewForm::class,
+            Pages\EditForm::class,
+            Pages\ManageResponses::class,
+            Pages\BrowseResponses::class,
+        ]);
     }
 }
