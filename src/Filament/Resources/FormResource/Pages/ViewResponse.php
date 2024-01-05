@@ -3,8 +3,11 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
 use Filament\Actions\Action;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Contracts\Support\Htmlable;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
@@ -39,6 +42,16 @@ class ViewResponse extends ViewRecord
                 })
                 ->label(__('Set Status'))
                 ->icon('heroicon-o-tag')
+                ->form([
+                    Select::make('status')
+                        ->label(__('status'))
+                        ->default(fn () => $this->response->status)
+                        ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
+                        ->required(),
+                    Textarea::make('notes')
+                        ->default(fn () => $this->response->notes)
+                        ->label(__('Notes')),
+                ])
                 ->action(function (array $data): void {
                     $this->response->status = $data['status'];
                     $this->response->notes = $data['notes'];
