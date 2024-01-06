@@ -87,7 +87,6 @@ class FormResource extends BoltResource
                     TextEntry::make('description'),
                     IconEntry::make('is_active')
                         ->icon(fn (string $state): string => match ($state) {
-                            '1' => 'clarity-check-circle-line',
                             '0' => 'clarity-times-circle-solid',
                             default => 'clarity-check-circle-line',
                         })
@@ -210,25 +209,43 @@ class FormResource extends BoltResource
         $action = [
             ViewAction::make(),
             EditAction::make('edit'),
-            Action::make('prefilledLink')
-                ->label(__('Prefilled Link'))
-                ->icon('heroicon-o-link')
-                ->tooltip(__('Get Prefilled Link'))
-                ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
-                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record])),
             ReplicateFormAction::make(),
+            RestoreAction::make(),
             DeleteAction::make(),
             ForceDeleteAction::make(),
-            RestoreAction::make(),
+
+            ActionGroup::make([
+                Action::make('entries')
+                    ->color('warning')
+                    ->label(__('Entries'))
+                    ->icon('clarity-data-cluster-line')
+                    ->tooltip(__('view all entries'))
+                    ->url(fn (ZeusForm $record): string => url('admin/responses?form_id=' . $record->id)),
+            ])
+                ->dropdown(false),
         ];
+
+        $advancedActions = $moreActions = [];
+
+        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
+            $advancedActions[] = Action::make('prefilledLink')
+                ->label(__('Prefilled Link'))
+                ->icon('iconpark-formone-o')
+                ->tooltip(__('Get Prefilled Link'))
+                ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
+                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record]));
+        }
 
         if (class_exists(\LaraZeus\Helen\HelenServiceProvider::class)) {
             //@phpstan-ignore-next-line
-            $action[] = \LaraZeus\Helen\Actions\ShortUrlAction::make('get-link')
+            $advancedActions[] = \LaraZeus\Helen\Actions\ShortUrlAction::make('get-link')
+                ->label(__('Short Link'))
                 ->distUrl(fn (ZeusForm $record) => route('bolt.form.show', $record));
         }
 
-        return [ActionGroup::make($action)];
+        $moreActions[] = ActionGroup::make($advancedActions)->dropdown(false);
+
+        return [ActionGroup::make(array_merge($action, $moreActions))];
     }
 
     public static function getRecordSubNavigation(Page $page): array

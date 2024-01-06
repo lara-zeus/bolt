@@ -47,9 +47,4 @@ class ViewForm extends ViewRecord
 
         return $widgets;
     }
-
-    public function hasCombinedRelationManagerTabsWithContent(): bool
-    {
-        return true;
-    }
 }

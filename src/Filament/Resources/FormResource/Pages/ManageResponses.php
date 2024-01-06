@@ -35,17 +35,19 @@ class ManageResponses extends ManageRelatedRecords
                 ->label(__('Avatar'))
                 ->circular()
                 ->toggleable(),
+
             TextColumn::make('user.name')
                 ->label(__('Name'))
                 ->toggleable()
                 ->sortable()
                 ->default(__('guest'))
                 ->searchable(),
+
             TextColumn::make('status')
                 ->toggleable()
                 ->sortable()
                 ->badge()
-                ->label(__('response status'))
+                ->label(__('status'))
                 ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
                 ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)
@@ -54,6 +56,7 @@ class ManageResponses extends ManageRelatedRecords
             TextColumn::make('notes')
                 ->label(__('notes'))
                 ->sortable()
+                ->searchable()
                 ->toggleable(),
         ];
 
@@ -70,6 +73,7 @@ class ManageResponses extends ManageRelatedRecords
 
         $mainColumns[] = TextColumn::make('created_at')
             ->sortable()
+            ->searchable()
             ->dateTime()
             ->label(__('created at'))
             ->toggleable();
