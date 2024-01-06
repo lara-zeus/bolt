@@ -60,10 +60,10 @@ class Field extends Model
         return $this->belongsTo(BoltPlugin::getModel('Form'));
     }
 
-    /** @return BelongsToMany<Section> */
-    public function section(): BelongsToMany
+    /** @return BelongsTo<Section, Field> */
+    public function section(): BelongsTo
     {
-        return $this->belongsToMany(BoltPlugin::getModel('Section'));
+        return $this->belongsTo(BoltPlugin::getModel('Section'));
     }
 
     /** @return HasMany<FieldResponse> */
