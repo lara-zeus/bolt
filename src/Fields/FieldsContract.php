@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\HasHiddenOptions;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -23,6 +24,7 @@ use LaraZeus\BoltPro\Models\Field as FieldPreset;
 abstract class FieldsContract implements Arrayable, Fields
 {
     use HasOptions;
+    use HasHiddenOptions;
 
     public bool $disabled = false;
 

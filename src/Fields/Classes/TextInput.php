@@ -69,24 +69,16 @@ class TextInput extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenVisibility(),
+            self::hiddenHtmlID(),
+            self::hiddenHintOptions(),
+            self::hiddenRequired(),
+            self::hiddenColumnSpanFull(),
             Hidden::make('options.dateType'),
             Hidden::make('options.prefix'),
             Hidden::make('options.suffix'),
             Hidden::make('options.minValue'),
             Hidden::make('options.maxValue'),
-
-            Hidden::make('options.htmlId')->default(str()->random(6)),
-
-            Hidden::make('options.hint.text'),
-            Hidden::make('options.hint.icon'),
-            Hidden::make('options.hint.color'),
-
-            Hidden::make('options.is_required')->default(false),
-            Hidden::make('options.column_span_full')->default(false),
-
-            Hidden::make('options.visibility.active'),
-            Hidden::make('options.visibility.fieldID'),
-            Hidden::make('options.visibility.values'),
         ];
     }
 

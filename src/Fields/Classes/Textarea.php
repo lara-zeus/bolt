@@ -44,23 +44,15 @@ class Textarea extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
-            Hidden::make('options.htmlId')->default(str()->random(6)),
-
+            self::hiddenVisibility(),
+            self::hiddenHtmlID(),
+            self::hiddenHintOptions(),
+            self::hiddenRequired(),
+            self::hiddenColumnSpanFull(),
             Hidden::make('options.rows'),
             Hidden::make('options.cols'),
             Hidden::make('options.minLength'),
             Hidden::make('options.maxLength'),
-
-            Hidden::make('options.hint.text'),
-            Hidden::make('options.hint.icon'),
-            Hidden::make('options.hint.color'),
-
-            Hidden::make('options.is_required')->default(false),
-            Hidden::make('options.column_span_full')->default(false),
-
-            Hidden::make('options.visibility.active'),
-            Hidden::make('options.visibility.fieldID'),
-            Hidden::make('options.visibility.values'),
         ];
     }
 

@@ -38,6 +38,7 @@ trait Schemata
                 ->columnSpan(2),
 
             Section::make()
+                ->columnSpan(2)
                 ->schema([
                     Placeholder::make('section-title-placeholder')
                         ->label(__('Sections'))
@@ -52,7 +53,7 @@ trait Schemata
                 ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                ->collapsed(fn(string $operation) => $operation === 'edit')
                 ->minItems(1)
                 ->extraItemActions([
                     Action::make('options')
@@ -60,7 +61,11 @@ trait Schemata
                         ->color('warning')
                         ->tooltip('more section options')
                         ->icon('heroicon-m-cog')
-                        ->fillForm(fn ($state, array $arguments, Repeater $component) => $component->getItemState($arguments['item']))
+                        ->fillForm(fn(
+                            $state,
+                            array $arguments,
+                            Repeater $component
+                        ) => $component->getItemState($arguments['item']))
                         ->form(function (array $arguments, Repeater $component, $record, Get $get) {
                             $formOptions = $get('options');
 
@@ -70,7 +75,7 @@ trait Schemata
                                     ->visible($formOptions['show-as'] !== 'tabs')
                                     ->label(__('Section Description')),
                                 Select::make('columns')
-                                    ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
+                                    ->options(fn(): array => array_combine(range(1, 12), range(1, 12)))
                                     ->required()
                                     ->default(1)
                                     ->hint(__('fields per row'))
@@ -97,8 +102,7 @@ trait Schemata
                             $component->state($state);
                         }),
                 ])
-
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -210,7 +214,7 @@ trait Schemata
                                 }),
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
-                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
+                        ->getOptionLabelFromRecordUsing(fn(Category $record) => "{$record->name}"),
                     Grid::make()
                         ->columns(2)
                         ->schema([
@@ -256,7 +260,7 @@ trait Schemata
 
             Tabs\Tab::make('embed-tab')
                 ->label(__('Embed'))
-                ->visible(fn (
+                ->visible(fn(
                     string $operation
                 ): bool => class_exists(\LaraZeus\Sky\SkyServiceProvider::class) && $operation === 'edit')
                 ->schema([
@@ -265,7 +269,7 @@ trait Schemata
                         ->dehydrated(false)
                         ->disabled()
                         ->formatStateUsing(function (Get $get) {
-                            return '<bolt>' . $get('slug') . '</bolt>';
+                            return '<bolt>'.$get('slug').'</bolt>';
                         }),
                 ]),
 
@@ -322,7 +326,7 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                ->collapsed(fn(string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,
@@ -330,7 +334,7 @@ trait Schemata
                     '2xl' => 3,
                 ])
                 ->label('')
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
                 ->addActionLabel(__('Add field'))
                 ->extraItemActions([
                     Action::make('options')
@@ -338,7 +342,11 @@ trait Schemata
                         ->color('warning')
                         ->tooltip('more section options')
                         ->icon('heroicon-m-cog')
-                        ->fillForm(fn ($state, array $arguments, Repeater $component) => $component->getItemState($arguments['item']))
+                        ->fillForm(fn(
+                            $state,
+                            array $arguments,
+                            Repeater $component
+                        ) => $component->getItemState($arguments['item']))
                         ->form(function (Get $get) {
                             $sect = $get('../../sections');
 
@@ -402,7 +410,7 @@ trait Schemata
                     if (class_exists($class)) {
                         $newClass = (new $class);
                         if ($newClass->hasOptions()) {
-                            return $newClass->getOptionsHidden();
+                            return collect($newClass->getOptionsHidden())->flatten()->toArray();
                         }
                     }
 
