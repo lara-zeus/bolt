@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Hidden;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
