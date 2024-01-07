@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use LaraZeus\Bolt\Fields\FieldsContract;
 

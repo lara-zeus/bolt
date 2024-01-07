@@ -23,8 +23,8 @@ use LaraZeus\BoltPro\Models\Field as FieldPreset;
 /** @phpstan-return Arrayable<string,mixed> */
 abstract class FieldsContract implements Arrayable, Fields
 {
-    use HasOptions;
     use HasHiddenOptions;
+    use HasOptions;
 
     public bool $disabled = false;
 
