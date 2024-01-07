@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
@@ -18,7 +19,7 @@ class Select extends FieldsContract
         return __('Select Menu');
     }
 
-    public static function getOptions(): array
+    public static function getOptions(?array $sections = null): array
     {
         return [
             self::dataSource(),
@@ -27,7 +28,28 @@ class Select extends FieldsContract
             Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
             self::required(),
             self::columnSpanFull(),
-            self::visibility(),
+            self::visibility('field', $sections),
+        ];
+    }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            Hidden::make('options.dataSource'),
+
+            Hidden::make('options.htmlId')->default(str()->random(6)),
+
+            Hidden::make('options.hint.text'),
+            Hidden::make('options.hint.icon'),
+            Hidden::make('options.hint.color'),
+
+            Hidden::make('options.is_required')->default(false),
+            Hidden::make('options.allow_multiple')->default(false),
+            Hidden::make('options.column_span_full')->default(false),
+
+            Hidden::make('options.visibility.active'),
+            Hidden::make('options.visibility.fieldID'),
+            Hidden::make('options.visibility.values'),
         ];
     }
 

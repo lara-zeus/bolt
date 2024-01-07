@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\ColorPicker as ColorPickerAlias;
+use Filament\Forms\Components\Hidden;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class ColorPicker extends FieldsContract
@@ -16,7 +17,7 @@ class ColorPicker extends FieldsContract
         return __('Color Picker');
     }
 
-    public static function getOptions(): array
+    public static function getOptions(?array $sections = null): array
     {
         return [
             \Filament\Forms\Components\Select::make('options.colorType')
@@ -30,7 +31,26 @@ class ColorPicker extends FieldsContract
             self::hintOptions(),
             self::required(),
             self::columnSpanFull(),
-            self::visibility(),
+            self::visibility('field', $sections),
+        ];
+    }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            Hidden::make('options.colorType'),
+            Hidden::make('options.htmlId')->default(str()->random(6)),
+
+            Hidden::make('options.hint.text'),
+            Hidden::make('options.hint.icon'),
+            Hidden::make('options.hint.color'),
+
+            Hidden::make('options.is_required')->default(false),
+            Hidden::make('options.column_span_full')->default(false),
+
+            Hidden::make('options.visibility.active'),
+            Hidden::make('options.visibility.fieldID'),
+            Hidden::make('options.visibility.values'),
         ];
     }
 

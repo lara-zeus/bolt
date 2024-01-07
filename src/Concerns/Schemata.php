@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
@@ -35,6 +36,7 @@ trait Schemata
             Tabs::make('form-tabs')
                 ->tabs(static::getTabsSchema())
                 ->columnSpan(2),
+
             Section::make()
                 ->schema([
                     Placeholder::make('section-title-placeholder')
@@ -52,6 +54,50 @@ trait Schemata
                 ->collapsible()
                 ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->minItems(1)
+                ->extraItemActions([
+                    Action::make('options')
+                        ->slideOver()
+                        ->color('warning')
+                        ->tooltip('more section options')
+                        ->icon('heroicon-m-cog')
+                        ->fillForm(fn ($state, array $arguments, Repeater $component) => $component->getItemState($arguments['item']))
+                        ->form(function (array $arguments, Repeater $component, $record, Get $get) {
+                            $formOptions = $get('options');
+
+                            return [
+                                TextInput::make('description')
+                                    ->nullable()
+                                    ->visible($formOptions['show-as'] !== 'tabs')
+                                    ->label(__('Section Description')),
+                                Select::make('columns')
+                                    ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
+                                    ->required()
+                                    ->default(1)
+                                    ->hint(__('fields per row'))
+                                    ->label(__('Section Columns')),
+                                IconPicker::make('icon')
+                                    ->columns([
+                                        'default' => 1,
+                                        'lg' => 3,
+                                        '2xl' => 5,
+                                    ])
+                                    ->label(__('Section icon')),
+                                Toggle::make('aside')
+                                    ->visible($formOptions['show-as'] === 'page')
+                                    ->label(__('show as aside')),
+                                Toggle::make('compact')
+                                    ->visible($formOptions['show-as'] === 'page')
+                                    ->label(__('compact section')),
+                                self::visibility('section', $get('sections')),
+                            ];
+                        })
+                        ->action(function (array $data, array $arguments, Repeater $component): void {
+                            $state = $component->getState();
+                            $state[$arguments['item']] = array_merge($state[$arguments['item']], $data);
+                            $component->state($state);
+                        }),
+                ])
+
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
@@ -252,53 +298,21 @@ trait Schemata
             Grid::make()
                 ->columns()
                 ->schema([
-                    Tabs::make('section-tab')
-                        ->columnSpan(2)
-                        ->tabs([
-                            Tabs\Tab::make('section-info-tab')
-                                ->label(__('Section Info'))
-                                ->schema([
-                                    TextInput::make('name')
-                                        ->hint(__('Translatable'))
-                                        ->hintIcon('heroicon-s-language')
-                                        ->required()
-                                        ->lazy()
-                                        ->label(__('Section Name')),
-                                    TextInput::make('description')
-                                        ->nullable()
-                                        ->visible(fn (Get $get) => $get('../../options.show-as') !== 'tabs')
-                                        ->label(__('Section Description')),
-                                ]),
-                            Tabs\Tab::make('section-details-tab')
-                                ->label(__('Section Details'))
-                                ->columns(2)
-                                ->schema([
-                                    Select::make('columns')
-                                        ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
-                                        ->required()
-                                        ->default(1)
-                                        ->hint(__('fields per row'))
-                                        ->label(__('Section Columns')),
-                                    IconPicker::make('icon')
-                                        ->columns([
-                                            'default' => 1,
-                                            'lg' => 3,
-                                            '2xl' => 5,
-                                        ])
-                                        ->label(__('Section icon')),
-
-                                    Toggle::make('aside')
-                                        ->inline(false)
-                                        ->visible(fn (Get $get) => $get('../../options.show-as') === 'page')
-                                        ->label(__('show as aside')),
-
-                                    Toggle::make('compact')
-                                        ->inline(false)
-                                        ->visible(fn (Get $get) => $get('../../options.show-as') === 'page')
-                                        ->label(__('compact section')),
-                                    self::visibility('section'),
-                                ]),
-                        ]),
+                    Hidden::make('compact')->default(false),
+                    Hidden::make('aside')->default(false),
+                    Hidden::make('icon'),
+                    Hidden::make('columns')->default(1),
+                    Hidden::make('description'),
+                    Hidden::make('options.visibility.active'),
+                    Hidden::make('options.visibility.fieldID'),
+                    Hidden::make('options.visibility.values'),
+                    TextInput::make('name')
+                        ->columnSpanFull()
+                        ->hint(__('Translatable'))
+                        ->hintIcon('heroicon-s-language')
+                        ->required()
+                        ->lazy()
+                        ->label(__('Section Name')),
                 ]),
             Placeholder::make('section-fields-placeholder')
                 ->label(__('Section Fields')),
@@ -318,6 +332,45 @@ trait Schemata
                 ->label('')
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->addActionLabel(__('Add field'))
+                ->extraItemActions([
+                    Action::make('options')
+                        ->slideOver()
+                        ->color('warning')
+                        ->tooltip('more section options')
+                        ->icon('heroicon-m-cog')
+                        ->fillForm(fn ($state, array $arguments, Repeater $component) => $component->getItemState($arguments['item']))
+                        ->form(function (Get $get) {
+                            $sect = $get('../../sections');
+
+                            return [
+                                Textarea::make('description')
+                                    ->label(__('Field Description')),
+                                Grid::make()
+                                    ->columns([
+                                        'default' => 1,
+                                        'lg' => 2,
+                                    ])
+                                    ->label(__('Field Options'))
+                                    ->schema(function (Get $get) use ($sect) {
+                                        $class = $get('type');
+                                        if (class_exists($class)) {
+                                            $newClass = (new $class);
+                                            if ($newClass->hasOptions()) {
+                                                return $newClass->getOptions($sect);
+                                            }
+                                        }
+
+                                        return [];
+                                    })
+                                    ->columns(1),
+                            ];
+                        })
+                        ->action(function (array $data, array $arguments, Repeater $component): void {
+                            $state = $component->getState();
+                            $state[$arguments['item']] = array_merge($state[$arguments['item']], $data);
+                            $component->state($state);
+                        }),
+                ])
                 ->schema(static::getFieldsSchema()),
         ];
     }
@@ -325,59 +378,37 @@ trait Schemata
     public static function getFieldsSchema(): array
     {
         return [
-            Tabs::make('fields-tab')
-                ->tabs([
-                    Tabs\Tab::make('type-text-tab')
-                        ->icon('heroicon-o-bars-3-bottom-left')
-                        ->label(__('Type & title'))
-                        ->schema([
-                            TextInput::make('name')
-                                ->hint(__('Translatable'))
-                                ->hintIcon('heroicon-s-language')
-                                ->required()
-                                ->lazy()
-                                ->label(__('Field Name')),
-                            Textarea::make('description')
-                                ->label(__('Field Description')),
-                            Select::make('type')
-                                ->required()
-                                ->options(Bolt::availableFields()->pluck('title', 'class'))
-                                ->live()
-                                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
-                                ->label(__('Field Type')),
-                        ]),
-                    Tabs\Tab::make('options-tab')
-                        ->visible(function (Get $get) {
-                            $class = $get('type');
-                            if (class_exists($class)) {
-                                return (new $class)->hasOptions();
-                            }
+            Hidden::make('description'),
+            TextInput::make('name')
+                ->hint(__('Translatable'))
+                ->hintIcon('heroicon-s-language')
+                ->required()
+                ->lazy()
+                ->label(__('Field Name')),
+            Select::make('type')
+                ->required()
+                ->options(Bolt::availableFields()->pluck('title', 'class'))
+                ->live()
+                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
+                ->label(__('Field Type')),
+            Grid::make()
+                ->columns([
+                    'default' => 1,
+                    'lg' => 2,
+                ])
+                ->label(__('Field Options'))
+                ->schema(function (Get $get) {
+                    $class = $get('type');
+                    if (class_exists($class)) {
+                        $newClass = (new $class);
+                        if ($newClass->hasOptions()) {
+                            return $newClass->getOptionsHidden();
+                        }
+                    }
 
-                            return false;
-                        })
-                        ->label(__('Options'))
-                        ->icon('heroicon-o-cog')
-                        ->schema([
-                            Grid::make()
-                                ->columns([
-                                    'default' => 1,
-                                    'lg' => 2,
-                                ])
-                                ->label(__('Field Options'))
-                                ->schema(function (Get $get) {
-                                    $class = $get('type');
-                                    if (class_exists($class)) {
-                                        $newClass = (new $class);
-                                        if ($newClass->hasOptions()) {
-                                            return $newClass->getOptions();
-                                        }
-                                    }
-
-                                    return [];
-                                })
-                                ->columns(1),
-                        ]),
-                ]),
+                    return [];
+                })
+                ->columns(1),
         ];
     }
 }

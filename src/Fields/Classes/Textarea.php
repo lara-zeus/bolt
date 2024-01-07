@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Textarea as TextareaAlias;
 use Filament\Forms\Components\TextInput;
 use LaraZeus\Bolt\Fields\FieldsContract;
@@ -17,7 +18,7 @@ class Textarea extends FieldsContract
         return __('Textarea');
     }
 
-    public static function getOptions(): array
+    public static function getOptions(?array $sections = null): array
     {
         return [
             TextInput::make('options.rows')
@@ -36,7 +37,30 @@ class Textarea extends FieldsContract
             self::hintOptions(),
             self::required(),
             self::columnSpanFull(),
-            self::visibility(),
+            self::visibility('field', $sections),
+        ];
+    }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            Hidden::make('options.htmlId')->default(str()->random(6)),
+
+            Hidden::make('options.rows'),
+            Hidden::make('options.cols'),
+            Hidden::make('options.minLength'),
+            Hidden::make('options.maxLength'),
+
+            Hidden::make('options.hint.text'),
+            Hidden::make('options.hint.icon'),
+            Hidden::make('options.hint.color'),
+
+            Hidden::make('options.is_required')->default(false),
+            Hidden::make('options.column_span_full')->default(false),
+
+            Hidden::make('options.visibility.active'),
+            Hidden::make('options.visibility.fieldID'),
+            Hidden::make('options.visibility.values'),
         ];
     }
 

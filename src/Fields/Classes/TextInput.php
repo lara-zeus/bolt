@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput as TextInputAlias;
 use Filament\Forms\Get;
@@ -18,7 +19,7 @@ class TextInput extends FieldsContract
         return __('Text Input');
     }
 
-    public static function getOptions(): array
+    public static function getOptions(?array $sections = null): array
     {
         return [
             Select::make('options.dateType')
@@ -61,7 +62,31 @@ class TextInput extends FieldsContract
             self::hintOptions(),
             self::required(),
             self::columnSpanFull(),
-            self::visibility(),
+            self::visibility('field', $sections),
+        ];
+    }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            Hidden::make('options.dateType'),
+            Hidden::make('options.prefix'),
+            Hidden::make('options.suffix'),
+            Hidden::make('options.minValue'),
+            Hidden::make('options.maxValue'),
+
+            Hidden::make('options.htmlId')->default(str()->random(6)),
+
+            Hidden::make('options.hint.text'),
+            Hidden::make('options.hint.icon'),
+            Hidden::make('options.hint.color'),
+
+            Hidden::make('options.is_required')->default(false),
+            Hidden::make('options.column_span_full')->default(false),
+
+            Hidden::make('options.visibility.active'),
+            Hidden::make('options.visibility.fieldID'),
+            Hidden::make('options.visibility.values'),
         ];
     }
 

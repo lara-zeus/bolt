@@ -161,8 +161,12 @@ abstract class FieldsContract implements Arrayable, Fields
     }
 
     //@phpstan-ignore-next-line
-    public static function getFieldCollectionItemsList(Field | FieldPreset $zeusField): Collection
+    public static function getFieldCollectionItemsList(Field | FieldPreset | array $zeusField): Collection | array
     {
+        if (is_array($zeusField)) {
+            $zeusField = (object) $zeusField;
+        }
+
         $getCollection = collect();
 
         //@phpstan-ignore-next-line
