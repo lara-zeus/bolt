@@ -2,6 +2,34 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.0 - 2024-01-08
+
+### What's Changed
+
+#### No more ResponseResource:
+
+so if you have any customizations or overwrites, you don't need it anymore, all the pages now inside the formResource
+
+#### View files:
+
+if you customizing the blade view, make sure to update them all, and compare the changes
+also added a new view:
+resources/views/filament/resources/response-resource/pages/browse-entry.blade.php
+
+#### Added getOptionsHidden method in Field Contract
+
+#### Refactor options to a modal to make more space for more options
+
+#### Add icon and icon color for affixes
+
+#### Toggle field add options for on and off icon
+
+### Upgrade:
+
+if you have custom fields or view customization, then make sure to check and compare the files, other than that the upgrade should be seamless.
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.30...v3.0.0
+
 ## v2.1.30 - 2024-01-08
 
 ### What's Changed
