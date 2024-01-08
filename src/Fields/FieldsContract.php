@@ -74,14 +74,6 @@ abstract class FieldsContract implements Arrayable, Fields
             ->id($htmlId)
             ->helperText($zeusField->description);
 
-        if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {
-            $component = $component->prefix($zeusField->options['prefix']);
-        }
-
-        if (isset($zeusField->options['suffix']) && $zeusField->options['suffix'] !== null) {
-            $component = $component->suffix($zeusField->options['suffix']);
-        }
-
         if (optional($zeusField->options)['is_required']) {
             $component = $component->required();
         }
@@ -99,7 +91,7 @@ abstract class FieldsContract implements Arrayable, Fields
                 $component = $component->hint($zeusField->options['hint']['text']);
             }
             if (optional($zeusField->options)['hint']['icon']) {
-                $component = $component->hintIcon($zeusField->options['hint']['icon'], tooltip: $zeusField->options['hint']['text']);
+                $component = $component->hintIcon($zeusField->options['hint']['icon'], tooltip: $zeusField->options['hint']['icon-tooltip'] ?? $zeusField->options['hint']['text']);
             }
             if (optional($zeusField->options)['hint']['color']) {
                 $component = $component->hintColor(fn () => Color::hex($zeusField->options['hint']['color']));
@@ -170,6 +162,11 @@ abstract class FieldsContract implements Arrayable, Fields
         }
 
         $getCollection = collect();
+
+        //@phpstan-ignore-next-line
+        if (optional($zeusField->options)['dataSource'] === null) {
+            return $getCollection;
+        }
 
         //@phpstan-ignore-next-line
         if ($zeusField instanceof FieldPreset && is_string($zeusField->options)) {

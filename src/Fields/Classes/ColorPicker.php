@@ -4,6 +4,8 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\ColorPicker as ColorPickerAlias;
 use Filament\Forms\Components\Hidden;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class ColorPicker extends FieldsContract
@@ -20,18 +22,26 @@ class ColorPicker extends FieldsContract
     public static function getOptions(?array $sections = null): array
     {
         return [
-            \Filament\Forms\Components\Select::make('options.colorType')
-                ->label(__('Color Type'))
-                ->options([
-                    'hsl' => 'hsl',
-                    'rgb' => 'rgb',
-                    'rgba' => 'rgba',
+            Accordions::make('check-list-options')
+                ->accordions([
+                    Accordion::make('general-options')
+                        ->label(__('General Options'))
+                        ->icon('iconpark-checklist-o')
+                        ->schema([
+                            \Filament\Forms\Components\Select::make('options.colorType')
+                                ->label(__('Color Type'))
+                                ->options([
+                                    'hsl' => 'hsl',
+                                    'rgb' => 'rgb',
+                                    'rgba' => 'rgba',
+                                ]),
+                            self::required(),
+                            self::columnSpanFull(),
+                            self::htmlID(),
+                        ]),
+                    self::hintOptions(),
+                    self::visibility($sections),
                 ]),
-            self::htmlID(),
-            self::hintOptions(),
-            self::required(),
-            self::columnSpanFull(),
-            self::visibility('field', $sections),
         ];
     }
 

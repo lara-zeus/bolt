@@ -53,7 +53,7 @@ trait Schemata
                 ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                //->collapsed(fn (string $operation) => $operation === 'edit')
                 ->minItems(1)
                 ->extraItemActions([
                     Action::make('options')
@@ -88,12 +88,14 @@ trait Schemata
                                     ])
                                     ->label(__('Section icon')),
                                 Toggle::make('aside')
+                                    ->default(false)
                                     ->visible($formOptions['show-as'] === 'page')
                                     ->label(__('show as aside')),
                                 Toggle::make('compact')
+                                    ->default(false)
                                     ->visible($formOptions['show-as'] === 'page')
                                     ->label(__('compact section')),
-                                self::visibility('section', $get('sections')),
+                                self::visibility($get('sections')),
                             ];
                         })
                         ->action(function (array $data, array $arguments, Repeater $component): void {
@@ -326,7 +328,7 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                //->collapsed(fn (string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,
@@ -337,11 +339,13 @@ trait Schemata
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->addActionLabel(__('Add field'))
                 ->extraItemActions([
-                    Action::make('options')
+                    Action::make('fields options')
                         ->slideOver()
                         ->color('warning')
-                        ->tooltip('more section options')
+                        ->tooltip('more field options')
                         ->icon('heroicon-m-cog')
+                        ->modalIcon('heroicon-m-cog')
+                        ->modalDescription(__('advanced fields settings'))
                         ->fillForm(fn (
                             $state,
                             array $arguments,
@@ -410,6 +414,7 @@ trait Schemata
                     if (class_exists($class)) {
                         $newClass = (new $class);
                         if ($newClass->hasOptions()) {
+                            // @phpstan-ignore-next-line
                             return collect($newClass->getOptionsHidden())->flatten()->toArray();
                         }
                     }

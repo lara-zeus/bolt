@@ -4,6 +4,8 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
@@ -23,12 +25,22 @@ class Select extends FieldsContract
     {
         return [
             self::dataSource(),
-            self::htmlID(),
-            self::hintOptions(),
             Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
-            self::required(),
-            self::columnSpanFull(),
-            self::visibility('field', $sections),
+            Accordions::make('options')
+                ->activeAccordion(1)
+                ->accordions([
+                    Accordion::make('general-options')
+                        ->label(__('General Options'))
+                        ->icon('iconpark-checklist-o')
+                        ->columns()
+                        ->schema([
+                            self::required(),
+                            self::columnSpanFull(),
+                            self::htmlID(),
+                        ]),
+                    self::hintOptions(),
+                    self::visibility($sections),
+                ]),
         ];
     }
 
