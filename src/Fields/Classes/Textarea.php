@@ -5,6 +5,8 @@ namespace LaraZeus\Bolt\Fields\Classes;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Textarea as TextareaAlias;
 use Filament\Forms\Components\TextInput;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Textarea extends FieldsContract
@@ -21,23 +23,32 @@ class Textarea extends FieldsContract
     public static function getOptions(?array $sections = null): array
     {
         return [
-            TextInput::make('options.rows')
-                ->label(__('rows')),
+            Accordions::make('check-list-options')
+                ->columns()
+                ->accordions([
+                    Accordion::make('general-options')
+                        ->label(__('General Options'))
+                        ->icon('iconpark-checklist-o')
+                        ->schema([
+                            TextInput::make('options.rows')
+                                ->label(__('rows')),
 
-            TextInput::make('options.cols')
-                ->label(__('cols')),
+                            TextInput::make('options.cols')
+                                ->label(__('cols')),
 
-            TextInput::make('options.minLength')
-                ->label(__('min length')),
+                            TextInput::make('options.minLength')
+                                ->label(__('min length')),
 
-            TextInput::make('options.maxLength')
-                ->label(__('max length')),
+                            TextInput::make('options.maxLength')
+                                ->label(__('max length')),
 
-            self::htmlID(),
-            self::hintOptions(),
-            self::required(),
-            self::columnSpanFull(),
-            self::visibility($sections),
+                            self::required(),
+                            self::columnSpanFull(),
+                            self::htmlID(),
+                        ]),
+                    self::hintOptions(),
+                    self::visibility($sections),
+                ]),
         ];
     }
 

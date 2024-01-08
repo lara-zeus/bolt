@@ -58,11 +58,11 @@ class TextInput extends FieldsContract
                                 ->live(),
 
                             TextInputAlias::make('options.minValue')
-                                ->visible(fn(Get $get): bool => $get('options.dateType') === 'numeric')
+                                ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
                                 ->label(__('min value')),
 
                             TextInputAlias::make('options.maxValue')
-                                ->visible(fn(Get $get): bool => $get('options.dateType') === 'numeric')
+                                ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
                                 ->label(__('max value')),
 
                             self::required(),
@@ -136,7 +136,7 @@ class TextInput extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField);
 
-        if (!empty($zeusField['options']['dateType'])) {
+        if (! empty($zeusField['options']['dateType'])) {
             call_user_func([$component, $zeusField['options']['dateType']]);
         }
 

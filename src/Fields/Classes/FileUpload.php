@@ -3,6 +3,8 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Hidden;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
@@ -22,12 +24,20 @@ class FileUpload extends FieldsContract
     public static function getOptions(?array $sections = null): array
     {
         return [
-            \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
-            self::htmlID(),
-            self::hintOptions(),
-            self::required(),
-            self::columnSpanFull(),
-            self::visibility($sections),
+            Accordions::make('check-list-options')
+                ->accordions([
+                    Accordion::make('general-options')
+                        ->label(__('General Options'))
+                        ->icon('iconpark-checklist-o')
+                        ->schema([
+                            \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
+                            self::required(),
+                            self::columnSpanFull(),
+                            self::htmlID(),
+                        ]),
+                    self::hintOptions(),
+                    self::visibility($sections),
+                ]),
         ];
     }
 

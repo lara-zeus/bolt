@@ -2,8 +2,11 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Guava\FilamentIconPicker\Forms\IconPicker;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Toggle extends FieldsContract
@@ -20,27 +23,38 @@ class Toggle extends FieldsContract
     public static function getOptions(?array $sections = null): array
     {
         return [
-            self::htmlID(),
-            self::hintOptions(),
-            self::required(),
-            self::columnSpanFull(),
-            self::visibility($sections),
+            Accordions::make('check-list-options')
+                ->accordions([
+                    Accordion::make('general-options')
+                        ->label(__('General Options'))
+                        ->icon('iconpark-checklist-o')
+                        ->schema([
+                            Grid::make()
+                                ->columns()
+                                ->schema([
+                                    IconPicker::make('options.on-icon')
+                                        ->columns([
+                                            'default' => 1,
+                                            'lg' => 3,
+                                            '2xl' => 5,
+                                        ])
+                                        ->label(__('On Icon')),
 
-            IconPicker::make('options.on-icon')
-                ->columns([
-                    'default' => 1,
-                    'lg' => 3,
-                    '2xl' => 5,
-                ])
-                ->label(__('On Icon')),
-
-            IconPicker::make('options.off-icon')
-                ->columns([
-                    'default' => 1,
-                    'lg' => 3,
-                    '2xl' => 5,
-                ])
-                ->label(__('Off Icon')),
+                                    IconPicker::make('options.off-icon')
+                                        ->columns([
+                                            'default' => 1,
+                                            'lg' => 3,
+                                            '2xl' => 5,
+                                        ])
+                                        ->label(__('Off Icon')),
+                                ]),
+                            self::required(),
+                            self::columnSpanFull(),
+                            self::htmlID(),
+                        ]),
+                    self::hintOptions(),
+                    self::visibility($sections),
+                ]),
         ];
     }
 

@@ -164,6 +164,11 @@ abstract class FieldsContract implements Arrayable, Fields
         $getCollection = collect();
 
         //@phpstan-ignore-next-line
+        if (optional($zeusField->options)['dataSource'] === null) {
+            return $getCollection;
+        }
+
+        //@phpstan-ignore-next-line
         if ($zeusField instanceof FieldPreset && is_string($zeusField->options)) {
             //@phpstan-ignore-next-line
             $zeusField->options = json_decode($zeusField->options, true);

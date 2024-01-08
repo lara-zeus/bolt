@@ -244,6 +244,7 @@ it('can save', function () {
                     'name' => 'sdf',
                     'columns' => 2,
                     'aside' => 0,
+                    'compact' => 0,
                     'fields' => [
                         [
                             'name' => 'sdf',

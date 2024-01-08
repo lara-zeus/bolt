@@ -22,7 +22,6 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
-use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Category;
@@ -89,9 +88,11 @@ trait Schemata
                                     ])
                                     ->label(__('Section icon')),
                                 Toggle::make('aside')
+                                    ->default(false)
                                     ->visible($formOptions['show-as'] === 'page')
                                     ->label(__('show as aside')),
                                 Toggle::make('compact')
+                                    ->default(false)
                                     ->visible($formOptions['show-as'] === 'page')
                                     ->label(__('compact section')),
                                 self::visibility($get('sections')),
@@ -341,7 +342,7 @@ trait Schemata
                     Action::make('fields options')
                         ->slideOver()
                         ->color('warning')
-                        ->tooltip('more section options')
+                        ->tooltip('more field options')
                         ->icon('heroicon-m-cog')
                         ->modalIcon('heroicon-m-cog')
                         ->modalDescription(__('advanced fields settings'))
@@ -413,6 +414,7 @@ trait Schemata
                     if (class_exists($class)) {
                         $newClass = (new $class);
                         if ($newClass->hasOptions()) {
+                            // @phpstan-ignore-next-line
                             return collect($newClass->getOptionsHidden())->flatten()->toArray();
                         }
                     }

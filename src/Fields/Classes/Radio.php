@@ -4,6 +4,8 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
@@ -23,12 +25,20 @@ class Radio extends FieldsContract
     {
         return [
             self::dataSource(),
-            self::htmlID(),
-            self::hintOptions(),
-            Toggle::make('options.is_inline')->label(__('Is inline')),
-            self::required(),
-            self::columnSpanFull(),
-            self::visibility($sections),
+            Accordions::make('check-list-options')
+                ->accordions([
+                    Accordion::make('general-options')
+                        ->label(__('General Options'))
+                        ->icon('iconpark-checklist-o')
+                        ->schema([
+                            self::required(),
+                            Toggle::make('options.is_inline')->label(__('Is inline')),
+                            self::columnSpanFull(),
+                            self::htmlID(),
+                        ]),
+                    self::hintOptions(),
+                    self::visibility($sections),
+                ]),
         ];
     }
 
