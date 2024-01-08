@@ -24,5 +24,14 @@ class {{ class }} extends FieldsContract
             self::columnSpanFull(),
         ];
     }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            self::hiddenHtmlID(),
+            self::hiddenRequired(),
+            self::hiddenColumnSpanFull(),
+        ];
+    }
 }
 

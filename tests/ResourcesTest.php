@@ -3,7 +3,6 @@
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
-use LaraZeus\Bolt\Models\Form;
 
 use function Pest\Laravel\get;
 
@@ -27,9 +26,3 @@ it('can render Form List', function () {
     get(FormResource::getUrl())
         ->assertSuccessful();
 });
-
-/*it('can render Response List', function () {
-    $form = Form::factory()->create();
-    get(ResponseResource::getUrl('index', ['form_id' => $form->id]))
-        ->assertSuccessful();
-});*/

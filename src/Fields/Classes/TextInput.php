@@ -132,9 +132,9 @@ class TextInput extends FieldsContract
     }
 
     // @phpstan-ignore-next-line
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {
-        parent::appendFilamentComponentsOptions($component, $zeusField);
+        parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
         if (! empty($zeusField['options']['dateType'])) {
             call_user_func([$component, $zeusField['options']['dateType']]);

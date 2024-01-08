@@ -72,9 +72,9 @@ class Toggle extends FieldsContract
     }
 
     // @phpstan-ignore-next-line
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {
-        parent::appendFilamentComponentsOptions($component, $zeusField);
+        parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
         if (optional($zeusField->options)['on-icon']) {
             $component = $component->onIcon($zeusField->options['on-icon']);

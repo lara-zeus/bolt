@@ -2525,16 +2525,16 @@
         },
         {
             "name": "lara-zeus/core",
-            "version": "v3.0.15",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lara-zeus/core.git",
-                "reference": "039b8e8197a095ff09d0a6cd884e2bbec5fb2ab2"
+                "reference": "b9a4f3e491e7662c413a6d22672c231e356261bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lara-zeus/core/zipball/039b8e8197a095ff09d0a6cd884e2bbec5fb2ab2",
-                "reference": "039b8e8197a095ff09d0a6cd884e2bbec5fb2ab2",
+                "url": "https://api.github.com/repos/lara-zeus/core/zipball/b9a4f3e491e7662c413a6d22672c231e356261bb",
+                "reference": "b9a4f3e491e7662c413a6d22672c231e356261bb",
                 "shasum": ""
             },
             "require": {
@@ -2544,19 +2544,20 @@
                 "ext-json": "*",
                 "ext-pdo_sqlite": "*",
                 "ext-sqlite3": "*",
-                "filament/filament": "^3.0",
-                "filament/spatie-laravel-translatable-plugin": "^3.0",
+                "filament/filament": "^3.1",
+                "filament/spatie-laravel-translatable-plugin": "^3.1",
                 "php": "^8.1"
             },
             "require-dev": {
+                "larastan/larastan": "^2.2",
                 "laravel/pint": "^1.0",
                 "nunomaduro/collision": "^7.0",
-                "nunomaduro/larastan": "^2.0.1",
-                "orchestra/testbench": "^7.0 || ^8.0",
+                "orchestra/testbench": "^8.0",
                 "pestphp/pest": "^2.0",
-                "pestphp/pest-plugin-laravel": "2.x-dev",
+                "pestphp/pest-plugin-laravel": "^2.0",
                 "pestphp/pest-plugin-livewire": "2.x-dev",
                 "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^1.10",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "phpunit/phpunit": "^10.1"
@@ -2607,7 +2608,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-01T21:57:14+00:00"
+            "time": "2024-01-08T19:26:14+00:00"
         },
         {
             "name": "laravel/framework",
@@ -9618,16 +9619,16 @@
         },
         {
             "name": "nunomaduro/larastan",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larastan/larastan.git",
-                "reference": "d60c1a6d49fcbb54b78922a955a55820abdbe3c7"
+                "reference": "b7cc6a29c457a7d4f3de90466392ae9ad3e17022"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larastan/larastan/zipball/d60c1a6d49fcbb54b78922a955a55820abdbe3c7",
-                "reference": "d60c1a6d49fcbb54b78922a955a55820abdbe3c7",
+                "url": "https://api.github.com/repos/larastan/larastan/zipball/b7cc6a29c457a7d4f3de90466392ae9ad3e17022",
+                "reference": "b7cc6a29c457a7d4f3de90466392ae9ad3e17022",
                 "shasum": ""
             },
             "require": {
@@ -9695,7 +9696,7 @@
             ],
             "support": {
                 "issues": "https://github.com/larastan/larastan/issues",
-                "source": "https://github.com/larastan/larastan/tree/v2.8.0"
+                "source": "https://github.com/larastan/larastan/tree/v2.8.1"
             },
             "funding": [
                 {
@@ -9716,7 +9717,7 @@
                 }
             ],
             "abandoned": "larastan/larastan",
-            "time": "2024-01-02T22:09:07+00:00"
+            "time": "2024-01-08T09:11:17+00:00"
         },
         {
             "name": "nunomaduro/phpinsights",
