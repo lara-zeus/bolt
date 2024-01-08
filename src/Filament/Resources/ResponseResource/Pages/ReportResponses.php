@@ -1,32 +1,44 @@
 <?php
 
-namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
+namespace LaraZeus\Bolt\Filament\Resources\ResponseResource\Pages;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
-use Filament\Resources\Pages\ManageRelatedRecords;
-use Filament\Tables;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Resources\Pages\Page;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\EntriesAction;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
+use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
+use Livewire\Attributes\Url;
 
-/**
- * @property Form $record.
- */
-class ManageResponses extends ManageRelatedRecords
+class ReportResponses extends Page implements HasForms, HasTable
 {
-    protected static string $resource = FormResource::class;
+    use EntriesAction;
+    use InteractsWithForms;
+    use InteractsWithTable;
 
-    protected static string $relationship = 'responses';
+    protected static string $resource = ResponseResource::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
+    protected static string $view = 'zeus::filament.pages.reports.entries';
+
+    protected static ?string $navigationIcon = 'heroicon-o-eye';
+
+    public Form $form;
+
+    #[Url(history: true, keep: true)]
+    public int $form_id = 0;
 
     public function table(Table $table): Table
     {
@@ -35,19 +47,17 @@ class ManageResponses extends ManageRelatedRecords
                 ->label(__('Avatar'))
                 ->circular()
                 ->toggleable(),
-
             TextColumn::make('user.name')
                 ->label(__('Name'))
                 ->toggleable()
                 ->sortable()
                 ->default(__('guest'))
                 ->searchable(),
-
             TextColumn::make('status')
                 ->toggleable()
                 ->sortable()
                 ->badge()
-                ->label(__('status'))
+                ->label(__('response status'))
                 ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
                 ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
                 ->grow(false)
@@ -56,14 +66,13 @@ class ManageResponses extends ManageRelatedRecords
             TextColumn::make('notes')
                 ->label(__('notes'))
                 ->sortable()
-                ->searchable()
                 ->toggleable(),
         ];
 
         /**
          * @var Field $field.
          */
-        foreach ($this->record->fields->sortBy('ordering') as $field) {
+        foreach ($this->form->fields->sortBy('ordering') as $field) {
             $getFieldTableColumn = (new $field->type)->TableColumn($field);
 
             if ($getFieldTableColumn !== null) {
@@ -73,7 +82,6 @@ class ManageResponses extends ManageRelatedRecords
 
         $mainColumns[] = TextColumn::make('created_at')
             ->sortable()
-            ->searchable()
             ->dateTime()
             ->label(__('created at'))
             ->toggleable();
@@ -81,49 +89,64 @@ class ManageResponses extends ManageRelatedRecords
         return $table
             ->query(
                 BoltPlugin::getModel('Response')::query()
-                    ->where('form_id', $this->record->id)
+                    ->where('form_id', $this->form_id)
                     ->with(['fieldsResponses'])
-                    ->withoutGlobalScopes([
-                        SoftDeletingScope::class,
-                    ])
             )
             ->columns($mainColumns)
             ->actions([
                 SetResponseStatus::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
             ])
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
                 SelectFilter::make('status')
                     ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
                     ->label(__('Status')),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-
                 FilamentExportBulkAction::make('export')
                     ->icon('heroicon-o-document-arrow-down')
                     ->label(__('Export')),
             ])
             ->recordUrl(
-                fn (Response $record): string => FormResource::getUrl('viewResponse', [
-                    'record' => $record->form->slug,
-                    'responseID' => $record,
-                ]),
+                fn (Model $record): string => ResponseResource::getUrl('view', ['record' => $record]),
             );
     }
 
-    public static function getNavigationLabel(): string
+    protected function getHeaderActions(): array
     {
-        return __('Entries Report');
+        return $this->getEntriesActions();
+    }
+
+    public function mount(): void
+    {
+        abort_unless(request()->filled('form_id'), 404);
+
+        $this->form_id = request('form_id', 0);
+        $this->form = BoltPlugin::getModel('Form')::with(['fields'])->find($this->form_id);
     }
 
     public function getTitle(): string
     {
         return __('Entries Report');
+    }
+
+    public function getFieldResponseValue(Response $record, Field $field): string
+    {
+        $fieldResponse = $record->fieldsResponses->where('field_id', $field->id)->first();
+        if ($fieldResponse === null) {
+            return '';
+        }
+
+        return (new $fieldResponse->field->type)->getResponse($fieldResponse->field, $fieldResponse);
+    }
+
+    public function getBreadcrumbs(): array
+    {
+        $breadcrumb = $this->getBreadcrumb();
+
+        return [
+            FormResource::getUrl() => FormResource::getBreadcrumb(),
+            FormResource::getUrl('view', ['record' => $this->form->slug]) => $this->form->name,
+            ...(filled($breadcrumb) ? [$breadcrumb] : []),
+        ];
     }
 }

@@ -59,6 +59,7 @@ available resources:
 - CategoryResource,
 - CollectionResource,
 - FormResource,
+- ResponseResource,
 
 ## Frontend Configuration
 

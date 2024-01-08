@@ -18,7 +18,6 @@ use LaraZeus\Bolt\Database\Factories\ResponseFactory;
  * @property string $status
  * @property string $notes
  * @property string $response
- * @property Form $form
  */
 class Response extends Model
 {
@@ -62,7 +61,7 @@ class Response extends Model
     }
 
     /** @return BelongsTo<Form, Response> */
-    public function form(): BelongsTo
+    public function form()
     {
         return $this->belongsTo(BoltPlugin::getModel('Form'));
     }
