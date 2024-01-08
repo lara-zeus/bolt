@@ -15,14 +15,25 @@ class Toggle extends FieldsContract
         return __('Toggle');
     }
 
-    public static function getOptions(): array
+    public static function getOptions(?array $sections = null): array
     {
         return [
             self::htmlID(),
             self::hintOptions(),
             self::required(),
             self::columnSpanFull(),
-            self::visibility(),
+            self::visibility('field', $sections),
+        ];
+    }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            self::hiddenVisibility(),
+            self::hiddenHtmlID(),
+            self::hiddenHintOptions(),
+            self::hiddenRequired(),
+            self::hiddenColumnSpanFull(),
         ];
     }
 

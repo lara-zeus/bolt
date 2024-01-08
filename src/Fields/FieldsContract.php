@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\HasHiddenOptions;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -22,6 +23,7 @@ use LaraZeus\BoltPro\Models\Field as FieldPreset;
 /** @phpstan-return Arrayable<string,mixed> */
 abstract class FieldsContract implements Arrayable, Fields
 {
+    use HasHiddenOptions;
     use HasOptions;
 
     public bool $disabled = false;
@@ -161,8 +163,12 @@ abstract class FieldsContract implements Arrayable, Fields
     }
 
     //@phpstan-ignore-next-line
-    public static function getFieldCollectionItemsList(Field | FieldPreset $zeusField): Collection
+    public static function getFieldCollectionItemsList(Field | FieldPreset | array $zeusField): Collection | array
     {
+        if (is_array($zeusField)) {
+            $zeusField = (object) $zeusField;
+        }
+
         $getCollection = collect();
 
         //@phpstan-ignore-next-line

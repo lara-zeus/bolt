@@ -17,8 +17,17 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
 {
-    public static function visibility(string $type = 'field'): Grid
+    public static function visibility(string $type = 'field', ?array $getFields = null): Grid
     {
+        $fieldsList = [];
+        if (filled($getFields)) {
+            $fieldsList = collect($getFields)
+                ->pluck('fields')
+                ->mapWithKeys(function (array $item) {
+                    return $item;
+                });
+        }
+
         return Grid::make()
             ->schema([
                 Toggle::make('options.visibility.active')
@@ -30,48 +39,28 @@ trait HasOptions
                     ->live()
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
-                    ->options(function ($livewire, $record) use ($type) {
-                        if ($record === null) {
-                            return [];
-                        }
-
-                        return $livewire->record
-                            ->fields()
-                            ->when($type === 'field', function ($query) use ($record) {
-                                return $query->where($record->getTable() . '.id', '!=', $record->id);
-                            })
-                            ->when($type === 'section', function ($query) use ($record) {
-                                return $query->where('section_id', '!=', $record->id);
-                            })
-                            ->where(function ($query) use ($record) {
-                                $query->whereNotNull($record->getTable() . '.options->dataSource');
-                                $query->orWhere('type', '\LaraZeus\Bolt\Fields\Classes\Toggle');
-                            })
-                            ->get()
-                            ->pluck('name', 'id');
-                    }),
+                    ->options(optional($fieldsList)->pluck('name', 'id')),
 
                 Select::make('options.visibility.values')
                     ->label(__('has the value:'))
                     ->live()
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
-                    ->options(function (Get $get, $livewire, $record) {
+                    ->options(function (Get $get) use ($fieldsList) {
+                        $getRelated = $fieldsList->where('id', $get('options.visibility.fieldID'))->first();
+
                         if ($get('options.visibility.fieldID') === null) {
                             return [];
                         }
-                        $getRelated = $livewire->getRecord()->fields()
-                            ->where($record->getTable() . '.id', $get('options.visibility.fieldID'))
-                            ->first();
 
-                        if ($getRelated->type === '\LaraZeus\Bolt\Fields\Classes\Toggle') {
+                        if ($getRelated['type'] === '\LaraZeus\Bolt\Fields\Classes\Toggle') {
                             return [
                                 'true' => __('checked'),
                                 'false' => __('not checked'),
                             ];
                         }
 
-                        if (! isset($getRelated->options['dataSource'])) {
+                        if (! isset($getRelated['options']['dataSource'])) {
                             return [];
                         }
 

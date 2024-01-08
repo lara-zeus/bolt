@@ -23,4 +23,12 @@ class Paragraph extends FieldsContract
             self::columnSpanFull(),
         ];
     }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            self::hiddenHintOptions(),
+            self::hiddenColumnSpanFull(),
+        ];
+    }
 }

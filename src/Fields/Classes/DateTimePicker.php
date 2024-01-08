@@ -15,14 +15,14 @@ class DateTimePicker extends FieldsContract
         return __('Date Time Picker');
     }
 
-    public static function getOptions(): array
+    public static function getOptionsHidden(): array
     {
         return [
-            self::htmlID(),
-            self::hintOptions(),
-            self::required(),
-            self::columnSpanFull(),
-            self::visibility(),
+            self::hiddenHtmlID(),
+            self::hiddenHintOptions(),
+            self::hiddenRequired(),
+            self::hiddenColumnSpanFull(),
+            self::hiddenVisibility(),
         ];
     }
 }

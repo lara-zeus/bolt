@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Hidden;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
@@ -18,7 +19,7 @@ class FileUpload extends FieldsContract
         return __('File Upload');
     }
 
-    public static function getOptions(): array
+    public static function getOptions(?array $sections = null): array
     {
         return [
             \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
@@ -26,7 +27,19 @@ class FileUpload extends FieldsContract
             self::hintOptions(),
             self::required(),
             self::columnSpanFull(),
-            self::visibility(),
+            self::visibility('field', $sections),
+        ];
+    }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            self::hiddenHtmlID(),
+            self::hiddenHintOptions(),
+            self::hiddenRequired(),
+            self::hiddenColumnSpanFull(),
+            self::hiddenVisibility(),
+            Hidden::make('options.allow_multiple')->default(false),
         ];
     }
 

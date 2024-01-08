@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
@@ -18,7 +19,7 @@ class Radio extends FieldsContract
         return __('Radio');
     }
 
-    public static function getOptions(): array
+    public static function getOptions(?array $sections = null): array
     {
         return [
             self::dataSource(),
@@ -27,7 +28,20 @@ class Radio extends FieldsContract
             Toggle::make('options.is_inline')->label(__('Is inline')),
             self::required(),
             self::columnSpanFull(),
-            self::visibility(),
+            self::visibility('field', $sections),
+        ];
+    }
+
+    public static function getOptionsHidden(): array
+    {
+        return [
+            self::hiddenVisibility(),
+            self::hiddenHtmlID(),
+            self::hiddenHintOptions(),
+            self::hiddenRequired(),
+            self::hiddenColumnSpanFull(),
+            Hidden::make('options.dataSource'),
+            Hidden::make('options.is_inline')->default(false),
         ];
     }
 
