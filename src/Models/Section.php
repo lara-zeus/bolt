@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Database\Factories\SectionFactory;
 use Spatie\Translatable\HasTranslations;
 
@@ -63,12 +62,12 @@ class Section extends Model
     /** @phpstan-return hasMany<Field> */
     public function fields(): HasMany
     {
-        return $this->hasMany(BoltPlugin::getModel('Field'), 'section_id', 'id');
+        return $this->hasMany(config('zeus-bolt.models.Field'), 'section_id', 'id');
     }
 
     /** @return BelongsTo<Form, Section> */
     public function form(): BelongsTo
     {
-        return $this->belongsTo(BoltPlugin::getModel('Form'));
+        return $this->belongsTo(config('zeus-bolt.models.Form'));
     }
 }

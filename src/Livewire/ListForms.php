@@ -3,7 +3,6 @@
 namespace LaraZeus\Bolt\Livewire;
 
 use Illuminate\View\View;
-use LaraZeus\Bolt\BoltPlugin;
 use Livewire\Component;
 
 class ListForms extends Component
@@ -22,7 +21,7 @@ class ListForms extends Component
         return view(app('boltTheme') . '.list-forms')
             ->with(
                 'categories',
-                BoltPlugin::getModel('Category')::query()
+                config('zeus-bolt.models.Category')::query()
                     ->whereHas('forms', function ($query) {
                         $query->whereNull('extensions');
                     })

@@ -4,7 +4,6 @@ namespace LaraZeus\Bolt\Livewire;
 
 use Filament\Forms;
 use Illuminate\View\View;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
 
@@ -16,7 +15,7 @@ class ShowEntry extends Component implements Forms\Contracts\HasForms
 
     public function mount(int $responseID): void
     {
-        $this->response = BoltPlugin::getModel('Response')::with('user')
+        $this->response = config('zeus-bolt.models.Response')::with('user')
             ->where('user_id', auth()->user()->id)
             ->where('id', $responseID)
             ->firstOrFail();

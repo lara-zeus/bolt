@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Database\Factories\FieldFactory;
 use Spatie\Translatable\HasTranslations;
 
@@ -57,18 +56,18 @@ class Field extends Model
     /** @return BelongsTo<Form, Field> */
     public function form(): BelongsTo
     {
-        return $this->belongsTo(BoltPlugin::getModel('Form'));
+        return $this->belongsTo(config('zeus-bolt.models.Form'));
     }
 
     /** @return BelongsToMany<Section> */
     public function section(): BelongsToMany
     {
-        return $this->belongsToMany(BoltPlugin::getModel('Section'));
+        return $this->belongsToMany(config('zeus-bolt.models.Section'));
     }
 
     /** @return HasMany<FieldResponse> */
     public function fieldResponses(): HasMany
     {
-        return $this->hasMany(BoltPlugin::getModel('FieldResponse'));
+        return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
     }
 }
