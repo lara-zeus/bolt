@@ -46,7 +46,7 @@ trait Schemata
                 ]),
 
             Repeater::make('sections')
-                ->label('')
+                ->hiddenLabel()
                 ->schema(static::getSectionsSchema())
                 ->relationship()
                 ->orderColumn('ordering')
