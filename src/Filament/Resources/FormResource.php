@@ -55,6 +55,11 @@ class FormResource extends BoltResource
         return BoltPlugin::getModel('Form');
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) BoltPlugin::getModel('Form')::query()->count();
+    }
+
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'slug'];

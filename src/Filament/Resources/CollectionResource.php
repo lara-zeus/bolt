@@ -30,6 +30,11 @@ class CollectionResource extends BoltResource
         return BoltPlugin::getModel('Collection');
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) BoltPlugin::getModel('Collection')::query()->count();
+    }
+
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'values'];

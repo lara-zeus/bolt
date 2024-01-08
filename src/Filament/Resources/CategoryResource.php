@@ -45,6 +45,11 @@ class CategoryResource extends BoltResource
         return BoltPlugin::getModel('Category');
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) BoltPlugin::getModel('Category')::query()->count();
+    }
+
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'slug'];
