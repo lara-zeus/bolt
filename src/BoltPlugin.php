@@ -8,6 +8,7 @@ use Filament\Support\Concerns\EvaluatesClosures;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
+use LaraZeus\Bolt\Filament\Resources\ResponseResource;
 
 final class BoltPlugin implements Plugin
 {
@@ -25,6 +26,7 @@ final class BoltPlugin implements Plugin
             ->resources([
                 CollectionResource::class,
                 FormResource::class,
+                ResponseResource::class,
                 CategoryResource::class,
             ]);
     }

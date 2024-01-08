@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\BoltPlugin;
@@ -59,10 +60,10 @@ class Field extends Model
         return $this->belongsTo(BoltPlugin::getModel('Form'));
     }
 
-    /** @return BelongsTo<Section, Field> */
-    public function section(): BelongsTo
+    /** @return BelongsToMany<Section> */
+    public function section(): BelongsToMany
     {
-        return $this->belongsTo(BoltPlugin::getModel('Section'));
+        return $this->belongsToMany(BoltPlugin::getModel('Section'));
     }
 
     /** @return HasMany<FieldResponse> */
