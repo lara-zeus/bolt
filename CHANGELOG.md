@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.1 - 2024-01-08
+
+### What's Changed
+
+* Use config by @atmonshi in https://github.com/lara-zeus/bolt/pull/224
+* refactor section and field options to a slide over by @atmonshi in https://github.com/lara-zeus/bolt/pull/225
+* refactor fields options to modal and Accordion by @atmonshi in https://github.com/lara-zeus/bolt/pull/227
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.0...v3.0.1
+
 ## v3.0.0 - 2024-01-08
 
 ### What's Changed
