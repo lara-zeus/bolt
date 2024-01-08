@@ -225,10 +225,10 @@ trait Schemata
 
             Tabs\Tab::make('design')
                 ->label(__('Design'))
-                ->visible(fn (
-                ): bool => class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
+                ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
                 ->schema([
                     ViewField::make('options.primary_color')
+                        ->hiddenLabel()
                         ->view('zeus::filament.components.color-picker'),
                     FileUpload::make('options.logo')
                         ->disk(config('zeus-bolt.uploadDisk'))
