@@ -31,7 +31,7 @@ class ColorPicker extends FieldsContract
             self::hintOptions(),
             self::required(),
             self::columnSpanFull(),
-            self::visibility('field', $sections),
+            self::visibility($sections),
         ];
     }
 

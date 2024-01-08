@@ -28,7 +28,7 @@ class Select extends FieldsContract
             Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
             self::required(),
             self::columnSpanFull(),
-            self::visibility('field', $sections),
+            self::visibility($sections),
         ];
     }
 

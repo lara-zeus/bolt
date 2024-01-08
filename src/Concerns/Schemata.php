@@ -22,6 +22,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
+use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Category;
@@ -53,7 +54,7 @@ trait Schemata
                 ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                //->collapsed(fn (string $operation) => $operation === 'edit')
                 ->minItems(1)
                 ->extraItemActions([
                     Action::make('options')
@@ -93,7 +94,7 @@ trait Schemata
                                 Toggle::make('compact')
                                     ->visible($formOptions['show-as'] === 'page')
                                     ->label(__('compact section')),
-                                self::visibility('section', $get('sections')),
+                                self::visibility($get('sections')),
                             ];
                         })
                         ->action(function (array $data, array $arguments, Repeater $component): void {
@@ -326,7 +327,7 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                //->collapsed(fn (string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,
@@ -337,11 +338,13 @@ trait Schemata
                 ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->addActionLabel(__('Add field'))
                 ->extraItemActions([
-                    Action::make('options')
+                    Action::make('fields options')
                         ->slideOver()
                         ->color('warning')
                         ->tooltip('more section options')
                         ->icon('heroicon-m-cog')
+                        ->modalIcon('heroicon-m-cog')
+                        ->modalDescription(__('advanced fields settings'))
                         ->fillForm(fn (
                             $state,
                             array $arguments,

@@ -37,6 +37,7 @@ trait HasHiddenOptions
             Hidden::make('options.hint.text'),
             Hidden::make('options.hint.icon'),
             Hidden::make('options.hint.color'),
+            Hidden::make('options.hint.icon-tooltip'),
         ];
     }
 

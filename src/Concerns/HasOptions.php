@@ -11,43 +11,45 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
+use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 trait HasOptions
 {
-    public static function visibility(string $type = 'field', ?array $getFields = null): Grid
+    public static function visibility(?array $getFields = []): Accordion
     {
-        $fieldsList = [];
         if (filled($getFields)) {
-            $fieldsList = collect($getFields)
+            $getFields = collect($getFields)
                 ->pluck('fields')
                 ->mapWithKeys(function (array $item) {
                     return $item;
                 });
         }
 
-        return Grid::make()
+        return Accordion::make('visibility-options')
+            ->label('Conditional Visibility')
+            ->icon('iconpark-eyes')
             ->schema([
                 Toggle::make('options.visibility.active')
                     ->live()
-                    ->label(__('Conditional Visibility')),
+                    ->label(__('Enable Conditional Visibility')),
 
                 Select::make('options.visibility.fieldID')
                     ->label(__('show when the field:'))
                     ->live()
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.active')))
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.active')))
-                    ->options(optional($fieldsList)->pluck('name', 'id')),
+                    ->options(optional($getFields)->pluck('name', 'id')),
 
                 Select::make('options.visibility.values')
                     ->label(__('has the value:'))
                     ->live()
                     ->required(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
                     ->visible(fn (Get $get): bool => ! empty($get('options.visibility.fieldID')))
-                    ->options(function (Get $get) use ($fieldsList) {
-                        $getRelated = $fieldsList->where('id', $get('options.visibility.fieldID'))->first();
+                    ->options(function (Get $get) use ($getFields) {
+                        $getRelated = $getFields->where('id', $get('options.visibility.fieldID'))->first();
 
                         if ($get('options.visibility.fieldID') === null) {
                             return [];
@@ -66,8 +68,7 @@ trait HasOptions
 
                         return FieldsContract::getFieldCollectionItemsList($getRelated);
                     }),
-            ])
-            ->columns(1);
+            ]);
     }
 
     public static function required(): Grid
@@ -79,12 +80,18 @@ trait HasOptions
             ->columns(1);
     }
 
-    public static function hintOptions(): Grid
+    public static function hintOptions(): Accordion
     {
-        return Grid::make()
+        return Accordion::make('hint-options')
+            ->columns()
+            ->label('Hint Options')
+            ->icon('heroicon-o-light-bulb')
             ->schema([
                 TextInput::make('options.hint.text')
                     ->label(__('Hint Text')),
+                TextInput::make('options.hint.icon-tooltip')
+                    ->label(__('Hint Icon tooltip')),
+                ColorPicker::make('options.hint.color')->label(__('Hint Color')),
                 IconPicker::make('options.hint.icon')
                     ->columns([
                         'default' => 1,
@@ -92,9 +99,7 @@ trait HasOptions
                         '2xl' => 5,
                     ])
                     ->label(__('Hint Icon')),
-                ColorPicker::make('options.hint.color')->label(__('Hint Color')),
-            ])
-            ->columns(1);
+            ]);
     }
 
     public static function columnSpanFull(): Grid
