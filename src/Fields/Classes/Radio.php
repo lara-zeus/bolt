@@ -61,9 +61,9 @@ class Radio extends FieldsContract
     }
 
     // @phpstan-ignore-next-line
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {
-        parent::appendFilamentComponentsOptions($component, $zeusField);
+        parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
         $options = FieldsContract::getFieldCollectionItemsList($zeusField);
 

@@ -18,23 +18,24 @@ trait Designer
     public static function ui(Form $zeusForm, bool $inline = false): array
     {
         $sections = self::drawExt($zeusForm);
+        $hasSectionVisibility = $zeusForm->sections->pluck('options')->where('visibility.active', true)->isNotEmpty();
 
         foreach ($zeusForm->sections->sortBy('ordering') as $section) {
             $sections[] = self::drawSections(
                 $zeusForm,
                 $section,
-                self::drawFields($section, $inline)
+                self::drawFields($section, $inline, $hasSectionVisibility),
             );
         }
 
         if (optional($zeusForm->options)['show-as'] === 'tabs') {
-            return [Tabs::make('tabs')->live()->tabs($sections)];
+            return [Tabs::make('tabs')->live(condition: $hasSectionVisibility)->tabs($sections)];
         }
 
         if (optional($zeusForm->options)['show-as'] === 'wizard') {
             return [
                 Wizard::make($sections)
-                    ->live(),
+                    ->live(condition: $hasSectionVisibility),
                 //->skippable() // todo still not working
             ];
         }
@@ -64,8 +65,10 @@ trait Designer
         ];
     }
 
-    private static function drawFields(ZeusSection $section, bool $inline): array
+    private static function drawFields(ZeusSection $section, bool $inline, bool $hasSectionVisibility = false): array
     {
+        $hasVisibility = $hasSectionVisibility || $section->fields->pluck('options')->where('visibility.active', true)->isNotEmpty();
+
         $fields = [];
 
         if (! $inline) {
@@ -80,7 +83,7 @@ trait Designer
             $fieldClass = new $zeusField->type;
             $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
 
-            $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField);
+            $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
             if (! $inline) {
                 $fields[] = Bolt::renderHook('zeus-form-field.after');

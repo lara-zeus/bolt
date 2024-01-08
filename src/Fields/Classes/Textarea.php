@@ -68,9 +68,9 @@ class Textarea extends FieldsContract
     }
 
     // @phpstan-ignore-next-line
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {
-        parent::appendFilamentComponentsOptions($component, $zeusField);
+        parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
         if (filled($zeusField['options']['maxLength'])) {
             $component->maxLength($zeusField['options']['maxLength']);

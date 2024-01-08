@@ -61,7 +61,7 @@ abstract class FieldsContract implements Arrayable, Fields
     }
 
     // @phpstan-ignore-next-line
-    public function appendFilamentComponentsOptions($component, $zeusField)
+    public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {
         if (is_string($zeusField->options)) {
             $zeusField->options = json_decode($zeusField->options, true);
@@ -118,7 +118,7 @@ abstract class FieldsContract implements Arrayable, Fields
                 return $relatedFieldValues === $get('zeusData.' . $relatedField);
             });
 
-        return $component->live(onBlur: true);
+        return $component->live(onBlur: $hasVisibility, condition: $hasVisibility);
     }
 
     public function getCollectionsValuesForResponse(Field $field, FieldResponse $resp): string
