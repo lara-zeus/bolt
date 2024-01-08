@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://larazeus.com"><img src="https://larazeus.com/images/bolt-banner.png?v=2" /></a>
+<a href="https://larazeus.com"><img src="https://larazeus.com/images/bolt-banner.png?v=3" /></a>
 </p>
 
 <h4 align="center">Lara-zeus bolt is a form builder for your users with many use cases.</h4>
@@ -36,8 +36,6 @@ And more on the way.
 
 [![bolt-pro](https://larazeus.com/images/bolt-pro-ad.png)](https://larazeus.com/bolt-pro)
 
-[![bolt-preset](https://larazeus.com/images/bolt-preset-ad.png)](https://larazeus.com/bolt-preset)
-
 ## Overview
 [read more](https://larazeus.com/docs/bolt/v1/overview) about the idea and how Bolt works.
 
@@ -62,7 +60,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on recent changes.
 ## Support
 available support channels:
 * open an issue on [GitHub](https://github.com/lara-zeus/bolt/issues)
-* Email us using the [contact center](https://still-code.com/contact-us/lara-zeus)
+* Email us using the [contact center](https://larazeus.com/contact-us)
 
 ## Contributing
 

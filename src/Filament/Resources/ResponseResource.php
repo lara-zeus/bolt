@@ -35,6 +35,11 @@ class ResponseResource extends BoltResource
         return BoltPlugin::getModel('Response');
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) BoltPlugin::getModel('Response')::query()->count();
+    }
+
     public static function getModelLabel(): string
     {
         return __('Entries');

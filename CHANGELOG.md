@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v2.1.30 - 2024-01-08
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/lara-zeus/bolt/pull/221
+* fix badge count for multi tenant by @atmonshi in https://github.com/lara-zeus/bolt/pull/226
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.29...v2.1.30
+
 ## v2.1.29 - 2023-12-14
 
 ### What's Changed

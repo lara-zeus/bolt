@@ -16,11 +16,6 @@ class BoltResource extends Resource
             && parent::canViewAny();
     }
 
-    public static function getNavigationBadge(): ?string
-    {
-        return (string) static::getModel()::query()->count();
-    }
-
     public static function getNavigationGroup(): ?string
     {
         return BoltPlugin::get()->getNavigationGroupLabel();
