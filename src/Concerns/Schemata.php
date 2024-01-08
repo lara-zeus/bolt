@@ -53,7 +53,7 @@ trait Schemata
                 ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                //->collapsed(fn (string $operation) => $operation === 'edit')
+                ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->minItems(1)
                 ->extraItemActions([
                     Action::make('options')
@@ -277,10 +277,10 @@ trait Schemata
 
             Tabs\Tab::make('design')
                 ->label(__('Design'))
-                ->visible(fn (
-                ): bool => class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
+                ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
                 ->schema([
                     ViewField::make('options.primary_color')
+                        ->hiddenLabel()
                         ->view('zeus::filament.components.color-picker'),
                     FileUpload::make('options.logo')
                         ->disk(config('zeus-bolt.uploadDisk'))
@@ -328,7 +328,7 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                //->collapsed(fn (string $operation) => $operation === 'edit')
+                ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,
