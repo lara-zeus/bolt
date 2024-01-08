@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.2 - 2024-01-08
+
+### What's Changed
+
+* 👀 check for visibility before adding live() for all components by @atmonshi in https://github.com/lara-zeus/bolt/pull/230
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.1...v3.0.2
+
 ## v3.0.1 - 2024-01-08
 
 ### What's Changed
