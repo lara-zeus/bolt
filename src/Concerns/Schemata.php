@@ -22,12 +22,75 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Support\Str;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Category;
 
 trait Schemata
 {
+    protected static function getVisibleFields(array $sections, array $arguments): array
+    {
+        // @phpstan-ignore-next-line
+        return collect($sections)
+            ->map(function (array $sections) use ($arguments) {
+                // @phpstan-ignore-next-line
+                $sections['fields'] = collect($sections['fields'])
+                    ->reject(function ($item, $key) use ($arguments) {
+                        return $key === $arguments['item'] ||
+                            ! (
+                                isset($item['options']['dataSource']) ||
+                                $item['type'] === '\LaraZeus\Bolt\Fields\Classes\Toggle'
+                            );
+                    })->all();
+
+                return $sections;
+            })->all();
+    }
+
+    protected static function sectionOptionsFormSchema(array $formOptions, array $allSections): array
+    {
+        return [
+            TextInput::make('description')
+                ->nullable()
+                ->visible($formOptions['show-as'] !== 'tabs')
+                ->label(__('Section Description')),
+
+            Accordions::make('section-options')
+                ->accordions([
+                    Accordion::make('visual-options')
+                        ->label(__('Visual Options'))
+                        ->columns()
+                        ->icon('iconpark-viewgriddetail-o')
+                        ->schema([
+                            Select::make('columns')
+                                ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
+                                ->required()
+                                ->default(1)
+                                ->hint(__('fields per row'))
+                                ->label(__('Section Columns')),
+                            IconPicker::make('icon')
+                                ->columns([
+                                    'default' => 1,
+                                    'lg' => 3,
+                                    '2xl' => 5,
+                                ])
+                                ->label(__('Section icon')),
+                            Toggle::make('aside')
+                                ->default(false)
+                                ->visible($formOptions['show-as'] === 'page')
+                                ->label(__('show as aside')),
+                            Toggle::make('compact')
+                                ->default(false)
+                                ->visible($formOptions['show-as'] === 'page')
+                                ->label(__('compact section')),
+                        ]),
+                    self::visibility($allSections),
+                ]),
+        ];
+    }
+
     public static function getMainFormSchema(): array
     {
         return [
@@ -62,41 +125,17 @@ trait Schemata
                         ->tooltip('more section options')
                         ->icon('heroicon-m-cog')
                         ->fillForm(fn (
-                            $state,
                             array $arguments,
                             Repeater $component
                         ) => $component->getItemState($arguments['item']))
-                        ->form(function (array $arguments, Repeater $component, $record, Get $get) {
+                        ->form(function (array $arguments, Get $get) {
                             $formOptions = $get('options');
+                            $allSections = $get('sections');
+                            unset($allSections[$arguments['item']]);
 
-                            return [
-                                TextInput::make('description')
-                                    ->nullable()
-                                    ->visible($formOptions['show-as'] !== 'tabs')
-                                    ->label(__('Section Description')),
-                                Select::make('columns')
-                                    ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
-                                    ->required()
-                                    ->default(1)
-                                    ->hint(__('fields per row'))
-                                    ->label(__('Section Columns')),
-                                IconPicker::make('icon')
-                                    ->columns([
-                                        'default' => 1,
-                                        'lg' => 3,
-                                        '2xl' => 5,
-                                    ])
-                                    ->label(__('Section icon')),
-                                Toggle::make('aside')
-                                    ->default(false)
-                                    ->visible($formOptions['show-as'] === 'page')
-                                    ->label(__('show as aside')),
-                                Toggle::make('compact')
-                                    ->default(false)
-                                    ->visible($formOptions['show-as'] === 'page')
-                                    ->label(__('compact section')),
-                                self::visibility($get('sections')),
-                            ];
+                            $allSections = self::getVisibleFields($allSections, $arguments);
+
+                            return static::sectionOptionsFormSchema($formOptions, $allSections);
                         })
                         ->action(function (array $data, array $arguments, Repeater $component): void {
                             $state = $component->getState();
@@ -351,8 +390,8 @@ trait Schemata
                             array $arguments,
                             Repeater $component
                         ) => $component->getItemState($arguments['item']))
-                        ->form(function (Get $get) {
-                            $sect = $get('../../sections');
+                        ->form(function (Get $get, array $arguments) {
+                            $allSections = self::getVisibleFields($get('../../sections'), $arguments);
 
                             return [
                                 Textarea::make('description')
@@ -363,12 +402,12 @@ trait Schemata
                                         'lg' => 2,
                                     ])
                                     ->label(__('Field Options'))
-                                    ->schema(function (Get $get) use ($sect) {
+                                    ->schema(function (Get $get) use ($allSections) {
                                         $class = $get('type');
                                         if (class_exists($class)) {
                                             $newClass = (new $class);
                                             if ($newClass->hasOptions()) {
-                                                return $newClass->getOptions($sect);
+                                                return $newClass->getOptions($allSections);
                                             }
                                         }
 
