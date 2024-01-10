@@ -217,7 +217,7 @@ class FormResource extends BoltResource
                 ->icon('heroicon-o-link')
                 ->tooltip(__('Get Prefilled Link'))
                 ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
-                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record])),
+                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', ['record' => $record])),
             ReplicateFormAction::make(),
             DeleteAction::make(),
             ForceDeleteAction::make(),
