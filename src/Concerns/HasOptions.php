@@ -43,8 +43,8 @@ trait HasOptions
                             ->when($type === 'section', function ($query) use ($record) {
                                 return $query->where('section_id', '!=', $record->id);
                             })
-                            ->where(function ($query) use ($record) {
-                                $query->whereNotNull($record->getTable() . '.options->dataSource');
+                            ->where(function ($query) {
+                                $query->whereNotNull('fields.options->dataSource');
                                 $query->orWhere('type', '\LaraZeus\Bolt\Fields\Classes\Toggle');
                             })
                             ->get()
