@@ -2,6 +2,10 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.4 - 2024-01-10
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.32...v3.0.4
+
 ## v2.1.32 - 2024-01-10
 
 ### What's Changed
