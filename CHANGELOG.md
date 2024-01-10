@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v2.1.31 - 2024-01-10
+
+### What's Changed
+
+* fix Conditional visibility in sections by @atmonshi in https://github.com/lara-zeus/bolt/pull/231
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.0...v2.1.31
+
 ## v3.0.2 - 2024-01-08
 
 ### What's Changed
