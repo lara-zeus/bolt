@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Filament\Resources;
 
 use Closure;
+use Filament\Facades\Filament;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\Section;
@@ -238,7 +239,7 @@ class FormResource extends BoltResource
                 ->icon('iconpark-formone-o')
                 ->tooltip(__('Get Prefilled Link'))
                 ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
-                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record]));
+                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', ['record'=>$record]));
         }
 
         if (class_exists(\LaraZeus\Helen\HelenServiceProvider::class)) {
