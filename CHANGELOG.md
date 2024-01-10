@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v2.1.33 - 2024-01-10
+
+### What's Changed
+
+* fix prefilled link for tenant by @atmonshi in https://github.com/lara-zeus/bolt/pull/234
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.31...v2.1.33
+
 ## v2.1.31 - 2024-01-10
 
 ### What's Changed
