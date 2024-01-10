@@ -238,7 +238,7 @@ class FormResource extends BoltResource
                 ->icon('iconpark-formone-o')
                 ->tooltip(__('Get Prefilled Link'))
                 ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class))
-                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', [$record]));
+                ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', ['record' => $record]));
         }
 
         if (class_exists(\LaraZeus\Helen\HelenServiceProvider::class)) {
