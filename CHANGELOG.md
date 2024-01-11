@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.5 - 2024-01-11
+
+### What's Changed
+
+* add form ID column in form table but hidden by default by @atmonshi in https://github.com/lara-zeus/bolt/pull/235
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.4...v3.0.5
+
 ## v3.0.4 - 2024-01-10
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v2.1.32...v3.0.4
