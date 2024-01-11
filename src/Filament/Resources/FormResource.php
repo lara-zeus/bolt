@@ -131,6 +131,7 @@ class FormResource extends BoltResource
         return $table
             ->reorderable('ordering')
             ->columns([
+                TextColumn::make('id')->sortable()->label(__('Form ID'))->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('name')->searchable()->sortable()->label(__('Form Name'))->toggleable(),
                 TextColumn::make('category.name')->searchable()->label(__('Category'))->sortable()->toggleable(),
                 IconColumn::make('is_active')->boolean()->label(__('Is Active'))->sortable()->toggleable(),

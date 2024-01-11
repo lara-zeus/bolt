@@ -30,6 +30,8 @@ use Spatie\Translatable\HasTranslations;
  * @property bool $onePerUser
  * @property mixed $sections
  * @property mixed $fields
+ * @property int $user_id
+ * @property int $ordering
  */
 class Form extends Model
 {
