@@ -21,6 +21,11 @@ Route::domain(config('zeus-bolt.domain'))
             ->name('entry.show')
             ->middleware('auth');
 
+        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
+            Route::get('embed/{slug}', \LaraZeus\BoltPro\Livewire\EmbedForm::class)
+                ->name('form.embed');
+        }
+
         Route::get('{slug}/{extensionSlug?}', FillForms::class)
             ->name('form.show');
     });

@@ -188,6 +188,8 @@ class FormResource extends BoltResource
         if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
             //@phpstan-ignore-next-line
             $pages['prefilled'] = \LaraZeus\BoltPro\Livewire\PrefilledForm::route('/{record}/prefilled');
+            //@phpstan-ignore-next-line
+            $pages['share'] = \LaraZeus\BoltPro\Livewire\ShareForm::route('/{record}/share');
         }
 
         return $pages;
@@ -256,11 +258,24 @@ class FormResource extends BoltResource
 
     public static function getRecordSubNavigation(Page $page): array
     {
-        return $page->generateNavigationItems([
+        $formNavs = [
             Pages\ViewForm::class,
             Pages\EditForm::class,
+        ];
+
+        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
+            //@phpstan-ignore-next-line
+            $formNavs[] = \LaraZeus\BoltPro\Livewire\ShareForm::class;
+        }
+
+        $respNavs = [
             Pages\ManageResponses::class,
             Pages\BrowseResponses::class,
+        ];
+
+        return $page->generateNavigationItems([
+            ...$formNavs,
+            ...$respNavs,
         ]);
     }
 }

@@ -299,21 +299,6 @@ trait Schemata
                         }),
                 ]),
 
-            Tabs\Tab::make('embed-tab')
-                ->label(__('Embed'))
-                ->visible(fn (
-                    string $operation
-                ): bool => class_exists(\LaraZeus\Sky\SkyServiceProvider::class) && $operation === 'edit')
-                ->schema([
-                    TextInput::make('form_embed')
-                        ->label(__('to embed the form in any post or page'))
-                        ->dehydrated(false)
-                        ->disabled()
-                        ->formatStateUsing(function (Get $get) {
-                            return '<bolt>' . $get('slug') . '</bolt>';
-                        }),
-                ]),
-
             Tabs\Tab::make('design')
                 ->label(__('Design'))
                 ->visible(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && config('zeus-bolt.allow_design'))
