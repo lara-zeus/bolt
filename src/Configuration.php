@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt;
 
 use Closure;
+use LaraZeus\Bolt\Enums\Resources;
 
 trait Configuration
 {
@@ -68,6 +69,10 @@ trait Configuration
      * @deprecated deprecated since version 2.1
      */
     protected Closure | string | null $domain = null;
+
+    protected Closure | bool $showNavigationBadges = true;
+
+    protected array $showNavigationBadgesArray = [];
 
     /*
      * @deprecated deprecated since version 2.1
@@ -231,5 +236,40 @@ trait Configuration
     public function getHiddenResources(): ?array
     {
         return $this->hideResources;
+    }
+
+    public function hideNavigationBadges(Closure|bool $show = false, ?Resources $resource = null): static
+    {
+        return $this->setShowNavigationBadges($show, $resource);
+    }
+
+    public function showNavigationBadges(Closure|bool $show = true, ?Resources $resource = null): static
+    {
+        return $this->setShowNavigationBadges($show, $resource);
+    }
+
+    private function setShowNavigationBadges(Closure|bool $show = true, ?Resources $resource = null): static
+    {
+        if (!is_null($resource)) {
+            $this->showNavigationBadgesArray[$resource->value] = $show;
+        } else {
+            $this->showNavigationBadges = $show;
+        }
+
+        return $this;
+    }
+
+    public function getShowNavigationBadges(?Resources $resource = null): bool
+    {
+        if (!is_null($resource)) {
+            return $this->showNavigationBadgesArray[$resource->value] ?? $this->evaluate($this->showNavigationBadges);
+        }
+
+        return $this->evaluate($this->showNavigationBadges);
+    }
+
+    public static function getShowOrHideNavigationBadges(?Resources $resource = null): bool
+    {
+        return (new static())::get()->getShowNavigationBadges($resource);
     }
 }
