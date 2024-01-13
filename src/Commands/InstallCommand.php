@@ -19,8 +19,10 @@ class InstallCommand extends Command
         $this->info('publishing assets...');
         $this->callSilent('vendor:publish', ['--tag' => 'zeus-assets']);
 
-        $this->info('running migrations...');
-        $this->callSilent('migrate');
+        if ($this->confirm('Do you want to run the migration now?', true)) {
+            $this->info('running migrations...');
+            $this->callSilent('migrate');
+        }
 
         $this->output->success('Zeus Bolt has been Installed successfully');
     }
