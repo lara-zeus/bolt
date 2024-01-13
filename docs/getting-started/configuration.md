@@ -38,6 +38,9 @@ BoltPlugin::make()
     
     ->navigationGroupLabel('Bolt')
     
+    ->hideNavigationBadges(resource: LaraZeus\Bolt\Resources::CollectionResource)
+    ->showNavigationBadges(resource: LaraZeus\Bolt\Resources::CollectionResource)
+    
     ->extensions([
         Thunder::class,
     ])
@@ -52,6 +55,29 @@ you can customize all Bolt resources icons and sorting by adding the following c
 FormResource::navigationSort(100);
 FormResource::navigationIcon('heroicon-o-home');
 FormResource::navigationGroup('New Name');
+```
+
+### Show or Hide Badges
+
+To show all navigation badges (default)
+```
+    ->showNavigationBadges()
+```
+
+To hide all navigation badges
+```
+    ->hideNavigationBadges()
+```
+
+This will hide only the CollectionResource navigation badge
+```
+    ->hideNavigationBadges(resource: LaraZeus\Bolt\Resources::CollectionResource)
+```
+
+This will show only the FormResource navigation badge
+```
+    ->hideNavigationBadges()
+    ->showNavigationBadges(resource: LaraZeus\Bolt\Resources::CollectionResource)
 ```
 
 available resources:
