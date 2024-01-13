@@ -41,8 +41,9 @@ BoltPlugin::make()
     ->hideNavigationBadges(resource: LaraZeus\Bolt\Resources::CollectionResource)
     ->showNavigationBadges(resource: LaraZeus\Bolt\Resources::CollectionResource)
     
+    // if you have custom extension or using thunder
     ->extensions([
-        Thunder::class,
+        \LaraZeus\Thunder\Extensions\Thunder::class,
     ])
 ,
 ```

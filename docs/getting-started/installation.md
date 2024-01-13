@@ -8,6 +8,7 @@ weight: 3
 Bolt is built on top of [laravel](https://laravel.com/docs/master) and uses [filament](https://filamentphp.com/docs/3.x/panels/installation) as an admin panel to manage everything.
 
 And for the frontend, it uses [Tall stack](https://tallstack.dev/).
+
 So, ensure you are familiar with these tools before diving into @zeus Bolt.
 
 > **Note**\
@@ -41,7 +42,7 @@ To set up the plugin with filament, you need to add it to your panel provider; T
 
 ### Note about Filament Export
 
-pleasse note if you are using `alperenersoy/filament-export` in your app, then you must add the following to your composer.json file:
+please note if you are using `alperenersoy/filament-export` in your app, then you must add the following to your composer.json file:
 
 ```json
 require": {
