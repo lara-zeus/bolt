@@ -58,7 +58,7 @@ class FormResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        if (! BoltPlugin::getShowOrHideNavigationBadges(Resources::FormResource)) {
+        if (! BoltPlugin::getNavigationBadgesVisibility(Resources::FormResource)) {
             return null;
         }
 
