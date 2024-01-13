@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.8 - 2024-01-13
+
+### What's Changed
+
+* add confirmation before running the migration by @atmonshi in https://github.com/lara-zeus/bolt/pull/240
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.7...v3.0.8
+
 ## v3.0.7 - 2024-01-13
 
 ### What's Changed
