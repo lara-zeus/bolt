@@ -23,6 +23,7 @@ Advanced Forms management, More Filtering, Presets, and New Fields for [Bolt the
 * Custom colors and branding per form
 * Prefilled Forms URLs
 * Advanced Widgets
+* Sharing and embedding the form
 
 ## Fully Integrated with Advanced Tables.
 

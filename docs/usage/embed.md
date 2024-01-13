@@ -22,4 +22,7 @@ if you are using our package @zeus [Sky](https://larazeus.com/sky), you can embe
 <bolt>formSlug</bolt>
 ```
 
-And for your user's convenience, we added a new tab in the form to make it easy to copy the code.
+## Sharing on the Web
+with bolt pro, and for your user's convenience, we added a new tab in the form to make it easy to copy the code.
+
+read more about it in [Bolt Pro share-form](../bolt-pro/share-form)
