@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Enums\Resources;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\CreateCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\EditCategory;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages\ListCategories;
@@ -47,7 +48,11 @@ class CategoryResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        return (string) BoltPlugin::getModel('Category')::query()->count();
+        if (!BoltPlugin::getShowOrHideNavigationBadges(Resources::CategoryResource)) {
+            return null;
+        }
+
+        return (string)BoltPlugin::getModel('Category')::query()->count();
     }
 
     public static function getGloballySearchableAttributes(): array

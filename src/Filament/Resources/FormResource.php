@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Concerns\Schemata;
+use LaraZeus\Bolt\Enums\Resources;
 use LaraZeus\Bolt\Filament\Actions\ReplicateFormAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
@@ -57,7 +58,11 @@ class FormResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        return (string) BoltPlugin::getModel('Form')::query()->count();
+        if (!BoltPlugin::getShowOrHideNavigationBadges(Resources::FormResource)) {
+            return null;
+        }
+
+        return (string)BoltPlugin::getModel('Form')::query()->count();
     }
 
     public static function getGloballySearchableAttributes(): array
