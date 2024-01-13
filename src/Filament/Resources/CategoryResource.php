@@ -48,11 +48,11 @@ class CategoryResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        if (!BoltPlugin::getShowOrHideNavigationBadges(Resources::CategoryResource)) {
+        if (! BoltPlugin::getShowOrHideNavigationBadges(Resources::CategoryResource)) {
             return null;
         }
 
-        return (string)BoltPlugin::getModel('Category')::query()->count();
+        return (string) BoltPlugin::getModel('Category')::query()->count();
     }
 
     public static function getGloballySearchableAttributes(): array

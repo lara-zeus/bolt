@@ -33,11 +33,11 @@ class CollectionResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        if (!BoltPlugin::getShowOrHideNavigationBadges(Resources::CollectionResource)) {
+        if (! BoltPlugin::getShowOrHideNavigationBadges(Resources::CollectionResource)) {
             return null;
         }
 
-        return (string)BoltPlugin::getModel('Collection')::query()->count();
+        return (string) BoltPlugin::getModel('Collection')::query()->count();
     }
 
     public static function getGloballySearchableAttributes(): array

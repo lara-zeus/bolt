@@ -238,19 +238,19 @@ trait Configuration
         return $this->hideResources;
     }
 
-    public function hideNavigationBadges(Closure|bool $show = false, ?Resources $resource = null): static
+    public function hideNavigationBadges(Closure | bool $show = false, ?Resources $resource = null): static
     {
         return $this->setShowNavigationBadges($show, $resource);
     }
 
-    public function showNavigationBadges(Closure|bool $show = true, ?Resources $resource = null): static
+    public function showNavigationBadges(Closure | bool $show = true, ?Resources $resource = null): static
     {
         return $this->setShowNavigationBadges($show, $resource);
     }
 
-    private function setShowNavigationBadges(Closure|bool $show = true, ?Resources $resource = null): static
+    private function setShowNavigationBadges(Closure | bool $show = true, ?Resources $resource = null): static
     {
-        if (!is_null($resource)) {
+        if (! is_null($resource)) {
             $this->showNavigationBadgesArray[$resource->value] = $show;
         } else {
             $this->showNavigationBadges = $show;
@@ -261,7 +261,7 @@ trait Configuration
 
     public function getShowNavigationBadges(?Resources $resource = null): bool
     {
-        if (!is_null($resource)) {
+        if (! is_null($resource)) {
             return $this->showNavigationBadgesArray[$resource->value] ?? $this->evaluate($this->showNavigationBadges);
         }
 
