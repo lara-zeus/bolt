@@ -2,6 +2,20 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.7 - 2024-01-13
+
+### What's Changed
+
+* Add configuration options for navigation badges by @Edsardio in https://github.com/lara-zeus/bolt/pull/237
+* small refactor on Navigation Badges Visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/238
+* update docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/239
+
+### New Contributors
+
+* @Edsardio made their first contribution in https://github.com/lara-zeus/bolt/pull/237
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.6...v3.0.7
+
 ## v3.0.6 - 2024-01-12
 
 ### What's Changed
