@@ -33,7 +33,7 @@ class CollectionResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        if (! BoltPlugin::getShowOrHideNavigationBadges(Resources::CollectionResource)) {
+        if (! BoltPlugin::getNavigationBadgesVisibility(Resources::CollectionResource)) {
             return null;
         }
 

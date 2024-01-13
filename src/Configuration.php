@@ -250,7 +250,7 @@ trait Configuration
 
     private function setShowNavigationBadges(Closure | bool $show = true, ?Resources $resource = null): static
     {
-        if (! is_null($resource)) {
+        if ($resource !== null) {
             $this->showNavigationBadgesArray[$resource->value] = $show;
         } else {
             $this->showNavigationBadges = $show;
@@ -261,14 +261,14 @@ trait Configuration
 
     public function getShowNavigationBadges(?Resources $resource = null): bool
     {
-        if (! is_null($resource)) {
+        if ($resource !== null) {
             return $this->showNavigationBadgesArray[$resource->value] ?? $this->evaluate($this->showNavigationBadges);
         }
 
         return $this->evaluate($this->showNavigationBadges);
     }
 
-    public static function getShowOrHideNavigationBadges(?Resources $resource = null): bool
+    public static function getNavigationBadgesVisibility(?Resources $resource = null): bool
     {
         return (new static())::get()->getShowNavigationBadges($resource);
     }

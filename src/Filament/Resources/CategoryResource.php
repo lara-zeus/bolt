@@ -48,7 +48,7 @@ class CategoryResource extends BoltResource
 
     public static function getNavigationBadge(): ?string
     {
-        if (! BoltPlugin::getShowOrHideNavigationBadges(Resources::CategoryResource)) {
+        if (! BoltPlugin::getNavigationBadgesVisibility(Resources::CategoryResource)) {
             return null;
         }
 
