@@ -70,6 +70,10 @@ trait Configuration
      */
     protected Closure | string | null $domain = null;
 
+    protected Closure | bool $showNavigationBadges = true;
+
+    protected array $showNavigationBadgesArray = [];
+
     /*
      * @deprecated deprecated since version 2.1
      */
