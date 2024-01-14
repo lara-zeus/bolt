@@ -19,6 +19,11 @@ class ColorPicker extends FieldsContract
         return __('Color Picker');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-color-picker';
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

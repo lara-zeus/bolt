@@ -18,6 +18,11 @@ class Paragraph extends FieldsContract
         return __('Paragraph');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-text-recognition';
+    }
+
     public static function getOptions(): array
     {
         return [

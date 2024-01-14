@@ -17,6 +17,11 @@ class DatePicker extends FieldsContract
         return __('Date Picker');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-calendar';
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

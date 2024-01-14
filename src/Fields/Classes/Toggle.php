@@ -20,6 +20,11 @@ class Toggle extends FieldsContract
         return __('Toggle');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-toggle-left';
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

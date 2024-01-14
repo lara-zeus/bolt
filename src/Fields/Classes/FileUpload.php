@@ -21,6 +21,11 @@ class FileUpload extends FieldsContract
         return __('File Upload');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-cloud-upload';
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

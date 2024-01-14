@@ -20,6 +20,11 @@ class Textarea extends FieldsContract
         return __('Textarea');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-text-size';
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

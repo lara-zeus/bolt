@@ -19,6 +19,16 @@ class CheckboxList extends FieldsContract
         return __('Checkbox List');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-list-check';
+    }
+
+    public function description(): string
+    {
+        return __('checkbox items from data source');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

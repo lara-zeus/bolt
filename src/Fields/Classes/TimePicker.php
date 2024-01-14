@@ -17,6 +17,11 @@ class TimePicker extends FieldsContract
         return __('Time Picker');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-clock-hour-8';
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [
