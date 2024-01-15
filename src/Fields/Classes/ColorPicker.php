@@ -19,6 +19,16 @@ class ColorPicker extends FieldsContract
         return __('Color Picker');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-color-picker';
+    }
+
+    public function description(): string
+    {
+        return __('pick a color with rgb, rgba or hsl');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

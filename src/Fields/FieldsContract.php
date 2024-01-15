@@ -42,12 +42,24 @@ abstract class FieldsContract implements Arrayable, Fields
             'code' => class_basename($this),
             'sort' => $this->sort,
             'title' => $this->title(),
+            'description' => $this->description(),
+            'icon' => $this->icon(),
         ];
     }
 
     public function title(): string
     {
         return __(class_basename($this));
+    }
+
+    public function description(): string
+    {
+        return __('field text for all the text you need');
+    }
+
+    public function icon(): string
+    {
+        return 'iconpark-aligntextcenter-o';
     }
 
     public function hasOptions(): bool

@@ -24,6 +24,16 @@ class TextInput extends FieldsContract
         return __('Text Input');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-input-search';
+    }
+
+    public function description(): string
+    {
+        return __('text input');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

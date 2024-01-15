@@ -34,7 +34,8 @@
         "flowframe/laravel-trend": "^0.1.5",
         "guava/filament-icon-picker": "^2.0",
         "lara-zeus/accordion": "^1.0",
-        "lara-zeus/core": "^3.0"
+        "lara-zeus/core": "^3.0",
+        "ryangjchandler/blade-tabler-icons": "^2.2"
     },
     "require-dev": {
         "laravel/pint": "^1.0",

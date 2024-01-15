@@ -21,6 +21,16 @@ class Radio extends FieldsContract
         return __('Radio');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-circle-check';
+    }
+
+    public function description(): string
+    {
+        return __('single choice from a datasource');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

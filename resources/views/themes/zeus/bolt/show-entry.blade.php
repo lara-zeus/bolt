@@ -62,7 +62,11 @@
                         <div>
                             <span>{{ __('status') }}</span>
                             @php $getStatues = $response->statusDetails() @endphp
-                            <span class="{{ $getStatues['class']}}" x-tooltip.raw="{{ __('status') }}">
+                            <span class="{{ $getStatues['class']}}"
+                                  x-tooltip="{
+                                    content: @js(__('status')),
+                                    theme: $store.theme,
+                                  }">
                                 @svg($getStatues['icon'],'w-4 h-4 inline')
                                 {{ $getStatues['label'] }}
                             </span>

@@ -116,7 +116,7 @@ trait Schemata
                 ->addActionLabel(__('Add Section'))
                 ->cloneable()
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                //->collapsed(fn (string $operation) => $operation === 'edit')
                 ->minItems(1)
                 ->extraItemActions([
                     Action::make('options')
@@ -352,7 +352,7 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
                 ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
+                //->collapsed(fn (string $operation) => $operation === 'edit')
                 ->grid([
                     'default' => 1,
                     'md' => 2,
@@ -411,6 +411,14 @@ trait Schemata
         ];
     }
 
+    public static function getCleanOptionString(array $field): string
+    {
+        return
+            view('zeus::filament.fields.types')
+                ->with('field', $field)
+                ->render();
+    }
+
     public static function getFieldsSchema(): array
     {
         return [
@@ -423,7 +431,26 @@ trait Schemata
                 ->label(__('Field Name')),
             Select::make('type')
                 ->required()
-                ->options(Bolt::availableFields()->pluck('title', 'class'))
+                ->searchable()
+                ->preload()
+                //->options(Bolt::availableFields()->pluck('title', 'class'))
+
+                /*->getSearchResultsUsing(function (string $search) {
+                    $users = Bolt::availableFields()->where('title', 'like', "%{$search}%");
+
+                    return $users->mapWithKeys(function ($user) {
+                        return [$user->getKey() => static::getCleanOptionString($user)];
+                    })->toArray();
+                })*/
+                ->allowHtml()
+                ->extraAttributes(['class' => 'field-type'])
+                ->options(function (): array {
+                    return Bolt::availableFields()
+                        ->mapWithKeys(function ($user) {
+                            return [$user['class'] => static::getCleanOptionString($user)];
+                        })
+                        ->toArray();
+                })
                 ->live()
                 ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
                 ->label(__('Field Type')),

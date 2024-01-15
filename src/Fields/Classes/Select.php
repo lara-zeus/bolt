@@ -21,6 +21,16 @@ class Select extends FieldsContract
         return __('Select Menu');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-selector';
+    }
+
+    public function description(): string
+    {
+        return __('select single or multiple items from a dropdown list');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

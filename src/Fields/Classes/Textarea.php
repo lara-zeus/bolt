@@ -20,6 +20,16 @@ class Textarea extends FieldsContract
         return __('Textarea');
     }
 
+    public function icon(): string
+    {
+        return 'tabler-text-size';
+    }
+
+    public function description(): string
+    {
+        return __('multi line textarea');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [
