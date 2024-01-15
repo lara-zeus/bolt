@@ -21,7 +21,6 @@ use Filament\Forms\Components\ViewField;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Guava\FilamentIconPicker\Forms\IconPicker;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
@@ -40,7 +39,7 @@ trait Schemata
                 $sections['fields'] = collect($sections['fields'])
                     ->reject(function ($item, $key) use ($arguments) {
                         return $key === $arguments['item'] ||
-                            !(
+                            ! (
                                 isset($item['options']['dataSource']) ||
                                 $item['type'] === '\LaraZeus\Bolt\Fields\Classes\Toggle'
                             );
@@ -66,7 +65,7 @@ trait Schemata
                         ->icon('iconpark-viewgriddetail-o')
                         ->schema([
                             Select::make('columns')
-                                ->options(fn(): array => array_combine(range(1, 12), range(1, 12)))
+                                ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
                                 ->required()
                                 ->default(1)
                                 ->hint(__('fields per row'))
@@ -125,7 +124,7 @@ trait Schemata
                         ->color('warning')
                         ->tooltip('more section options')
                         ->icon('heroicon-m-cog')
-                        ->fillForm(fn(
+                        ->fillForm(fn (
                             array $arguments,
                             Repeater $component
                         ) => $component->getItemState($arguments['item']))
@@ -144,7 +143,7 @@ trait Schemata
                             $component->state($state);
                         }),
                 ])
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->columnSpan(2),
         ];
     }
@@ -256,7 +255,7 @@ trait Schemata
                                 }),
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
-                        ->getOptionLabelFromRecordUsing(fn(Category $record) => "{$record->name}"),
+                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
                     Grid::make()
                         ->columns(2)
                         ->schema([
@@ -361,7 +360,7 @@ trait Schemata
                     '2xl' => 3,
                 ])
                 ->label('')
-                ->itemLabel(fn(array $state): ?string => $state['name'] ?? null)
+                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                 ->addActionLabel(__('Add field'))
                 ->extraItemActions([
                     Action::make('fields options')
@@ -371,7 +370,7 @@ trait Schemata
                         ->icon('heroicon-m-cog')
                         ->modalIcon('heroicon-m-cog')
                         ->modalDescription(__('advanced fields settings'))
-                        ->fillForm(fn(
+                        ->fillForm(fn (
                             $state,
                             array $arguments,
                             Repeater $component
@@ -443,8 +442,8 @@ trait Schemata
                         return [$user->getKey() => static::getCleanOptionString($user)];
                     })->toArray();
                 })*/
-                    ->allowHtml()
-                ->extraAttributes(['class'=>'field-type'])
+                ->allowHtml()
+                ->extraAttributes(['class' => 'field-type'])
                 ->options(function (): array {
                     return Bolt::availableFields()
                         ->mapWithKeys(function ($user) {
