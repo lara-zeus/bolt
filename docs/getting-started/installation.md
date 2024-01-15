@@ -41,8 +41,7 @@ To set up the plugin with filament, you need to add it to your panel provider; T
 ```
 
 ### Note about Filament Export
-
-please note if you are using `alperenersoy/filament-export` in your app, then you must add the following to your composer.json file:
+currently I am using a fork of the package so you must add the following to your composer.json file:
 
 ```json
 require": {
