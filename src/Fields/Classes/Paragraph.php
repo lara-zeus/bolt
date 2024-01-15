@@ -23,6 +23,11 @@ class Paragraph extends FieldsContract
         return 'tabler-text-recognition';
     }
 
+    public function description(): string
+    {
+        return __('display a paragraph in your form');
+    }
+
     public static function getOptions(): array
     {
         return [

@@ -26,6 +26,11 @@ class FileUpload extends FieldsContract
         return 'tabler-cloud-upload';
     }
 
+    public function description(): string
+    {
+        return __('single or multiple file uploader');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

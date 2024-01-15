@@ -22,6 +22,11 @@ class DateTimePicker extends FieldsContract
         return 'tabler-calendar-time';
     }
 
+    public function description(): string
+    {
+        return __('full date and time picker');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [

@@ -22,6 +22,11 @@ class RichEditor extends FieldsContract
         return 'tabler-cursor-text';
     }
 
+    public function description(): string
+    {
+        return __('Text editor with styling');
+    }
+
     public static function getOptions(?array $sections = null): array
     {
         return [
