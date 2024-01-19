@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.11 - 2024-01-19
+
+### What's Changed
+
+* add new status for thunder: open by @atmonshi in https://github.com/lara-zeus/bolt/pull/243
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.10...v3.0.11
+
 ## v3.0.10 - 2024-01-15
 
 ### What's Changed
@@ -10,7 +18,6 @@ All notable changes to `Bolt` will be documented in this file
 
 <img width="947" alt="Screenshot 2024-01-15 at 3 09 41 AM" src="https://github.com/lara-zeus/bolt/assets/1952412/b7a6b4ed-d9a2-4374-a5dc-847b46fce493">
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.9...v3.0.10
-
 ## v3.0.9 - 2024-01-13
 
 ### What's Changed
