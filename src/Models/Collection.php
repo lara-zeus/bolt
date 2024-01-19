@@ -25,6 +25,11 @@ class Collection extends Model
         'values' => 'collection',
     ];
 
+    public function getTable()
+    {
+        return config('zeus-bolt.table-prefix') . 'collections';
+    }
+
     public function getValuesListAttribute(): ?string
     {
         $allValues = collect($this->values);

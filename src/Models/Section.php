@@ -33,6 +33,11 @@ class Section extends Model
         'options' => 'array',
     ];
 
+    public function getTable()
+    {
+        return config('zeus-bolt.table-prefix') . 'sections';
+    }
+
     protected static function booted(): void
     {
         static::deleting(function (Section $section) {

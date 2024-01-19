@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('collections', function (Blueprint $table) {
+        Schema::create(config('zeus-bolt.table-prefix') . 'collections', function (Blueprint $table) {
             $table->id();
             $table->text('name');
             $table->longText('values')->nullable();
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('collections');
+        Schema::dropIfExists(config('zeus-bolt.table-prefix') . 'collections');
     }
 };

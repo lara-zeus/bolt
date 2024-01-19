@@ -23,6 +23,11 @@ class FieldResponse extends Model
 
     protected $guarded = [];
 
+    public function getTable()
+    {
+        return config('zeus-bolt.table-prefix') . 'field_responses';
+    }
+
     protected static function newFactory(): FieldResponseFactory
     {
         return FieldResponseFactory::new();

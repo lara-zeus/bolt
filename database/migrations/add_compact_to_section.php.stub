@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('sections', function (Blueprint $table) {
+        Schema::table(config('zeus-bolt.table-prefix').'sections', function (Blueprint $table) {
             $table->boolean('compact')->default(0);
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('sections', function (Blueprint $table) {
+        Schema::table(config('zeus-bolt.table-prefix').'sections', function (Blueprint $table) {
             $table->dropColumn('compact');
         });
     }

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create(config('zeus-bolt.table-prefix') . 'categories', function (Blueprint $table) {
             $table->id();
             $table->text('name');
             $table->integer('ordering')->default(1);
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists(config('zeus-bolt.table-prefix') . 'categories');
     }
 };
