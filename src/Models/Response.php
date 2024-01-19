@@ -75,7 +75,7 @@ class Response extends Model
 
         return [
             'class' => $getStatues->class ?? '',
-            'icon' => $getStatues->icon ?? 'heroicon-o-status-online',
+            'icon' => $getStatues->icon ?? 'heroicon-s-document',
             'label' => $getStatues->label ?? $this->status,
             'key' => $getStatues->key ?? '',
             'color' => $getStatues->color ?? '',
