@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fields', function (Blueprint $table) {
+        Schema::create(config('zeus-bolt.table-prefix').'fields', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('section_id')->constrained('sections');
+            $table->foreignId('section_id')->constrained(config('zeus-bolt.table-prefix').'sections');
             $table->text('name');
             $table->text('description')->nullable();
             $table->string('type');
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fields');
+        Schema::dropIfExists(config('zeus-bolt.table-prefix').'fields');
     }
 };

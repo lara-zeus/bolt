@@ -28,6 +28,11 @@ class Category extends Model
 
     protected $guarded = [];
 
+    public function getTable()
+    {
+        return config('zeus-bolt.table-prefix') . 'categories';
+    }
+
     protected static function newFactory(): CategoryFactory
     {
         return CategoryFactory::new();

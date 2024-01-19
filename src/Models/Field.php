@@ -32,6 +32,11 @@ class Field extends Model
         'options' => 'array',
     ];
 
+    public function getTable()
+    {
+        return config('zeus-bolt.table-prefix') . 'fields';
+    }
+
     protected static function booted(): void
     {
         static::deleting(function (Field $field) {

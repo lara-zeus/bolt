@@ -29,6 +29,11 @@ class Response extends Model
 
     protected $guarded = [];
 
+    public function getTable()
+    {
+        return config('zeus-bolt.table-prefix') . 'responses';
+    }
+
     protected static function booted(): void
     {
         static::deleting(function (Response $response) {

@@ -52,6 +52,11 @@ class Form extends Model
         'user_id' => 'integer',
     ];
 
+    public function getTable()
+    {
+        return config('zeus-bolt.table-prefix') . 'forms';
+    }
+
     protected static function booted(): void
     {
         static::deleting(function (Form $form) {
