@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create(config('zeus-bolt.table-prefix').'field_responses', function (Blueprint $table) {
+        Schema::create(config('zeus-bolt.table-prefix') . 'field_responses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_id')->constrained(config('zeus-bolt.table-prefix').'forms');
-            $table->foreignId('field_id')->constrained(config('zeus-bolt.table-prefix').'fields');
-            $table->foreignId('response_id')->constrained(config('zeus-bolt.table-prefix').'responses');
+            $table->foreignId('form_id')->constrained(config('zeus-bolt.table-prefix') . 'forms');
+            $table->foreignId('field_id')->constrained(config('zeus-bolt.table-prefix') . 'fields');
+            $table->foreignId('response_id')->constrained(config('zeus-bolt.table-prefix') . 'responses');
             $table->longText('response');
             $table->timestamps();
             $table->softDeletes();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('zeus-bolt.table-prefix').'field_responses');
+        Schema::dropIfExists(config('zeus-bolt.table-prefix') . 'field_responses');
     }
 };

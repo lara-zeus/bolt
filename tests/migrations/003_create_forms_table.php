@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create(config('zeus-bolt.table-prefix').'forms', function (Blueprint $table) {
+        Schema::create(config('zeus-bolt.table-prefix') . 'forms', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('category_id')->nullable()->constrained(config('zeus-bolt.table-prefix').'categories');
+            $table->foreignId('category_id')->nullable()->constrained(config('zeus-bolt.table-prefix') . 'categories');
             $table->text('name');
             $table->text('description')->nullable();
             $table->string('slug');
@@ -39,6 +39,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists(config('zeus-bolt.table-prefix').'forms');
+        Schema::dropIfExists(config('zeus-bolt.table-prefix') . 'forms');
     }
 };
