@@ -4,10 +4,15 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Tables\Columns\Column;
+use Filament\Tables\Columns\IconColumn;
 use Guava\FilamentIconPicker\Forms\IconPicker;
+use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Fields\FieldsContract;
+use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\Response;
 
 class Toggle extends FieldsContract
 {
@@ -95,5 +100,20 @@ class Toggle extends FieldsContract
         }
 
         return $component->live();
+    }
+
+    public function TableColumn(Field $field): ?Column
+    {
+        return IconColumn::make('zeusData.' . $field->id)
+            ->label($field->name)
+            ->boolean()
+            ->searchable(query: function (Builder $query, string $search): Builder {
+                return $query
+                    ->whereHas('fieldsResponses', function ($query) use ($search) {
+                        $query->where('response', 'like', '%' . $search . '%');
+                    });
+            })
+            ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
+            ->toggleable();
     }
 }
