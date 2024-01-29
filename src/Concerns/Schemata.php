@@ -218,7 +218,7 @@ trait Schemata
 
             Tabs\Tab::make('display-access-tab')
                 ->label(__('Display & Access'))
-                ->columns(2)
+                ->columns()
                 ->schema([
 
                     Grid::make()
@@ -284,7 +284,7 @@ trait Schemata
                                 ->label(__('End Date')),
                         ]),
                     Grid::make()
-                        ->columns(2)
+                        ->columns()
                         ->schema([
                             TextInput::make('options.emails-notification')
                                 ->label(__('Emails Notifications'))
