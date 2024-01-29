@@ -100,13 +100,13 @@ trait Schemata
                 ->tabs(static::getTabsSchema())
                 ->columnSpan(2),
 
-            Section::make()
+            /*Section::make()
                 ->columnSpan(2)
                 ->schema([
                     Placeholder::make('section-title-placeholder')
                         ->label(__('Sections'))
                         ->helperText(__('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form')),
-                ]),
+                ]),*/
 
             Repeater::make('sections')
                 ->hiddenLabel()
@@ -156,8 +156,8 @@ trait Schemata
                 ->columns()
                 ->schema([
                     TextInput::make('name')
-                        ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-language')
+                        //->hint(__('Translatable'))
+                        //->hintIcon('heroicon-s-language')
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
@@ -202,13 +202,13 @@ trait Schemata
                 ->label(__('Text & Details'))
                 ->schema([
                     Textarea::make('description')
-                        ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-language')
+                        //->hint(__('Translatable'))
+                        //->hintIcon('heroicon-s-language')
                         ->label(__('Form Description'))
                         ->helperText(__('shown under the title of the form and used in SEO')),
                     RichEditor::make('details')
-                        ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-language')
+                        //->hint(__('Translatable'))
+                        //->hintIcon('heroicon-s-language')
                         ->label(__('Form Details'))
                         ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
                     RichEditor::make('options.confirmation-message')
@@ -351,8 +351,8 @@ trait Schemata
                     Hidden::make('options.visibility.values'),
                     TextInput::make('name')
                         ->columnSpanFull()
-                        ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-language')
+                        //->hint(__('Translatable'))
+                        //->hintIcon('heroicon-s-language')
                         ->required()
                         ->lazy()
                         ->label(__('Section Name')),
@@ -437,8 +437,8 @@ trait Schemata
         return [
             Hidden::make('description'),
             TextInput::make('name')
-                ->hint(__('Translatable'))
-                ->hintIcon('heroicon-s-language')
+                //->hint(__('Translatable'))
+                //->hintIcon('heroicon-s-language')
                 ->required()
                 ->lazy()
                 ->label(__('Field Name')),
