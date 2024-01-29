@@ -153,7 +153,7 @@ trait Schemata
         return [
             Tabs\Tab::make('title-slug-tab')
                 ->label(__('Title & Slug'))
-                ->columns(2)
+                ->columns()
                 ->schema([
                     TextInput::make('name')
                         ->hint(__('Translatable'))
@@ -174,6 +174,28 @@ trait Schemata
                         ->rules(['alpha_dash'])
                         ->unique(ignoreRecord: true)
                         ->label(__('Form Slug')),
+
+                    Select::make('category_id')
+                        ->label(__('Category'))
+                        ->searchable()
+                        ->preload()
+                        ->relationship('category', 'name')
+                        ->helperText(__('optional, organize your forms into categories'))
+                        ->createOptionForm([
+                            TextInput::make('name')
+                                ->required()
+                                ->maxLength(255)
+                                ->live(onBlur: true)
+                                ->label(__('Name'))
+                                ->afterStateUpdated(function (Set $set, $state, $context) {
+                                    if ($context === 'edit') {
+                                        return;
+                                    }
+                                    $set('slug', Str::slug($state));
+                                }),
+                            TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
+                        ])
+                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
                 ]),
 
             Tabs\Tab::make('text-details-tab')
@@ -198,36 +220,48 @@ trait Schemata
                 ->label(__('Display & Access'))
                 ->columns(2)
                 ->schema([
-                    Toggle::make('is_active')
-                        ->label(__('Is Active'))
-                        ->default(1)
-                        ->helperText(__('Activate the form and let users start submissions')),
-                    Toggle::make('options.require-login')
-                        ->label(__('require Login'))
-                        ->helperText(__('User must be logged in or create an account before can submit a new entry'))
-                        ->live(),
-                    Toggle::make('options.one-entry-per-user')
-                        ->label(__('One Entry Per User'))
-                        ->helperText(__('to check if the user already submitted an entry in this form'))
-                        ->visible(function (Get $get) {
-                            return $get('options.require-login');
-                        }),
 
-                    Radio::make('options.show-as')
-                        ->label(__('Show the form as'))
-                        ->live()
-                        ->default('page')
-                        ->descriptions([
-                            'page' => __('show all sections on one page'),
-                            'wizard' => __('separate each section in steps'),
-                            'tabs' => __('Show the Form as Tabs'),
-                        ])
-                        ->options([
-                            'page' => __('Show on one page'),
-                            'wizard' => __('Show As Wizard'),
-                            'tabs' => __('Show As Tabs'),
+                    Grid::make()
+                        ->columnSpan(1)
+                        ->columns(1)
+                        ->schema([
+                            Toggle::make('is_active')
+                                ->label(__('Is Active'))
+                                ->default(1)
+                                ->helperText(__('Activate the form and let users start submissions')),
+                            Toggle::make('options.require-login')
+                                ->label(__('require Login'))
+                                ->helperText(__('User must be logged in or create an account before can submit a new entry'))
+                                ->live(),
+                            Toggle::make('options.one-entry-per-user')
+                                ->label(__('One Entry Per User'))
+                                ->helperText(__('to check if the user already submitted an entry in this form'))
+                                ->visible(function (Get $get) {
+                                    return $get('options.require-login');
+                                }),
                         ]),
+                    Grid::make()
+                        ->columnSpan(1)
+                        ->columns(1)
+                        ->schema([
+                            Radio::make('options.show-as')
+                                ->label(__('Show the form as'))
+                                ->live()
+                                ->default('page')
+                                ->descriptions([
+                                    'page' => __('show all sections on one page'),
+                                    'wizard' => __('separate each section in steps'),
+                                    'tabs' => __('Show the Form as Tabs'),
+                                ])
+                                ->options([
+                                    'page' => __('Show on one page'),
+                                    'wizard' => __('Show As Wizard'),
+                                    'tabs' => __('Show As Tabs'),
+                                ]),
+                        ]),
+
                     TextInput::make('ordering')
+                        ->numeric()
                         ->label(__('ordering'))
                         ->default(1),
                 ]),
@@ -235,34 +269,13 @@ trait Schemata
             Tabs\Tab::make('advanced-tab')
                 ->label(__('Advanced'))
                 ->schema([
-                    Select::make('category_id')
-                        ->label(__('Category'))
-                        ->searchable()
-                        ->preload()
-                        ->relationship('category', 'name')
-                        ->helperText(__('optional, organize your forms into categories'))
-                        ->createOptionForm([
-                            TextInput::make('name')
-                                ->required()
-                                ->maxLength(255)
-                                ->live(onBlur: true)
-                                ->label(__('Name'))
-                                ->afterStateUpdated(function (Set $set, $state, $context) {
-                                    if ($context === 'edit') {
-                                        return;
-                                    }
-                                    $set('slug', Str::slug($state));
-                                }),
-                            TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
-                        ])
-                        ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
                     Grid::make()
-                        ->columns(2)
+                        ->columns()
                         ->schema([
                             Placeholder::make('form-dates')
                                 ->label(__('Form Dates'))
                                 ->content(__('optional, specify when the form will be active and receiving new entries'))
-                                ->columnSpan(2),
+                                ->columnSpanFull(),
                             DateTimePicker::make('start_date')
                                 ->requiredWith('end_date')
                                 ->label(__('Start Date')),
