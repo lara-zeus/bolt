@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.14 - 2024-01-31
+
+### What's Changed
+
+* Change form layout to improve UX by @atmonshi in https://github.com/lara-zeus/bolt/pull/247
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.13...v3.0.14
+
 ## v3.0.13 - 2024-01-20
 
 ### What's Changed
@@ -37,7 +45,6 @@ All notable changes to `Bolt` will be documented in this file
 ## v3.0.9 - 2024-01-13
 ### What's Changed
 * remove deprecated configuration methods by @atmonshi in https://github.com/lara-zeus/bolt/pull/241
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.8...v3.0.9
 
 ## v3.0.8 - 2024-01-13
