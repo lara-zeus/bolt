@@ -100,13 +100,13 @@ trait Schemata
                 ->tabs(static::getTabsSchema())
                 ->columnSpan(2),
 
-            Section::make()
+            /*Section::make()
                 ->columnSpan(2)
                 ->schema([
                     Placeholder::make('section-title-placeholder')
                         ->label(__('Sections'))
                         ->helperText(__('sections are here to group the fields, and you can display it as pages from the Form options. if you have one section, it wont show in the form')),
-                ]),
+                ]),*/
 
             Repeater::make('sections')
                 ->hiddenLabel()
@@ -153,11 +153,11 @@ trait Schemata
         return [
             Tabs\Tab::make('title-slug-tab')
                 ->label(__('Title & Slug'))
-                ->columns(2)
+                ->columns()
                 ->schema([
                     TextInput::make('name')
-                        ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-language')
+                        //->hint(__('Translatable'))
+                        //->hintIcon('heroicon-s-language')
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
@@ -174,67 +174,7 @@ trait Schemata
                         ->rules(['alpha_dash'])
                         ->unique(ignoreRecord: true)
                         ->label(__('Form Slug')),
-                ]),
 
-            Tabs\Tab::make('text-details-tab')
-                ->label(__('Text & Details'))
-                ->schema([
-                    Textarea::make('description')
-                        ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-language')
-                        ->label(__('Form Description'))
-                        ->helperText(__('shown under the title of the form and used in SEO')),
-                    RichEditor::make('details')
-                        ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-language')
-                        ->label(__('Form Details'))
-                        ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
-                    RichEditor::make('options.confirmation-message')
-                        ->label(__('Confirmation Message'))
-                        ->helperText(__('optional, show a massage whenever any one submit a new entry')),
-                ]),
-
-            Tabs\Tab::make('display-access-tab')
-                ->label(__('Display & Access'))
-                ->columns(2)
-                ->schema([
-                    Toggle::make('is_active')
-                        ->label(__('Is Active'))
-                        ->default(1)
-                        ->helperText(__('Activate the form and let users start submissions')),
-                    Toggle::make('options.require-login')
-                        ->label(__('require Login'))
-                        ->helperText(__('User must be logged in or create an account before can submit a new entry'))
-                        ->live(),
-                    Toggle::make('options.one-entry-per-user')
-                        ->label(__('One Entry Per User'))
-                        ->helperText(__('to check if the user already submitted an entry in this form'))
-                        ->visible(function (Get $get) {
-                            return $get('options.require-login');
-                        }),
-
-                    Radio::make('options.show-as')
-                        ->label(__('Show the form as'))
-                        ->live()
-                        ->default('page')
-                        ->descriptions([
-                            'page' => __('show all sections on one page'),
-                            'wizard' => __('separate each section in steps'),
-                            'tabs' => __('Show the Form as Tabs'),
-                        ])
-                        ->options([
-                            'page' => __('Show on one page'),
-                            'wizard' => __('Show As Wizard'),
-                            'tabs' => __('Show As Tabs'),
-                        ]),
-                    TextInput::make('ordering')
-                        ->label(__('ordering'))
-                        ->default(1),
-                ]),
-
-            Tabs\Tab::make('advanced-tab')
-                ->label(__('Advanced'))
-                ->schema([
                     Select::make('category_id')
                         ->label(__('Category'))
                         ->searchable()
@@ -256,13 +196,86 @@ trait Schemata
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
                         ->getOptionLabelFromRecordUsing(fn (Category $record) => "{$record->name}"),
+                ]),
+
+            Tabs\Tab::make('text-details-tab')
+                ->label(__('Text & Details'))
+                ->schema([
+                    Textarea::make('description')
+                        //->hint(__('Translatable'))
+                        //->hintIcon('heroicon-s-language')
+                        ->label(__('Form Description'))
+                        ->helperText(__('shown under the title of the form and used in SEO')),
+                    RichEditor::make('details')
+                        //->hint(__('Translatable'))
+                        //->hintIcon('heroicon-s-language')
+                        ->label(__('Form Details'))
+                        ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
+                    RichEditor::make('options.confirmation-message')
+                        ->label(__('Confirmation Message'))
+                        ->helperText(__('optional, show a massage whenever any one submit a new entry')),
+                ]),
+
+            Tabs\Tab::make('display-access-tab')
+                ->label(__('Display & Access'))
+                ->columns()
+                ->schema([
+
                     Grid::make()
-                        ->columns(2)
+                        ->columnSpan(1)
+                        ->columns(1)
+                        ->schema([
+                            Toggle::make('is_active')
+                                ->label(__('Is Active'))
+                                ->default(1)
+                                ->helperText(__('Activate the form and let users start submissions')),
+                            Toggle::make('options.require-login')
+                                ->label(__('require Login'))
+                                ->helperText(__('User must be logged in or create an account before can submit a new entry'))
+                                ->live(),
+                            Toggle::make('options.one-entry-per-user')
+                                ->label(__('One Entry Per User'))
+                                ->helperText(__('to check if the user already submitted an entry in this form'))
+                                ->visible(function (Get $get) {
+                                    return $get('options.require-login');
+                                }),
+                        ]),
+                    Grid::make()
+                        ->columnSpan(1)
+                        ->columns(1)
+                        ->schema([
+                            Radio::make('options.show-as')
+                                ->label(__('Show the form as'))
+                                ->live()
+                                ->default('page')
+                                ->descriptions([
+                                    'page' => __('show all sections on one page'),
+                                    'wizard' => __('separate each section in steps'),
+                                    'tabs' => __('Show the Form as Tabs'),
+                                ])
+                                ->options([
+                                    'page' => __('Show on one page'),
+                                    'wizard' => __('Show As Wizard'),
+                                    'tabs' => __('Show As Tabs'),
+                                ]),
+                        ]),
+
+                    TextInput::make('ordering')
+                        ->numeric()
+                        ->label(__('ordering'))
+                        ->default(1),
+                ]),
+
+            Tabs\Tab::make('advanced-tab')
+                ->label(__('Advanced'))
+                ->schema([
+                    Grid::make()
+                        ->columns()
                         ->schema([
                             Placeholder::make('form-dates')
                                 ->label(__('Form Dates'))
                                 ->content(__('optional, specify when the form will be active and receiving new entries'))
-                                ->columnSpan(2),
+                                ->columnSpanFull(),
                             DateTimePicker::make('start_date')
                                 ->requiredWith('end_date')
                                 ->label(__('Start Date')),
@@ -271,7 +284,7 @@ trait Schemata
                                 ->label(__('End Date')),
                         ]),
                     Grid::make()
-                        ->columns(2)
+                        ->columns()
                         ->schema([
                             TextInput::make('options.emails-notification')
                                 ->label(__('Emails Notifications'))
@@ -338,8 +351,8 @@ trait Schemata
                     Hidden::make('options.visibility.values'),
                     TextInput::make('name')
                         ->columnSpanFull()
-                        ->hint(__('Translatable'))
-                        ->hintIcon('heroicon-s-language')
+                        //->hint(__('Translatable'))
+                        //->hintIcon('heroicon-s-language')
                         ->required()
                         ->lazy()
                         ->label(__('Section Name')),
@@ -424,8 +437,8 @@ trait Schemata
         return [
             Hidden::make('description'),
             TextInput::make('name')
-                ->hint(__('Translatable'))
-                ->hintIcon('heroicon-s-language')
+                //->hint(__('Translatable'))
+                //->hintIcon('heroicon-s-language')
                 ->required()
                 ->lazy()
                 ->label(__('Field Name')),
