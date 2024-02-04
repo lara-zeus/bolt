@@ -130,7 +130,7 @@ abstract class FieldsContract implements Arrayable, Fields
                 return $relatedFieldValues === $get('zeusData.' . $relatedField);
             });
 
-        if($hasVisibility) {
+        if ($hasVisibility) {
             return $component->live(onBlur: $hasVisibility, condition: $hasVisibility);
         }
 
