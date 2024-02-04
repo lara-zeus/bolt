@@ -131,10 +131,10 @@ abstract class FieldsContract implements Arrayable, Fields
             });
 
         if($hasVisibility) {
-            return $component->live(onBlur: $hasVisibility, condition: $hasVisibility);
+            return $component->live(onBlur: $hasVisibility);
         }
 
-        return $component->live(onBlur: true);
+        return $component;
     }
 
     public function getCollectionsValuesForResponse(Field $field, FieldResponse $resp): string
