@@ -30,13 +30,15 @@ class ManageResponses extends ManageRelatedRecords
 
     public function table(Table $table): Table
     {
+        $getUserModel = config('auth.providers.users.model')::getUserFullNameAttribute();
+
         $mainColumns = [
             ImageColumn::make('user.avatar')
                 ->label(__('Avatar'))
                 ->circular()
                 ->toggleable(),
 
-            TextColumn::make('user.name')
+            TextColumn::make('user.' . $getUserModel)
                 ->label(__('Name'))
                 ->toggleable()
                 ->sortable()
