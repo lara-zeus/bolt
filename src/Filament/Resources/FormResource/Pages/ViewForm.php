@@ -27,6 +27,7 @@ class ViewForm extends ViewRecord
                 ->tooltip(__('open form'))
                 ->color('warning')
                 ->url(fn () => route('bolt.form.show', $this->record))
+                ->visible(fn (Form $record) => $record->extensions === null)
                 ->openUrlInNewTab(),
         ];
     }
