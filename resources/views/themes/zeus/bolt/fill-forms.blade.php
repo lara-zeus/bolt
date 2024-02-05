@@ -6,7 +6,38 @@
 
 <div class="not-prose" style="{{ $colors }}">
 
-    @include($boltTheme.'.loading')
+    @if(!$inline)
+        @if(!class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) || (optional($zeusForm->options)['logo'] === null && optional($zeusForm->options)['cover'] === null))
+            <x-slot name="header">
+                <h2>{{ $zeusForm->name ?? '' }}</h2>
+                <p class="text-gray-400 text-mdd my-2">{{ $zeusForm->description ?? '' }}</p>
+
+                @if($zeusForm->start_date !== null)
+                    <div class="text-gray-400 text-sm">
+                        @svg('heroicon-o-calendar','h-4 w-4 inline-flex')
+                        <span>{{ __('Available from') }}:</span>
+                        <span>{{ optional($zeusForm->start_date)->format('Y/m/d') }}</span>,
+                        <span>{{ __('to') }}:</span>
+                        <span>{{ optional($zeusForm->end_date)->format('Y/m/d') }}</span>
+                    </div>
+                @endif
+            </x-slot>
+        @endif
+
+        <x-slot name="breadcrumbs">
+            <li class="flex items-center">
+                <a href="{{ route('bolt.forms.list') }}">{{ __('Forms') }}</a>
+                @svg('iconpark-rightsmall-o','fill-current w-4 h-4 mx-3 rtl:rotate-180')
+            </li>
+            <li class="flex items-center">
+                {{ $zeusForm->name }}
+            </li>
+        </x-slot>
+    @endif
+
+    @if(!$inline)
+        @include($boltTheme.'.loading')
+    @endif
 
     @if(class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) && optional($zeusForm->options)['logo'] !== null && optional($zeusForm)->options['cover'] !== null)
         <div style="background-image: url('{{ \Illuminate\Support\Facades\Storage::disk(config('zeus-bolt.uploadDisk'))->url($zeusForm->options['cover']) }}')"
@@ -42,39 +73,10 @@
         </div>
     @endif
 
-    @if(!$inline)
-        @if(!class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class) || (optional($zeusForm->options)['logo'] === null && optional($zeusForm->options)['cover'] === null))
-            <x-slot name="header">
-                <h2>{{ $zeusForm->name ?? '' }}</h2>
-                <p class="text-gray-400 text-mdd my-2">{{ $zeusForm->description ?? '' }}</p>
-
-                @if($zeusForm->start_date !== null)
-                    <div class="text-gray-400 text-sm">
-                        @svg('heroicon-o-calendar','h-4 w-4 inline-flex')
-                        <span>{{ __('Available from') }}:</span>
-                        <span>{{ optional($zeusForm->start_date)->format('Y/m/d') }}</span>,
-                        <span>{{ __('to') }}:</span>
-                        <span>{{ optional($zeusForm->end_date)->format('Y/m/d') }}</span>
-                    </div>
-                @endif
-            </x-slot>
-        @endif
-
-        <x-slot name="breadcrumbs">
-            <li class="flex items-center">
-                <a href="{{ route('bolt.forms.list') }}">{{ __('Forms') }}</a>
-                @svg('iconpark-rightsmall-o','fill-current w-4 h-4 mx-3 rtl:rotate-180')
-            </li>
-            <li class="flex items-center">
-                {{ $zeusForm->name }}
-            </li>
-        </x-slot>
-    @endif
-
     @if($sent)
         @include($boltTheme.'.submitted')
     @else
-        <x-filament-panels::form wire:submit.prevent="store" class="mx-2">
+        <x-filament-panels::form wire:submit.prevent="store" class="@if(!$inline) mx-2 @endif">
             @if(!$inline)
                 {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
             @endif

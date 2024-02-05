@@ -13,6 +13,12 @@ to embed the Form in any blade page, simply use:
 <livewire:bolt.fill-form slug="feedback" inline="true" />
 ```
 
+if you have an extension linked to your form, you can pass in the `extensionSlug`
+
+```blade
+<livewire:bolt.fill-form slug="feedback" extensionSlug="printers-department" inline="true" />
+```
+
 and [this](https://demo.larazeus.com/embed) is how the form look in an empty page.
 
 ## Embed in the Sky

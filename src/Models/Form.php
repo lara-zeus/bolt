@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasActive;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\FormFactory;
+use LaraZeus\Bolt\Facades\Extensions;
 use Spatie\Translatable\HasTranslations;
 
 /**
@@ -169,5 +170,23 @@ class Form extends Model
         return optional($this->options)['require-login']
             && optional($this->options)['one-entry-per-user']
             && $this->responses()->where('user_id', auth()->user()->id)->exists();
+    }
+
+    public function getUrl(): string | array
+    {
+        if ($this->extensions === null) {
+            return route('bolt.form.show', ['slug' => $this->slug]);
+        }
+
+        return collect(Extensions::init($this, 'getItems', ['form' => $this]))
+            ->mapWithKeys(function ($key, $item) {
+                return [
+                    $key => [
+                        'label' => $key,
+                        'url' => Extensions::init($this, 'getUrl', ['slug' => $item]),
+                    ],
+                ];
+            })
+            ->toArray();
     }
 }

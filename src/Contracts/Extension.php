@@ -34,6 +34,13 @@ interface Extension
      */
     public function formComponents(Form $form): ?array;
 
+    /*
+     * will triggered before saving the form, if you want to perform some validation
+     *
+     * you can throw an exception or return true
+     */
+    public function preStore(Form $form, array $data): bool;
+
     /**
      * the store logic for the app, insert ticket or any DB ONLY calls, don't send here anything,
      * and you must return the saved app, if you want to depend on it in the postStore
@@ -59,4 +66,14 @@ interface Extension
      * @param  Form  $form  Bolt form
      */
     public function SubmittedRender(Form $form, array $data): ?string;
+
+    /*
+     * list all items connected to a form
+     */
+    public function getItems(Form $form): array;
+
+    /*
+     * return the url to the form, when clicking on `open`. append any parameters you need to your Extension
+     */
+    public function getUrl(Form $form, array $extension): string;
 }

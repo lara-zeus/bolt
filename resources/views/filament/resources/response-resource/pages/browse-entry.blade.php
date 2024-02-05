@@ -31,10 +31,10 @@
                                 class="rounded-full"
                                 size="lg"
                                 :src="$getRecord->user->avatar"
-                                :alt="($getRecord->user->name) ?? ''"
+                                :alt="($getRecord->user->{config('auth.providers.users.model')::getUserFullNameAttribute()}) ?? ''"
                         />
                         <p class="flex flex-col gap-1">
-                            <span>{{ ($getRecord->user->name) ?? '' }}</span>
+                            <span>{{ ($getRecord->user->{config('auth.providers.users.model')::getUserFullNameAttribute()}) ?? '' }}</span>
                             <span>{{ ($getRecord->user->email) ?? '' }}</span>
                         </p>
                     </div>
