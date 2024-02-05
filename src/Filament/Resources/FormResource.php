@@ -91,9 +91,28 @@ class FormResource extends BoltResource
             ->schema([
                 Section::make()->schema([
                     TextEntry::make('name'),
+
+                    /*SimpleListEntry::make('links')
+                        ->inline(true)
+                        ->openUrlInNewTab()
+                        ->listStyle('inline')
+                        ->badge('-')
+                        ->badgeColor('gray')
+                        ->emptyStateHeading('item not available')
+                        ->emptyStateIcon('heroicon-o-exclamation-triangle')
+                        ->itemUrl(fn ($record) => $record['url'])
+                        ->itemLabel(fn ($record) => $record['label'])
+                        ->getStateUsing(fn (ZeusForm $record) => $record->getUrl())
+                        ->visible(fn (ZeusForm $record) => $record->extensions !== null)
+                        ->itemIcon('heroicon-o-arrow-top-right-on-square')
+                        ->label(__('Form Links')),*/
+
                     TextEntry::make('slug')
                         ->url(fn (ZeusForm $record) => route('bolt.form.show', ['slug' => $record->slug]))
+                        ->visible(fn (ZeusForm $record) => $record->extensions === null)
+                        ->icon('heroicon-o-arrow-top-right-on-square')
                         ->openUrlInNewTab(),
+
                     TextEntry::make('description'),
                     IconEntry::make('is_active')
                         ->icon(fn (string $state): string => match ($state) {

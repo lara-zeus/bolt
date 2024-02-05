@@ -69,7 +69,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             ->where('is_active', true)
             ->firstOrFail();
 
-        $this->extensionData = Extensions::init($this->zeusForm, 'canView', ['extensionSlug' => $extensionSlug, 'extensionData'=>$extensionData]) ?? [];
+        $this->extensionData = Extensions::init($this->zeusForm, 'canView', ['extensionSlug' => $extensionSlug, 'extensionData' => $extensionData]) ?? [];
 
         foreach ($this->zeusForm->fields as $field) {
             $this->zeusData[$field->id] = '';
