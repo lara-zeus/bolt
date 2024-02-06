@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use Filament\Actions\Action;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Contracts\Support\Htmlable;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
 
@@ -16,6 +17,16 @@ class ViewForm extends ViewRecord
     use ViewRecord\Concerns\Translatable;
 
     protected static string $resource = FormResource::class;
+
+    public function getTitle(): string | Htmlable
+    {
+        return __('View Form');
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('View Form');
+    }
 
     protected function getHeaderActions(): array
     {

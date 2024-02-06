@@ -29,7 +29,7 @@ trait HasOptions
         }
 
         return Accordion::make('visibility-options')
-            ->label('Conditional Visibility')
+            ->label(__('Conditional Visibility'))
             ->icon('iconpark-eyes')
             ->schema([
                 Toggle::make('options.visibility.active')

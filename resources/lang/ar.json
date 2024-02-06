@@ -192,5 +192,20 @@
   "List Entries": "عرض السجلات",
   "notes": "ملاحظات",
   "Open": "عرض",
-  "Preset": "القوالب"
+  "Preset": "القوالب",
+  "start date": "تاريخ البداية",
+  "end date": "تاريخ النهاية",
+  "Edit Form": "تعديل",
+  "Responses Entries": "الإدخالات",
+  "section options": "خيارات القسم",
+  "more section options": "خيارات",
+  "Visual Options": "خيارات العرض",
+  "compact section": "compact",
+  "Enable Conditional Visibility": "تفعيل",
+  "General Options": "خيارات عامة",
+  "Hint Options": "خيارات التلميح",
+  "advanced fields settings": "خيارات القسم المتقدمة",
+  "Extensions": "الملحقات",
+  "Design": "التصميم",
+  "View Form": "عرض"
 }
