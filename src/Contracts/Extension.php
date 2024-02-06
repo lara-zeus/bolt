@@ -8,6 +8,10 @@ interface Extension
 {
     public function label(): string;
 
+    // the home page for your ext to use in the frontend,
+    // for example with thunder it is: route('thunder.offices.list')
+    public function route(): string;
+
     /**
      * before displaying the form, do some checks
      * for example check if the $data['extensionSlug'] param is existed, or the user is logged in !
