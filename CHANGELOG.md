@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.16 - 2024-02-06
+
+### What's Changed
+
+* get the default format from `Infolist::$defaultDateDisplayFormat` by @atmonshi in https://github.com/lara-zeus/bolt/pull/249
+* add more translation by @atmonshi in https://github.com/lara-zeus/bolt/pull/250
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.15...v3.0.16
+
 ## v3.0.15 - 2024-02-05
 
 ### What's Changed
@@ -55,7 +64,6 @@ All notable changes to `Bolt` will be documented in this file
 * remove deprecated configuration methods by @atmonshi in https://github.com/lara-zeus/bolt/pull/241
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.8...v3.0.9
 ## v3.0.8 - 2024-01-13
-
 ### What's Changed
 
 * add confirmation before running the migration by @atmonshi in https://github.com/lara-zeus/bolt/pull/240
