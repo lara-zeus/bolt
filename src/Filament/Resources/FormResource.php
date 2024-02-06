@@ -90,7 +90,8 @@ class FormResource extends BoltResource
         return $infolist
             ->schema([
                 Section::make()->schema([
-                    TextEntry::make('name'),
+                    TextEntry::make('name')
+                        ->label(__('name')),
 
                     /*SimpleListEntry::make('links')
                         ->inline(true)
@@ -108,13 +109,16 @@ class FormResource extends BoltResource
                         ->label(__('Form Links')),*/
 
                     TextEntry::make('slug')
+                        ->label(__('slug'))
                         ->url(fn (ZeusForm $record) => route('bolt.form.show', ['slug' => $record->slug]))
                         ->visible(fn (ZeusForm $record) => $record->extensions === null)
                         ->icon('heroicon-o-arrow-top-right-on-square')
                         ->openUrlInNewTab(),
 
-                    TextEntry::make('description'),
+                    TextEntry::make('description')
+                        ->label(__('description')),
                     IconEntry::make('is_active')
+                        ->label(__('is active'))
                         ->icon(fn (string $state): string => match ($state) {
                             '0' => 'clarity-times-circle-solid',
                             default => 'clarity-check-circle-line',
@@ -125,10 +129,14 @@ class FormResource extends BoltResource
                             default => 'gray',
                         }),
 
-                    TextEntry::make('start_date')->dateTime(),
-                    TextEntry::make('end_date')->dateTime(),
+                    TextEntry::make('start_date')
+                        ->label(__('start date'))
+                        ->dateTime(),
+                    TextEntry::make('end_date')
+                        ->label(__('end date'))
+                        ->dateTime(),
                 ])
-                    ->columns(2),
+                    ->columns(),
             ]);
     }
 

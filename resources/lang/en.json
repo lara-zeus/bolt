@@ -186,5 +186,20 @@
   "Hint Color" :"Hint Color",
   "Textarea": "Textarea",
   "Paragraph": "Paragraph",
-  "Color Picker": "Color Picker"
+  "Color Picker": "Color Picker",
+  "start date": "start date",
+  "end date": "end date",
+  "Edit Form": "edit form",
+  "Responses Entries": "Responses Entries",
+  "section options": "section options",
+  "more section options": "more section options",
+  "Visual Options": "Visual Options",
+  "compact section": "compact section",
+  "Enable Conditional Visibility": "Enable Conditional Visibility",
+  "General Options": "General Options",
+  "Hint Options": "Hint Options",
+  "advanced fields settings": "advanced fields settings",
+  "Extensions": "Extensions",
+  "Design": "Design",
+  "View Form": "View Form"
 }

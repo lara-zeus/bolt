@@ -120,9 +120,10 @@ trait Schemata
                 ->minItems(1)
                 ->extraItemActions([
                     Action::make('options')
+                        ->label(__('section options'))
                         ->slideOver()
                         ->color('warning')
-                        ->tooltip('more section options')
+                        ->tooltip(__('more section options'))
                         ->icon('heroicon-m-cog')
                         ->fillForm(fn (
                             array $arguments,
