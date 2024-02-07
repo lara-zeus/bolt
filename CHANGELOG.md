@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.1٧ - 2024-02-07
+
+### What's Changed
+
+* fix slot name for sections by @atmonshi in https://github.com/lara-zeus/bolt/pull/251
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.16...v3.0.1%D9%A7
+
 ## v3.0.16 - 2024-02-06
 
 ### What's Changed
@@ -65,7 +73,6 @@ All notable changes to `Bolt` will be documented in this file
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.8...v3.0.9
 ## v3.0.8 - 2024-01-13
 ### What's Changed
-
 * add confirmation before running the migration by @atmonshi in https://github.com/lara-zeus/bolt/pull/240
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.7...v3.0.8
