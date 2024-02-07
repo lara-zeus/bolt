@@ -16,7 +16,7 @@
             {{ __('the form is not available for submission') }}
             <span class="font-semibold">{{ $zeusForm->name ?? '' }}</span>.
 
-            <x-slot name="actions">
+            <x-slot name="description">
                 <span class="text-sm text-gray-500">{{ __('Start date') }}</span>:
                 <span class="text-sm">{{ $zeusForm->start_date->format(\Filament\Infolists\Infolist::$defaultDateTimeDisplayFormat) }}</span>,
                 <span class="text-sm text-gray-500">{{ __('End date') }}</span>:
