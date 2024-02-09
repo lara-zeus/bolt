@@ -2,7 +2,6 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
-use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
@@ -12,6 +11,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
+use LaraZeus\Bolt\Filament\Exports\ResponseExporter;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\Form;
@@ -107,9 +107,8 @@ class ManageResponses extends ManageRelatedRecords
                 Tables\Actions\RestoreBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
 
-                FilamentExportBulkAction::make('export')
-                    ->icon('heroicon-o-document-arrow-down')
-                    ->label(__('Export')),
+                Tables\Actions\ExportBulkAction::make()
+                    ->exporter(ResponseExporter::class),
             ])
             ->recordUrl(
                 fn (Response $record): string => FormResource::getUrl('viewResponse', [
