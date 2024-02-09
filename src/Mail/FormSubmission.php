@@ -36,7 +36,7 @@ class FormSubmission extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Form Submission',
+            subject: __('New Submission in').' '.$this->form->name,
         );
     }
 

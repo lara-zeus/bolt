@@ -5,6 +5,6 @@
 {{ __('view the entry') }}
 </x-mail::button>
 
-Thanks,<br>
+{{ __('Thanks') }},<br>
 {{ config('app.name') }}
 </x-mail::message>
