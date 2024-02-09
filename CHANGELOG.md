@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.18 - 2024-02-09
+
+### What's Changed
+
+* add missing translation form email by @atmonshi in https://github.com/lara-zeus/bolt/pull/252
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.17...v3.0.18
+
 ## v3.0.17 - 2024-02-07
 
 ### What's Changed
@@ -83,7 +91,6 @@ All notable changes to `Bolt` will be documented in this file
 ### What's Changed
 * add confirmation before running the migration by @atmonshi in https://github.com/lara-zeus/bolt/pull/240
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.7...v3.0.8
-
 ## v3.0.7 - 2024-01-13
 
 ### What's Changed
