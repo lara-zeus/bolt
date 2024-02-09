@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields;
 
+use Filament\Actions\Exports\ExportColumn;
 use Filament\Forms\Get;
 use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\Column;
@@ -239,6 +240,24 @@ abstract class FieldsContract implements Arrayable, Fields
             ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
             ->html()
             ->toggleable();
+    }
+
+    public function ExportColumn(Field $field): ?ExportColumn
+    {
+        return ExportColumn::make('zeusData.' . $field->options['htmlId'])
+            ->label($field->name)
+            ->state(function (Response $record) use ($field) {
+
+                $response = $record->fieldsResponses()->where('field_id', $field->id)->first();
+                if ($response === null) {
+                    return '-';
+                }
+                if (Bolt::isJson($response->response)) {
+                    return json_decode($response->response, true);
+                }
+
+                return $response->response;
+            });
     }
 
     public function getFieldResponseValue(Response $record, Field $field): string

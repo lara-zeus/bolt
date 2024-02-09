@@ -40,35 +40,6 @@ To set up the plugin with filament, you need to add it to your panel provider; T
 ])
 ```
 
-### Note about Filament Export
-currently I am using a fork of the package so you must add the following to your composer.json file:
-
-```json
-require": {
-  ...
-  "alperenersoy/filament-export": "dev-fix-there",
-},
-```
-
-And:
-
-```json
-"minimum-stability": "dev",
-"prefer-stable": true,
-"repositories": [
-    {
-        "type": "github",
-        "url": "https://github.com/lara-zeus/filament-export"
-    }
-]
-```
-
-then run:
-
-```bash
-composer update
-```
-
 ## Usage
 
 To access the forms, visit the URL `/admin` , and `/bolt`.
