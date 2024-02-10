@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.20 - 2024-02-10
+
+### What's Changed
+
+* adding getGloballySearchableAttributes configuration by @atmonshi in https://github.com/lara-zeus/bolt/pull/254
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.19...v3.0.20
+
 ## v3.0.19 - 2024-02-09
 
 ### What's Changed
@@ -104,7 +112,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.7...v3.0.8
 ## v3.0.7 - 2024-01-13
 ### What's Changed
-
 * Add configuration options for navigation badges by @Edsardio in https://github.com/lara-zeus/bolt/pull/237
 * small refactor on Navigation Badges Visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/238
 * update docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/239
