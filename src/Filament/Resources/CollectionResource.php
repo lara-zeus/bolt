@@ -40,11 +40,6 @@ class CollectionResource extends BoltResource
         return (string) BoltPlugin::getModel('Collection')::query()->count();
     }
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['name', 'values'];
-    }
-
     public static function getModelLabel(): string
     {
         return __('Collection');
