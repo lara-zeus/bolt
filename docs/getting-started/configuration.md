@@ -35,6 +35,11 @@ BoltPlugin::make()
     ->hideResources([
         FormResource::class
     ])
+
+    ->globallySearchableAttributes([
+        // you can return empty array to disable it
+        FormResource::class => ['name']
+    ])
     
     ->navigationGroupLabel('Bolt')
     

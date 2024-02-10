@@ -10,19 +10,19 @@ it('can test', function () {
     expect(true)->toBeTrue();
 });
 
-it('can render Category List', function () {
+it('can render category list', function () {
     get(CategoryResource::getUrl('index'))->assertSuccessful();
 
     get(CategoryResource::getUrl())
         ->assertSuccessful();
 });
 
-it('can render Collection List', function () {
+it('can render collection list', function () {
     get(CollectionResource::getUrl())
         ->assertSuccessful();
 });
 
-it('can render Form List', function () {
+it('can render form list', function () {
     get(FormResource::getUrl())
         ->assertSuccessful();
 });

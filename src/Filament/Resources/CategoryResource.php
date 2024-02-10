@@ -55,11 +55,6 @@ class CategoryResource extends BoltResource
         return (string) BoltPlugin::getModel('Category')::query()->count();
     }
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['name', 'slug'];
-    }
-
     public static function form(Form $form): Form
     {
         return $form

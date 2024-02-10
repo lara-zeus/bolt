@@ -8,11 +8,19 @@ use Filament\Support\Concerns\EvaluatesClosures;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
+use LaraZeus\Core\Concerns\CanGloballySearch;
 
 final class BoltPlugin implements Plugin
 {
+    use CanGloballySearch;
     use Configuration;
     use EvaluatesClosures;
+
+    public array $defaultGloballySearchableAttributes = [
+        CategoryResource::class => ['name', 'slug'],
+        CollectionResource::class => ['name', 'values'],
+        FormResource::class => ['name', 'slug'],
+    ];
 
     public function getId(): string
     {

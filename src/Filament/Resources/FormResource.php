@@ -65,11 +65,6 @@ class FormResource extends BoltResource
         return (string) BoltPlugin::getModel('Form')::query()->count();
     }
 
-    public static function getGloballySearchableAttributes(): array
-    {
-        return ['name', 'slug'];
-    }
-
     public static function getModelLabel(): string
     {
         return __('Form');
