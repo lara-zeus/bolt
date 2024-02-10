@@ -35,6 +35,7 @@ use LaraZeus\Bolt\Enums\Resources;
 use LaraZeus\Bolt\Filament\Actions\ReplicateFormAction;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 use LaraZeus\Bolt\Models\Form as ZeusForm;
+use LaraZeus\ListGroup\Infolists\ListEntry;
 
 class FormResource extends BoltResource
 {
@@ -88,20 +89,11 @@ class FormResource extends BoltResource
                     TextEntry::make('name')
                         ->label(__('name')),
 
-                    /*SimpleListEntry::make('links')
-                        ->inline(true)
-                        ->openUrlInNewTab()
-                        ->listStyle('inline')
-                        ->badge('-')
-                        ->badgeColor('gray')
-                        ->emptyStateHeading('item not available')
-                        ->emptyStateIcon('heroicon-o-exclamation-triangle')
-                        ->itemUrl(fn ($record) => $record['url'])
-                        ->itemLabel(fn ($record) => $record['label'])
-                        ->getStateUsing(fn (ZeusForm $record) => $record->getUrl())
+                    ListEntry::make('items')
                         ->visible(fn (ZeusForm $record) => $record->extensions !== null)
-                        ->itemIcon('heroicon-o-arrow-top-right-on-square')
-                        ->label(__('Form Links')),*/
+                        ->heading(__('Form Links'))
+                        ->list()
+                        ->state(fn ($record) => $record->slug_url),
 
                     TextEntry::make('slug')
                         ->label(__('slug'))
