@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.21 - 2024-02-10
+
+### What's Changed
+
+* add list for all forms links connected to an ext by @atmonshi in https://github.com/lara-zeus/bolt/pull/255
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.20...v3.0.21
+
 ## v3.0.20 - 2024-02-10
 
 ### What's Changed
@@ -115,7 +123,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 * Add configuration options for navigation badges by @Edsardio in https://github.com/lara-zeus/bolt/pull/237
 * small refactor on Navigation Badges Visibility by @atmonshi in https://github.com/lara-zeus/bolt/pull/238
 * update docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/239
-
 ### New Contributors
 
 * @Edsardio made their first contribution in https://github.com/lara-zeus/bolt/pull/237
