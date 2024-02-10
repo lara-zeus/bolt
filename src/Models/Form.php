@@ -46,6 +46,10 @@ class Form extends Model
 
     protected $guarded = [];
 
+    protected $appends = [
+        'slug_url',
+    ];
+
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
@@ -170,6 +174,13 @@ class Form extends Model
         return optional($this->options)['require-login']
             && optional($this->options)['one-entry-per-user']
             && $this->responses()->where('user_id', auth()->user()->id)->exists();
+    }
+
+    protected function slugUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->getUrl(),
+        );
     }
 
     public function getUrl(): string | array
