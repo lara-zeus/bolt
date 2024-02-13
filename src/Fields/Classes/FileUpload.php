@@ -3,12 +3,14 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Hidden;
+use Filament\Tables\Columns\TextColumn;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
+use LaraZeus\Bolt\Models\Response;
 
 class FileUpload extends FieldsContract
 {
@@ -65,13 +67,30 @@ class FileUpload extends FieldsContract
 
     public function getResponse(Field $field, FieldResponse $resp): string
     {
-        $responseValue = (filled($resp->response) && Bolt::isJson($resp->response)) ? json_decode($resp->response) : [$resp->response];
+        $responseValue = filled($resp->response) ? Bolt::isJson($resp->response) ? json_decode($resp->response) : [$resp->response] : [];
 
         return view('zeus::filament.fields.file-upload')
             ->with('resp', $resp)
             ->with('responseValue', $responseValue)
             ->with('field', $field)
             ->render();
+    }
+
+    public function TableColumn(Field $field): ?\Filament\Tables\Columns\Column
+    {
+        return null;
+        /*return TextColumn::make('zeusData.' . $field->id)
+            ->label($field->name)
+            ->url(null)
+            ->searchable(query: function (Builder $query, string $search): Builder {
+                return $query
+                    ->whereHas('fieldsResponses', function ($query) use ($search) {
+                        $query->where('response', 'like', '%' . $search . '%');
+                    });
+            })
+            ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
+            ->html()
+            ->toggleable();*/
     }
 
     // @phpstan-ignore-next-line
