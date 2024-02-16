@@ -13,17 +13,17 @@ class InstallCommand extends Command
     public function handle(): void
     {
         $this->info('publishing migrations...');
-        $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-migrations']);
-        $this->callSilent('vendor:publish', ['--tag' => 'zeus-bolt-config']);
+        $this->call('vendor:publish', ['--tag' => 'zeus-bolt-migrations']);
+        $this->call('vendor:publish', ['--tag' => 'zeus-bolt-config']);
 
         $this->info('publishing assets...');
-        $this->callSilent('vendor:publish', ['--tag' => 'zeus-assets']);
+        $this->call('vendor:publish', ['--tag' => 'zeus-assets']);
 
         if ($this->confirm('Do you want to run the migration now?', true)) {
             $this->info('running migrations...');
-            $this->callSilent('migrate');
+            $this->call('migrate');
         }
 
-        $this->output->success('Zeus Bolt has been Installed successfully');
+        $this->output->success('Zeus Bolt has been Installed successfully, consider ⭐️ the package in filament site :)');
     }
 }
