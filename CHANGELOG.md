@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.23 - 2024-02-16
+
+### What's Changed
+
+* improve install command by @atmonshi in https://github.com/lara-zeus/bolt/pull/258
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.22...v3.0.23
+
 ## v3.0.22 - 2024-02-13
 
 ### What's Changed
@@ -133,7 +141,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 * update docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/239
 ### New Contributors
 * @Edsardio made their first contribution in https://github.com/lara-zeus/bolt/pull/237
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.6...v3.0.7
 
 ## v3.0.6 - 2024-01-12
