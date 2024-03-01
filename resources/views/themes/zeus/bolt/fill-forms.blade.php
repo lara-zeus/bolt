@@ -83,7 +83,7 @@
     @if($sent)
         @include($boltTheme.'.submitted')
     @else
-        <x-filament-panels::form wire:submit.prevent="store" class="@if(!$inline) mx-2 @endif">
+        <x-filament-panels::form wire:submit.prevent="store" :class="!$inline ? 'mx-2' : ''">
             @if(!$inline)
                 {{ \LaraZeus\Bolt\Facades\Bolt::renderHookBlade('zeus-form.before') }}
             @endif
