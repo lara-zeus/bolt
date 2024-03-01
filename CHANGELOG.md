@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.24 - 2024-03-01
+
+### What's Changed
+
+* Update fill-forms.blade.php fix for livewire by @brkfun in https://github.com/lara-zeus/bolt/pull/259
+
+### New Contributors
+
+* @brkfun made their first contribution in https://github.com/lara-zeus/bolt/pull/259
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.23...v3.0.24
+
 ## v3.0.23 - 2024-02-16
 
 ### What's Changed
@@ -142,7 +154,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### New Contributors
 * @Edsardio made their first contribution in https://github.com/lara-zeus/bolt/pull/237
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.6...v3.0.7
-
 ## v3.0.6 - 2024-01-12
 
 ### What's Changed
