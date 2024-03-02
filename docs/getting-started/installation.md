@@ -40,6 +40,14 @@ To set up the plugin with filament, you need to add it to your panel provider; T
 ])
 ```
 
+## Add Bolt Trait to User Model
+
+add this to your user model:
+
+`use \LaraZeus\Bolt\Models\Concerns\BelongToBolt;`
+
+This will allow you to get the user name by another attribute like `full_name`
+
 ## Usage
 
 To access the forms, visit the URL `/admin` , and `/bolt`.

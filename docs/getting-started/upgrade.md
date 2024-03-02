@@ -3,6 +3,14 @@ title: Upgrading
 weight: 90
 ---
 
+## upgrade to v3.0.25
+
+in v3.0.25, I added a new trait for getting the user name
+
+so you have to add this to your user model:
+
+`use \LaraZeus\Bolt\Models\Concerns\BelongToBolt;`
+
 ## upgrade to v2.1
 
 In v2.1, I refactored the configuration to separate the frontend configuration from filament-related ones.
