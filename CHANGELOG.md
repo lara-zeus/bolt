@@ -2,6 +2,24 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.25 - 2024-03-02
+
+### What's Changed
+
+* adding a new trait for user attribute by @atmonshi in https://github.com/lara-zeus/bolt/pull/260
+
+#### Breaking change:
+
+I added a new trait for getting the user name
+
+so you have to add this to your user model:
+
+`use \LaraZeus\Bolt\Models\Concerns\BelongToBolt;`
+
+This will allow you to get the user name by another attribute like `full_name`
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.24...v3.0.25
+
 ## v3.0.24 - 2024-03-01
 
 ### What's Changed
@@ -155,7 +173,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 * @Edsardio made their first contribution in https://github.com/lara-zeus/bolt/pull/237
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.6...v3.0.7
 ## v3.0.6 - 2024-01-12
-
 ### What's Changed
 
 * add Share Form for Bolt Pro by @atmonshi in https://github.com/lara-zeus/bolt/pull/236
