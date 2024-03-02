@@ -30,7 +30,7 @@ class ManageResponses extends ManageRelatedRecords
 
     public function table(Table $table): Table
     {
-        $getUserModel = config('auth.providers.users.model')::getUserFullNameAttribute();
+        $getUserModel = config('auth.providers.users.model')::getBoltUserFullNameAttribute();
 
         $mainColumns = [
             ImageColumn::make('user.avatar')

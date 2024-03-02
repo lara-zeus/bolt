@@ -29,10 +29,10 @@
                                     class="rounded-full"
                                     size="lg"
                                     :src="$response->user->avatar"
-                                    :alt="($response->user->{config('auth.providers.users.model')::getUserFullNameAttribute()}) ?? ''"
+                                    :alt="($response->user->{config('auth.providers.users.model')::getBoltUserFullNameAttribute()}) ?? ''"
                             />
                             <p class="flex flex-col gap-1">
-                                <span>{{ ($response->user->{config('auth.providers.users.model')::getUserFullNameAttribute()}) ?? '' }}</span>
+                                <span>{{ ($response->user->{config('auth.providers.users.model')::getBoltUserFullNameAttribute()}) ?? '' }}</span>
                                 <span>{{ ($response->user->email) ?? '' }}</span>
                             </p>
                         </div>

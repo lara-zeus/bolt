@@ -18,7 +18,7 @@ class ResponseExporter extends Exporter
     public static function getColumns(): array
     {
         $record = \Livewire\Livewire::current()->getRecord();
-        $getUserModel = config('auth.providers.users.model')::getUserFullNameAttribute();
+        $getUserModel = config('auth.providers.users.model')::getBoltUserFullNameAttribute();
         $mainColumns = [
             ExportColumn::make('user.' . $getUserModel)
                 ->label(__('Name'))
