@@ -28,6 +28,8 @@ To install bolt, you only need to require it in your composer by running the com
 composer require lara-zeus/bolt-pro
 ```
 
+make sure to clear the cache after the installation completed.
+
 and that is all :).
 
 you will get more details after you purchasing the package.
