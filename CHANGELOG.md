@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.27 - 2024-03-14
+
+### What's Changed
+
+* updating laravel trend to support laravel 11 by @atmonshi in https://github.com/lara-zeus/bolt/pull/263
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.26...v3.0.27
+
 ## v3.0.26 - 2024-03-07
 
 ### What's Changed
@@ -184,7 +192,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ## v3.0.6 - 2024-01-12
 ### What's Changed
 * add Share Form for Bolt Pro by @atmonshi in https://github.com/lara-zeus/bolt/pull/236
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.5...v3.0.6
 
 ## v3.0.5 - 2024-01-11
