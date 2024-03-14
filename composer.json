@@ -30,12 +30,12 @@
     "require": {
         "php": "^8.1",
         "codeat3/blade-clarity-icons": "^1.7",
-        "flowframe/laravel-trend": "^0.1.5",
+        "flowframe/laravel-trend": "^0.2",
         "guava/filament-icon-picker": "^2.0",
         "lara-zeus/accordion": "^1.0",
         "lara-zeus/core": "^3.1",
         "lara-zeus/list-group": "^1.0",
-        "ryangjchandler/blade-tabler-icons": "^2.2"
+        "ryangjchandler/blade-tabler-icons": "^2.3"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
