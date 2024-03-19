@@ -47,8 +47,6 @@ For example, you can use it as a job board, appointments, ticketing, survey, and
 
 [![bolt-pro](https://larazeus.com/images/bolt-pro-ad.png)](https://larazeus.com/bolt-pro)
 
-[![bolt-preset](https://larazeus.com/images/bolt-preset-ad.png)](https://larazeus.com/bolt-preset)
-
 ## Support
 
 Available support channels:

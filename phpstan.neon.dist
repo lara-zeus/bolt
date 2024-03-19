@@ -6,7 +6,6 @@ parameters:
     paths:
         - src
         - database
-    tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
     checkMissingIterableValueType: false

@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://larazeus.com"><img src="https://larazeus.com/images/bolt-banner.png?v=3" /></a>
+<a href="https://larazeus.com"><img src="https://larazeus.com/images/lara-zeus-bolt.png?v=3" /></a>
 </p>
 
 <h4 align="center">Lara-zeus bolt is a form builder for your users with many use cases.</h4>
