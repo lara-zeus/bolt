@@ -125,7 +125,7 @@ abstract class FieldsContract implements Arrayable, Fields
                 }
 
                 $relatedFieldArray = Arr::wrap($get('zeusData.' . $relatedField));
-                if(in_array($relatedFieldValues, $relatedFieldArray)){
+                if (in_array($relatedFieldValues, $relatedFieldArray)) {
                     return true;
                 }
 
