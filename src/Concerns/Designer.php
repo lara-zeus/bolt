@@ -103,6 +103,7 @@ trait Designer
             ->description($section->description)
             ->aside(fn () => $section->aside)
             ->compact(fn () => $section->compact)
+            ->icon($section->icon ?? null)
             ->collapsible();
 
         if (optional($zeusForm->options)['show-as'] === 'tabs') {

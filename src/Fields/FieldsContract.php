@@ -124,15 +124,16 @@ abstract class FieldsContract implements Arrayable, Fields
                     return true;
                 }
 
-                if (is_array($get('zeusData.' . $relatedField))) {
-                    return in_array($relatedFieldValues, $get('zeusData.' . $relatedField));
+                $relatedFieldArray = Arr::wrap($get('zeusData.' . $relatedField));
+                if(in_array($relatedFieldValues, $relatedFieldArray)){
+                    return true;
                 }
 
-                return $relatedFieldValues === $get('zeusData.' . $relatedField);
+                return false;
             });
 
         if ($hasVisibility) {
-            return $component->live(onBlur: $hasVisibility);
+            return $component->live();
         }
 
         return $component;
