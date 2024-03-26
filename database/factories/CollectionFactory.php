@@ -9,14 +9,7 @@ class CollectionFactory extends Factory
 {
     protected $model = Collection::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     *
-     * @throws \JsonException
-     */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->words(3, true),

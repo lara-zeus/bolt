@@ -10,12 +10,7 @@ class FieldFactory extends Factory
 {
     protected $model = Field::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->words(3, true),
