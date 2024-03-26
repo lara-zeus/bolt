@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.28 - 2024-03-26
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.0.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/264
+* Fix section icon when shoe the form as a page by @atmonshi in https://github.com/lara-zeus/bolt/pull/265
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.27...v3.0.28
+
 ## v3.0.27 - 2024-03-14
 
 ### What's Changed
@@ -193,7 +202,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 * add Share Form for Bolt Pro by @atmonshi in https://github.com/lara-zeus/bolt/pull/236
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.5...v3.0.6
-
 ## v3.0.5 - 2024-01-11
 
 ### What's Changed
