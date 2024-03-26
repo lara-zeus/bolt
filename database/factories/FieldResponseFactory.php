@@ -10,12 +10,7 @@ class FieldResponseFactory extends Factory
 {
     protected $model = FieldResponse::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
+    public function definition(): array
     {
         return [
             'form_id' => BoltPlugin::getModel('Forms')::factory(),
