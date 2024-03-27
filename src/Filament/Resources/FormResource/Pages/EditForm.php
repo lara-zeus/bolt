@@ -6,6 +6,7 @@ use Filament\Actions\Action;
 use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
+use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
 
@@ -17,6 +18,11 @@ class EditForm extends EditRecord
     use EditRecord\Concerns\Translatable;
 
     protected static string $resource = FormResource::class;
+
+    public function areFormActionsSticky(): bool
+    {
+        return BoltPlugin::get()->isFormActionsAreSticky();
+    }
 
     public function getTitle(): string | Htmlable
     {

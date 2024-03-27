@@ -32,6 +32,9 @@ BoltPlugin::make()
         'Section' => \App\Models\Bolt\Section::class,
     ])
     
+    // make the actions floating in create and edit forms
+    ->formActionsAreSticky(true)
+    
     ->hideResources([
         FormResource::class
     ])
