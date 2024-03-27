@@ -33,6 +33,8 @@ trait Configuration
      */
     protected Closure | string $navigationGroupLabel = 'Bolt';
 
+    protected bool $formActionsAreSticky = false;
+
     protected Closure | bool $showNavigationBadges = true;
 
     protected array $showNavigationBadgesArray = [];
@@ -67,6 +69,18 @@ trait Configuration
     public function getNavigationGroupLabel(): Closure | string
     {
         return $this->evaluate($this->navigationGroupLabel);
+    }
+
+    public function formActionsAreSticky(bool $condition = false): static
+    {
+        $this->formActionsAreSticky = $condition;
+
+        return $this;
+    }
+
+    public function isFormActionsAreSticky(): bool
+    {
+        return $this->evaluate($this->formActionsAreSticky);
     }
 
     public function extensions(?array $extensions): static
