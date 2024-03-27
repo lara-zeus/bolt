@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v3.0.29 - 2024-03-27
+
+### What's Changed
+
+* add sticky form actions by @atmonshi in https://github.com/lara-zeus/bolt/pull/266
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.28...v3.0.29
+
 ## v3.0.28 - 2024-03-26
 
 ### What's Changed
@@ -203,7 +211,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 * add Share Form for Bolt Pro by @atmonshi in https://github.com/lara-zeus/bolt/pull/236
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.5...v3.0.6
 ## v3.0.5 - 2024-01-11
-
 ### What's Changed
 
 * add form ID column in form table but hidden by default by @atmonshi in https://github.com/lara-zeus/bolt/pull/235
