@@ -47,6 +47,7 @@ class FileUpload extends FieldsContract
                         ]),
                     self::hintOptions(),
                     self::visibility($sections),
+                    ...Bolt::getOptionSets(resolve(static::class)),
                 ]),
         ];
     }

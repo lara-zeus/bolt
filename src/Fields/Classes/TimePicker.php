@@ -45,6 +45,7 @@ class TimePicker extends FieldsContract
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
                     ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::getOptionSets(resolve(static::class)),
                 ]),
         ];
     }
