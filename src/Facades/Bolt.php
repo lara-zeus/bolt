@@ -9,6 +9,9 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Facade;
+use LaraZeus\Accordion\Forms\Accordion;
+use LaraZeus\Bolt\Contracts\OptionSetContract;
+use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Bolt extends Facade
 {
@@ -110,5 +113,21 @@ class Bolt extends Facade
     public static function hasPro(): bool
     {
         return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
+    }
+
+    public static function getOptionSets(FieldsContract $field): Collection
+    {
+        return Collectors::collectClasses(
+            base_path(config('zeus-bolt.collectors.optionSets.path')),
+            config('zeus-bolt.collectors.optionSets.namespace')
+        )
+            ->filter(fn (OptionSetContract $optionSet) => $optionSet::isVisible($field))
+            ->map(
+                fn (OptionSetContract $optionSet) => Accordion::make($optionSet::getSlug($field))
+                    ->label(__($optionSet::getLabel($field)))
+                    ->columns()
+                    ->icon($optionSet::getIcon($field))
+                    ->schema($optionSet::getSchema($field))
+            );
     }
 }
