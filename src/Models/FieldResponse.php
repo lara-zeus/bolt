@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,7 +30,7 @@ class FieldResponse extends Model
         return config('zeus-bolt.table-prefix') . 'field_responses';
     }
 
-    protected static function newFactory(): FieldResponseFactory
+    protected static function newFactory(): Factory
     {
         return FieldResponseFactory::new();
     }

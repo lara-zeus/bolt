@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -50,7 +51,7 @@ class Response extends Model
         });
     }
 
-    protected static function newFactory(): ResponseFactory
+    protected static function newFactory(): Factory
     {
         return ResponseFactory::new();
     }

@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -100,7 +101,7 @@ class Form extends Model
         return 'slug';
     }
 
-    protected static function newFactory(): FormFactory
+    protected static function newFactory(): Factory
     {
         return FormFactory::new();
     }

@@ -343,25 +343,15 @@ trait Schemata
     public static function getSectionsSchema(): array
     {
         return [
-            Grid::make()
-                ->columns()
-                ->schema([
-                    Hidden::make('compact')->default(false),
-                    Hidden::make('aside')->default(false),
-                    Hidden::make('icon'),
-                    Hidden::make('columns')->default(1),
-                    Hidden::make('description'),
-                    Hidden::make('options.visibility.active'),
-                    Hidden::make('options.visibility.fieldID'),
-                    Hidden::make('options.visibility.values'),
-                    TextInput::make('name')
-                        ->columnSpanFull()
-                        ->required()
-                        ->lazy()
-                        ->label(__('Section Name')),
-                ]),
+            TextInput::make('name')
+                ->columnSpanFull()
+                ->required()
+                ->lazy()
+                ->label(__('Section Name')),
+
             Placeholder::make('section-fields-placeholder')
                 ->label(__('Section Fields')),
+
             Repeater::make('fields')
                 ->relationship()
                 ->orderColumn('ordering')
@@ -400,11 +390,7 @@ trait Schemata
                             return [
                                 Textarea::make('description')
                                     ->label(__('Field Description')),
-                                Grid::make()
-                                    ->columns([
-                                        'default' => 1,
-                                        'lg' => 2,
-                                    ])
+                                Group::make()
                                     ->label(__('Field Options'))
                                     ->schema(function (Get $get) use ($allSections, $component, $arguments) {
                                         $class = $get('type');
@@ -416,8 +402,7 @@ trait Schemata
                                         }
 
                                         return [];
-                                    })
-                                    ->columns(1),
+                                    }),
                             ];
                         })
                         ->action(function (array $data, array $arguments, Repeater $component): void {
@@ -427,6 +412,15 @@ trait Schemata
                         }),
                 ])
                 ->schema(static::getFieldsSchema()),
+
+            Hidden::make('compact')->default(0)->nullable(),
+            Hidden::make('aside')->default(0)->nullable(),
+            Hidden::make('icon')->nullable(),
+            Hidden::make('columns')->default(1)->nullable(),
+            Hidden::make('description')->nullable(),
+            Hidden::make('options.visibility.active')->default(0)->nullable(),
+            Hidden::make('options.visibility.fieldID')->nullable(),
+            Hidden::make('options.visibility.values')->nullable(),
         ];
     }
 
@@ -450,31 +444,25 @@ trait Schemata
                 ->required()
                 ->searchable()
                 ->preload()
-                /*->getSearchResultsUsing(function (string $search) {
-                    $users = Bolt::availableFields()->where('title', 'like', "%{$search}%");
-
-                    return $users->mapWithKeys(function ($user) {
-                        return [$user->getKey() => static::getCleanOptionString($user)];
-                    })->toArray();
-                })*/
+                ->getSearchResultsUsing(function (string $search) {
+                    return Bolt::availableFields()
+                        ->filter(fn ($q) => str($q['title'])->contains($search))
+                        ->mapWithKeys(fn ($field) => [$field['class'] => static::getCleanOptionString($field)])
+                        ->toArray();
+                })
                 ->allowHtml()
                 ->extraAttributes(['class' => 'field-type'])
                 ->options(function (): array {
                     return Bolt::availableFields()
-                        ->mapWithKeys(function ($user) {
-                            return [$user['class'] => static::getCleanOptionString($user)];
+                        ->mapWithKeys(function ($field) {
+                            return [$field['class'] => static::getCleanOptionString($field)];
                         })
                         ->toArray();
                 })
                 ->live()
                 ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
                 ->label(__('Field Type')),
-            Group::make()
-                ->columns([
-                    'default' => 1,
-                    'lg' => 2,
-                ])
-                ->label(__('Field Options'))
+            /*Group::make()
                 ->schema(function (Get $get) {
                     $class = $get('type');
                     if (class_exists($class)) {
@@ -486,8 +474,7 @@ trait Schemata
                     }
 
                     return [];
-                })
-                ->columns(1),
+                }),*/
         ];
     }
 }
