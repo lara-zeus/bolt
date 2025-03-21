@@ -20,6 +20,7 @@ use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Response;
+use LaraZeus\BoltPro\Extensions\Grades;
 use LaraZeus\BoltPro\Models\Field as FieldPreset;
 
 /** @phpstan-return Arrayable<string,mixed> */
@@ -92,7 +93,7 @@ abstract class FieldsContract implements Arrayable, Fields
                 }
 
                 // @phpstan-ignore-next-line
-                if (! $zeusField instanceof FieldPreset && $zeusField->section->form->extensions !== 'LaraZeus\\BoltPro\\Extensions\\Grades') {
+                if ($zeusField->section->form->extensions !== Grades::class) {
                     return null;
                 }
 
