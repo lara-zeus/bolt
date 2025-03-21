@@ -19,9 +19,9 @@ use Spatie\Translatable\HasTranslations;
 class Collection extends Model
 {
     use HasFactory;
+    use HasTranslations;
     use HasUpdates;
     use SoftDeletes;
-    use HasTranslations;
 
     protected $guarded = [];
 
@@ -29,7 +29,7 @@ class Collection extends Model
 
     public function getTable(): string
     {
-        return config('zeus-bolt.table-prefix').'collections';
+        return config('zeus-bolt.table-prefix') . 'collections';
     }
 
     public function getValuesListAttribute(): ?string
@@ -51,7 +51,7 @@ class Collection extends Model
     protected function name(): Attribute
     {
         return Attribute::make(
-            get: fn($value) => (filled($value))
+            get: fn ($value) => (filled($value))
                 ? $value
                 : $this->getRawOriginal('name'),
         );
@@ -61,7 +61,6 @@ class Collection extends Model
      * Returns the values as a collection. Translatable variables are always cast as an array.
      * This function transforms it to a collection.
      *
-     * @return Attribute
      * @throws \JsonException
      */
     protected function values(): Attribute
@@ -77,6 +76,7 @@ class Collection extends Model
                 if (is_array($value)) {
                     $value = collect($value);
                 }
+
                 return $value;
             },
         );

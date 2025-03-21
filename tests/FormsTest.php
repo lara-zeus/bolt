@@ -16,12 +16,12 @@ use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
 
 it('can render Form List', function () {
-get(FormResource::getUrl())->assertSuccessful();
-    });
+    get(FormResource::getUrl())->assertSuccessful();
+});
 
 it('can render list Forms', function () {
-get('/bolt')->assertSuccessful();
-    });
+    get('/bolt')->assertSuccessful();
+});
 
 it('can render show Form', function () {
     $form = Form::factory()->create();
@@ -109,8 +109,8 @@ it('can list Form', function () {
 });
 
 it('can render create form page', function () {
-get(FormResource::getUrl('create'))->assertSuccessful();
-    });
+    get(FormResource::getUrl('create'))->assertSuccessful();
+});
 
 it('can create', function () {
     $newData = Form::factory()->make();
@@ -199,10 +199,10 @@ it('can create', function () {
 })->skip();
 
 it('can not edit', function () {
-get(CategoryResource::getUrl('edit', [
-    'record' => Category::factory()->create(),
-]))->assertSuccessful();
-    });
+    get(CategoryResource::getUrl('edit', [
+        'record' => Category::factory()->create(),
+    ]))->assertSuccessful();
+});
 
 it('can retrieve data', function () {
     $post = Form::factory()->create();
