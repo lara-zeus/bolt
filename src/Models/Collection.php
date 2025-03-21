@@ -56,13 +56,16 @@ class Collection extends Model
      */
     public function getValuesAttribute($value)
     {
+        if($value instanceof \Illuminate\Support\Collection){
+            return $value;
+        }
         if(is_array($value)){
             return collect($value);
         }
         if(is_string($value)){
             return collect(json_encode($value));
         }
-        return $value;
+        return collect($value);
     }
 
     protected static function newFactory(): Factory
