@@ -197,6 +197,7 @@ trait Schemata
                                 return BoltPlugin::getModel('Category')::query()->whereBelongsTo(Filament::getTenant());
                             },
                         )
+                        ->searchable(false)
                         ->helperText(__('optional, organize your forms into categories'))
                         ->createOptionForm([
                             TextInput::make('name')
@@ -213,7 +214,7 @@ trait Schemata
                             TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
                         ])
                         ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Category'))))
-                        ->getOptionLabelFromRecordUsing(fn (Category $record) => $record->name),
+                        ->getOptionLabelFromRecordUsing(fn (?Category $record, $livewire) => $record?->getTranslation('name',$livewire->activeLocale) ?? $record->name),
                 ]),
 
             Tabs\Tab::make('text-details-tab')

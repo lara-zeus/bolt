@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,11 +25,11 @@ class Collection extends Model
 
     protected $guarded = [];
 
-    public $translatable = ['name', 'values'];
+    public array $translatable = ['name', 'values'];
 
     public function getTable(): string
     {
-        return config('zeus-bolt.table-prefix') . 'collections';
+        return config('zeus-bolt.table-prefix').'collections';
     }
 
     public function getValuesListAttribute(): ?string
@@ -47,22 +48,38 @@ class Collection extends Model
         return null;
     }
 
-    /**
-     * Returns the values as a collection. Translatable variables are always cast as an array. This function transforms
-     * it to a collection.
-     * Note: The newer Attribute approach does not seem to be compatible with laravel-translatable ;-(.
-     * @param $value
-     * @return \Illuminate\Support\Collection
-     */
-    public function getValuesAttribute($value)
+    protected function name(): Attribute
     {
-        if(is_array($value)){
-            return collect($value);
-        }
-        if(is_string($value)){
-            return collect(json_encode($value));
-        }
-        return $value;
+        return Attribute::make(
+            get: fn($value) => (filled($value))
+                ? $value
+                : $this->getRawOriginal('name'),
+        );
+    }
+
+    /**
+     * Returns the values as a collection. Translatable variables are always cast as an array.
+     * This function transforms it to a collection.
+     *
+     * @return Attribute
+     * @throws \JsonException
+     */
+    protected function values(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value) {
+                $value = (filled($value)) ? $value : $this->getRawOriginal('values');
+
+                if (is_string($value)) {
+                    $value = collect(json_decode($value, JSON_THROW_ON_ERROR, 512, JSON_THROW_ON_ERROR));
+                }
+
+                if (is_array($value)) {
+                    $value = collect($value);
+                }
+                return $value;
+            },
+        );
     }
 
     protected static function newFactory(): Factory
