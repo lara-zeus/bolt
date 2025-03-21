@@ -59,6 +59,9 @@ class Collection extends Model
         if($value instanceof \Illuminate\Support\Collection){
             return $value;
         }
+        if(empty($value)){
+            return collect();
+        }
         if(is_array($value)){
             return collect($value);
         }
