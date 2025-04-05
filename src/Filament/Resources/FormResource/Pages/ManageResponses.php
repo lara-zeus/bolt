@@ -132,7 +132,9 @@ class ManageResponses extends ManageRelatedRecords
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 ExportBulkAction::make()
                     ->exports([
-                        ExcelExport::make()->fromTable()->queue(),
+                        ExcelExport::make()
+                            ->fromTable()
+                            ->queue(),
                     ])
                     ->label(__('Export Responses')),
                 // disabled for now due to issue with queues

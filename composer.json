@@ -34,6 +34,7 @@
         "lara-zeus/core": "^3.2",
         "lara-zeus/filament-plugin-tools": "^1.0",
         "lara-zeus/list-group": "^1.0",
+        "pxlrbt/filament-excel": "^2.4",
         "secondnetwork/blade-tabler-icons": "^3.30"
     },
     "require-dev": {
