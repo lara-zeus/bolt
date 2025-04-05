@@ -13,11 +13,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Actions\SetResponseStatus;
-use LaraZeus\Bolt\Filament\Exports\ResponseExporter;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 /**
  * @property Form $record.
@@ -129,10 +130,15 @@ class ManageResponses extends ManageRelatedRecords
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
-
-                Tables\Actions\ExportBulkAction::make()
+                ExportBulkAction::make()
+                    ->exports([
+                        ExcelExport::make()->fromTable()->queue(),
+                    ])
+                    ->label(__('Export Responses')),
+                // disabled for now due to issue with queues
+                /*Tables\Actions\ExportBulkAction::make()
                     ->label(__('Export Responses'))
-                    ->exporter(ResponseExporter::class),
+                    ->exporter(ResponseExporter::class),*/
             ])
             ->recordUrl(
                 fn (Response $record): string => FormResource::getUrl('viewResponse', [
