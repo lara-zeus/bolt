@@ -3,17 +3,17 @@
 namespace LaraZeus\Bolt\Livewire;
 
 use Filament\Forms;
-use Livewire\Component;
-use Illuminate\View\View;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Arr;
-use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Events\FormSent;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\View\View;
 use LaraZeus\Bolt\Events\FormMounted;
+use LaraZeus\Bolt\Events\FormSent;
 use LaraZeus\Bolt\Facades\Designer;
 use LaraZeus\Bolt\Facades\Extensions;
-use Filament\Notifications\Notification;
-use Filament\Forms\Concerns\InteractsWithForms;
+use LaraZeus\Bolt\Models\Form;
+use Livewire\Component;
 
 /**
  * @property mixed $form
@@ -31,6 +31,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     public bool $sent = false;
 
     public bool $inline = false;
+
     public ?int $responseId = null;
 
     protected static ?string $boltFormDesigner = null;
@@ -95,7 +96,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         $response = config('zeus-bolt.models.Response')::updateOrCreate(
             [
-                'id' => $this->responseId
+                'id' => $this->responseId,
             ],
             [
                 'form_id' => $this->zeusForm->id,
@@ -119,7 +120,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                 [
                     'response_id' => $this->responseId,
                     'field_id' => $field,
-                    'form_id' => $this->zeusForm->id
+                    'form_id' => $this->zeusForm->id,
                 ],
                 [
                     'response' => (! empty($value)) ? $value : '',
@@ -157,7 +158,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
                 ->send();
         } else {
             // Display the form sent view
-            $this->sent = true;            
+            $this->sent = true;
         }
     }
 

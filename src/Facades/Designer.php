@@ -9,11 +9,9 @@ use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Get;
-use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Facades\Bolt;
 use Illuminate\Support\Collection;
+use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Response;
-use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Section as ZeusSection;
 
 class Designer
@@ -25,7 +23,7 @@ class Designer
         if (filled($responseId)) {
             $fieldResponses = Response::find($responseId)?->fieldsResponses;
         }
-        
+
         $sections = self::drawExt($zeusForm);
         $hasSectionVisibility = $zeusForm->sections->pluck('options')->where('visibility.active', true)->isNotEmpty();
 
