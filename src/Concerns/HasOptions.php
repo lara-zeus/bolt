@@ -32,7 +32,7 @@ trait HasOptions
 
         return Accordion::make('visibility-options')
             ->label(__('Conditional Visibility'))
-            ->icon('iconpark-eyes')
+            ->icon('tabler-eye-cog')
             ->visible(fn (Livewire $livewire) => str($livewire->getName())
                 ->replace('-form', '')
                 ->explode('.')
@@ -117,6 +117,16 @@ trait HasOptions
                 Toggle::make('options.column_span_full')
                     ->helperText(__('show this field in full width row'))
                     ->label(__('Full Width')),
+            ])
+            ->columns(1);
+    }
+
+    public static function hiddenLabel(): Grid
+    {
+        return Grid::make()
+            ->schema([
+                Toggle::make('options.hidden_label')
+                    ->label(__('Hidden Label')),
             ])
             ->columns(1);
     }

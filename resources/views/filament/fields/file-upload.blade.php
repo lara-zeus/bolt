@@ -6,7 +6,7 @@
                         target="_blank"
                         size="sm"
                         outlined
-                        href="{{ Storage::disk(config('zeus-bolt.uploadDisk'))->url($file) }}"
+                        href="{{ $getUrl($file) }}"
                 >
                         {{ __('view file') .': '. $loop->iteration }}
                 </x-filament::link>

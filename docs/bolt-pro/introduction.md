@@ -28,15 +28,15 @@ To install bolt, you only need to require it in your composer by running the com
 composer require lara-zeus/bolt-pro
 ```
 
-make sure to clear the cache after the installation completed.
+Make sure to clear the cache after the installation completed.
 
-and that is all :).
+And that is all :).
 
-you will get more details after you purchasing the package.
+You will get more details after you purchasing the package.
 
 ## Configuration
 
-add these configuration keys to `zeus-bolt` config file:
+Add these configuration keys to `zeus-bolt` config file:
 
 ```php
 // if you want to disable the preset button
@@ -44,4 +44,13 @@ add these configuration keys to `zeus-bolt` config file:
 
 // to disable the theming tab
 'show_presets' => false,
+
+// to disable the core presets
+'show_core_presets' => false,
+
+/**
+ * the preview for the presets is using sushi:
+ * you can enable/disable the cache here
+*/
+'should_cache_preset' => env('BOLT_CACHE_PRESET', true),
 ```

@@ -54,7 +54,7 @@ To access the forms, visit the URL `/admin` , and `/bolt`.
 
 ## Deploying to Production
 
-to Improve performance in the production environment, make sure to run these commands with your deployment workflow:
+to improve performance in the production environment, make sure to run these commands with your deployment workflow:
 
 ```bash
 php artisan icons:cache

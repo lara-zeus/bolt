@@ -132,6 +132,7 @@ it('can create', function () {
                     'name' => 'sdf',
                     'columns' => 2,
                     'aside' => 0,
+                    'borderless' => 0,
                     'fields' => [
                         [
                             'name' => 'sdf',
@@ -176,6 +177,7 @@ it('can create', function () {
         ]),
         'columns' => 2,
         'aside' => 0,
+        'borderless' => 0,
     ]);
 
     assertDatabaseHas(Field::class, [
@@ -244,6 +246,7 @@ it('can save', function () {
                     'name' => 'sdf',
                     'columns' => 2,
                     'aside' => 0,
+                    'borderless' => 0,
                     'compact' => 0,
                     'fields' => [
                         [

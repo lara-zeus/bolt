@@ -47,7 +47,7 @@ class Toggle extends FieldsContract
                 ->accordions([
                     Accordion::make('general-options')
                         ->label(__('General Options'))
-                        ->icon('iconpark-checklist-o')
+                        ->icon('tabler-settings')
                         ->schema([
                             Grid::make()
                                 ->columns()
@@ -75,6 +75,7 @@ class Toggle extends FieldsContract
                                 ]),
                             self::required(),
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -97,6 +98,7 @@ class Toggle extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
             Hidden::make('options.on-icon'),
             Hidden::make('options.off-icon'),
             Hidden::make('options.on-color'),
@@ -126,7 +128,7 @@ class Toggle extends FieldsContract
             $component = $component->offColor(Color::hex($zeusField->options['off-color']));
         }
 
-        if (optional($zeusField->options)['is-inline']) {
+        if (isset($zeusField->options['is-inline'])) {
             $component = $component->inline($zeusField->options['is-inline']);
         }
 

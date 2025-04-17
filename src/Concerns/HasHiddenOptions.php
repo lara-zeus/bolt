@@ -39,6 +39,13 @@ trait HasHiddenOptions
         ];
     }
 
+    public static function hiddenHiddenLabel(): array
+    {
+        return [
+            Hidden::make('options.hidden_label')->default(false),
+        ];
+    }
+
     public static function hiddenDataSource(): array
     {
         return [

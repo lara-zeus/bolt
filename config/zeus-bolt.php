@@ -53,14 +53,33 @@ return [
 
     'defaultMailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
 
-    'uploadDisk' => 'public',
+    'uploadDisk' => env('BOLT_FILESYSTEM_DISK', 'public'),
 
-    'uploadDirectory' => 'forms',
+    'uploadDirectory' => env('BOLT_FILESYSTEM_DIRECTORY', 'forms'),
 
-    'uploadVisibility' => 'public',
+    'uploadVisibility' => env('BOLT_FILESYSTEM_VISIBILITY', 'public'),
 
+    /*
+     * if you have installed Bolt Pro, you can enable the presets here
+     */
     'show_presets' => false,
 
+    /**
+     * the preset comes with a demo forms:
+     * a Contact form and Ticket support form.
+     * if you dont want them, feel free to set this to false
+     * */
+    'show_core_presets' => true,
+
+    /**
+     * the preview for the presets is using sushi:
+     * you can enable/disable the cache here
+     * */
+    'should_cache_preset' => env('BOLT_CACHE_PRESET', true),
+
+    /*
+     * if you have installed Bolt Pro, you can enable the form design option here
+     */
     'allow_design' => false,
 
     'editable_forms' => false,

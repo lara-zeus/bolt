@@ -30,7 +30,7 @@ class ListForms extends ListRecords
         ];
 
         if (Bolt::hasPro()) {
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $actions[] = \LaraZeus\BoltPro\Actions\PresetAction::make('new from preset')
                 ->visible(config('zeus-bolt.show_presets'));
         }

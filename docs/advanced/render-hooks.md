@@ -21,7 +21,7 @@ Bolt also utilizes these hooks to make it easier to customize any views.
   - will be rendered above all forms before any other content like the `details.`
 
 - `Zeus-form.after`
-  - this hook will rendered after all forms
+  - this hook will be rendered after all forms
 
 - `Zeus-form-section.before`
   - before rendering any section in all forms

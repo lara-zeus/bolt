@@ -84,8 +84,6 @@ class Form extends Model
 
             if ($form->isForceDeleting()) {
                 // @phpstan-ignore-next-line
-                $form->fieldsResponses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
-                // @phpstan-ignore-next-line
                 $form->responses()->withTrashed()->get()->each(fn ($item) => $item->forceDelete());
                 // @phpstan-ignore-next-line
                 $form->sections()->withTrashed()->get()->each(function ($item) {
@@ -120,31 +118,26 @@ class Form extends Model
         return $this->belongsTo(config('zeus-bolt.models.User') ?? config('auth.providers.users.model'));
     }
 
-    /** @phpstan-return BelongsTo<Form, Category> */
     public function category(): BelongsTo
     {
         return $this->belongsTo(config('zeus-bolt.models.Category'));
     }
 
-    /** @phpstan-return hasMany<Section> */
     public function sections(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.Section'));
     }
 
-    /** @phpstan-return hasManyThrough<Field> */
     public function fields(): HasManyThrough
     {
         return $this->hasManyThrough(config('zeus-bolt.models.Field'), config('zeus-bolt.models.Section'));
     }
 
-    /** @phpstan-return hasMany<Response> */
     public function responses(): hasMany
     {
         return $this->hasMany(config('zeus-bolt.models.Response'));
     }
 
-    /** @phpstan-return hasMany<FieldResponse> */
     public function fieldsResponses(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.FieldResponse'));

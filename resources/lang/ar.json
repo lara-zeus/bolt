@@ -176,6 +176,7 @@
   "fields per row" :"عدد الحقول في كل صف",
   "Full Width" :"كامل العرض",
   "show this field in full width row" :"عرض هذا الحقل في صف منفصل",
+  "Hidden Label": "اخفاء العنوان",
   "open" :"عرض",
   "Open Form" :"عرض النموذج",
   "Conditional Visibility" :"ظهور الحقل بشرط",
@@ -210,5 +211,7 @@
   "View Form": "عرض",
   "Thanks": "شكرا لك",
   "New Submission in": "لديك سجل جديد في النموذج",
-  "Form Links": "روابط النموذج"
+  "Form Links": "روابط النموذج",
+  "Borderless Section": "عرض بدون اطار",
+  "Show the section without borders": "عرض القسم بدون اطار"
 }

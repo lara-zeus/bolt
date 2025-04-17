@@ -56,7 +56,9 @@ trait Schemata
     {
         return [
             TextInput::make('description')
+                ->hidden(fn (Get $get) => $get('borderless') === true)
                 ->nullable()
+                ->live()
                 ->visible($formOptions['show-as'] !== 'tabs')
                 ->label(__('Section Description')),
 
@@ -65,7 +67,7 @@ trait Schemata
                     Accordion::make('visual-options')
                         ->label(__('Visual Options'))
                         ->columns()
-                        ->icon('iconpark-viewgriddetail-o')
+                        ->icon('tabler-list-details')
                         ->schema([
                             Select::make('columns')
                                 ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
@@ -79,15 +81,22 @@ trait Schemata
                                     'lg' => 3,
                                     '2xl' => 5,
                                 ])
+                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('borderless') === false)
                                 ->label(__('Section icon')),
                             Toggle::make('aside')
                                 ->default(false)
-                                ->visible($formOptions['show-as'] === 'page')
+                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('borderless') === false)
                                 ->label(__('show as aside')),
-                            Toggle::make('compact')
+                            Toggle::make('borderless')
+                                ->live()
                                 ->default(false)
                                 ->visible($formOptions['show-as'] === 'page')
-                                ->label(__('compact section')),
+                                ->label(__('Borderless Section'))
+                                ->helperText('Show the section without borders'),
+                            Toggle::make('compact')
+                                ->default(false)
+                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('borderless') === false)
+                                ->label(__('Compact section')),
                         ]),
                     self::visibility($allSections),
                     Bolt::getCustomSchema('section') ?? [],
@@ -368,14 +377,14 @@ trait Schemata
                 ->cloneable()
                 ->minItems(1)
 
-                ->cloneAction(fn (Action $action) => $action->action(function (Component $component) {
+                ->cloneAction(fn (Action $action) => $action->action(function (Component $component, $arguments) {
                     $items = $component->getState();
-                    $originalItem = end($items);
+                    $originalItem = $items[$arguments['item']];
                     $clonedItem = array_merge($originalItem, [
                         'name' => $originalItem['name'] . ' new',
-                        'options' => [
+                        'options' => array_merge($originalItem['options'], [
                             'htmlId' => $originalItem['options']['htmlId'] . Str::random(2),
-                        ],
+                        ]),
                     ]);
 
                     $items[] = $clonedItem;
@@ -439,6 +448,7 @@ trait Schemata
 
             Hidden::make('compact')->default(0)->nullable(),
             Hidden::make('aside')->default(0)->nullable(),
+            Hidden::make('borderless')->default(0)->nullable(),
             Hidden::make('icon')->nullable(),
             Hidden::make('columns')->default(1)->nullable(),
             Hidden::make('description')->nullable(),

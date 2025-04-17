@@ -19,7 +19,7 @@ use LaraZeus\Bolt\Filament\Resources\CollectionResource\Widgets\EditCollectionWa
 
 class CollectionResource extends BoltResource
 {
-    protected static ?string $navigationIcon = 'clarity-folder-open-outline-badged';
+    protected static ?string $navigationIcon = 'tabler-brand-databricks';
 
     protected static ?int $navigationSort = 3;
 
@@ -92,6 +92,7 @@ class CollectionResource extends BoltResource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->forceSearchCaseInsensitive()
                     ->label(__('Collections Name'))
                     ->searchable()
                     ->sortable()

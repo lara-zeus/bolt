@@ -5,7 +5,7 @@ weight: 3
 
 ## Extensions
 
-Bolt over a simple way to build your own application around the forms, with a simple interface, called `extensions` :
+Bolt offer a simple way to build your own application around the forms, with a simple interface, called `extensions` :
 
 Extensions are hooks based classes that let you perform your logic around the forms or catch the submission and do more integrations with other apps or external APIs.
 for example before showing the form, or after storing the data etc...
@@ -13,16 +13,16 @@ for example before showing the form, or after storing the data etc...
 ## Available Hooks:
 
 - `canView`
-  before displaying the form, you can do some checks.
+  before displaying the form, you can do some checks
 
 - `render`
-  what to show at the beginning of the form, you can return a view to show more info or instructors while filling out the form.
+  what to show at the beginning of the form, you can return a view to show more info or instructors while filling out the form
 
 -`formComponents`
   return an array of filament components to add them to the form in the frontend
 
 - `store`
-  the store logic for the extension, insert to any DB or external API.
+  the store logic for the extension, insert to any DB or external API
 
 - `postStore`
   this is typically used for sending only. It will be executed after saving the form
@@ -33,7 +33,7 @@ for example before showing the form, or after storing the data etc...
 
 ## Creating an Extension
 
-create a class in your app with the following content:
+Create a class in your app with the following content:
 
 >I will create a command later :)
 
@@ -105,7 +105,7 @@ class Items implements Extension
 
 ## Enabling The Extension
 
-in your `zeus-bolt` config file, add your extension to the array:
+In your `zeus-bolt` config file, add your extension to the array:
 
 ```php 
 'extensions' => [
@@ -113,4 +113,4 @@ in your `zeus-bolt` config file, add your extension to the array:
 ],
 ```
 
-now when creating or editing a form, you will see the tab Extensions, and you can select any extension per form.
+Now when creating or editing a form, you will see the tab Extensions, and you can select any extension per form.

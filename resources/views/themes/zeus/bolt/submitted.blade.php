@@ -13,7 +13,10 @@
                 </span>
             @endif
 
-            {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'SubmittedRender', ['extensionData' => $extensionData['extInfo']['itemId'] ?? 0]) !!}
+                {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'SubmittedRender', [
+                    'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
+                    'response' => $extensionData['response'],
+                ]) !!}
 
         </x-filament::section>
     </div>

@@ -19,7 +19,7 @@ class ResponseExporter extends Exporter
     public static function getColumns(): array
     {
         $record = \Livewire\Livewire::current()->getRecord();
-        //todo refactor with v4
+        // todo refactor with v4
         $userModel = BoltPlugin::getModel('User') ?? config('auth.providers.users.model');
         $getUserModel = $userModel::getBoltUserFullNameAttribute();
         $mainColumns = [

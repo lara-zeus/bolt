@@ -9,8 +9,8 @@ use Illuminate\Support\Arr;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Events\FormSent;
 use Illuminate\Support\Facades\Mail;
-use LaraZeus\Bolt\Concerns\Designer;
 use LaraZeus\Bolt\Events\FormMounted;
+use LaraZeus\Bolt\Facades\Designer;
 use LaraZeus\Bolt\Facades\Extensions;
 use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -20,7 +20,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
  */
 class FillForms extends Component implements Forms\Contracts\HasForms
 {
-    use Designer;
     use InteractsWithForms;
 
     public Form $zeusForm;

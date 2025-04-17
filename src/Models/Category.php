@@ -39,7 +39,6 @@ class Category extends Model
         return CategoryFactory::new();
     }
 
-    /** @return HasMany<Form> */
     public function forms(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.Form'));

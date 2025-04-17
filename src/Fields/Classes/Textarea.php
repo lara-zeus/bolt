@@ -45,7 +45,7 @@ class Textarea extends FieldsContract
                 ->accordions([
                     Accordion::make('general-options')
                         ->label(__('General Options'))
-                        ->icon('iconpark-checklist-o')
+                        ->icon('tabler-settings')
                         ->schema([
                             TextInput::make('options.rows')
                                 ->label(__('rows')),
@@ -61,6 +61,7 @@ class Textarea extends FieldsContract
 
                             self::required(),
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -83,6 +84,7 @@ class Textarea extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
             Hidden::make('options.rows'),
             Hidden::make('options.cols'),
             Hidden::make('options.minLength'),

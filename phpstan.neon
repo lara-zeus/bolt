@@ -1,0 +1,28 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - database
+
+    checkOctaneCompatibility: true
+    checkModelProperties: true
+
+    ignoreErrors:
+        -
+            identifier: trait.unused
+        -
+            identifier: missingType.generics
+        -
+            identifier: argument.templateType
+        -
+            identifier: missingType.iterableValue
+        -
+            identifier: argument.type
+        -
+            identifier: property.defaultValue
+        -
+            identifier: return.type
+        -
+            identifier: class.notFound
+        -
+            identifier: notIdentical.alwaysTrue

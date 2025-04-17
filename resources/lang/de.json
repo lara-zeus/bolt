@@ -175,6 +175,7 @@
     "fields per row" :"fields per row",
     "Full Width" :"Full Width",
     "show this field in full width row" :"show this field in full width row",
+    "Hidden Label": "Verstecktes Etikett",
     "open" :"open",
     "Open Form" :"Open Form",
     "Conditional Visibility" :"Conditional Visibility",
@@ -186,5 +187,7 @@
     "Hint Color" :"Hint Color",
     "Textarea": "Textarea",
     "Paragraph": "Paragraph",
-    "Color Picker": "Color Picker"
+    "Color Picker": "Color Picker",
+    "Borderless Section": "Borderless Section",
+    "Show the section without borders": "Show the section with borders"
 }

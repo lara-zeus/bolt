@@ -42,7 +42,7 @@ class FormResource extends BoltResource
     use HasOptions;
     use Schemata;
 
-    protected static ?string $navigationIcon = 'clarity-form-line';
+    protected static ?string $navigationIcon = 'tabler-file-description';
 
     protected static ?int $navigationSort = 1;
 
@@ -107,8 +107,8 @@ class FormResource extends BoltResource
                     IconEntry::make('is_active')
                         ->label(__('is active'))
                         ->icon(fn (string $state): string => match ($state) {
-                            '0' => 'clarity-times-circle-solid',
-                            default => 'clarity-check-circle-line',
+                            '0' => 'tabler-circle-x',
+                            default => 'tabler-circle-check',
                         })
                         ->color(fn (string $state): string => match ($state) {
                             '0' => 'warning',
@@ -151,8 +151,18 @@ class FormResource extends BoltResource
             ->reorderable('ordering')
             ->columns([
                 TextColumn::make('id')->sortable()->label(__('Form ID'))->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('name')->searchable()->sortable()->label(__('Form Name'))->toggleable(),
-                TextColumn::make('category.name')->searchable()->label(__('Category'))->sortable()->toggleable(),
+                TextColumn::make('name')
+                    ->forceSearchCaseInsensitive()
+                    ->searchable()
+                    ->sortable()
+                    ->label(__('Form Name'))
+                    ->toggleable(),
+                TextColumn::make('category.name')
+                    ->forceSearchCaseInsensitive()
+                    ->searchable()
+                    ->label(__('Category'))
+                    ->sortable()
+                    ->toggleable(),
                 IconColumn::make('is_active')->boolean()->label(__('Is Active'))->sortable()->toggleable(),
                 TextColumn::make('start_date')->dateTime()->searchable()->sortable()->label(__('Start Date'))->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('end_date')->dateTime()->searchable()->sortable()->label(__('End Date'))->toggleable(isToggledHiddenByDefault: true),
@@ -205,9 +215,9 @@ class FormResource extends BoltResource
         ];
 
         if (Bolt::hasPro()) {
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $pages['prefilled'] = \LaraZeus\BoltPro\Livewire\PrefilledForm::route('/{record}/prefilled');
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $pages['share'] = \LaraZeus\BoltPro\Livewire\ShareForm::route('/{record}/share');
         }
 
@@ -224,7 +234,7 @@ class FormResource extends BoltResource
         ];
 
         if (Bolt::hasPro()) {
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $widgets[] = \LaraZeus\BoltPro\Widgets\ResponsesPerCollection::class;
         }
 
@@ -245,7 +255,7 @@ class FormResource extends BoltResource
                 Action::make('entries')
                     ->color('warning')
                     ->label(__('Entries'))
-                    ->icon('clarity-data-cluster-line')
+                    ->icon('tabler-folders')
                     ->tooltip(__('view all entries'))
                     ->url(fn (ZeusForm $record): string => FormResource::getUrl('report', ['record' => $record])),
             ])
@@ -257,14 +267,14 @@ class FormResource extends BoltResource
         if (Bolt::hasPro()) {
             $advancedActions[] = Action::make('prefilledLink')
                 ->label(__('Prefilled Link'))
-                ->icon('iconpark-formone-o')
+                ->icon('tabler-input-spark')
                 ->tooltip(__('Get Prefilled Link'))
                 ->visible(Bolt::hasPro())
                 ->url(fn (ZeusForm $record): string => FormResource::getUrl('prefilled', ['record' => $record]));
         }
 
         if (class_exists(\LaraZeus\Helen\HelenServiceProvider::class)) {
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $advancedActions[] = \LaraZeus\Helen\Actions\ShortUrlAction::make('get-link')
                 ->label(__('Short Link'))
                 ->distUrl(fn (ZeusForm $record) => route(BoltPlugin::get()->getRouteNamePrefix() . 'bolt.form.show', $record));
@@ -283,7 +293,7 @@ class FormResource extends BoltResource
         ];
 
         if (Bolt::hasPro()) {
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $formNavs[] = \LaraZeus\BoltPro\Livewire\ShareForm::class;
         }
 

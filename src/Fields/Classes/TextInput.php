@@ -42,7 +42,7 @@ class TextInput extends FieldsContract
                 ->accordions([
                     Accordion::make('validation-options')
                         ->label(__('Validation Options'))
-                        ->icon('iconpark-checkcorrect-o')
+                        ->icon('tabler-input-check')
                         ->columns()
                         ->schema([
                             Select::make('options.dateType')
@@ -82,7 +82,7 @@ class TextInput extends FieldsContract
                     Accordion::make('visual-options')
                         ->label(__('Visual Options'))
                         ->columns()
-                        ->icon('iconpark-viewgriddetail-o')
+                        ->icon('tabler-float-center')
                         ->schema([
                             TextInputAlias::make('options.prefix')
                                 ->label(__('prefix')),
@@ -110,6 +110,7 @@ class TextInput extends FieldsContract
                                 ->label(__('Suffix Icon Color')),
 
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -132,6 +133,7 @@ class TextInput extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
 
             Hidden::make('options.dateType'),
 

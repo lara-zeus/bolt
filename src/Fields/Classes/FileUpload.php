@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Hidden;
+use Illuminate\Support\Facades\Storage;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -38,11 +39,12 @@ class FileUpload extends FieldsContract
                 ->accordions([
                     Accordion::make('general-options')
                         ->label(__('General Options'))
-                        ->icon('iconpark-checklist-o')
+                        ->icon('tabler-settings')
                         ->schema([
                             \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
                             self::required(),
                             self::columnSpanFull(),
+                            self::hiddenLabel(),
                             self::htmlID(),
                         ]),
                     self::hintOptions(),
@@ -60,6 +62,7 @@ class FileUpload extends FieldsContract
             self::hiddenHintOptions(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
             self::hiddenVisibility(),
             Hidden::make('options.allow_multiple')->default(false),
         ];
@@ -69,10 +72,17 @@ class FileUpload extends FieldsContract
     {
         $responseValue = filled($resp->response) ? Bolt::isJson($resp->response) ? json_decode($resp->response) : [$resp->response] : [];
 
+        $disk = Storage::disk(config('zeus-bolt.uploadDisk'));
+
+        $getUrl = fn ($file) => config('zeus-bolt.uploadVisibility') === 'private'
+            ? $disk->temporaryUrl($file, now()->addDay())
+            : $disk->url($file);
+
         return view('zeus::filament.fields.file-upload')
             ->with('resp', $resp)
             ->with('responseValue', $responseValue)
             ->with('field', $field)
+            ->with('getUrl', $getUrl)
             ->render();
     }
 

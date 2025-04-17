@@ -114,7 +114,7 @@
   "Section Details": "Section Details",
   "From 1-12": "From 1-12",
   "Section icon": "Section icon",
-  "show as aside": "show as aside",
+  "show as aside": "Show as aside",
   "Show As Tabs": "Show As Tabs",
   "Show the Form as Tabs": "Show the Form as Tabs",
   "Show the form as": "Show the form as",
@@ -175,6 +175,7 @@
   "fields per row" :"fields per row",
   "Full Width" :"Full Width",
   "show this field in full width row" :"show this field in full width row",
+  "Hidden Label": "Hidden Label",
   "open" :"open",
   "Open Form" :"Open Form",
   "Conditional Visibility" :"Conditional Visibility",
@@ -204,5 +205,7 @@
   "View Form": "View Form",
   "Thanks": "Thanks",
   "New Submission in": "New Submission in",
-  "Form Links": "Form Links"
+  "Form Links": "Form Links",
+  "Borderless Section": "Borderless Section",
+  "Show the section without borders": "Show the section with borders"
 }

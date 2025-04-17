@@ -1,21 +1,22 @@
 <?php
 
-namespace LaraZeus\Bolt\Concerns;
+namespace LaraZeus\Bolt\Facades;
 
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
+use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Get;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Facades\Bolt;
 use Illuminate\Support\Collection;
 use LaraZeus\Bolt\Models\Response;
-use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\Wizard;
 use LaraZeus\Bolt\Facades\Extensions;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Tabs\Tab;
-use Filament\Forms\Components\Wizard\Step;
 use LaraZeus\Bolt\Models\Section as ZeusSection;
 
-trait Designer
+class Designer
 {
     public static function ui(Form $zeusForm, bool $inline = false, ?int $responseId = null): array
     {
@@ -44,7 +45,7 @@ trait Designer
             return [
                 Wizard::make($sections)
                     ->live(condition: $hasSectionVisibility),
-                //->skippable() // todo still not working
+                // ->skippable() // todo still not working
             ];
         }
 
@@ -115,20 +116,19 @@ trait Designer
         return $fields;
     }
 
-    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tab | Step | Section
+    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tab | Step | Section | Grid
     {
         if (optional($zeusForm->options)['show-as'] === 'tabs') {
             $component = Tab::make($section->name)
-              //  ->live()
                 ->icon($section->icon ?? null);
         } elseif (optional($zeusForm->options)['show-as'] === 'wizard') {
             $component = Step::make($section->name)
-             //   ->live()
                 ->description($section->description)
                 ->icon($section->icon ?? null);
+        } elseif ((bool) $section->borderless === true) {
+            $component = Grid::make($section->name);
         } else {
             $component = Section::make($section->name)
-                //  ->live()
                 ->description($section->description)
                 ->aside(fn () => $section->aside)
                 ->compact(fn () => $section->compact)
@@ -157,9 +157,7 @@ trait Designer
         });
 
         return $component
-            //->id(str($section->name)->slug() . '-' . $section->id)
             ->schema($fields)
-            //->live()
             ->columns($section->columns);
     }
 }

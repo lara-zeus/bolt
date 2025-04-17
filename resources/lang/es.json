@@ -175,6 +175,7 @@
   "fields per row" :"campos por fila",
   "Full Width" :"Ancho Completo",
   "show this field in full width row" :"mostrar este campo en una fila de ancho completo",
+  "Hidden Label": "Etiqueta Oculta",
   "open" :"abrir",
   "Open Form" :"Abrir Formulario",
   "Conditional Visibility" :"Visibilidad Condicional",
@@ -204,5 +205,7 @@
   "View Form": "Ver Formulario",
   "Thanks": "Gracias",
   "New Submission in": "Nueva Presentación en",
-  "Form Links": "Enlaces de Formulario"
+  "Form Links": "Enlaces de Formulario",
+  "Borderless Section": "Borderless Section",
+  "Show the section without borders": "Show the section with borders"
 }

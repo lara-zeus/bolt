@@ -4,37 +4,37 @@ weight: 2
 ---
 
 ## Overview
-here is the structure of the table; it will give you an idea of how Bolt works:
+Here is the structure of the database tables; it will give you an idea of how Bolt works:
 
 ![bolt-diagram](https://larazeus.com/images/screenshots/bolt/bolt-diagram.webp)
 
-## The concept:
+## The concept
 
-### Form:
+### Form
 The main component of all of this. Including all descriptive texts and the form options.
 
-### Sections:
+### Sections
 To group the fields, it has some options like columns number.
-Also, an option to display sections as pages or wizards, or tabs
+Also, an option to display sections as pages or wizards, or tabs.
 
 ### Fields
-fields are fields, most of the common types are available, and you can create custom ones
+Fields are fields, most of the common types are available, and you can create custom ones too.
 
-### Categories:
+### Categories
 It's a way to organize and display the forms in the front end.
 Any form not linked to a category won't be listed in the forms list at the front end.
 
-### Collections:
+### Collections
 Collections are datasets used for lists like checkboxes and select menus.
 
-### Responses:
+### Responses
 Every submission has a response record per user.
 You can view the responses per form in three ways:
 - list: list the response only as cards
 - browse: how the response with the fields one per page
 - report: table view for all entries and their fields
 
-### Responses Fields:
+### Responses Fields
 Fields are related to each response and each field of the form. And they contain the user input.
 
-This structure helps to query any reports you want with ease.
+This structure helps to create any reports you want with ease.

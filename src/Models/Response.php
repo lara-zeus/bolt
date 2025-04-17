@@ -72,7 +72,6 @@ class Response extends Model
         return ResponseFactory::new();
     }
 
-    /** @phpstan-return HasMany<FieldResponse> */
     public function fieldsResponses(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.FieldResponse'));
@@ -83,7 +82,6 @@ class Response extends Model
         return $this->belongsTo(config('zeus-bolt.models.User') ?? config('auth.providers.users.model'));
     }
 
-    /** @return BelongsTo<Form, Response> */
     public function form(): BelongsTo
     {
         return $this->belongsTo(config('zeus-bolt.models.Form'));

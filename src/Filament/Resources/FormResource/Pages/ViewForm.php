@@ -55,7 +55,7 @@ class ViewForm extends ViewRecord
         ];
 
         if (Bolt::hasPro()) {
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $widgets[] = \LaraZeus\BoltPro\Widgets\ResponsesCharts::class;
         }
 

@@ -1,6 +1,6 @@
 ---
 title: Sharing & Embedding
-weight: 4
+weight: 5
 ---
 
 # Sharing a Form:
@@ -10,17 +10,17 @@ Bolt Pro will provide your users with a new tab, that let them share the form to
 To customize the social media sharing icons or use any other widget, create the file:
 `resources/views/vendor/zeus/filament/social-share.blade.php`.
 
-and add any social platform you want.
+And add any social platform you want.
 
 ## Embedding a Form
 
-the embed forms will be accessible from the route name `bolt.form.embed`
+The embed forms will be accessible from the route name `bolt.form.embed` and 
 the url is; `/bolt/embed/$form->slug`
 
-to customize the layout you can create the file:
+To customize the layout you can create the file:
 `resources/views/vendor/zeus/filament/embed-layout.blade.php`
 
-the default content:
+The default content is:
 
 ```html
 <!DOCTYPE html>

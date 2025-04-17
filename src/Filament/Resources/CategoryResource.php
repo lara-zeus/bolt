@@ -34,7 +34,7 @@ use LaraZeus\Bolt\Models\Category;
 
 class CategoryResource extends BoltResource
 {
-    protected static ?string $navigationIcon = 'clarity-tags-line';
+    protected static ?string $navigationIcon = 'tabler-tags-filled';
 
     protected static ?int $navigationSort = 4;
 
@@ -96,6 +96,7 @@ class CategoryResource extends BoltResource
                     ->toggleable()
                     ->label(__('Logo')),
                 TextColumn::make('name')
+                    ->forceSearchCaseInsensitive()
                     ->label(__('Name'))
                     ->sortable()
                     ->toggleable()

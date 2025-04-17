@@ -15,6 +15,7 @@ use LaraZeus\Bolt\Database\Factories\FieldResponseFactory;
  * @property int $field_id
  * @property int $form_id
  * @property int $grade
+ * @property Field $field
  */
 class FieldResponse extends Model
 {
@@ -35,20 +36,17 @@ class FieldResponse extends Model
         return FieldResponseFactory::new();
     }
 
-    /** @return BelongsTo<Field, FieldResponse> */
     public function field(): BelongsTo
     {
         return $this->belongsTo(config('zeus-bolt.models.Field'));
     }
 
-    /** @return BelongsTo<Response, FieldResponse> */
-    public function parentResponse()
+    public function parentResponse(): BelongsTo
     {
         return $this->belongsTo(config('zeus-bolt.models.Response'), 'response_id', 'id');
     }
 
-    /** @return BelongsTo<Form, FieldResponse> */
-    public function form()
+    public function form(): BelongsTo
     {
         return $this->belongsTo(config('zeus-bolt.models.Form'));
     }

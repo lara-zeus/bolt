@@ -28,26 +28,26 @@
     ],
     "require": {
         "php": "^8.1",
-        "codeat3/blade-clarity-icons": "^1.7",
-        "flowframe/laravel-trend": "^0.2",
-        "guava/filament-icon-picker": "^2.0",
+        "flowframe/laravel-trend": "^0.4",
+        "guava/filament-icon-picker": "^2.3",
         "lara-zeus/accordion": "^1.1",
-        "lara-zeus/core": "^3.1",
+        "lara-zeus/core": "^3.2",
         "lara-zeus/filament-plugin-tools": "^1.0",
         "lara-zeus/list-group": "^1.0",
-        "ryangjchandler/blade-tabler-icons": "^2.3"
+        "pxlrbt/filament-excel": "^2.4",
+        "secondnetwork/blade-tabler-icons": "^3.30"
     },
     "require-dev": {
+        "phpstan/extension-installer": "^1.4",
+        "larastan/larastan": "^3.0",
         "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^7.0",
-        "nunomaduro/larastan": "^2.0.1",
+        "nunomaduro/collision": "^8.6",
         "nunomaduro/phpinsights": "^2.8",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest": "^2.0",
-        "pestphp/pest-plugin-arch": "^2.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "pestphp/pest-plugin-livewire": "^2.1",
-        "phpstan/extension-installer": "^1.1"
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-arch": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "pestphp/pest-plugin-livewire": "^3.0"
     },
     "autoload": {
         "psr-4": {
@@ -87,6 +87,5 @@
             }
         }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true
 }

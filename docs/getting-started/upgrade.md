@@ -5,9 +5,9 @@ weight: 90
 
 ## upgrade to v3.0.25
 
-in v3.0.25, I added a new trait for getting the user name
+In v3.0.25, I added a new trait for getting the user name
 
-so you have to add this to your user model:
+So you have to add this to your User model:
 
 `use \LaraZeus\Bolt\Models\Concerns\BelongToBolt;`
 
@@ -22,7 +22,7 @@ This causes an issue when having multiple panels.
 php artisan vendor:publish --tag="zeus-bolt-config" --force
 ```
 
-2. move your configuration from your panel provider to the `zeus-bolt` config file.
+2. Move your configuration from your panel provider to the `zeus-bolt` config file.
 
 So these are the deprecated configuration methods:
 
@@ -40,4 +40,4 @@ So these are the deprecated configuration methods:
 
 ## upgrade from 2 to 3
 
-to upgrade @zeus Bolt to v2 please check this `Core` [upgrade guid](/docs/core/v3/upgrade) 
+To upgrade @zeus Bolt to v2 please check this `Core` [upgrade guide](/docs/core/v3/upgrade) 

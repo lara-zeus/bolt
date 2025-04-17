@@ -22,6 +22,7 @@ class {{ class }} extends FieldsContract
             self::htmlID(),
             self::required(),
             self::columnSpanFull(),
+            self::hiddenLabel(),
         ];
     }
 
@@ -31,6 +32,7 @@ class {{ class }} extends FieldsContract
             self::hiddenHtmlID(),
             self::hiddenRequired(),
             self::hiddenColumnSpanFull(),
+            self::hiddenHiddenLabel(),
         ];
     }
 }

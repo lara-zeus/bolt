@@ -5,13 +5,13 @@ weight: 5
 
 ## Configuration
 
-There is two different set of configuration, for filament, and for the frontend pages
+There are two different sets of configuration, for filament, and for the frontend pages
 
 ## Filament Configuration
 
-to configure the plugin Bolt, you can pass the configuration to the plugin in `adminPanelProvider` 
+To configure the plugin Bolt, you can pass the configuration to the plugin in `adminPanelProvider` 
 
-these all the available configuration, and their defaults values
+These all the available configuration, and their defaults values
 
 > **Note**\
 > All these configurations are optional
@@ -20,7 +20,7 @@ these all the available configuration, and their defaults values
 BoltPlugin::make()
     // the default models, by default Bolt will read from the config file 'zeus-bolt'.
     // but if you want to customize the models per panel, you can do it here 
-    ->boltModels([
+    ->models([
         // ...
         'Category' => \App\Models\Bolt\Category::class,
         'Collection' => \App\Models\Bolt\Collection::class,
@@ -59,7 +59,7 @@ BoltPlugin::make()
 
 ## Customize Filament Resources
 
-you can customize all Bolt resources icons and sorting by adding the following code to your `AppServiceProvider` boot method
+You can customize all Bolt resources icons and sorting by adding the following code to your `AppServiceProvider` boot method
 
 ```php
 FormResource::navigationSort(100);
@@ -98,21 +98,21 @@ available resources:
 
 ## Frontend Configuration
 
-use the file `zeu-bolt.php`, to customize the frontend, like the prefix,domain, and middleware for each content type.
+Use the file `zeus-bolt.php`, to customize the frontend, like the prefix, domain, and middleware for each content type.
 
-to publish the configuration:
+To publish the configuration:
 
 ```bash
 php artisan vendor:publish --tag=zeus-bolt-config
 ```
 
-### Custom User Model:
+### Custom User Model
 
-By default Bolt will use the default Laravle user model to get the user info:
+By default Bolt will use the default Laravel user model to get the user info:
 
 `config('auth.providers.users.model')`
 
-if you need to change this to use another model, add the following in your config file: `zeus-bolt.php`:
+If you need to change this to use another model, add the following in your config file: `zeus-bolt.php`:
 
 ```php
 'models' => [

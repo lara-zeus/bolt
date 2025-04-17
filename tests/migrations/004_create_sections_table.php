@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('icon')->nullable();
             $table->boolean('aside')->default(0);
+            $table->boolean('borderless')->default(0);
             $table->boolean('compact')->default(0);
             $table->text('options')->nullable();
             $table->timestamps();
