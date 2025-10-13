@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "filament/filament": "^3.3",
+        "lara-zeus/bolt": "*",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1"
     },
@@ -84,6 +85,15 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "..",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
