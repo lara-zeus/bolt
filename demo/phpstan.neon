@@ -10,23 +10,15 @@ parameters:
 
     checkOctaneCompatibility: true
     checkModelProperties: true
+    treatPhpDocTypesAsCertain: false
 
     ignoreErrors:
-        -
-            identifier: trait.unused
-        -
-            identifier: missingType.generics
-        -
-            identifier: argument.templateType
-        -
-            identifier: missingType.iterableValue
-        -
-            identifier: argument.type
-        -
-            identifier: property.defaultValue
-        -
-            identifier: return.type
-        -
-            identifier: class.notFound
-        -
-            identifier: notIdentical.alwaysTrue
+        - identifier: trait.unused
+        - identifier: missingType.generics
+        - identifier: argument.templateType
+        - identifier: missingType.iterableValue
+        - identifier: property.defaultValue
+        - identifier: return.type
+        - identifier: class.notFound
+        - identifier: notIdentical.alwaysTrue
+        - identifier: property.notFound
