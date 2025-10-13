@@ -6,9 +6,5 @@ CHANGELOG.md export-ignore
 .github
 docs
 demo
-tests
 composer.lock
-phpstan.neon
-phpunit.xml.dist
-pint.json
 .editorconfig

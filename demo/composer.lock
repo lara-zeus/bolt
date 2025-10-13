@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec8ba77f1d4f29c3cf147b2127bc662f",
+    "content-hash": "a9839b3c93bf41943bfd6f3cd28b56ee",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2643,7 +2643,7 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "340a9556b04abcffd6fb368fa82eb34ab21fe825"
+                "reference": "cd711daa061201ddbec689b9826da99912177a85"
             },
             "require": {
                 "flowframe/laravel-trend": "^0.4",
@@ -2691,26 +2691,23 @@
                 }
             },
             "scripts": {
+                "test": [
+                    "composer --working-dir=demo test"
+                ],
+                "test:pest": [
+                    "composer --working-dir=demo test"
+                ],
+                "format": [
+                    "composer --working-dir=demo format"
+                ],
+                "pint": [
+                    "composer --working-dir=demo format"
+                ],
                 "analyse": [
                     "composer --working-dir=demo analyze"
                 ],
-                "test": [
-                    "vendor/bin/pest"
-                ],
-                "test-coverage": [
-                    "vendor/bin/pest --coverage"
-                ],
-                "format": [
-                    "vendor/bin/pint"
-                ],
-                "pint": [
-                    "vendor/bin/pint"
-                ],
-                "test:pest": [
-                    "vendor/bin/pest --parallel"
-                ],
                 "test:phpstan": [
-                    "vendor/bin/phpstan analyse"
+                    "composer --working-dir=demo analyze"
                 ]
             },
             "license": [
@@ -10633,6 +10630,72 @@
                 }
             ],
             "time": "2025-08-20T12:46:37+00:00"
+        },
+        {
+            "name": "pestphp/pest-plugin-livewire",
+            "version": "v4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pestphp/pest-plugin-livewire.git",
+                "reference": "cc30502ef62487d9a0bec5e73b64d59eec3b5f42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pestphp/pest-plugin-livewire/zipball/cc30502ef62487d9a0bec5e73b64d59eec3b5f42",
+                "reference": "cc30502ef62487d9a0bec5e73b64d59eec3b5f42",
+                "shasum": ""
+            },
+            "require": {
+                "livewire/livewire": "^3.6.4",
+                "pestphp/pest": "^4.0.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^10.6.0",
+                "pestphp/pest-dev-tools": "^4.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/Autoload.php"
+                ],
+                "psr-4": {
+                    "Pest\\Livewire\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The Pest Livewire Plugin",
+            "keywords": [
+                "framework",
+                "livewire",
+                "pest",
+                "php",
+                "plugin",
+                "test",
+                "testing",
+                "unit"
+            ],
+            "support": {
+                "source": "https://github.com/pestphp/pest-plugin-livewire/tree/v4.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/nunomaduro",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/nunomaduro",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2025-08-21T09:16:34+00:00"
         },
         {
             "name": "pestphp/pest-plugin-mutate",

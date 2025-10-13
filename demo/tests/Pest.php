@@ -11,9 +11,17 @@
 |
 */
 
+use App\Models\User;
+
+use Illuminate\Support\Facades\Artisan;
+use function Pest\Laravel\actingAs;
+
 pest()->extend(Tests\TestCase::class)
- // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-    ->in('Feature');
+    ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
+    ->in(__DIR__)
+    ->beforeEach(function () {
+        actingAs(User::factory()->create());
+    });
 
 /*
 |--------------------------------------------------------------------------
