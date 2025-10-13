@@ -2,6 +2,7 @@
 
 namespace LaraZeus\Bolt\Models;
 
+use Database\Factories\ResponseFactory;
 use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LaraZeus\Bolt\Concerns\HasUpdates;
-use LaraZeus\Bolt\Database\Factories\ResponseFactory;
 use LaraZeus\Bolt\Facades\Extensions;
 
 /**
