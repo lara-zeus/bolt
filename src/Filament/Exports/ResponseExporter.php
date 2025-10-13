@@ -23,7 +23,7 @@ class ResponseExporter extends Exporter
         $userModel = BoltPlugin::getModel('User') ?? config('auth.providers.users.model');
         $getUserModel = $userModel::getBoltUserFullNameAttribute();
         $mainColumns = [
-            ExportColumn::make('user.' . $getUserModel)
+            ExportColumn::make('user.'.$getUserModel)
                 ->label(__('Name'))
                 ->default(__('guest')),
 
@@ -62,10 +62,10 @@ class ResponseExporter extends Exporter
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Your response export has completed and ' . number_format($export->successful_rows) . ' ' . str('row')->plural($export->successful_rows) . ' exported.';
+        $body = 'Your response export has completed and '.number_format($export->successful_rows).' '.str('row')->plural($export->successful_rows).' exported.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to export.';
+            $body .= ' '.number_format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to export.';
         }
 
         return $body;

@@ -40,7 +40,7 @@ class Collectors
         $path = array_unique(Arr::wrap($path));
 
         foreach ((new Finder)->in($path)->files() as $className) {
-            $classes[] = $namespace . $className->getFilenameWithoutExtension();
+            $classes[] = $namespace.$className->getFilenameWithoutExtension();
         }
 
         return $classes;

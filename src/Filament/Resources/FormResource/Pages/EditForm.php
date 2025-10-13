@@ -25,7 +25,7 @@ class EditForm extends EditRecord
         return BoltPlugin::get()->isFormActionsAreSticky();
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return __('Edit Form');
     }
@@ -44,7 +44,7 @@ class EditForm extends EditRecord
                 ->icon('heroicon-o-arrow-top-right-on-square')
                 ->tooltip(__('open form'))
                 ->color('warning')
-                ->url(fn () => route(BoltPlugin::get()->getRouteNamePrefix() . 'bolt.form.show', $this->record))
+                ->url(fn () => route(BoltPlugin::get()->getRouteNamePrefix().'bolt.form.show', $this->record))
                 ->visible(fn (Form $record) => $record->extensions === null)
                 ->openUrlInNewTab(),
         ];

@@ -12,8 +12,11 @@ use LaraZeus\Bolt\Models\Concerns\BelongToBolt;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use BelongToBolt; /** @use HasFactory<\Database\Factories\UserFactory> */
+    use BelongToBolt;
+
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
+
     use Notifiable;
 
     /**

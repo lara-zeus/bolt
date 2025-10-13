@@ -36,7 +36,7 @@ class FormSubmission extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('New Submission in') . ' ' . $this->form->name,
+            subject: __('New Submission in').' '.$this->form->name,
         );
     }
 
@@ -48,7 +48,7 @@ class FormSubmission extends Mailable implements ShouldQueue
         return new Content(
             markdown: 'zeus::emails.form-submission',
             with: [
-                'url' => url(Filament::getDefaultPanel()->getPath() . '/responses/' . $this->response->id),
+                'url' => url(Filament::getDefaultPanel()->getPath().'/responses/'.$this->response->id),
             ],
         );
     }

@@ -120,13 +120,13 @@ class Textarea extends FieldsContract
 
     public function TableColumn(Field $field): ?Column
     {
-        return TextColumn::make('zeusData.' . $field->id)
+        return TextColumn::make('zeusData.'.$field->id)
             ->sortable(false)
             ->label($field->name)
             ->searchable(query: function (Builder $query, string $search): Builder {
                 return $query
                     ->whereHas('fieldsResponses', function ($query) use ($search) {
-                        $query->where('response', 'like', '%' . $search . '%');
+                        $query->where('response', 'like', '%'.$search.'%');
                     });
             })
             ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))

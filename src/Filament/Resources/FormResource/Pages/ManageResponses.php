@@ -46,7 +46,7 @@ class ManageResponses extends ManageRelatedRecords
                 ->circular()
                 ->toggleable(),
 
-            TextColumn::make('user.' . $getUserModel)
+            TextColumn::make('user.'.$getUserModel)
                 ->label(__('Name'))
                 ->toggleable()
                 ->sortable()

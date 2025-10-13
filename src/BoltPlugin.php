@@ -27,7 +27,7 @@ final class BoltPlugin implements Plugin
     use HasNavigationGroupLabel;
     use HasRouteNamePrefix;
 
-    protected Closure | string $navigationGroupLabel = 'Bolt';
+    protected Closure|string $navigationGroupLabel = 'Bolt';
 
     // test hi
 

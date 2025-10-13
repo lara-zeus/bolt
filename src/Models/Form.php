@@ -61,7 +61,7 @@ class Form extends Model
 
     public function getTable(): string
     {
-        return config('zeus-bolt.table-prefix') . 'forms';
+        return config('zeus-bolt.table-prefix').'forms';
     }
 
     protected static function booted(): void
@@ -186,7 +186,7 @@ class Form extends Model
         );
     }
 
-    public function getUrl(): string | array
+    public function getUrl(): string|array
     {
         if ($this->extensions === null) {
             return route('bolt.form.show', ['slug' => $this->slug]);

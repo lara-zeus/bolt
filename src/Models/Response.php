@@ -35,7 +35,7 @@ class Response extends Model
 
     public function getTable()
     {
-        return config('zeus-bolt.table-prefix') . 'responses';
+        return config('zeus-bolt.table-prefix').'responses';
     }
 
     protected static function booted(): void

@@ -13,7 +13,6 @@
 
 use App\Models\User;
 
-use Illuminate\Support\Facades\Artisan;
 use function Pest\Laravel\actingAs;
 
 pest()->extend(Tests\TestCase::class)
