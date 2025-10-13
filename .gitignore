@@ -19,4 +19,4 @@ yarn-error.log
 /build
 .DS_Store
 /.phpunit.cache
-/composer.lock
+./composer.lock
