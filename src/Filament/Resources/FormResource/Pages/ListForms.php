@@ -25,7 +25,7 @@ class ListForms extends ListRecords
                 ->icon('heroicon-o-arrow-top-right-on-square')
                 ->tooltip(__('open all forms'))
                 ->color('warning')
-                ->url(fn () => route(BoltPlugin::get()->getRouteNamePrefix() . 'bolt.forms.list'))
+                ->url(fn () => route(BoltPlugin::get()->getRouteNamePrefix().'bolt.forms.list'))
                 ->openUrlInNewTab(),
         ];
 

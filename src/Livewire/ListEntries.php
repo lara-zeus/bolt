@@ -52,15 +52,15 @@ class ListEntries extends Component implements HasForms, HasTable
     public function render(): View
     {
         seo()
-            ->title(__('My Responses') . ' ' . config('zeus.site_title', 'Laravel'))
-            ->description(__('My Responses') . ' ' . config('zeus.site_description', 'Laravel'))
+            ->title(__('My Responses').' '.config('zeus.site_title', 'Laravel'))
+            ->description(__('My Responses').' '.config('zeus.site_description', 'Laravel'))
             ->site(config('zeus.site_title', 'Laravel'))
-            ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
-            ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
+            ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="'.asset('favicon/favicon.ico').'">')
+            ->rawTag('<meta name="theme-color" content="'.config('zeus.site_color').'" />')
             ->withUrl()
             ->twitter();
 
-        return view(app('boltTheme') . '.list-entries')
+        return view(app('boltTheme').'.list-entries')
             ->layout(config('zeus.layout'));
     }
 }

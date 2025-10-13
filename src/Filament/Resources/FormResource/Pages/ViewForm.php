@@ -20,7 +20,7 @@ class ViewForm extends ViewRecord
 
     protected static string $resource = FormResource::class;
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return __('View Form');
     }
@@ -39,7 +39,7 @@ class ViewForm extends ViewRecord
                 ->icon('heroicon-o-arrow-top-right-on-square')
                 ->tooltip(__('open form'))
                 ->color('warning')
-                ->url(fn () => route(BoltPlugin::get()->getRouteNamePrefix() . 'bolt.form.show', $this->record))
+                ->url(fn () => route(BoltPlugin::get()->getRouteNamePrefix().'bolt.form.show', $this->record))
                 ->visible(fn (Form $record) => $record->extensions === null)
                 ->openUrlInNewTab(),
         ];

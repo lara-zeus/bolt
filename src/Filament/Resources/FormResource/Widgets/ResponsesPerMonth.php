@@ -12,7 +12,7 @@ class ResponsesPerMonth extends ChartWidget
 {
     public Form $record;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected static ?string $maxHeight = '300px';
 

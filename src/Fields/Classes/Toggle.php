@@ -137,14 +137,14 @@ class Toggle extends FieldsContract
 
     public function TableColumn(Field $field): ?Column
     {
-        return IconColumn::make('zeusData.' . $field->id)
+        return IconColumn::make('zeusData.'.$field->id)
             ->sortable(false)
             ->label($field->name)
             ->boolean()
             ->searchable(query: function (Builder $query, string $search): Builder {
                 return $query
                     ->whereHas('fieldsResponses', function ($query) use ($search) {
-                        $query->where('response', 'like', '%' . $search . '%');
+                        $query->where('response', 'like', '%'.$search.'%');
                     });
             })
             ->getStateUsing(fn (Response $record) => (int) $this->getFieldResponseValue($record, $field))
@@ -160,7 +160,7 @@ class Toggle extends FieldsContract
 
     public function ExportColumn(Field $field): ?ExportColumn
     {
-        return ExportColumn::make('zeusData.' . $field->options['htmlId'])
+        return ExportColumn::make('zeusData.'.$field->options['htmlId'])
             ->label($field->name)
             ->state(function (Response $record) use ($field) {
                 /** @var ?Response $response */

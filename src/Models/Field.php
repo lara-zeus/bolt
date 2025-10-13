@@ -35,7 +35,7 @@ class Field extends Model
 
     public function getTable(): string
     {
-        return config('zeus-bolt.table-prefix') . 'fields';
+        return config('zeus-bolt.table-prefix').'fields';
     }
 
     protected static function booted(): void

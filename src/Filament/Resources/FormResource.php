@@ -48,7 +48,7 @@ class FormResource extends BoltResource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static Closure | array | null $boltFormSchema = null;
+    protected static Closure|array|null $boltFormSchema = null;
 
     protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::Top;
 
@@ -97,7 +97,7 @@ class FormResource extends BoltResource
 
                     TextEntry::make('slug')
                         ->label(__('slug'))
-                        ->url(fn (ZeusForm $record) => route(BoltPlugin::get()->getRouteNamePrefix() . 'bolt.form.show', ['slug' => $record->slug]))
+                        ->url(fn (ZeusForm $record) => route(BoltPlugin::get()->getRouteNamePrefix().'bolt.form.show', ['slug' => $record->slug]))
                         ->visible(fn (ZeusForm $record) => $record->extensions === null)
                         ->icon('heroicon-o-arrow-top-right-on-square')
                         ->openUrlInNewTab(),
@@ -132,12 +132,12 @@ class FormResource extends BoltResource
         return $form->schema(static::$boltFormSchema ?? static::getMainFormSchema());
     }
 
-    public function getBoltFormSchema(): array | Closure | null
+    public function getBoltFormSchema(): array|Closure|null
     {
         return static::$boltFormSchema;
     }
 
-    public static function getBoltFormSchemaUsing(array | Closure | null $form): void
+    public static function getBoltFormSchemaUsing(array|Closure|null $form): void
     {
         static::$boltFormSchema = $form;
     }
@@ -277,7 +277,7 @@ class FormResource extends BoltResource
             // @phpstan-ignore-next-line
             $advancedActions[] = \LaraZeus\Helen\Actions\ShortUrlAction::make('get-link')
                 ->label(__('Short Link'))
-                ->distUrl(fn (ZeusForm $record) => route(BoltPlugin::get()->getRouteNamePrefix() . 'bolt.form.show', $record));
+                ->distUrl(fn (ZeusForm $record) => route(BoltPlugin::get()->getRouteNamePrefix().'bolt.form.show', $record));
         }
 
         $moreActions[] = ActionGroup::make($advancedActions)->dropdown(false);

@@ -30,7 +30,7 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
-            $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            $coreFields = Collectors::collectClasses(__DIR__.'/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Collectors::collectClasses(base_path(config('zeus-bolt.collectors.fields.path')), config('zeus-bolt.collectors.fields.namespace'));
 
             $fields = collect();
@@ -77,7 +77,7 @@ class Bolt extends Facade
     {
         $hookRendered = FilamentView::renderHook($hook);
 
-        return Placeholder::make('placeholder-' . $hook)
+        return Placeholder::make('placeholder-'.$hook)
             ->label('')
             ->content($hookRendered)
             ->visible(filled($hookRendered->toHtml()));
@@ -118,7 +118,7 @@ class Bolt extends Facade
         return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
     }
 
-    public static function getCustomSchema(string $hook, ?FieldsContract $field = null): Tab | Accordion | null
+    public static function getCustomSchema(string $hook, ?FieldsContract $field = null): Tab|Accordion|null
     {
         $class = BoltPlugin::getSchema($hook);
         if ($class !== null) {

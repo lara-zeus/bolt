@@ -37,7 +37,7 @@ class Section extends Model
 
     public function getTable(): string
     {
-        return config('zeus-bolt.table-prefix') . 'sections';
+        return config('zeus-bolt.table-prefix').'sections';
     }
 
     protected static function booted(): void
