@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6436ae3c54babb470340c11c7ba3b9a3",
+    "content-hash": "ec8ba77f1d4f29c3cf147b2127bc662f",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -2643,7 +2643,7 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "9c90e60f1990d1d0281f194228b6fe37b9ec8a51"
+                "reference": "340a9556b04abcffd6fb368fa82eb34ab21fe825"
             },
             "require": {
                 "flowframe/laravel-trend": "^0.4",
@@ -2692,7 +2692,7 @@
             },
             "scripts": {
                 "analyse": [
-                    "vendor/bin/phpstan analyse"
+                    "composer --working-dir=demo analyze"
                 ],
                 "test": [
                     "vendor/bin/pest"

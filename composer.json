@@ -64,8 +64,8 @@
         "analyse": "composer --working-dir=demo analyze",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint",
-        "pint": "vendor/bin/pint",
+        "format": "composer --working-dir=demo format",
+        "pint": "composer --working-dir=demo format",
         "test:pest": "vendor/bin/pest --parallel",
         "test:phpstan": "vendor/bin/phpstan analyse"
     },

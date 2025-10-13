@@ -58,7 +58,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
-                BoltPlugin::make()
+                BoltPlugin::make(),
             ]);
     }
 }
