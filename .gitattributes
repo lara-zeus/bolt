@@ -3,3 +3,10 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 CHANGELOG.md export-ignore
+demo
+tests
+composer.lock
+phpstan.neon
+phpunit.xml.dist
+pint.json
+.editorconfig
