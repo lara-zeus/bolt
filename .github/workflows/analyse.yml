@@ -7,7 +7,7 @@ on:
       - 'demo/phpstan.neon'
 
 jobs:
-  phpstan:
+  analyse:
     name: phpstan
     runs-on: ubuntu-latest
     steps:
