@@ -25,7 +25,7 @@ class FormMounted
     /**
      * Get the channels the event should broadcast on.
      */
-    public function broadcastOn(): Channel|PrivateChannel|array
+    public function broadcastOn(): Channel | PrivateChannel | array
     {
         return new PrivateChannel('form-mounted');
     }

@@ -28,7 +28,7 @@ class FieldResponse extends Model
 
     public function getTable()
     {
-        return config('zeus-bolt.table-prefix').'field_responses';
+        return config('zeus-bolt.table-prefix') . 'field_responses';
     }
 
     protected static function newFactory(): Factory

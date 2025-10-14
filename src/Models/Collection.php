@@ -28,7 +28,7 @@ class Collection extends Model
 
     public function getTable(): string
     {
-        return config('zeus-bolt.table-prefix').'collections';
+        return config('zeus-bolt.table-prefix') . 'collections';
     }
 
     public function getValuesListAttribute(): ?string

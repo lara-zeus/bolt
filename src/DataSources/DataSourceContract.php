@@ -16,7 +16,7 @@ abstract class DataSourceContract implements Arrayable, DataSource
         return 1;
     }
 
-    public function getQuery(): Builder|Collection
+    public function getQuery(): Builder | Collection
     {
         return resolve($this->getModel())->query();
     }
@@ -29,7 +29,7 @@ abstract class DataSourceContract implements Arrayable, DataSource
             'getModel' => $this->getModel(),
             'title' => $this->title(),
             'sort' => $this->getSort(),
-            'class' => '\\'.get_called_class(),
+            'class' => '\\' . get_called_class(),
         ];
     }
 }

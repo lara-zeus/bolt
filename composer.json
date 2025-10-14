@@ -37,42 +37,24 @@
         "pxlrbt/filament-excel": "^2.4",
         "secondnetwork/blade-tabler-icons": "^3.30"
     },
-    "require-dev": {
-        "phpstan/extension-installer": "^1.4",
-        "larastan/larastan": "^3.0",
-        "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^8.6",
-        "nunomaduro/phpinsights": "^2.8",
-        "orchestra/testbench": "^10.0",
-        "pestphp/pest": "^3.0",
-        "pestphp/pest-plugin-arch": "^3.0",
-        "pestphp/pest-plugin-laravel": "^3.0",
-        "pestphp/pest-plugin-livewire": "^3.0"
-    },
     "autoload": {
         "psr-4": {
-            "LaraZeus\\Bolt\\": "src",
-            "LaraZeus\\Bolt\\Database\\Factories\\": "database/factories/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "LaraZeus\\Bolt\\Tests\\": "tests"
+            "LaraZeus\\Bolt\\": "src"
         }
     },
     "scripts": {
         "test": "composer --working-dir=demo test",
-        "test:pest": "composer --working-dir=demo test",
         "format": "composer --working-dir=demo format",
-        "pint": "composer --working-dir=demo format",
-        "analyse": "composer --working-dir=demo analyze",
-        "test:phpstan": "composer --working-dir=demo analyze"
+        "analyse": "composer --working-dir=demo analyse",
+        "lint" : [
+            "@format",
+            "@analyse"
+        ]
     },
     "config": {
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },

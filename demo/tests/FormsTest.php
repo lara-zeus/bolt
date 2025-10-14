@@ -25,7 +25,7 @@ it('can render list Forms', function () {
 
 it('can render show Form', function () {
     $form = Form::factory()->create();
-    get('bolt/'.$form->slug)->assertSuccessful();
+    get('bolt/' . $form->slug)->assertSuccessful();
 });
 
 it('the form can be rendered', function () {

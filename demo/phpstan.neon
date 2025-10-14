@@ -17,7 +17,6 @@ parameters:
         - identifier: missingType.generics
         - identifier: argument.templateType
         - identifier: missingType.iterableValue
-        - identifier: property.defaultValue
         - identifier: return.type
         - identifier: class.notFound
         - identifier: notIdentical.alwaysTrue

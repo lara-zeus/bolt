@@ -25,7 +25,7 @@ class ViewResponse extends ViewRecord
 
     protected static string $resource = FormResource::class;
 
-    public function mount(int|string $record): void
+    public function mount(int | string $record): void
     {
         parent::mount($record);
 
@@ -60,9 +60,9 @@ class ViewResponse extends ViewRecord
         ];
     }
 
-    public function getTitle(): string|Htmlable
+    public function getTitle(): string | Htmlable
     {
-        return __('view response #').$this->response->id;
+        return __('view response #') . $this->response->id;
     }
 
     public function getBreadcrumbs(): array

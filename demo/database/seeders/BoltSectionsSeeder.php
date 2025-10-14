@@ -12,14 +12,14 @@ class BoltSectionsSeeder extends Seeder
      */
     public function run()
     {
-        $category = DB::table(config('zeus-bolt.table-prefix').'categories')->insertGetId([
+        $category = DB::table(config('zeus-bolt.table-prefix') . 'categories')->insertGetId([
             'name' => json_encode(['en' => 'Dynamic'], JSON_THROW_ON_ERROR),
             'description' => json_encode(['en' => 'Dynamic Form'], JSON_THROW_ON_ERROR),
             'slug' => 'bolt-dynamic',
             'created_at' => now(),
         ]);
 
-        $form = DB::table(config('zeus-bolt.table-prefix').'forms')->insertGetId([
+        $form = DB::table(config('zeus-bolt.table-prefix') . 'forms')->insertGetId([
             'description' => '{"en":"you can setup your form to show/hide sections based on field values"}',
             'slug' => 'dynamic-sections',
             'details' => '{"en":"<p><a href=\\"https:\\/\\/larazeus.com\\/bolt-pro\\">Get Bolt Pro now, extra fields are available now, and more are on the way.<\\/a><\\/p>","pt":"<p><a href=\\"https:\\/\\/larazeus.com\\/bolt-pro\\">Get Bolt Pro now, extra fields are available now, and more are on the way.<\\/a><\\/p>","ko":"<p><a href=\\"https:\\/\\/larazeus.com\\/bolt-pro\\">Get Bolt Pro now, extra fields are available now, and more are on the way.<\\/a><\\/p>"}',
@@ -37,7 +37,7 @@ class BoltSectionsSeeder extends Seeder
             'created_at' => now(),
         ]);
 
-        $section4 = DB::table(config('zeus-bolt.table-prefix').'sections')->insertGetId([
+        $section4 = DB::table(config('zeus-bolt.table-prefix') . 'sections')->insertGetId([
             'form_id' => $form,
             'name' => '{"en":"Lang","pt":"Lang","ko":"Lang"}',
             'created_at' => '2023-10-28 11:11:20',
@@ -45,25 +45,25 @@ class BoltSectionsSeeder extends Seeder
             'options' => '{"visibility":{"active":false}}',
         ]);
 
-        $section1 = DB::table(config('zeus-bolt.table-prefix').'sections')->insertGetId([
+        $section1 = DB::table(config('zeus-bolt.table-prefix') . 'sections')->insertGetId([
             'form_id' => $form,
             'name' => '{"en":"KO  form","pt":"KO  form","ko":"KO  form"}',
             'created_at' => '2023-10-28 11:13:25',
         ]);
 
-        $section2 = DB::table(config('zeus-bolt.table-prefix').'sections')->insertGetId([
+        $section2 = DB::table(config('zeus-bolt.table-prefix') . 'sections')->insertGetId([
             'form_id' => $form,
             'name' => '{"en":"PT form","pt":"PT form","ko":"PT form"}',
             'created_at' => '2023-10-28 11:12:40',
         ]);
 
-        $section3 = DB::table(config('zeus-bolt.table-prefix').'sections')->insertGetId([
+        $section3 = DB::table(config('zeus-bolt.table-prefix') . 'sections')->insertGetId([
             'form_id' => $form,
             'name' => '{"en":"EN form","pt":"EN form","ko":"EN form"}',
             'created_at' => '2023-10-28 11:12:14',
         ]);
 
-        DB::table(config('zeus-bolt.table-prefix').'fields')->insertGetId([
+        DB::table(config('zeus-bolt.table-prefix') . 'fields')->insertGetId([
             'section_id' => $section1,
             'name' => '{"en":"ko name","pt":"ko name","ko":"ko name"}',
             'type' => '\\LaraZeus\\Bolt\\Fields\\Classes\\TextInput',
@@ -71,7 +71,7 @@ class BoltSectionsSeeder extends Seeder
             'created_at' => '2023-10-28 11:13:25',
         ]);
 
-        DB::table(config('zeus-bolt.table-prefix').'fields')->insertGetId([
+        DB::table(config('zeus-bolt.table-prefix') . 'fields')->insertGetId([
             'section_id' => $section2,
             'name' => '{"en":"pt form","pt":"pt form","ko":"pt form"}',
             'type' => '\\LaraZeus\\Bolt\\Fields\\Classes\\TextInput',
@@ -79,7 +79,7 @@ class BoltSectionsSeeder extends Seeder
             'created_at' => '2023-10-28 11:12:40',
         ]);
 
-        DB::table(config('zeus-bolt.table-prefix').'fields')->insertGetId([
+        DB::table(config('zeus-bolt.table-prefix') . 'fields')->insertGetId([
             'section_id' => $section3,
             'name' => '{"en":"en name","pt":"en name","ko":"en name"}',
             'type' => '\\LaraZeus\\Bolt\\Fields\\Classes\\TextInput',
@@ -87,7 +87,7 @@ class BoltSectionsSeeder extends Seeder
             'created_at' => '2023-10-28 11:12:14',
         ]);
 
-        $collection = DB::table(config('zeus-bolt.table-prefix').'collections')->insertGetId([
+        $collection = DB::table(config('zeus-bolt.table-prefix') . 'collections')->insertGetId([
             'name' => 'yes or no',
             'values' => json_encode([
                 [
@@ -109,24 +109,24 @@ class BoltSectionsSeeder extends Seeder
             'created_at' => now(),
         ]);
 
-        $mainField = DB::table(config('zeus-bolt.table-prefix').'fields')->insertGetId([
+        $mainField = DB::table(config('zeus-bolt.table-prefix') . 'fields')->insertGetId([
             'section_id' => $section4,
             'name' => '{"en":"select lang","pt":"select lang","ko":"select lang"}',
             'type' => '\\LaraZeus\\Bolt\\Fields\\Classes\\Radio',
-            'options' => '{"dataSource":"'.$collection.'","htmlId":"DZ80jG","hint":{"text":null,"icon":null,"color":null},"is_inline":false,"is_required":true,"column_span_full":false,"visibility":{"active":false}}',
+            'options' => '{"dataSource":"' . $collection . '","htmlId":"DZ80jG","hint":{"text":null,"icon":null,"color":null},"is_inline":false,"is_required":true,"column_span_full":false,"visibility":{"active":false}}',
             'created_at' => '2023-10-28 11:11:20',
         ]);
 
-        DB::table(config('zeus-bolt.table-prefix').'sections')->where('id', $section1)->update([
-            'options' => '{"visibility":{"active":true,"fieldID":"'.$mainField.'","values":"ko"}}',
+        DB::table(config('zeus-bolt.table-prefix') . 'sections')->where('id', $section1)->update([
+            'options' => '{"visibility":{"active":true,"fieldID":"' . $mainField . '","values":"ko"}}',
         ]);
 
-        DB::table(config('zeus-bolt.table-prefix').'sections')->where('id', $section2)->update([
-            'options' => '{"visibility":{"active":true,"fieldID":"'.$mainField.'","values":"pt"}}',
+        DB::table(config('zeus-bolt.table-prefix') . 'sections')->where('id', $section2)->update([
+            'options' => '{"visibility":{"active":true,"fieldID":"' . $mainField . '","values":"pt"}}',
         ]);
 
-        DB::table(config('zeus-bolt.table-prefix').'sections')->where('id', $section3)->update([
-            'options' => '{"visibility":{"active":true,"fieldID":"'.$mainField.'","values":"en"}}',
+        DB::table(config('zeus-bolt.table-prefix') . 'sections')->where('id', $section3)->update([
+            'options' => '{"visibility":{"active":true,"fieldID":"' . $mainField . '","values":"en"}}',
         ]);
     }
 }

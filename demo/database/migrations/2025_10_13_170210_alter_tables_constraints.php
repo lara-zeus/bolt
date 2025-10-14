@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table(config('zeus-bolt.table-prefix').'forms', function (Blueprint $table) {
+        Schema::table(config('zeus-bolt.table-prefix') . 'forms', function (Blueprint $table) {
             Schema::disableForeignKeyConstraints();
             $table->dropForeign(['user_id']);
             $table->dropForeign(['category_id']);
@@ -31,7 +31,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->nullOnDelete()
                 ->references('id')
-                ->on(config('zeus-bolt.table-prefix').'categories');
+                ->on(config('zeus-bolt.table-prefix') . 'categories');
         });
     }
 

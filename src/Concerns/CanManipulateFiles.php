@@ -13,7 +13,7 @@ trait CanManipulateFiles
         $filesystem = app(Filesystem::class);
 
         if (! $this->fileExists($stubPath = base_path("stubs/zeus-bolt/{$stub}.stub"))) {
-            $stubPath = $this->getDefaultStubPath()."/{$stub}.stub";
+            $stubPath = $this->getDefaultStubPath() . "/{$stub}.stub";
         }
 
         $stub = Str::of($filesystem->get($stubPath));

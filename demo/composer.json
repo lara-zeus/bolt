@@ -72,7 +72,7 @@
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ],
-        "analyze": [
+        "analyse": [
             "vendor/bin/phpstan analyse"
         ],
         "format": [

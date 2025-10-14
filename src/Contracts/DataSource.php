@@ -17,5 +17,5 @@ interface DataSource
 
     public function getModel(): string;
 
-    public function getQuery(): Builder|Collection;
+    public function getQuery(): Builder | Collection;
 }

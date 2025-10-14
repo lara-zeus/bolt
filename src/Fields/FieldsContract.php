@@ -39,7 +39,7 @@ abstract class FieldsContract implements Arrayable, Fields
     {
         return [
             'disabled' => $this->disabled,
-            'class' => '\\'.static::class,
+            'class' => '\\' . static::class,
             'renderClass' => $this->renderClass,
             'hasOptions' => $this->hasOptions(),
             'code' => class_basename($this),
@@ -97,7 +97,7 @@ abstract class FieldsContract implements Arrayable, Fields
                     return null;
                 }
 
-                return optional($zeusField->options)['grades']['points'] ?? 0 .' '.__('marks');
+                return optional($zeusField->options)['grades']['points'] ?? 0 . ' ' . __('marks');
             })
             ->helperText($zeusField->description);
 
@@ -142,7 +142,7 @@ abstract class FieldsContract implements Arrayable, Fields
                     return true;
                 }
 
-                $relatedFieldArray = Arr::wrap($get('zeusData.'.$relatedField));
+                $relatedFieldArray = Arr::wrap($get('zeusData.' . $relatedField));
 
                 // In the example where a field is only visible when the related field is NOT checked,
                 // we need to convert booleans to strings for in_array comparison
@@ -180,7 +180,7 @@ abstract class FieldsContract implements Arrayable, Fields
         $response = Arr::wrap($response);
 
         $dataSource = (int) $field->options['dataSource'];
-        $cacheKey = 'dataSource_'.$dataSource.'_response_'.md5(serialize($response));
+        $cacheKey = 'dataSource_' . $dataSource . '_response_' . md5(serialize($response));
 
         $response = Cache::remember($cacheKey, config('zeus-bolt.cache.collection_values'), function () use ($field, $response, $dataSource) {
 
@@ -213,7 +213,7 @@ abstract class FieldsContract implements Arrayable, Fields
     /**
      * @throws \JsonException
      */
-    public static function getFieldCollectionItemsList(Field|FieldPreset|array $zeusField): Collection|array
+    public static function getFieldCollectionItemsList(Field | FieldPreset | array $zeusField): Collection | array
     {
         if (is_array($zeusField)) {
             $zeusField = (object) $zeusField;
@@ -253,13 +253,13 @@ abstract class FieldsContract implements Arrayable, Fields
 
     public function TableColumn(Field $field): ?Column
     {
-        return TextColumn::make('zeusData.'.$field->id)
+        return TextColumn::make('zeusData.' . $field->id)
             ->label($field->name)
             ->sortable(false)
             ->searchable(query: function (Builder $query, string $search): Builder {
                 return $query
                     ->whereHas('fieldsResponses', function ($query) use ($search) {
-                        $query->where('response', 'like', '%'.$search.'%');
+                        $query->where('response', 'like', '%' . $search . '%');
                     });
             })
             ->getStateUsing(fn (Response $record) => $this->getFieldResponseValue($record, $field))
@@ -269,7 +269,7 @@ abstract class FieldsContract implements Arrayable, Fields
 
     public function ExportColumn(Field $field): ?ExportColumn
     {
-        return ExportColumn::make('zeusData.'.$field->options['htmlId'])
+        return ExportColumn::make('zeusData.' . $field->options['htmlId'])
             ->label($field->name)
             ->state(function (Response $record) use ($field) {
 

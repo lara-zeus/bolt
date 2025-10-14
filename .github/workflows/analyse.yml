@@ -1,10 +1,10 @@
-name: PHPStan
+name: Analyse
 
 on:
   push:
     paths:
       - '**.php'
-      - 'phpstan.neon.dist'
+      - 'demo/phpstan.neon'
 
 jobs:
   phpstan:
@@ -20,7 +20,8 @@ jobs:
           coverage: none
 
       - name: Install composer dependencies
-        uses: ramsey/composer-install@v3
+        working-directory: demo
+        run: composer install
 
       - name: Run PHPStan
-        run: ./vendor/bin/phpstan --error-format=github
+        run: composer analyse

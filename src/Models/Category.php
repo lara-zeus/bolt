@@ -31,7 +31,7 @@ class Category extends Model
 
     public function getTable()
     {
-        return config('zeus-bolt.table-prefix').'categories';
+        return config('zeus-bolt.table-prefix') . 'categories';
     }
 
     protected static function newFactory(): Factory

@@ -12,7 +12,7 @@ class ResponsesPerFields extends ChartWidget
 
     protected static ?string $maxHeight = '300px';
 
-    protected int|string|array $columnSpan = [
+    protected int | string | array $columnSpan = [
         'lg' => 1,
         'md' => 2,
     ];

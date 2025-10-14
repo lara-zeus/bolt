@@ -381,9 +381,9 @@ trait Schemata
                     $items = $component->getState();
                     $originalItem = $items[$arguments['item']];
                     $clonedItem = array_merge($originalItem, [
-                        'name' => $originalItem['name'].' new',
+                        'name' => $originalItem['name'] . ' new',
                         'options' => array_merge($originalItem['options'], [
-                            'htmlId' => $originalItem['options']['htmlId'].Str::random(2),
+                            'htmlId' => $originalItem['options']['htmlId'] . Str::random(2),
                         ]),
                     ]);
 

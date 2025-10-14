@@ -33,7 +33,7 @@ class ResponsesPerStatus extends ChartWidget
         ],
     ];
 
-    protected int|string|array $columnSpan = [
+    protected int | string | array $columnSpan = [
         'lg' => 1,
         'md' => 2,
     ];

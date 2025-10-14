@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table(config('zeus-bolt.table-prefix').'field_responses', function (Blueprint $table) {
+        Schema::table(config('zeus-bolt.table-prefix') . 'field_responses', function (Blueprint $table) {
             $table->integer('grade')->nullable();
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table(config('zeus-bolt.table-prefix').'field_responses', function (Blueprint $table) {
+        Schema::table(config('zeus-bolt.table-prefix') . 'field_responses', function (Blueprint $table) {
             $table->dropColumn('grade');
         });
     }

@@ -25,7 +25,7 @@ class ReplicateFormAction extends Action implements ReplicatesRecords
             ->label(__('Replicate'))
             ->excludeAttributes(['name', 'slug', 'responses_exists', 'responses_count'])
             ->form([
-                TextInput::make('name.'.app()->getLocale())
+                TextInput::make('name.' . app()->getLocale())
                     ->required()
                     ->maxLength(255)
                     ->live(onBlur: true)
@@ -34,7 +34,7 @@ class ReplicateFormAction extends Action implements ReplicatesRecords
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug')
-                    ->formatStateUsing(fn ($record) => $record->slug.'-'.rand(1, 99))
+                    ->formatStateUsing(fn ($record) => $record->slug . '-' . rand(1, 99))
                     ->required()
                     ->maxLength(255)
                     ->rules(['alpha_dash'])

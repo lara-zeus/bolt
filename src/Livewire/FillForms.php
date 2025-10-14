@@ -138,11 +138,11 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         if (! $this->inline) {
             seo()
-                ->title($this->zeusForm->name.' - '.__('Forms').' - '.config('zeus.site_title', 'Laravel'))
-                ->description($this->zeusForm->description.' - '.config('zeus.site_description').' '.config('zeus.site_title'))
+                ->title($this->zeusForm->name . ' - ' . __('Forms') . ' - ' . config('zeus.site_title', 'Laravel'))
+                ->description($this->zeusForm->description . ' - ' . config('zeus.site_description') . ' ' . config('zeus.site_title'))
                 ->site(config('zeus.site_title', 'Laravel'))
-                ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="'.asset('favicon/favicon.ico').'">')
-                ->rawTag('<meta name="theme-color" content="'.config('zeus.site_color').'" />')
+                ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
+                ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')
                 ->withUrl()
                 ->twitter();
         }
@@ -151,7 +151,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             $this->zeusForm->need_login => 'zeus::errors.login-required',
             ! $this->zeusForm->date_available => 'zeus::errors.date-not-available',
             $this->zeusForm->onePerUser() => 'zeus::errors.one-entry-per-user',
-            default => app('boltTheme').'.fill-forms',
+            default => app('boltTheme') . '.fill-forms',
         };
 
         if ($this->inline) {

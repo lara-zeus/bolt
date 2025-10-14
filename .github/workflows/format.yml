@@ -1,0 +1,27 @@
+name: Format
+
+on:
+  push:
+
+jobs:
+  php-code-styling:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+
+      - name: Install composer dependencies
+        working-directory: demo
+        run: composer install
+
+      - name: Run Pint
+        run: composer format
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          commit_message: Code format

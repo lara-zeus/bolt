@@ -80,7 +80,7 @@ class Designer
             }
 
             $fieldClass = new $zeusField->type;
-            $component = $fieldClass->renderClass::make('zeusData.'.$zeusField->id);
+            $component = $fieldClass->renderClass::make('zeusData.' . $zeusField->id);
 
             $fields[] = $fieldClass->appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
@@ -96,7 +96,7 @@ class Designer
         return $fields;
     }
 
-    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tab|Step|Section|Grid
+    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tab | Step | Section | Grid
     {
         if (optional($zeusForm->options)['show-as'] === 'tabs') {
             $component = Tab::make($section->name)
@@ -129,11 +129,11 @@ class Designer
                 return true;
             }
 
-            if (is_array($get('zeusData.'.$relatedField))) {
-                return in_array($relatedFieldValues, $get('zeusData.'.$relatedField));
+            if (is_array($get('zeusData.' . $relatedField))) {
+                return in_array($relatedFieldValues, $get('zeusData.' . $relatedField));
             }
 
-            return $relatedFieldValues == $get('zeusData.'.$relatedField);
+            return $relatedFieldValues == $get('zeusData.' . $relatedField);
         });
 
         return $component
