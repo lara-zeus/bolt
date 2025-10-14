@@ -43,6 +43,7 @@
         }
     },
     "scripts": {
+        "setup": "composer --working-dir=demo setup",
         "test": "composer --working-dir=demo test",
         "format": "composer --working-dir=demo format",
         "analyse": "composer --working-dir=demo analyse",
