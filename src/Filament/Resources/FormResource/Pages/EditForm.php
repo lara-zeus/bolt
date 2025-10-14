@@ -60,7 +60,13 @@ class EditForm extends EditRecord
 
         foreach ($formSections as $sectionId => $section) {
             foreach ($section['fields'] as $fieldId => $field) {
-                $this->mountAction('fields options', ['item' => $fieldId], ['recordKey' => $section['id'], 'schemaComponent' => "form.sections.$sectionId.fields"]);
+                $context = ['schemaComponent' => "form.sections.$sectionId.fields"];
+
+                if (array_key_exists('id', $section)) {
+                    $context['recordKey'] = $section['id'];
+                }
+
+                $this->mountAction('fields options', ['item' => $fieldId], context: $context);
                 $this->callMountedAction();
                 $this->unmountAction();
             }
