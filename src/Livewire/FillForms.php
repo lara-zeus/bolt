@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Livewire;
 
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -31,6 +32,8 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
     public bool $inline = false;
 
+    public ?int $responseId = null;
+
     protected static ?string $boltFormDesigner = null;
 
     public function getBoltFormDesigner(): ?string
@@ -47,7 +50,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         $getDesignerClass = $this->getBoltFormDesigner() ?? Designer::class;
 
-        return $getDesignerClass::ui($this->zeusForm, $this->inline);
+        return $getDesignerClass::ui($this->zeusForm, $this->inline, $this->responseId);
     }
 
     protected function getFormModel(): Form
@@ -63,8 +66,10 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         mixed $extensionSlug = null,
         mixed $extensionData = [],
         mixed $inline = false,
+        mixed $responseId = null,
     ): void {
         $this->inline = $inline;
+        $this->responseId = $responseId;
 
         $this->zeusForm = config('zeus-bolt.models.Form')::query()
             ->with(['fields', 'sections.fields'])
@@ -89,12 +94,19 @@ class FillForms extends Component implements Forms\Contracts\HasForms
 
         Extensions::init($this->zeusForm, 'preStore', $this->extensionData);
 
-        $response = config('zeus-bolt.models.Response')::create([
-            'form_id' => $this->zeusForm->id,
-            'user_id' => (auth()->check()) ? auth()->user()->id : null,
-            'status' => 'NEW',
-            'notes' => '',
-        ]);
+        $response = config('zeus-bolt.models.Response')::updateOrCreate(
+            [
+                'id' => $this->responseId,
+            ],
+            [
+                'form_id' => $this->zeusForm->id,
+                'user_id' => (auth()->check()) ? auth()->user()->id : null,
+                'status' => 'NEW',
+                'notes' => '',
+            ]
+        );
+
+        $this->responseId = $response->id;
 
         $fieldsData = Arr::except($this->form->getState()['zeusData'], 'extensions');
 
@@ -104,12 +116,19 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             if (! empty($setValue) && is_array($setValue)) {
                 $value = json_encode($value);
             }
-            config('zeus-bolt.models.FieldResponse')::create([
-                'response' => (! empty($value)) ? $value : '',
-                'response_id' => $response->id,
-                'form_id' => $this->zeusForm->id,
-                'field_id' => $field,
-            ]);
+            config('zeus-bolt.models.FieldResponse')::updateOrCreate(
+                [
+                    'response_id' => $this->responseId,
+                    'field_id' => $field,
+                    'form_id' => $this->zeusForm->id,
+                ],
+                [
+                    'response' => (! empty($value)) ? $value : '',
+                    'response_id' => $this->responseId,
+                    'form_id' => $this->zeusForm->id,
+                    'field_id' => $field,
+                ]
+            );
         }
 
         event(new FormSent($response));
@@ -131,7 +150,16 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             }
         }
 
-        $this->sent = true;
+        if (config('zeus-bolt.editable_forms')) {
+            // Send a saved notification
+            Notification::make()
+                ->title('Saved successfully')
+                ->success()
+                ->send();
+        } else {
+            // Display the form sent view
+            $this->sent = true;
+        }
     }
 
     public function render(): View

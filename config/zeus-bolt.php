@@ -82,6 +82,10 @@ return [
      */
     'allow_design' => false,
 
+    'editable_forms' => false,
+
+    'form_action_position_tailwind_class' => 'text-center',
+
     /**
      * since `collections` or 'data sources' have many types, we cannot lazy load them
      * but we cache them for a while to get better performance

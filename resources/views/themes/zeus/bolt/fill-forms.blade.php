@@ -1,4 +1,6 @@
 @php
+    use Illuminate\Http\Request;
+
     $colors = \Illuminate\Support\Arr::toCssStyles([
         \Filament\Support\get_color_css_variables($zeusForm->options['primary_color'] ?? 'primary', shades: [50, 100, 200, 300, 400, 500, 600, 700, 800, 900]),
     ]);
@@ -100,10 +102,10 @@
 
             {{ $this->form }}
 
-            <div class="px-4 py-2 text-center">
+            <div class="px-4 py-2 {{ config('zeus-bolt.form_action_position_tailwind_class') }}">                
                 <x-filament::button
+                    wire:click="store"
                     form="store"
-                    type="submit"
                     :color="$zeusForm->options['primary_color'] ?? 'primary'"
                 >
                     {{ __('Save') }}
