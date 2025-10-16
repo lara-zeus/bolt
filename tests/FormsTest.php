@@ -252,7 +252,7 @@ it('can save', function () {
                     'fields' => [
                         [
                             'name' => 'sdf',
-                            'type' => TextInput::class,
+                            'type' => '\\' . TextInput::class,
                             'options' => [
                                 'dateType' => 'string',
                                 'htmlId' => $htmlID,
