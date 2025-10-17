@@ -25,9 +25,9 @@ use Spatie\Translatable\HasTranslations;
  * @property string $slug
  * @property string $description
  * @property array $options
- * @property string $extensions
- * @property string $start_date
- * @property string $end_date
+ * @property string|null $extensions
+ * @property string|null $start_date
+ * @property string|null $end_date
  * @property bool $date_available
  * @property bool $need_login
  * @property bool $onePerUser
