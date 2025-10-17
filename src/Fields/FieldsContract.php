@@ -215,7 +215,7 @@ abstract class FieldsContract implements Arrayable, Fields
                         $case->value ?? $case->name => $case->getDataSourceLabel() ?? $case->name,
                     ])
                     ->intersectByKeys(array_flip($response))
-                    ->join(', ') ?? '';
+                    ->join(', ');
             }
 
             // Handle case when dataSource is custom model class
