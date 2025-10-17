@@ -249,7 +249,7 @@ abstract class FieldsContract implements Arrayable, Fields
 
             return $getCollection;
         }
-        
+
         if (is_a($zeusField->options['dataSource'], DataSourceContract::class, allow_string: true)) {
             $dataSourceClass = new $zeusField->options['dataSource'];
 
