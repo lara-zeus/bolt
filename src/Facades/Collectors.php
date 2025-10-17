@@ -28,11 +28,11 @@ class Collectors
         foreach ($classes as $class) {
             if (enum_exists($class)) {
                 if (is_a($class, DataSourceEnumContract::class, allow_string: true)) {
-                    $dataSourceArray = $class::toDataSourceArray();
-                    if ($dataSourceArray['disabled']) {
+                    $dataSourceData = $class::toDataSourceData()->toArray();
+                    if ($dataSourceData['disabled']) {
                         continue;
                     }
-                    $allClasses[str($class)->explode('\\')->last()] = $dataSourceArray;
+                    $allClasses[str($class)->explode('\\')->last()] = $dataSourceData;
                 }
 
                 continue;

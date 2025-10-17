@@ -8,5 +8,5 @@ interface DataSourceEnumContract
 {
     public function getDataSourceLabel(): string | Htmlable | null;
 
-    public static function toDataSourceArray(): array;
+    public static function toDataSourceData(): DataSourceData;
 }
