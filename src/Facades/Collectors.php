@@ -29,7 +29,7 @@ class Collectors
             if (enum_exists($class)) {
                 if (is_a($class, DataSourceEnumContract::class, allow_string: true)) {
                     $dataSourceArray = $class::toDataSourceArray();
-                    if ($dataSourceArray['disabled']){
+                    if ($dataSourceArray['disabled']) {
                         continue;
                     }
                     $allClasses[str($class)->explode('\\')->last()] = $dataSourceArray;

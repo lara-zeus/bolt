@@ -190,6 +190,10 @@ abstract class FieldsContract implements Arrayable, Fields
         $dataSource = (int) $field->options['dataSource'];
         $cacheKey = 'dataSource_' . $dataSource . '_response_' . md5(serialize($response));
 
+        if (app()->isLocal()) {
+            Cache::forget($cacheKey);
+        }
+
         $response = Cache::remember($cacheKey, config('zeus-bolt.cache.collection_values'), function () use ($field, $response, $dataSource) {
 
             // Handle case when dataSource is from the default model: `Collection`
@@ -199,6 +203,18 @@ abstract class FieldsContract implements Arrayable, Fields
                     ?->values
                     ->whereIn('itemKey', $response)
                     ->pluck('itemValue')
+                    ->join(', ') ?? '';
+            }
+
+            if (
+                enum_exists($enum = $field->options['dataSource']) &&
+                is_a($enum, DataSourceEnumContract::class, allow_string: true)
+            ) {
+                return collect($enum::cases())
+                    ->mapWithKeys(fn (DataSourceEnumContract & UnitEnum $case): array => [
+                        $case->value ?? $case->name => $case->getDataSourceLabel() ?? $case->name,
+                    ])
+                    ->intersectByKeys(array_flip($response))
                     ->join(', ') ?? '';
             }
 
@@ -249,7 +265,7 @@ abstract class FieldsContract implements Arrayable, Fields
 
             return $getCollection;
         }
-        
+
         if (is_a($zeusField->options['dataSource'], DataSourceContract::class, allow_string: true)) {
             $dataSourceClass = new $zeusField->options['dataSource'];
 
