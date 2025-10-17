@@ -10,7 +10,7 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 
 /**
- * @property mixed $record
+ * @property Response $record
  */
 class SetResponseStatus extends Action
 {
