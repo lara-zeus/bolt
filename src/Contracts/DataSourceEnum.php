@@ -1,10 +1,11 @@
 <?php
 
-namespace LaraZeus\Bolt\DataSources;
+namespace LaraZeus\Bolt\Contracts;
 
 use Illuminate\Contracts\Support\Htmlable;
+use LaraZeus\Bolt\DataSources\DataSourceData;
 
-interface DataSourceEnumContract
+interface DataSourceEnum
 {
     public function getDataSourceLabel(): string | Htmlable | null;
 

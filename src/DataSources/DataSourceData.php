@@ -3,13 +3,14 @@
 namespace LaraZeus\Bolt\DataSources;
 
 use Illuminate\Contracts\Support\Arrayable;
+use LaraZeus\Bolt\Contracts\DataSourceEnum;
 use RuntimeException;
 
 class DataSourceData implements Arrayable
 {
     public function __construct(
         protected string $title,
-        protected DataSourceEnumContract | string $class,
+        protected DataSourceEnum | string $class,
         protected bool $disabled = false,
         protected int $sort = 1,
     ) {
@@ -28,13 +29,13 @@ class DataSourceData implements Arrayable
         return $this;
     }
 
-    public function class(string | DataSourceEnumContract $class): DataSourceData
+    public function class(string | DataSourceEnum $class): DataSourceData
     {
         if (
             is_string($class) &&
-            (! enum_exists($class) || ! is_a($class, DataSourceEnumContract::class, allow_string: true))
+            (! enum_exists($class) || ! is_a($class, DataSourceEnum::class, allow_string: true))
         ) {
-            throw new RuntimeException("Enum Class $class must implements " . DataSourceEnumContract::class);
+            throw new RuntimeException("Enum Class $class must implements " . DataSourceEnum::class);
         }
 
         $this->class = $class;

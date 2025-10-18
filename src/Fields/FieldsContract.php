@@ -18,7 +18,7 @@ use LaraZeus\Bolt\Concerns\HasHiddenOptions;
 use LaraZeus\Bolt\Concerns\HasOptions;
 use LaraZeus\Bolt\Contracts\Fields;
 use LaraZeus\Bolt\DataSources\DataSourceContract;
-use LaraZeus\Bolt\DataSources\DataSourceEnumContract;
+use LaraZeus\Bolt\Contracts\DataSourceEnum;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
@@ -208,10 +208,10 @@ abstract class FieldsContract implements Arrayable, Fields
 
             if (
                 enum_exists($enum = $field->options['dataSource']) &&
-                is_a($enum, DataSourceEnumContract::class, allow_string: true)
+                is_a($enum, DataSourceEnum::class, allow_string: true)
             ) {
                 return collect($enum::cases())
-                    ->mapWithKeys(fn (DataSourceEnumContract & UnitEnum $case): array => [
+                    ->mapWithKeys(fn (DataSourceEnum & UnitEnum $case): array => [
                         $case->value ?? $case->name => $case->getDataSourceLabel() ?? $case->name,
                     ])
                     ->intersectByKeys(array_flip($response))
@@ -278,10 +278,10 @@ abstract class FieldsContract implements Arrayable, Fields
 
         if (
             enum_exists($enum = $zeusField->options['dataSource']) &&
-            is_a($enum, DataSourceEnumContract::class, allow_string: true)
+            is_a($enum, DataSourceEnum::class, allow_string: true)
         ) {
             return collect($enum::cases())
-                ->mapWithKeys(fn (DataSourceEnumContract & UnitEnum $case): array => [
+                ->mapWithKeys(fn (DataSourceEnum & UnitEnum $case): array => [
                     $case->value ?? $case->name => $case->getDataSourceLabel() ?? $case->name,
                 ]);
         }

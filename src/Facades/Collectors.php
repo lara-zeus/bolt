@@ -4,7 +4,7 @@ namespace LaraZeus\Bolt\Facades;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use LaraZeus\Bolt\DataSources\DataSourceEnumContract;
+use LaraZeus\Bolt\Contracts\DataSourceEnum;
 use Symfony\Component\Finder\Finder;
 
 class Collectors
@@ -27,7 +27,7 @@ class Collectors
         $allClasses = [];
         foreach ($classes as $class) {
             if (enum_exists($class)) {
-                if (is_a($class, DataSourceEnumContract::class, allow_string: true)) {
+                if (is_a($class, DataSourceEnum::class, allow_string: true)) {
                     $dataSourceData = $class::toDataSourceData()->toArray();
                     if ($dataSourceData['disabled']) {
                         continue;
