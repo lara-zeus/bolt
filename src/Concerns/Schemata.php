@@ -184,10 +184,12 @@ trait Schemata
                         ->belowContent(__('zeus-bolt::forms.options.tabs.details.description_help')),
                     RichEditor::make('details')
                         ->label(__('zeus-bolt::forms.options.tabs.details.details'))
-                        ->belowContent(__('zeus-bolt::forms.options.tabs.details.details_help')),
+                        ->belowContent(__('zeus-bolt::forms.options.tabs.details.details_help'))
+                        ->dehydrateStateUsing(fn($state) => filled(strip_tags($state)) ? $state : null),
                     RichEditor::make('options.confirmation-message')
                         ->label(__('zeus-bolt::forms.options.tabs.details.confirmation_message'))
-                        ->belowContent(__('zeus-bolt::forms.options.tabs.details.confirmation_message_help')),
+                        ->belowContent(__('zeus-bolt::forms.options.tabs.details.confirmation_message_help'))
+                        ->dehydrateStateUsing(fn($state) => filled(strip_tags($state)) ? $state : null)
                 ]),
 
             Tab::make('display-access-tab')
