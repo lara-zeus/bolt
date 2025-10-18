@@ -54,7 +54,7 @@ class EditForm extends EditRecord
     /**
      * @throws Throwable
      */
-    protected function beforeValidate(): void
+    protected function afterValidate(): void
     {
         $formSections = $this->form->getComponent('sections')->getState();
 
