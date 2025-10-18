@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.5 - 2025-10-18
+
+### What's Changed
+
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/393
+* fix: test case by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/398
+* fix: context handling in EditForm field actions by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/397
+* Update property types in Form and SetResponseStatus by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/400
+* fix checking for confirmation message by @atmonshi & @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/401
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.4...v4.0.5
+
 ## v4.0.4 - 2025-10-12
 
 ### What's Changed
@@ -90,6 +102,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -295,6 +308,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -901,7 +915,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - add `not-prose` for forms, so the style won't suck when the form embed… by @atmonshi in https://github.com/lara-zeus/bolt/pull/89
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.3...1.2.4
 ## 1.2.3 - 2023-06-30
-
 ### What's Changed
 
 - add docs on how to embed the form in any blade file by @atmonshi in https://github.com/lara-zeus/bolt/pull/86
