@@ -1,7 +1,7 @@
 <div>
     <div class="max-w-4xl mx-auto px-4">
         <x-filament::section>
-            @if(filled(strip_tags($zeusForm->options['confirmation-message'])))
+            @if(!empty($zeusForm->options['confirmation-message']))
                 <span class="text-md text-gray-600">
                     {!! $zeusForm->options['confirmation-message'] !!}
                 </span>
@@ -13,10 +13,10 @@
                 </span>
             @endif
 
-            {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'SubmittedRender', [
-                'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
-                'response' => $extensionData['response'],
-            ]) !!}
+                {!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'SubmittedRender', [
+                    'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
+                    'response' => $extensionData['response'],
+                ]) !!}
 
         </x-filament::section>
     </div>
