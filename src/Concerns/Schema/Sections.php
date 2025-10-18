@@ -81,7 +81,7 @@ trait Sections
                         ->modalHeading(__('zeus-bolt::forms.fields.options.label'))
                         ->modalDescription(
                             fn(array $arguments, Repeater $component, Get $get) =>
-                                $get('name') .' / '.$component->getState()[$arguments['item']]['name'] ?? ''
+                                $get('name') .' / '.optional(optional($component->getState())[optional($arguments)['item']])['name'] ?? ''
                         )
                         ->fillForm(
                             fn (array $arguments, Repeater $component) => $component->getItemState($arguments['item'])
@@ -91,6 +91,7 @@ trait Sections
 
                             return [
                                 Textarea::make('description')
+                                    ->nullable()
                                     ->label(__('zeus-bolt::forms.fields.description')),
                                 Group::make()
                                     ->schema(function (Get $get) use ($allSections, $component, $arguments) {
