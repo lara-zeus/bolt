@@ -80,8 +80,7 @@ trait Sections
                         ->modalIcon('heroicon-m-cog')
                         ->modalHeading(__('zeus-bolt::forms.fields.options.label'))
                         ->modalDescription(
-                            fn(array $arguments, Repeater $component, Get $get) =>
-                                $get('name') .' / '.optional(optional($component->getState())[optional($arguments)['item']])['name'] ?? ''
+                            fn (array $arguments, Repeater $component, Get $get) => $get('name') . ' / ' . optional(optional($component->getState())[optional($arguments)['item']])['name'] ?? ''
                         )
                         ->fillForm(
                             fn (array $arguments, Repeater $component) => $component->getItemState($arguments['item'])
