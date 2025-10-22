@@ -3,8 +3,6 @@ title: Custom Datasource
 weight: 5
 ---
 
-# Create Custom Datasource
-
 ## Caching
 
 Bolt will automatically list the data sources from your app in the form builder as a collection.
@@ -22,18 +20,20 @@ php artisan make:zeus-datasource Car
 ```
 
 ### Customization
+
 Check out the contract `LaraZeus\Bolt\DataSources\DataSourceContract` and see all the available methods.
 
 ### Disabling
 
 You can turn off any field temporally by adding:
+
 ```php
 public bool $disabled = true;
 ```
 
 ## From Enum
 
-Creat a normal ennum class and implement `LaraZeus\Bolt\Contracts\DataSourceEnum` interface, for example:
+Create a normal enum class and implement `LaraZeus\Bolt\Contracts\DataSourceEnum` interface, for example:
 
 ```php
 use Illuminate\Contracts\Support\Htmlable;
@@ -55,12 +55,20 @@ enum Status: string implements DataSourceEnum
 
     public static function toDataSourceData(): DataSourceData
     {
-        return DataSourceData::make(title: __('status'), class: static::class)
-            ->disabled(false) //optional: when configuring the fields you can turn off ability to select this data source.
-            ->sort(1); //optional
+        return DataSourceData::make(
+                title: __('status'),
+                class: static::class
+            )
+            
+             //disable a source, optional: when configuring the fields you can turn off ability to select this data source.
+             ->disabled(false)
+             
+             //sorting, optional
+             ->sort(1);
     }
 }
 ```
 
 ### Customization
+
 Check out the contract `LaraZeus\Bolt\DataSources\DataSourceData` and see all the available methods.
