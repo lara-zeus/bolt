@@ -4,6 +4,7 @@ namespace LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
+use LaraZeus\SpatieTranslatable\Actions\LocaleSwitcher;
 use LaraZeus\SpatieTranslatable\Resources\Pages\CreateRecord\Concerns\Translatable;
 
 class CreateCollection extends CreateRecord
@@ -15,7 +16,7 @@ class CreateCollection extends CreateRecord
     protected function getHeaderActions(): array
     {
         return [
-            \LaraZeus\SpatieTranslatable\Actions\LocaleSwitcher::make(),
+            LocaleSwitcher::make(),
         ];
     }
 }

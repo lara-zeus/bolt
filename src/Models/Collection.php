@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use JsonException;
 use LaraZeus\Bolt\Concerns\HasUpdates;
 use LaraZeus\Bolt\Database\Factories\CollectionFactory;
 use Spatie\Translatable\HasTranslations;
@@ -18,9 +19,9 @@ use Spatie\Translatable\HasTranslations;
 class Collection extends Model
 {
     use HasFactory;
+    use HasTranslations;
     use HasUpdates;
     use SoftDeletes;
-    use HasTranslations;
 
     protected $guarded = [];
 
@@ -53,7 +54,7 @@ class Collection extends Model
 
     public function getNameAttribute($value)
     {
-        if($this->hasTranslation('name')) {
+        if ($this->hasTranslation('name')) {
             return $value;
         }
 
@@ -61,15 +62,15 @@ class Collection extends Model
     }
 
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function getValuesAttribute($value)
     {
-        if($this->hasTranslation('values')) {
+        if ($this->hasTranslation('values')) {
             return $value;
         }
 
-        if(filled($this->getRawOriginal('values'))){
+        if (filled($this->getRawOriginal('values'))) {
             return json_decode($this->getRawOriginal('values'), true, 512, JSON_THROW_ON_ERROR);
         }
 
@@ -77,7 +78,7 @@ class Collection extends Model
     }
 
     /**
-     * @param $value
+     * @param  $value
      * @return \Illuminate\Support\Collection
      */
     /*public function getValuesAttribute($value)
