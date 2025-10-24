@@ -54,7 +54,7 @@ class Collection extends Model
      * @param $value
      * @return \Illuminate\Support\Collection
      */
-    public function getValuesAttribute($value)
+    /*public function getValuesAttribute($value)
     {
         if($value instanceof \Illuminate\Support\Collection){
             return $value;
@@ -69,7 +69,7 @@ class Collection extends Model
             return collect(json_encode($value));
         }
         return collect($value);
-    }
+    }*/
 
     protected static function newFactory(): Factory
     {
