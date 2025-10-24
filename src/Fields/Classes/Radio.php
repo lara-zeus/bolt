@@ -10,6 +10,7 @@ use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
+use LaraZeus\BoltPro\Facades\GradeOptions;
 
 class Radio extends FieldsContract
 {
@@ -17,19 +18,9 @@ class Radio extends FieldsContract
 
     public int $sort = 4;
 
-    public function title(): string
-    {
-        return __('Radio');
-    }
-
     public function icon(): string
     {
         return 'tabler-circle-check';
-    }
-
-    public function description(): string
-    {
-        return __('single choice from a datasource');
     }
 
     public static function getOptions(?array $sections = null, ?array $field = null): array
@@ -39,11 +30,13 @@ class Radio extends FieldsContract
             Accordions::make('check-list-options')
                 ->accordions([
                     Accordion::make('general-options')
-                        ->label(__('General Options'))
+                        ->label(__('zeus-bolt::forms.fields.options.general'))
                         ->icon('tabler-settings')
                         ->schema([
+                            self::isActive(),
                             self::required(),
-                            Toggle::make('options.is_inline')->label(__('Is inline')),
+                            Toggle::make('options.is_inline')
+                                ->label(__('zeus-bolt::forms.fields.options.is_inline')),
                             self::columnSpanFull(),
                             self::hiddenLabel(),
                             self::htmlID(),
@@ -51,7 +44,7 @@ class Radio extends FieldsContract
                     self::hintOptions(),
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
-                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::hasPro() ? GradeOptions::schema($field) : [],
                     Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
@@ -60,8 +53,9 @@ class Radio extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            Bolt::hasPro() ? GradeOptions::hidden() : [],
             ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenVisibility(),
             self::hiddenHtmlID(),

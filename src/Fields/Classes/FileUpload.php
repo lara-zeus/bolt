@@ -3,6 +3,8 @@
 namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\Column;
 use Illuminate\Support\Facades\Storage;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
@@ -17,19 +19,9 @@ class FileUpload extends FieldsContract
 
     public int $sort = 11;
 
-    public function title(): string
-    {
-        return __('File Upload');
-    }
-
     public function icon(): string
     {
         return 'tabler-cloud-upload';
-    }
-
-    public function description(): string
-    {
-        return __('single or multiple file uploader');
     }
 
     public static function getOptions(?array $sections = null): array
@@ -38,10 +30,12 @@ class FileUpload extends FieldsContract
             Accordions::make('check-list-options')
                 ->accordions([
                     Accordion::make('general-options')
-                        ->label(__('General Options'))
+                        ->label(__('zeus-bolt::forms.fields.options.general'))
                         ->icon('tabler-settings')
                         ->schema([
-                            \Filament\Forms\Components\Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
+                            Toggle::make('options.allow_multiple')
+                                ->label(__('zeus-bolt::forms.fields.options.allow_multiple')),
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::hiddenLabel(),
@@ -57,6 +51,7 @@ class FileUpload extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenHtmlID(),
             self::hiddenHintOptions(),
@@ -86,7 +81,7 @@ class FileUpload extends FieldsContract
             ->render();
     }
 
-    public function TableColumn(Field $field): ?\Filament\Tables\Columns\Column
+    public function TableColumn(Field $field): ?Column
     {
         return null;
     }

@@ -2,14 +2,15 @@
 
 namespace LaraZeus\Bolt\Livewire;
 
-use Filament\Forms;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Illuminate\View\View;
 use LaraZeus\Bolt\Models\Response;
 use Livewire\Component;
 
-class ShowEntry extends Component implements Forms\Contracts\HasForms
+class ShowEntry extends Component implements HasForms
 {
-    use Forms\Concerns\InteractsWithForms;
+    use InteractsWithForms;
 
     public Response $response;
 
@@ -24,8 +25,8 @@ class ShowEntry extends Component implements Forms\Contracts\HasForms
     public function render(): View
     {
         seo()
-            ->title(__('Show entry') . ' #' . $this->response->id . ' - ' . config('zeus.site_title', 'Laravel'))
-            ->description(__('Show entry') . ' - ' . config('zeus.site_description', 'Laravel'))
+            ->title(__('zeus-bolt::response.show_entry') . ' #' . $this->response->id . ' - ' . config('zeus.site_title', 'Laravel'))
+            ->description(__('zeus-bolt::response.show_entry') . ' - ' . config('zeus.site_description', 'Laravel'))
             ->site(config('zeus.site_title', 'Laravel'))
             ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')
             ->rawTag('<meta name="theme-color" content="' . config('zeus.site_color') . '" />')

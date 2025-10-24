@@ -21,7 +21,7 @@ class ViewResponse extends ViewRecord
 
     public int $responseID;
 
-    protected static string $view = 'zeus::filament.resources.response-resource.pages.show-entry';
+    protected string $view = 'zeus::filament.resources.response-resource.pages.show-entry';
 
     protected static string $resource = FormResource::class;
 
@@ -29,7 +29,7 @@ class ViewResponse extends ViewRecord
     {
         parent::mount($record);
 
-        $this->response = Response::find($this->responseID);
+        $this->response = BoltPlugin::getModel('Response')::find($this->responseID);
         static::authorizeResourceAccess();
     }
 
@@ -40,17 +40,17 @@ class ViewResponse extends ViewRecord
                 ->visible(function (): bool {
                     return $this->response->form->extensions === null;
                 })
-                ->label(__('Set Status'))
+                ->label(__('zeus-bolt::response.set_status'))
                 ->icon('heroicon-o-tag')
-                ->form([
+                ->schema([
                     Select::make('status')
-                        ->label(__('status'))
+                        ->label(__('zeus-bolt::response.status'))
                         ->default(fn () => $this->response->status)
-                        ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
+                        ->options(BoltPlugin::getEnum('FormsStatus'))
                         ->required(),
                     Textarea::make('notes')
                         ->default(fn () => $this->response->notes)
-                        ->label(__('Notes')),
+                        ->label(__('zeus-bolt::response.notes')),
                 ])
                 ->action(function (array $data): void {
                     $this->response->status = $data['status'];
@@ -62,7 +62,7 @@ class ViewResponse extends ViewRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('view response #') . $this->response->id;
+        return __('zeus-bolt::response.view_response_number') . $this->response->id;
     }
 
     public function getBreadcrumbs(): array
@@ -70,8 +70,8 @@ class ViewResponse extends ViewRecord
         return [
             FormResource::getUrl() => FormResource::getBreadcrumb(),
             FormResource::getUrl('view', ['record' => $this->record->slug]) => $this->record->name,
-            FormResource::getUrl('report', ['record' => $this->record->slug]) => __('Entries Report'),
-            __('view the entry'),
+            FormResource::getUrl('report', ['record' => $this->record->slug]) => __('zeus-bolt::response.entries_report'),
+            __('zeus-bolt::response.view_the_entry'),
         ];
     }
 }

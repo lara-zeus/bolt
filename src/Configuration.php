@@ -15,8 +15,6 @@ trait Configuration
      */
     protected ?array $extensions = null;
 
-    protected bool $formActionsAreSticky = false;
-
     public function customSchema(array $schema): static
     {
         $this->customSchema = $schema;
@@ -32,18 +30,6 @@ trait Configuration
     public static function getSchema(string $type): ?string
     {
         return (new static)::get()->getCustomSchema()[$type];
-    }
-
-    public function formActionsAreSticky(bool $condition = false): static
-    {
-        $this->formActionsAreSticky = $condition;
-
-        return $this;
-    }
-
-    public function isFormActionsAreSticky(): bool
-    {
-        return $this->evaluate($this->formActionsAreSticky);
     }
 
     public function extensions(?array $extensions): static

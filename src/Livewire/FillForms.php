@@ -2,24 +2,27 @@
 
 namespace LaraZeus\Bolt\Livewire;
 
-use Filament\Forms;
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
-use LaraZeus\Bolt\Concerns\Designer;
 use LaraZeus\Bolt\Events\FormMounted;
 use LaraZeus\Bolt\Events\FormSent;
+use LaraZeus\Bolt\Facades\Designer;
 use LaraZeus\Bolt\Facades\Extensions;
 use LaraZeus\Bolt\Models\Form;
 use Livewire\Component;
+use Throwable;
 
 /**
  * @property mixed $form
  */
-class FillForms extends Component implements Forms\Contracts\HasForms
+class FillForms extends Component implements HasActions, HasForms
 {
-    use Designer;
+    use InteractsWithActions;
     use InteractsWithForms;
 
     public Form $zeusForm;
@@ -57,7 +60,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function mount(
         mixed $slug,
@@ -97,7 +100,9 @@ class FillForms extends Component implements Forms\Contracts\HasForms
             'notes' => '',
         ]);
 
-        $fieldsData = Arr::except($this->form->getState()['zeusData'], 'extensions');
+        $state = $this->form->getState();
+
+        $fieldsData = Arr::except($state['zeusData'], 'extensions');
 
         foreach ($fieldsData as $field => $value) {
             $setValue = $value;
@@ -116,7 +121,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
         event(new FormSent($response));
 
         $this->extensionData['response'] = $response;
-        $this->extensionData['extensionsComponent'] = $this->form->getState()['zeusData']['extensions'] ?? [];
+        $this->extensionData['extensionsComponent'] = $state['zeusData']['extensions'] ?? [];
 
         $extensionItemId = Extensions::init($this->zeusForm, 'store', $this->extensionData) ?? [];
         $this->extensionData['extInfo'] = $extensionItemId;
@@ -139,7 +144,7 @@ class FillForms extends Component implements Forms\Contracts\HasForms
     {
         if (! $this->inline) {
             seo()
-                ->title($this->zeusForm->name . ' - ' . __('Forms') . ' - ' . config('zeus.site_title', 'Laravel'))
+                ->title($this->zeusForm->name . ' - ' . __('zeus-bolt::forms.forms') . ' - ' . config('zeus.site_title', 'Laravel'))
                 ->description($this->zeusForm->description . ' - ' . config('zeus.site_description') . ' ' . config('zeus.site_title'))
                 ->site(config('zeus.site_title', 'Laravel'))
                 ->rawTag('favicon', '<link rel="icon" type="image/x-icon" href="' . asset('favicon/favicon.ico') . '">')

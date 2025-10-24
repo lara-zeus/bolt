@@ -10,14 +10,14 @@ class ResponsesPerFields extends ChartWidget
 {
     public Form $record;
 
-    protected static ?string $maxHeight = '300px';
+    protected ?string $maxHeight = '300px';
 
     protected int | string | array $columnSpan = [
         'lg' => 1,
         'md' => 2,
     ];
 
-    protected static ?array $options = [
+    protected ?array $options = [
         'scales' => [
             'y' => [
                 'grid' => [
@@ -45,7 +45,7 @@ class ResponsesPerFields extends ChartWidget
 
     public function getHeading(): string
     {
-        return __('Responses Entries');
+        return __('zeus-bolt::forms.widgets.responses_entries');
     }
 
     protected function getData(): array
@@ -67,7 +67,7 @@ class ResponsesPerFields extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => __('entries per month'),
+                    'label' => __('zeus-bolt::forms.widgets.entries_per_month'),
                     'data' => $dataset,
                     'backgroundColor' => '#8A8AFF',
                     'borderColor' => '#ffffff',

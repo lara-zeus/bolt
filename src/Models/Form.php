@@ -25,9 +25,9 @@ use Spatie\Translatable\HasTranslations;
  * @property string $slug
  * @property string $description
  * @property array $options
- * @property string $extensions
- * @property string $start_date
- * @property string $end_date
+ * @property string|null $extensions
+ * @property string|null $start_date
+ * @property string|null $end_date
  * @property bool $date_available
  * @property bool $need_login
  * @property bool $onePerUser
@@ -75,7 +75,7 @@ class Form extends Model
 
             if (! $canDelete) {
                 Notification::make()
-                    ->title(__('Can\'t delete a form linked to an Extensions'))
+                    ->title(__('zeus-bolt::forms.cant_delete'))
                     ->danger()
                     ->send();
 
@@ -125,7 +125,7 @@ class Form extends Model
 
     public function sections(): HasMany
     {
-        return $this->hasMany(config('zeus-bolt.models.Section'));
+        return $this->hasMany(config('zeus-bolt.models.Section'))->chaperone();
     }
 
     public function fields(): HasManyThrough
@@ -133,7 +133,7 @@ class Form extends Model
         return $this->hasManyThrough(config('zeus-bolt.models.Field'), config('zeus-bolt.models.Section'));
     }
 
-    public function responses(): hasMany
+    public function responses(): HasMany
     {
         return $this->hasMany(config('zeus-bolt.models.Response'));
     }
@@ -195,7 +195,7 @@ class Form extends Model
         return collect(Extensions::init($this, 'getItems', ['form' => $this]))
             ->mapWithKeys(function ($key, $item) {
                 return [
-                    $key => [
+                    [
                         'label' => $key,
                         'url' => Extensions::init($this, 'getUrl', ['slug' => $item]),
                     ],

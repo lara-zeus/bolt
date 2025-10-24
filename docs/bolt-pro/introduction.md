@@ -44,4 +44,13 @@ Add these configuration keys to `zeus-bolt` config file:
 
 // to disable the theming tab
 'show_presets' => false,
+
+// to disable the core presets
+'show_core_presets' => false,
+
+/**
+ * the preview for the presets is using sushi:
+ * you can enable/disable the cache here
+*/
+'should_cache_preset' => env('BOLT_CACHE_PRESET', true),
 ```

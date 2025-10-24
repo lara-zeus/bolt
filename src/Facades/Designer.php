@@ -1,20 +1,16 @@
 <?php
 
-namespace LaraZeus\Bolt\Concerns;
+namespace LaraZeus\Bolt\Facades;
 
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Tabs;
-use Filament\Forms\Components\Tabs\Tab;
-use Filament\Forms\Components\Wizard;
-use Filament\Forms\Components\Wizard\Step;
-use Filament\Forms\Get;
-use LaraZeus\Bolt\Facades\Bolt;
-use LaraZeus\Bolt\Facades\Extensions;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Wizard;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\Bolt\Models\Section as ZeusSection;
 
-trait Designer
+class Designer
 {
     public static function ui(Form $zeusForm, bool $inline = false): array
     {
@@ -54,13 +50,14 @@ trait Designer
 
         return [
             Section::make('extensions')
+                ->columnSpanFull()
                 ->heading(function () use ($zeusForm) {
                     $class = $zeusForm->extensions;
                     if (class_exists($class)) {
                         return (new $class)->label();
                     }
 
-                    return __('Extension');
+                    return __('zeus-bolt::forms.extension');
                 })
                 ->schema($getExtComponent),
         ];
@@ -76,7 +73,7 @@ trait Designer
             $fields[] = Bolt::renderHook('zeus-form-section.before');
         }
 
-        foreach ($section->fields->sortBy('ordering') as $zeusField) {
+        foreach ($section->fields->where('options.is_active', 1)->sortBy('ordering') as $zeusField) {
             if (! $inline) {
                 $fields[] = Bolt::renderHook('zeus-form-field.before');
             }
@@ -98,19 +95,21 @@ trait Designer
         return $fields;
     }
 
-    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tab | Step | Section | Grid
+    private static function drawSections(Form $zeusForm, ZeusSection $section, array $fields): Tabs\Tab | Wizard\Step | Section | Grid
     {
         if (optional($zeusForm->options)['show-as'] === 'tabs') {
-            $component = Tab::make($section->name)
+            $component = Tabs\Tab::make($section->name)
                 ->icon($section->icon ?? null);
         } elseif (optional($zeusForm->options)['show-as'] === 'wizard') {
-            $component = Step::make($section->name)
+            $component = Wizard\Step::make($section->name)
                 ->description($section->description)
                 ->icon($section->icon ?? null);
-        } elseif ((bool) $section->borderless === true) {
-            $component = Grid::make($section->name);
+        } elseif ($section->borderless === true) {
+            $component = Grid::make($section->name)
+                ->columnSpanFull();
         } else {
             $component = Section::make($section->name)
+                ->columnSpanFull()
                 ->description($section->description)
                 ->aside(fn () => $section->aside)
                 ->compact(fn () => $section->compact)
@@ -132,10 +131,10 @@ trait Designer
             }
 
             if (is_array($get('zeusData.' . $relatedField))) {
-                return in_array($relatedFieldValues, $get('zeusData.' . $relatedField));
+                return in_array($relatedFieldValues, $get('zeusData.' . $relatedField), true);
             }
 
-            return $relatedFieldValues == $get('zeusData.' . $relatedField);
+            return $relatedFieldValues === $get('zeusData.' . $relatedField);
         });
 
         return $component

@@ -27,10 +27,13 @@ BoltPlugin::make()
         'Field' => \App\Models\Bolt\Field::class,
         'FieldResponse' => \App\Models\Bolt\FieldResponse::class,
         'Form' => \App\Models\Bolt\Form::class,
-        'FormsStatus' => \App\Models\Bolt\FormsStatus::class,
         'Response' => \App\Models\Bolt\Response::class,
         'Section' => \App\Models\Bolt\Section::class,
         'User' => \App\Models\Staff::class,
+    ])
+    
+    ->enums([
+        'FormsStatus' => \App\Enums\Bolt\FormsStatus::class,
     ])
     
     // make the actions floating in create and edit forms

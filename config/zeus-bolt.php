@@ -1,5 +1,15 @@
 <?php
 
+use LaraZeus\Bolt\Enums\FormsStatus;
+use LaraZeus\Bolt\Mail\FormSubmission;
+use LaraZeus\Bolt\Models\Category;
+use LaraZeus\Bolt\Models\Collection;
+use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\FieldResponse;
+use LaraZeus\Bolt\Models\Form;
+use LaraZeus\Bolt\Models\Response;
+use LaraZeus\Bolt\Models\Section;
+
 return [
     /**
      * set the default domain.
@@ -25,18 +35,21 @@ return [
     /**
      * you can overwrite any model and use your own
      * you can also configure the model per panel in your panel provider using:
-     * ->skyModels([ ... ])
+     * ->models([ ... ])
      */
     'models' => [
-        'Category' => \LaraZeus\Bolt\Models\Category::class,
-        'Collection' => \LaraZeus\Bolt\Models\Collection::class,
-        'Field' => \LaraZeus\Bolt\Models\Field::class,
-        'FieldResponse' => \LaraZeus\Bolt\Models\FieldResponse::class,
-        'Form' => \LaraZeus\Bolt\Models\Form::class,
-        'FormsStatus' => \LaraZeus\Bolt\Models\FormsStatus::class,
-        'Response' => \LaraZeus\Bolt\Models\Response::class,
-        'Section' => \LaraZeus\Bolt\Models\Section::class,
+        'Category' => Category::class,
+        'Collection' => Collection::class,
+        'Field' => Field::class,
+        'FieldResponse' => FieldResponse::class,
+        'Form' => Form::class,
+        'Response' => Response::class,
+        'Section' => Section::class,
         'User' => config('auth.providers.users.model'),
+    ],
+
+    'enums' => [
+        'FormsStatus' => FormsStatus::class,
     ],
 
     'collectors' => [
@@ -51,7 +64,7 @@ return [
         ],
     ],
 
-    'defaultMailable' => \LaraZeus\Bolt\Mail\FormSubmission::class,
+    'defaultMailable' => FormSubmission::class,
 
     'uploadDisk' => env('BOLT_FILESYSTEM_DISK', 'public'),
 
@@ -70,6 +83,12 @@ return [
      * if you dont want them, feel free to set this to false
      * */
     'show_core_presets' => true,
+
+    /**
+     * the preview for the presets is using sushi:
+     * you can enable/disable the cache here
+     * */
+    'should_cache_preset' => env('BOLT_CACHE_PRESET', true),
 
     /*
      * if you have installed Bolt Pro, you can enable the form design option here

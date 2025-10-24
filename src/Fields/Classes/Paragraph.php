@@ -2,7 +2,7 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
-use Filament\Forms\Components\Placeholder;
+use Filament\Infolists\Components\TextEntry;
 use Illuminate\Support\HtmlString;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
@@ -10,23 +10,13 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Paragraph extends FieldsContract
 {
-    public string $renderClass = Placeholder::class;
+    public string $renderClass = TextEntry::class;
 
     public int $sort = 10;
-
-    public function title(): string
-    {
-        return __('Paragraph');
-    }
 
     public function icon(): string
     {
         return 'tabler-text-recognition';
-    }
-
-    public function description(): string
-    {
-        return __('display a paragraph in your form');
     }
 
     public static function getOptions(?array $sections = null, ?array $field = null): array
@@ -35,9 +25,10 @@ class Paragraph extends FieldsContract
             Accordions::make('check-list-options')
                 ->accordions([
                     Accordion::make('general-options')
-                        ->label(__('General Options'))
+                        ->label(__('zeus-bolt::forms.fields.options.general'))
                         ->icon('tabler-settings')
                         ->schema([
+                            self::isActive(),
                             self::columnSpanFull(),
                             self::hiddenLabel(),
                             self::hintOptions(),
@@ -50,6 +41,7 @@ class Paragraph extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             self::hiddenHintOptions(),
             self::hiddenColumnSpanFull(),
             self::hiddenHiddenLabel(),
@@ -63,7 +55,7 @@ class Paragraph extends FieldsContract
         parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
         return $component
-            ->helperText('')
-            ->content(new HtmlString($zeusField->description));
+            ->belowContent('')
+            ->state(new HtmlString($zeusField->description));
     }
 }

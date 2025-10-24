@@ -3,8 +3,9 @@
 namespace LaraZeus\Bolt\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Fields\Classes\TextInput;
 use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\Section;
 
 class FieldFactory extends Factory
 {
@@ -14,8 +15,8 @@ class FieldFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'type' => '\LaraZeus\Bolt\Fields\Classes\TextInput',
-            'section_id' => BoltPlugin::getModel('Section')::factory(),
+            'type' => TextInput::class,
+            'section_id' => Section::factory(),
             'ordering' => $this->faker->numberBetween(1, 20),
         ];
     }

@@ -84,7 +84,7 @@ Copy the trait from `\LaraZeus\Bolt\Concerns` to your app, lets say: `\App\Zeus\
 In your register method of your `AppServiceProvider` add the following:
 
 ```php
-\LaraZeus\Bolt\Livewire\FillForms::getBoltFormDesignerUsing(\App\Zeus\Bolt\Concerns\Designer::class);
+\LaraZeus\Bolt\Filament\Resources\FormResource::getBoltFormSchemaUsing(fn(): array => \App\Zeus\Bolt\Facades\Designer::getMainFormSchema());
 ```
 
 You're done. Customize the form builder to fit your needs. Remember to keep an eye on any changes in future updates so that you avoid breaking changes.

@@ -70,7 +70,7 @@ class Section extends Model
 
     public function fields(): HasMany
     {
-        return $this->hasMany(config('zeus-bolt.models.Field'), 'section_id', 'id');
+        return $this->hasMany(config('zeus-bolt.models.Field'), 'section_id', 'id')->chaperone();
     }
 
     public function form(): BelongsTo

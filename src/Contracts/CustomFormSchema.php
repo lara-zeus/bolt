@@ -2,7 +2,7 @@
 
 namespace LaraZeus\Bolt\Contracts;
 
-use Filament\Forms\Components\Tabs\Tab;
+use Filament\Schemas\Components\Tabs\Tab;
 
 interface CustomFormSchema
 {

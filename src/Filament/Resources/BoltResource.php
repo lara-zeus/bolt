@@ -2,9 +2,9 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
-use Filament\Resources\Concerns\Translatable;
 use Filament\Resources\Resource;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\SpatieTranslatable\Resources\Concerns\Translatable;
 
 class BoltResource extends Resource
 {
@@ -12,7 +12,7 @@ class BoltResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return ! in_array(static::class, BoltPlugin::get()->getHiddenResources())
+        return ! in_array(static::class, BoltPlugin::get()->getHiddenResources(), true)
             && parent::canViewAny();
     }
 

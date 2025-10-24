@@ -1,10 +1,16 @@
 {
     "preset": "laravel",
     "rules": {
+        "no_unused_imports": true,
+        "single_import_per_statement": true,
         "blank_line_before_statement": true,
         "concat_space": {
             "spacing": "one"
         },
+        "fully_qualified_strict_types": {
+            "import_symbols": true
+        },
+        "global_namespace_import": true,
         "method_argument_space": true,
         "single_trait_insert_per_statement": true,
         "types_spaces": {

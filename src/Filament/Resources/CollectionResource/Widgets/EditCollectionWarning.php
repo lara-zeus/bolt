@@ -11,5 +11,5 @@ class EditCollectionWarning extends Widget
 
     public ?Model $record = null;
 
-    protected static string $view = 'zeus::filament.resources.form-resource.widgets.edit-collection-warning';
+    protected string $view = 'zeus::filament.resources.form-resource.widgets.edit-collection-warning';
 }

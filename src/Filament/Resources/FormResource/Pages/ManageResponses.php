@@ -2,12 +2,21 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
+use BackedEnum;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ExportBulkAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreAction;
+use Filament\Actions\RestoreBulkAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Resources\Pages\ManageRelatedRecords;
-use Filament\Tables;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -28,7 +37,7 @@ class ManageResponses extends ManageRelatedRecords
 
     protected static string $relationship = 'responses';
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-document-chart-bar';
 
     public function table(Table $table): Table
     {
@@ -40,30 +49,27 @@ class ManageResponses extends ManageRelatedRecords
             ImageColumn::make('user.avatar')
                 ->sortable(false)
                 ->searchable(false)
-                ->label(__('Avatar'))
+                ->label(__('zeus-bolt::response.avatar'))
                 ->circular()
                 ->toggleable(),
 
             TextColumn::make('user.' . $getUserModel)
-                ->label(__('Name'))
+                ->label(__('zeus-bolt::response.name'))
                 ->toggleable()
                 ->sortable()
-                ->default(__('guest'))
+                ->default(__('zeus-bolt::response.guest'))
                 ->searchable(),
 
             TextColumn::make('status')
                 ->toggleable()
                 ->sortable()
                 ->badge()
-                ->label(__('status'))
-                ->formatStateUsing(fn ($state) => __(str($state)->title()->toString()))
-                ->colors(BoltPlugin::getModel('FormsStatus')::pluck('key', 'color')->toArray())
-                ->icons(BoltPlugin::getModel('FormsStatus')::pluck('key', 'icon')->toArray())
+                ->label(__('zeus-bolt::response.status'))
                 ->grow(false)
                 ->searchable('status'),
 
             TextColumn::make('notes')
-                ->label(__('notes'))
+                ->label(__('zeus-bolt::response.notes'))
                 ->sortable()
                 ->searchable()
                 ->toggleable(),
@@ -84,7 +90,7 @@ class ManageResponses extends ManageRelatedRecords
             ->sortable()
             ->searchable()
             ->dateTime()
-            ->label(__('created at'))
+            ->label(__('zeus-bolt::response.notes'))
             ->toggleable();
 
         return $table
@@ -97,15 +103,15 @@ class ManageResponses extends ManageRelatedRecords
                     ])
             )
             ->columns($mainColumns)
-            ->actions([
+            ->recordActions([
                 SetResponseStatus::make(),
-                Tables\Actions\DeleteAction::make(),
-                Tables\Actions\ForceDeleteAction::make(),
-                Tables\Actions\RestoreAction::make(),
+                DeleteAction::make(),
+                ForceDeleteAction::make(),
+                RestoreAction::make(),
             ])
             ->filters([
-                Tables\Filters\Filter::make('created_at')
-                    ->form([
+                Filter::make('created_at')
+                    ->schema([
                         DatePicker::make('created_from'),
                         DatePicker::make('created_until'),
                     ])
@@ -120,17 +126,20 @@ class ManageResponses extends ManageRelatedRecords
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     }),
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
                 SelectFilter::make('status')
-                    ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
-                    ->label(__('Status')),
+                    ->options(BoltPlugin::getEnum('FormsStatus'))
+                    ->label(__('zeus-bolt::response.status')),
             ])
-            ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
-                Tables\Actions\RestoreBulkAction::make(),
-                Tables\Actions\ForceDeleteBulkAction::make(),
-
-                Tables\Actions\ExportBulkAction::make()
+            ->toolbarActions([
+                DeleteBulkAction::make(),
+                RestoreBulkAction::make(),
+                ForceDeleteBulkAction::make(),
+                ExportBulkAction::make()
+                    ->options([
+                        'export_form_id' => $this->getOwnerRecord()->id ?? 0,
+                    ])
+                    ->columnMappingColumns(2)
                     ->label(__('Export Responses'))
                     ->exporter(ResponseExporter::class),
             ])
@@ -144,11 +153,11 @@ class ManageResponses extends ManageRelatedRecords
 
     public static function getNavigationLabel(): string
     {
-        return __('Entries Report');
+        return __('zeus-bolt::response.entries_report');
     }
 
     public function getTitle(): string
     {
-        return __('Entries Report');
+        return __('zeus-bolt::response.entries_report');
     }
 }

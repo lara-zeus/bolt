@@ -3,41 +3,44 @@ title: Upgrading
 weight: 90
 ---
 
-## upgrade to v3.0.25
+## Upgrade to v4
 
-In v3.0.25, I added a new trait for getting the user name
+### using an enum for the status:
 
-So you have to add this to your User model:
+the namespace for the `FormsStatus` changed from `LaraZeus\\Bolt\\Models\\FormsStatus` to `LaraZeus\\Bolt\\Enums\\FormsStatus`
 
-`use \LaraZeus\Bolt\Models\Concerns\BelongToBolt;`
+### Configuration:
 
-## upgrade to v2.1
-
-In v2.1, I refactored the configuration to separate the frontend configuration from filament-related ones.
-This causes an issue when having multiple panels.
-
-1. First, publish the config file by running the command:
-
-```bash
-php artisan vendor:publish --tag="zeus-bolt-config" --force
-```
-
-2. Move your configuration from your panel provider to the `zeus-bolt` config file.
-
-So these are the deprecated configuration methods:
-
+Add to your config file:
 
 ```php
-
-->boltPrefix()
-->boltMiddleware()
-->defaultMailable()
-->uploadDisk()
-->uploadDirectory()
-->domain()
-
+'enums' => [
+    'FormsStatus' => FormsStatus::class,
+],
 ```
 
-## upgrade from 2 to 3
+and remove the key `FormsStatus` from the `models` array.
 
-To upgrade @zeus Bolt to v2 please check this `Core` [upgrade guide](/docs/core/v3/upgrade) 
+the same for the panel configuration:
+
+```php
+BoltPlugin::make()
+    ->models([
+        'FormsStatus' => \App\Enums\Bolt\FormsStatus::class, // [tl! --]
+    ])
+
+    ->enums([ // [tl! ++]
+        'FormsStatus' => \App\Enums\Bolt\FormsStatus::class, // [tl! ++]
+    ]) // [tl! ++]
+```
+
+### Is Active
+
+we added a new option for all fields: `is_active`. its helps to "hide" a field without the need to delete it.
+
+to migrate all your old fields options, simply run the command:
+
+```bash
+php artisan bolt:activate-fields
+```
+

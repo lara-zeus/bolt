@@ -3,14 +3,14 @@
 namespace LaraZeus\Bolt\Filament\Actions;
 
 use Closure;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Tables\Actions\Action;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Models\Response;
 
 /**
- * @property mixed $record
+ * @property Response $record
  */
 class SetResponseStatus extends Action
 {
@@ -29,7 +29,7 @@ class SetResponseStatus extends Action
             return $record->form->extensions === null;
         });
 
-        $this->label(__('Set Status'));
+        $this->label(__('zeus-bolt::forms.actions.set_status'));
 
         $this->icon('heroicon-o-tag');
 
@@ -39,15 +39,15 @@ class SetResponseStatus extends Action
             $this->record->save();
         });
 
-        $this->form([
+        $this->schema([
             Select::make('status')
-                ->label(__('status'))
+                ->label(__('zeus-bolt::forms.status'))
                 ->default(fn (Response $record) => $record->status)
-                ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
+                ->options(BoltPlugin::getEnum('FormsStatus'))
                 ->required(),
             Textarea::make('notes')
                 ->default(fn (Response $record) => $record->notes)
-                ->label(__('Notes')),
+                ->label(__('zeus-bolt::forms.notes')),
         ]);
     }
 

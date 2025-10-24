@@ -5,6 +5,8 @@ use LaraZeus\Bolt\Livewire\FillForms;
 use LaraZeus\Bolt\Livewire\ListEntries;
 use LaraZeus\Bolt\Livewire\ListForms;
 use LaraZeus\Bolt\Livewire\ShowEntry;
+use LaraZeus\BoltPro\BoltProServiceProvider;
+use LaraZeus\BoltPro\Livewire\EmbedForm;
 
 Route::domain(config('zeus-bolt.domain'))
     ->prefix(config('zeus-bolt.prefix'))
@@ -21,8 +23,8 @@ Route::domain(config('zeus-bolt.domain'))
             ->name('entry.show')
             ->middleware('auth');
 
-        if (class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class)) {
-            Route::get('embed/{slug}', \LaraZeus\BoltPro\Livewire\EmbedForm::class)
+        if (class_exists(BoltProServiceProvider::class)) {
+            Route::get('embed/{slug}', EmbedForm::class)
                 ->name('form.embed');
         }
 

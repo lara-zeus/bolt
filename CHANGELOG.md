@@ -2,6 +2,152 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.5 - 2025-10-18
+
+### What's Changed
+
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/393
+* fix: test case by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/398
+* fix: context handling in EditForm field actions by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/397
+* Update property types in Form and SetResponseStatus by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/400
+* fix checking for confirmation message by @atmonshi & @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/401
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.4...v4.0.5
+
+## v4.0.4 - 2025-10-12
+
+### What's Changed
+
+* fix show form as wizerd by @atmonshi in https://github.com/lara-zeus/bolt/pull/390
+* update the Extension docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/391
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.3...v4.0.4
+
+## v4.0.3 - 2025-10-12
+
+### What's Changed
+
+* fix: field type search result by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/389
+* fix(tests): reorder providers as mentioned by dan by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/388
+* fix: lazy loading when data already eager loaded by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/387
+* fix: trigger form fields options validation by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/386
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.2...v4.0.3
+
+## v4.0.2 - 2025-10-06
+
+### What's Changed
+
+* fix: advanced date field bug by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/385
+
+### New Contributors
+
+* @Abdulmajeed-Jamaan made their first contribution in https://github.com/lara-zeus/bolt/pull/385
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.1...v4.0.2
+
+## v4.0.1 - 2025-09-14
+
+### What's Changed
+
+* Support actions on the form page by @kyles71 in https://github.com/lara-zeus/bolt/pull/380
+
+### New Contributors
+
+* @kyles71 made their first contribution in https://github.com/lara-zeus/bolt/pull/380
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.0...v4.0.1
+
+## v3.0.88 - 2025-06-13
+
+### What's Changed
+
+* Hide the open link when using extensions by @edjeavons in https://github.com/lara-zeus/bolt/pull/370
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.87...v3.0.88
+
+## v3.0.87 - 2025-06-12
+
+### What's Changed
+
+* Use model override when viewing responses by @edjeavons in https://github.com/lara-zeus/bolt/pull/369
+
+### New Contributors
+
+* @edjeavons made their first contribution in https://github.com/lara-zeus/bolt/pull/369
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.86...v3.0.87
+
+## v3.0.86 - 2025-05-29
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/368
+* update docs
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.85...v3.0.86
+
+## v3.0.85 - 2025-04-14
+
+### What's Changed
+
+* pass the response to the Extensions SubmittedRender by @atmonshi in https://github.com/lara-zeus/bolt/pull/367
+
+note if you're overwriting the view `submitted.blade.php` make sure to update it to last version
+
+this the change:
+
+```php
+{!! \LaraZeus\Bolt\Facades\Extensions::init($zeusForm, 'SubmittedRender', [
+    'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
+    'response' => $extensionData['response'],
+]) !!}
+
+
+
+
+
+
+
+
+
+```
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.84...v3.0.85
+
+## v3.0.84 - 2025-04-05
+
+### What's Changed
+
+* change Designer trait to class by @atmonshi in https://github.com/lara-zeus/bolt/pull/366
+
+this internal change, but if you're using custom designer, make sure to update the namespace.
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.83...v3.0.84
+
+## v3.0.83 - 2025-04-05
+
+### What's Changed
+
+* add new export action to support queues by @atmonshi in https://github.com/lara-zeus/bolt/pull/358
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.82...v3.0.83
+
+## v3.0.82 - 2025-04-04
+
+### What's Changed
+
+* fix handling preset datasource by @atmonshi in https://github.com/lara-zeus/bolt/pull/364
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.81...v3.0.82
+
+## v3.0.81 - 2025-03-27
+
+### What's Changed
+
+* Cache preset by @atmonshi in https://github.com/lara-zeus/bolt/pull/363
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.80...v3.0.81
+
 ## v3.0.80 - 2025-03-18
 
 ### What's Changed
@@ -162,6 +308,19 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -743,32 +902,19 @@ and you can remove the fork for `alperenersoy/filament-export`
 - add more tests by @atmonshi in https://github.com/lara-zeus/bolt/pull/94
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.6...1.2.7
 ## 1.2.6 - 2023-07-04
-
 ### What's Changed
-
 - Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/lara-zeus/bolt/pull/91
 - update all dependecies by @atmonshi in https://github.com/lara-zeus/bolt/pull/93
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.5...1.2.6
-
 ## 1.2.5 - 2023-07-02
-
 ### What's Changed
-
 - add Constraints and delete relations, with support for soft delete  by @atmonshi in https://github.com/lara-zeus/bolt/pull/90
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.4...1.2.5
-
 ## 1.2.4 - 2023-07-01
-
 ### What's Changed
-
 - add `not-prose` for forms, so the style won't suck when the form embed… by @atmonshi in https://github.com/lara-zeus/bolt/pull/89
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.3...1.2.4
-
 ## 1.2.3 - 2023-06-30
-
 ### What's Changed
 
 - add docs on how to embed the form in any blade file by @atmonshi in https://github.com/lara-zeus/bolt/pull/86

@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Contracts;
 
+use Exception;
 use LaraZeus\Bolt\Models\Form;
-use LaraZeus\Bolt\Models\Response;
 
 interface Extension
 {
@@ -53,7 +53,7 @@ interface Extension
      * @param  Form  $form  Bolt form
      * @param  array  $data  extra data
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function store(Form $form, array $data): ?array;
 

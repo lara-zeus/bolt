@@ -3,19 +3,21 @@
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
 use Filament\Actions\Action;
-use Filament\Actions\LocaleSwitcher;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Contracts\Support\Htmlable;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
+use LaraZeus\SpatieTranslatable\Actions\LocaleSwitcher;
+use LaraZeus\SpatieTranslatable\Resources\Pages\EditRecord\Concerns\Translatable;
+use Throwable;
 
 /**
  * @property Form $record.
  */
 class EditForm extends EditRecord
 {
-    use EditRecord\Concerns\Translatable;
+    use Translatable;
 
     protected static string $resource = FormResource::class;
 
@@ -26,12 +28,12 @@ class EditForm extends EditRecord
 
     public function getTitle(): string | Htmlable
     {
-        return __('Edit Form');
+        return __('zeus-bolt::forms.edit_form');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('Edit Form');
+        return __('zeus-bolt::forms.edit_form');
     }
 
     protected function getHeaderActions(): array
@@ -39,12 +41,35 @@ class EditForm extends EditRecord
         return [
             LocaleSwitcher::make(),
             Action::make('open')
-                ->label(__('Open'))
+                ->label(__('zeus-bolt::forms.actions.open'))
                 ->icon('heroicon-o-arrow-top-right-on-square')
-                ->tooltip(__('open form'))
+                ->tooltip(__('zeus-bolt::forms.actions.open_tooltip'))
                 ->color('warning')
                 ->url(fn () => route(BoltPlugin::get()->getRouteNamePrefix() . 'bolt.form.show', $this->record))
+                ->visible(fn (Form $record) => $record->extensions === null)
                 ->openUrlInNewTab(),
         ];
+    }
+
+    /**
+     * @throws Throwable
+     */
+    protected function afterValidate(): void
+    {
+        $formSections = $this->form->getComponent('sections')->getState();
+
+        foreach ($formSections as $sectionId => $section) {
+            foreach ($section['fields'] as $fieldId => $field) {
+                $context = ['schemaComponent' => "form.sections.$sectionId.fields"];
+
+                if (array_key_exists('id', $section)) {
+                    $context['recordKey'] = $section['id'];
+                }
+
+                $this->mountAction('fields options', ['item' => $fieldId], context: $context);
+                $this->callMountedAction();
+                $this->unmountAction();
+            }
+        }
     }
 }

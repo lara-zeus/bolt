@@ -2,9 +2,10 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\FormResource\Pages;
 
+use BackedEnum;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables\Columns\ViewColumn;
-use Filament\Tables\Enums\ActionsPosition;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use LaraZeus\Bolt\BoltPlugin;
@@ -21,9 +22,9 @@ class BrowseResponses extends ManageRelatedRecords
 
     protected static string $relationship = 'responses';
 
-    protected static string $view = 'zeus::filament.resources.response-resource.pages.browse-responses';
+    protected string $view = 'zeus::filament.resources.response-resource.pages.browse-responses';
 
-    protected static ?string $navigationIcon = 'heroicon-o-eye';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-eye';
 
     public function table(Table $table): Table
     {
@@ -32,26 +33,26 @@ class BrowseResponses extends ManageRelatedRecords
             ->query(BoltPlugin::getModel('Response')::query()->where('form_id', $this->record->id))
             ->columns([
                 ViewColumn::make('response')
-                    ->label(__('Browse Entries'))
+                    ->label(__('zeus-bolt::forms.browse_entries'))
                     ->view('zeus::filament.resources.response-resource.pages.browse-entry'),
             ])
-            ->actions([
+            ->recordActions([
                 SetResponseStatus::make(),
-            ], position: ActionsPosition::AfterContent)
+            ], position: RecordActionsPosition::AfterContent)
             ->filters([
                 SelectFilter::make('status')
-                    ->options(BoltPlugin::getModel('FormsStatus')::query()->pluck('label', 'key'))
-                    ->label(__('Status')),
+                    ->options(BoltPlugin::getEnum('FormsStatus'))
+                    ->label(__('zeus-bolt::forms.status')),
             ]);
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('Browse Entries');
+        return __('zeus-bolt::forms.browse_entries');
     }
 
     public function getTitle(): string
     {
-        return __('Browse Entries');
+        return __('zeus-bolt::forms.browse_entries');
     }
 }

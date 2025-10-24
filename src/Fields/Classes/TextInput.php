@@ -6,13 +6,14 @@ use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput as TextInputAlias;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Support\Colors\Color;
-use Guava\FilamentIconPicker\Forms\IconPicker;
+use Guava\IconPicker\Forms\Components\IconPicker;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
+use LaraZeus\BoltPro\Facades\GradeOptions;
 
 class TextInput extends FieldsContract
 {
@@ -20,19 +21,9 @@ class TextInput extends FieldsContract
 
     public int $sort = 1;
 
-    public function title(): string
-    {
-        return __('Text Input');
-    }
-
     public function icon(): string
     {
         return 'tabler-input-search';
-    }
-
-    public function description(): string
-    {
-        return __('text input');
     }
 
     public static function getOptions(?array $sections = null, ?array $field = null): array
@@ -41,28 +32,28 @@ class TextInput extends FieldsContract
             Accordions::make('options')
                 ->accordions([
                     Accordion::make('validation-options')
-                        ->label(__('Validation Options'))
+                        ->label(__('zeus-bolt::forms.fields.options.validation_options'))
                         ->icon('tabler-input-check')
                         ->columns()
                         ->schema([
                             Select::make('options.dateType')
-                                ->label(__('Data type'))
+                                ->label(__('zeus-bolt::forms.fields.options.data_type'))
                                 ->required()
                                 ->options([
-                                    'string' => __('text'),
-                                    'email' => __('email'),
-                                    'numeric' => __('numeric'),
-                                    'password' => __('password'),
-                                    'tel' => __('tel'),
-                                    'url' => __('url'),
-                                    'activeUrl' => __('active url'),
-                                    'alpha' => __('alpha'),
-                                    'alphaDash' => __('alpha dash'),
-                                    'alphaNum' => __('alpha num'),
-                                    'ip' => __('ip'),
-                                    'ipv4' => __('ip v4'),
-                                    'ipv6' => __('ip v6'),
-                                    'macAddress' => __('mac address'),
+                                    'string' => __('zeus-bolt::forms.fields.options.data_type_types.string'),
+                                    'email' => __('zeus-bolt::forms.fields.options.data_type_types.email'),
+                                    'numeric' => __('zeus-bolt::forms.fields.options.data_type_types.numeric'),
+                                    'password' => __('zeus-bolt::forms.fields.options.data_type_types.password'),
+                                    'tel' => __('zeus-bolt::forms.fields.options.data_type_types.tel'),
+                                    'url' => __('zeus-bolt::forms.fields.options.data_type_types.url'),
+                                    'activeUrl' => __('zeus-bolt::forms.fields.options.data_type_types.activeUrl'),
+                                    'alpha' => __('zeus-bolt::forms.fields.options.data_type_types.alpha'),
+                                    'alphaDash' => __('zeus-bolt::forms.fields.options.data_type_types.alphaDash'),
+                                    'alphaNum' => __('zeus-bolt::forms.fields.options.data_type_types.alphaNum'),
+                                    'ip' => __('zeus-bolt::forms.fields.options.data_type_types.ip'),
+                                    'ipv4' => __('zeus-bolt::forms.fields.options.data_type_types.ipv4'),
+                                    'ipv6' => __('zeus-bolt::forms.fields.options.data_type_types.ipv6'),
+                                    'macAddress' => __('zeus-bolt::forms.fields.options.data_type_types.macAddress'),
                                 ])
                                 ->default('string')
                                 ->columnSpanFull()
@@ -70,24 +61,25 @@ class TextInput extends FieldsContract
 
                             TextInputAlias::make('options.minValue')
                                 ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
-                                ->label(__('min value')),
+                                ->label(__('zeus-bolt::forms.fields.options.min_value')),
 
                             TextInputAlias::make('options.maxValue')
                                 ->visible(fn (Get $get): bool => $get('options.dateType') === 'numeric')
-                                ->label(__('max value')),
+                                ->label(__('zeus-bolt::forms.fields.options.max_value')),
 
+                            self::isActive(),
                             self::required(),
                         ]),
 
                     Accordion::make('visual-options')
-                        ->label(__('Visual Options'))
+                        ->label(__('zeus-bolt::forms.fields.options.visual_options'))
                         ->columns()
                         ->icon('tabler-float-center')
                         ->schema([
                             TextInputAlias::make('options.prefix')
-                                ->label(__('prefix')),
+                                ->label(__('zeus-bolt::forms.fields.options.prefix')),
                             TextInputAlias::make('options.suffix')
-                                ->label(__('suffix')),
+                                ->label(__('zeus-bolt::forms.fields.options.suffix')),
 
                             IconPicker::make('options.prefix-icon')
                                 ->columns([
@@ -95,19 +87,19 @@ class TextInput extends FieldsContract
                                     'lg' => 3,
                                     '2xl' => 5,
                                 ])
-                                ->label(__('Prefix Icon')),
+                                ->label(__('zeus-bolt::forms.fields.options.prefix_icon')),
                             IconPicker::make('options.suffix-icon')
                                 ->columns([
                                     'default' => 1,
                                     'lg' => 3,
                                     '2xl' => 5,
                                 ])
-                                ->label(__('Suffix Icon')),
+                                ->label(__('zeus-bolt::forms.fields.options.suffix_icon')),
 
                             ColorPicker::make('options.prefix-icon-color')
-                                ->label(__('Prefix Icon Color')),
+                                ->label(__('zeus-bolt::forms.fields.options.prefix_icon_color')),
                             ColorPicker::make('options.suffix-icon-color')
-                                ->label(__('Suffix Icon Color')),
+                                ->label(__('zeus-bolt::forms.fields.options.suffix_icon_color')),
 
                             self::columnSpanFull(),
                             self::hiddenLabel(),
@@ -116,7 +108,7 @@ class TextInput extends FieldsContract
                     self::hintOptions(),
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
-                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::hasPro() ? GradeOptions::schema($field) : [],
                     Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
@@ -125,8 +117,9 @@ class TextInput extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            Bolt::hasPro() ? GradeOptions::hidden() : [],
             ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
@@ -162,14 +155,14 @@ class TextInput extends FieldsContract
         if (isset($zeusField->options['prefix']) && $zeusField->options['prefix'] !== null) {
             $component = $component
                 ->prefixIcon($zeusField->options['prefix-icon'] ?? null)
-                ->prefixIconColor(Color::hex($zeusField->options['prefix-icon-color'] ?? '#000000'))
+                ->prefixIconColor(Color::generateV3Palette($zeusField->options['prefix-icon-color'] ?? '#000000'))
                 ->prefix($zeusField->options['prefix']);
         }
 
         if (isset($zeusField->options['suffix']) && $zeusField->options['suffix'] !== null) {
             $component = $component
                 ->suffixIcon($zeusField->options['suffix-icon'] ?? null)
-                ->suffixIconColor(Color::hex($zeusField->options['suffix-icon-color'] ?? '#000000'))
+                ->suffixIconColor(Color::generateV3Palette($zeusField->options['suffix-icon-color'] ?? '#000000'))
                 ->suffix($zeusField->options['suffix']);
         }
 

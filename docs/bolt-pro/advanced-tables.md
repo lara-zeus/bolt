@@ -1,6 +1,6 @@
 ---
 title: Integrated with Advanced Tables
-weight: 5
+weight: 6
 ---
 
 The Advanced Tables (formerly Filter Sets) plugin from [Kenneth Sese](https://filamentphp.com/plugins/kenneth-sese-advanced-tables), to Supercharge your tables with powerful features like user customizable views, enhanced filter tabs, reorderable columns, convenient view management, and more. Now fully integrated to create powerful reports from your dynamic forms.

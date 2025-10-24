@@ -10,6 +10,7 @@ use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
+use LaraZeus\BoltPro\Facades\GradeOptions;
 
 class Select extends FieldsContract
 {
@@ -17,34 +18,26 @@ class Select extends FieldsContract
 
     public int $sort = 2;
 
-    public function title(): string
-    {
-        return __('Select Menu');
-    }
-
     public function icon(): string
     {
         return 'tabler-selector';
-    }
-
-    public function description(): string
-    {
-        return __('select single or multiple items from a dropdown list');
     }
 
     public static function getOptions(?array $sections = null, ?array $field = null): array
     {
         return [
             self::dataSource(),
-            Toggle::make('options.allow_multiple')->label(__('Allow Multiple')),
+            Toggle::make('options.allow_multiple')
+                ->label(__('zeus-bolt::forms.fields.options.allow_multiple')),
             Accordions::make('options')
                 ->activeAccordion(1)
                 ->accordions([
                     Accordion::make('general-options')
-                        ->label(__('General Options'))
+                        ->label(__('zeus-bolt::forms.fields.options.general'))
                         ->icon('tabler-settings')
                         ->columns()
                         ->schema([
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::hiddenLabel(),
@@ -53,7 +46,7 @@ class Select extends FieldsContract
                     self::hintOptions(),
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
-                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::hasPro() ? GradeOptions::schema($field) : [],
                     Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
@@ -62,8 +55,9 @@ class Select extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            Bolt::hasPro() ? GradeOptions::hidden() : [],
             ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenVisibility(),
             self::hiddenHtmlID(),

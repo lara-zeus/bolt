@@ -14,7 +14,7 @@ class ResponsesPerMonth extends ChartWidget
 
     protected int | string | array $columnSpan = 'full';
 
-    protected static ?string $maxHeight = '300px';
+    protected ?string $maxHeight = '300px';
 
     public ?string $filter = 'per_day';
 
@@ -26,37 +26,32 @@ class ResponsesPerMonth extends ChartWidget
     protected function getFilters(): ?array
     {
         return [
-            'per_day' => __('Per Day'),
-            'per_month' => __('Per month'),
-            'per_year' => __('Per year'),
+            'per_day' => __('zeus-bolt::forms.widgets.per_day'),
+            'per_month' => __('zeus-bolt::forms.widgets.per_month'),
+            'per_year' => __('zeus-bolt::forms.widgets.per_year'),
         ];
     }
 
     public function getHeading(): string
     {
-        return __('Responses Count');
+        return __('zeus-bolt::forms.widgets.responses_count');
     }
 
     protected function getData(): array
     {
-        $label = null;
-
         $data = Trend::model(BoltPlugin::getModel('Response'))
             ->between(
                 start: now()->startOfYear(),
                 end: now()->endOfYear(),
             );
 
-        if ($this->filter == 'per_day') {
-            $label = __('Per day');
-            $data = $data->perDay();
-        } elseif ($this->filter == 'per_month') {
-            $label = __('Per month');
-            $data = $data->perMonth();
-        } elseif ($this->filter == 'per_year') {
-            $label = __('Per year');
-            $data = $data->perYear();
-        }
+        $data = match ($this->filter) {
+            'per_day' => $data->perDay(),
+            'per_month' => $data->perMonth(),
+            default => $data->perYear()
+        };
+
+        $label = __('zeus-bolt::forms.widgets.' . $this->filter);
 
         $data = $data->count();
 

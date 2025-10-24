@@ -2,24 +2,27 @@
 
 namespace LaraZeus\Bolt\Filament\Resources;
 
+use BackedEnum;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use LaraZeus\Bolt\BoltPlugin;
-use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages;
+use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages\CreateCollection;
+use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages\EditCollection;
+use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages\ListCollections;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Widgets\EditCollectionWarning;
 
 class CollectionResource extends BoltResource
 {
-    protected static ?string $navigationIcon = 'tabler-brand-databricks';
+    protected static string | BackedEnum | null $navigationIcon = 'tabler-brand-databricks';
 
     protected static ?int $navigationSort = 3;
 
@@ -41,33 +44,37 @@ class CollectionResource extends BoltResource
 
     public static function getModelLabel(): string
     {
-        return __('Collection');
+        return __('zeus-bolt::collection.label');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('Collections');
+        return __('zeus-bolt::collection.navigation_label');
     }
 
     public static function getNavigationLabel(): string
     {
-        return __('Collections');
+        return __('zeus-bolt::collection.navigation_label');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 TextInput::make('name')
                     ->live(onBlur: true)
-                    ->label(__('Collections Name'))->required()->maxLength(255)->columnSpan(2),
+                    ->label(__('zeus-bolt::collection.name'))
+                    ->required()
+                    ->maxLength(255)
+                    ->columnSpan(2),
+
                 Repeater::make('values')
                     ->grid([
                         'default' => 1,
                         'md' => 2,
                         'lg' => 3,
                     ])
-                    ->label(__('Collections Values'))
+                    ->label(__('zeus-bolt::collection.values'))
                     ->columnSpan(2)
                     ->columns(1)
                     ->schema([
@@ -78,11 +85,18 @@ class CollectionResource extends BoltResource
                                     $set('itemKey', $get('itemValue'));
                                 }
                             })
-                            ->required()->label(__('Value'))->hint(__('what the user will see')),
+                            ->required()
+                            ->label(__('zeus-bolt::collection.value'))
+                            ->hint(__('zeus-bolt::collection.value_help')),
+
                         TextInput::make('itemKey')
                             ->live(onBlur: true)
-                            ->required()->label(__('Key'))->hint(__('what store in the form')),
-                        Toggle::make('itemIsDefault')->label(__('selected by default')),
+                            ->required()
+                            ->label(__('zeus-bolt::collection.key'))
+                            ->hint(__('zeus-bolt::collection.key_help')),
+
+                        Toggle::make('itemIsDefault')
+                            ->label(__('zeus-bolt::collection.default')),
                     ]),
             ]);
     }
@@ -92,19 +106,19 @@ class CollectionResource extends BoltResource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label(__('zeus-bolt::collection.name'))
                     ->forceSearchCaseInsensitive()
-                    ->label(__('Collections Name'))
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('values-list')
                     ->badge()
                     ->separator(',')
-                    ->label(__('Collections Values'))
+                    ->label(__('zeus-bolt::collection.values'))
                     ->searchable(['values'])
                     ->toggleable(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     EditAction::make(),
                     DeleteAction::make(),
@@ -115,9 +129,9 @@ class CollectionResource extends BoltResource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCollections::route('/'),
-            'create' => Pages\CreateCollection::route('/create'),
-            'edit' => Pages\EditCollection::route('/{record}/edit'),
+            'index' => ListCollections::route('/'),
+            'create' => CreateCollection::route('/create'),
+            'edit' => EditCollection::route('/{record}/edit'),
         ];
     }
 

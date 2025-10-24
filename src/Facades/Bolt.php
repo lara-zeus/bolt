@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Facades;
 
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Tabs\Tab;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Carbon;
@@ -15,6 +15,7 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Contracts\CustomFormSchema;
 use LaraZeus\Bolt\Contracts\CustomSchema;
 use LaraZeus\Bolt\Fields\FieldsContract;
+use LaraZeus\BoltPro\BoltProServiceProvider;
 
 class Bolt extends Facade
 {
@@ -73,13 +74,13 @@ class Bolt extends Facade
         });
     }
 
-    public static function renderHook(string $hook): Placeholder
+    public static function renderHook(string $hook): TextEntry
     {
         $hookRendered = FilamentView::renderHook($hook);
 
-        return Placeholder::make('placeholder-' . $hook)
+        return TextEntry::make('placeholder-' . $hook)
             ->label('')
-            ->content($hookRendered)
+            ->state($hookRendered)
             ->visible(filled($hookRendered->toHtml()));
     }
 
@@ -100,11 +101,7 @@ class Bolt extends Facade
             return false;
         }
 
-        /*if (is_int($string)) {
-            return false;
-        }*/
-
-        json_decode($string);
+        json_decode($string, true);
 
         if (json_last_error()) {
             return false;
@@ -115,7 +112,7 @@ class Bolt extends Facade
 
     public static function hasPro(): bool
     {
-        return class_exists(\LaraZeus\BoltPro\BoltProServiceProvider::class);
+        return class_exists(BoltProServiceProvider::class);
     }
 
     public static function getCustomSchema(string $hook, ?FieldsContract $field = null): Tab | Accordion | null

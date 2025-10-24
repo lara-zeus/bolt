@@ -5,7 +5,7 @@ weight: 4
 
 ## Create Custom Fields
 
-Add any custom fields you want that is available on the [filament core](https://filamentphp.com/docs/3.x/forms/fields/getting-started) or [filament plugins](https://filamentphp.com/plugins).
+Add any custom fields you want that is available on the [filament core](https://filamentphp.com/docs/4.x/forms/overview) or [filament plugins](https://filamentphp.com/plugins).
 
 For example, we want to allow our users to use icon picker in the forms.
 

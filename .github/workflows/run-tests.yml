@@ -2,9 +2,9 @@ name: run-tests
 
 on:
   push:
-    branches: [3.x]
+    branches: [4.x]
   pull_request:
-    branches: [3.x]
+    branches: [4.x]
 
 jobs:
   test:
@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
         php: [8.2]
         laravel: [12.*]
         stability: [prefer-stable]
@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

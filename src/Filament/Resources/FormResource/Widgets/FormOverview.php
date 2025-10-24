@@ -13,9 +13,9 @@ class FormOverview extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('fields', $this->record->fields()->count())->label(__('Fields')),
-            Stat::make('responses', $this->record->responses()->count())->label(__('Responses')),
-            Stat::make('fields_responses', $this->record->fieldsResponses()->count())->label(__('Fields Responses')),
+            Stat::make('fields', $this->record->fields()->count())->label(__('zeus-bolt::forms.widgets.fields_label')),
+            Stat::make('responses', $this->record->responses()->count())->label(__('zeus-bolt::forms.widgets.responses_label')),
+            Stat::make('fields_responses', $this->record->fieldsResponses()->count())->label(__('zeus-bolt::forms.widgets.fields_responses')),
         ];
     }
 }

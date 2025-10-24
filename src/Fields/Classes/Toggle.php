@@ -4,12 +4,12 @@ namespace LaraZeus\Bolt\Fields\Classes;
 
 use Filament\Actions\Exports\ExportColumn;
 use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
+use Filament\Schemas\Components\Grid;
 use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\IconColumn;
-use Guava\FilamentIconPicker\Forms\IconPicker;
+use Guava\IconPicker\Forms\Components\IconPicker;
 use Illuminate\Database\Eloquent\Builder;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
@@ -18,6 +18,7 @@ use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Response;
+use LaraZeus\BoltPro\Facades\GradeOptions;
 
 class Toggle extends FieldsContract
 {
@@ -25,19 +26,9 @@ class Toggle extends FieldsContract
 
     public int $sort = 5;
 
-    public function title(): string
-    {
-        return __('Toggle');
-    }
-
     public function icon(): string
     {
         return 'tabler-toggle-left';
-    }
-
-    public function description(): string
-    {
-        return __('toggle');
     }
 
     public static function getOptions(?array $sections = null, ?array $field = null): array
@@ -46,10 +37,11 @@ class Toggle extends FieldsContract
             Accordions::make('check-list-options')
                 ->accordions([
                     Accordion::make('general-options')
-                        ->label(__('General Options'))
+                        ->label(__('zeus-bolt::forms.fields.options.general'))
                         ->icon('tabler-settings')
                         ->schema([
                             Grid::make()
+                                ->columnSpanFull()
                                 ->columns()
                                 ->schema([
                                     IconPicker::make('options.on-icon')
@@ -58,7 +50,7 @@ class Toggle extends FieldsContract
                                             'lg' => 3,
                                             '2xl' => 5,
                                         ])
-                                        ->label(__('On Icon')),
+                                        ->label(__('zeus-bolt::forms.fields.options.on_icon')),
 
                                     IconPicker::make('options.off-icon')
                                         ->columns([
@@ -66,13 +58,18 @@ class Toggle extends FieldsContract
                                             'lg' => 3,
                                             '2xl' => 5,
                                         ])
-                                        ->label(__('Off Icon')),
+                                        ->label(__('zeus-bolt::forms.fields.options.off_icon')),
 
-                                    ColorPicker::make('options.on-color')->hex(),
-                                    ColorPicker::make('options.off-color')->hex(),
+                                    ColorPicker::make('options.on-color')
+                                        ->label(__('zeus-bolt::forms.fields.options.off_color'))
+                                        ->hex(),
+                                    ColorPicker::make('options.off-color')
+                                        ->label(__('zeus-bolt::forms.fields.options.off_color'))
+                                        ->hex(),
 
                                     \Filament\Forms\Components\Toggle::make('options.is-inline'),
                                 ]),
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::hiddenLabel(),
@@ -81,7 +78,7 @@ class Toggle extends FieldsContract
                     self::hintOptions(),
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
-                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::hasPro() ? GradeOptions::schema($field) : [],
                     Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
@@ -90,8 +87,9 @@ class Toggle extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            Bolt::hasPro() ? GradeOptions::hidden() : [],
             ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenVisibility(),
             self::hiddenHtmlID(),
@@ -121,11 +119,11 @@ class Toggle extends FieldsContract
         }
 
         if (optional($zeusField->options)['on-color']) {
-            $component = $component->onColor(Color::hex($zeusField->options['on-color']));
+            $component = $component->onColor(Color::generateV3Palette($zeusField->options['on-color']));
         }
 
         if (optional($zeusField->options)['off-color']) {
-            $component = $component->offColor(Color::hex($zeusField->options['off-color']));
+            $component = $component->offColor(Color::generateV3Palette($zeusField->options['off-color']));
         }
 
         if (isset($zeusField->options['is-inline'])) {
@@ -155,7 +153,7 @@ class Toggle extends FieldsContract
     {
         $response = (int) $resp->response;
 
-        return ($response === 1) ? __('yes') : __('no');
+        return ($response === 1) ? __('zeus-bolt::forms.fields.options.yes') : __('zeus-bolt::forms.fields.options.no');
     }
 
     public function ExportColumn(Field $field): ?ExportColumn
@@ -167,7 +165,7 @@ class Toggle extends FieldsContract
                 $response = $record->fieldsResponses()->where('field_id', $field->id)->first();
                 $response = (int) $response->response;
 
-                return ($response === 1) ? __('yes') : __('no');
+                return ($response === 1) ? __('zeus-bolt::forms.fields.options.yes') : __('zeus-bolt::forms.fields.options.no');
             });
     }
 }

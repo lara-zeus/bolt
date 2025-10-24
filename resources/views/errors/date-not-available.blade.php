@@ -18,9 +18,9 @@
 
             <x-slot name="description">
                 <span class="text-sm text-gray-500">{{ __('Start date') }}</span>:
-                <span class="text-sm">{{ $zeusForm->start_date->format(\Filament\Infolists\Infolist::$defaultDateTimeDisplayFormat) }}</span>,
+                <span class="text-sm">{{ $zeusForm->start_date->format($this->form->getDefaultDateDisplayFormat()) }}</span>,
                 <span class="text-sm text-gray-500">{{ __('End date') }}</span>:
-                <span class="text-sm">{{ $zeusForm->end_date->format(\Filament\Infolists\Infolist::$defaultDateTimeDisplayFormat) }}</span>
+                <span class="text-sm">{{ $zeusForm->end_date->format($this->form->getDefaultDateDisplayFormat()) }}</span>
             </x-slot>
         </x-filament::section>
     </div>

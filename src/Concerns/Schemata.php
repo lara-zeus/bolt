@@ -2,37 +2,40 @@
 
 namespace LaraZeus\Bolt\Concerns;
 
+use Exception;
+use Filament\Actions\Action;
 use Filament\Facades\Filament;
-use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ViewField;
-use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Guava\FilamentIconPicker\Forms\IconPicker;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
-use LaraZeus\Accordion\Forms\Accordion;
-use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\BoltPlugin;
+use LaraZeus\Bolt\Concerns\Schema\Fields;
+use LaraZeus\Bolt\Concerns\Schema\Sections;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Category;
+use LaraZeus\BoltPro\Actions\SectionMarkAction;
 
 trait Schemata
 {
+    use Fields;
+    use Sections;
+
     protected static function getVisibleFields(array $sections, array $arguments): array
     {
         // @phpstan-ignore-next-line
@@ -52,58 +55,9 @@ trait Schemata
             })->all();
     }
 
-    protected static function sectionOptionsFormSchema(array $formOptions, array $allSections): array
-    {
-        return [
-            TextInput::make('description')
-                ->hidden(fn (Get $get) => $get('borderless') === true)
-                ->nullable()
-                ->live()
-                ->visible($formOptions['show-as'] !== 'tabs')
-                ->label(__('Section Description')),
-
-            Accordions::make('section-options')
-                ->accordions(fn () => array_filter([
-                    Accordion::make('visual-options')
-                        ->label(__('Visual Options'))
-                        ->columns()
-                        ->icon('tabler-list-details')
-                        ->schema([
-                            Select::make('columns')
-                                ->options(fn (): array => array_combine(range(1, 12), range(1, 12)))
-                                ->required()
-                                ->default(1)
-                                ->hint(__('fields per row'))
-                                ->label(__('Section Columns')),
-                            IconPicker::make('icon')
-                                ->columns([
-                                    'default' => 1,
-                                    'lg' => 3,
-                                    '2xl' => 5,
-                                ])
-                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('borderless') === false)
-                                ->label(__('Section icon')),
-                            Toggle::make('aside')
-                                ->default(false)
-                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('borderless') === false)
-                                ->label(__('show as aside')),
-                            Toggle::make('borderless')
-                                ->live()
-                                ->default(false)
-                                ->visible($formOptions['show-as'] === 'page')
-                                ->label(__('Borderless Section'))
-                                ->helperText('Show the section without borders'),
-                            Toggle::make('compact')
-                                ->default(false)
-                                ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('borderless') === false)
-                                ->label(__('Compact section')),
-                        ]),
-                    self::visibility($allSections),
-                    Bolt::getCustomSchema('section') ?? [],
-                ])),
-        ];
-    }
-
+    /**
+     * @throws Exception
+     */
     public static function getMainFormSchema(): array
     {
         return [
@@ -118,26 +72,26 @@ trait Schemata
                 ->schema(static::getSectionsSchema())
                 ->relationship()
                 ->orderColumn('ordering')
-                ->addActionLabel(__('Add Section'))
+                ->addActionLabel(__('zeus-bolt::forms.section.options.add'))
                 ->cloneable()
                 ->collapsible()
                 ->collapsed(fn (string $operation) => $operation === 'edit')
                 ->minItems(1)
                 ->extraItemActions([
                     // @phpstan-ignore-next-line
-                    Bolt::hasPro() ? \LaraZeus\BoltPro\Actions\SectionMarkAction::make('marks') : null,
+                    Bolt::hasPro() ? SectionMarkAction::make('marks') : null,
 
                     Action::make('options')
-                        ->label(__('section options'))
+                        ->label(__('zeus-bolt::forms.section.options.title'))
                         ->slideOver()
                         ->color('warning')
-                        ->tooltip(__('more section options'))
+                        ->tooltip(__('zeus-bolt::forms.section.options.more'))
                         ->icon('heroicon-m-cog')
                         ->fillForm(fn (
                             array $arguments,
                             Repeater $component
                         ) => $component->getItemState($arguments['item']))
-                        ->form(function (array $arguments, Get $get) {
+                        ->schema(function (array $arguments, Get $get) {
                             $formOptions = $get('options');
                             $allSections = $get('sections');
                             unset($allSections[$arguments['item']]);
@@ -160,15 +114,15 @@ trait Schemata
     public static function getTabsSchema(): array
     {
         $tabs = [
-            Tabs\Tab::make('title-slug-tab')
-                ->label(__('Title & Slug'))
+            Tab::make('title-slug-tab')
+                ->label(__('zeus-bolt::forms.options.tabs.title.label'))
                 ->columns()
                 ->schema([
                     TextInput::make('name')
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
-                        ->label(__('Form Name'))
+                        ->label(__('zeus-bolt::forms.options.tabs.title.name'))
                         ->afterStateUpdated(function (Set $set, $state, $context) {
                             if ($context === 'edit') {
                                 return;
@@ -179,11 +133,11 @@ trait Schemata
                         ->required()
                         ->maxLength(255)
                         ->rules(['alpha_dash'])
-                        ->unique(ignoreRecord: true)
-                        ->label(__('Form Slug')),
+                        ->unique()
+                        ->label(__('zeus-bolt::forms.options.tabs.title.slug')),
 
                     Select::make('category_id')
-                        ->label(__('Category'))
+                        ->label(__('zeus-bolt::forms.options.tabs.title.category.label'))
                         ->searchable()
                         ->preload()
                         ->relationship(
@@ -197,41 +151,49 @@ trait Schemata
                                 return BoltPlugin::getModel('Category')::query()->whereBelongsTo(Filament::getTenant());
                             },
                         )
-                        ->helperText(__('optional, organize your forms into categories'))
+                        ->belowContent(__('zeus-bolt::forms.options.tabs.title.category.hint'))
                         ->createOptionForm([
                             TextInput::make('name')
                                 ->required()
                                 ->maxLength(255)
                                 ->live(onBlur: true)
-                                ->label(__('Name'))
+                                ->label(__('zeus-bolt::forms.options.tabs.title.category.name'))
                                 ->afterStateUpdated(function (Set $set, $state, $context) {
                                     if ($context === 'edit') {
                                         return;
                                     }
                                     $set('slug', Str::slug($state));
                                 }),
-                            TextInput::make('slug')->required()->maxLength(255)->label(__('slug')),
+                            TextInput::make('slug')
+                                ->required()
+                                ->maxLength(255)
+                                ->label(__('zeus-bolt::forms.options.tabs.title.category.slug')),
                         ])
-                        ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot('create', BoltPlugin::getModel('Category'))))
+                        ->createOptionAction(fn (Action $action) => $action->hidden(auth()->user()->cannot(
+                            'create',
+                            BoltPlugin::getModel('Category')
+                        )))
                         ->getOptionLabelFromRecordUsing(fn (Category $record) => $record->name),
                 ]),
 
-            Tabs\Tab::make('text-details-tab')
-                ->label(__('Text & Details'))
+            Tab::make('text-details-tab')
+                ->label(__('zeus-bolt::forms.options.tabs.details.label'))
                 ->schema([
                     Textarea::make('description')
-                        ->label(__('Form Description'))
-                        ->helperText(__('shown under the title of the form and used in SEO')),
+                        ->label(__('zeus-bolt::forms.options.tabs.details.description'))
+                        ->belowContent(__('zeus-bolt::forms.options.tabs.details.description_help')),
                     RichEditor::make('details')
-                        ->label(__('Form Details'))
-                        ->helperText(__('a highlighted section above the form, to show some instructions or more details')),
+                        ->label(__('zeus-bolt::forms.options.tabs.details.details'))
+                        ->belowContent(__('zeus-bolt::forms.options.tabs.details.details_help'))
+                        ->dehydrateStateUsing(fn ($state) => filled(strip_tags($state)) ? $state : null),
                     RichEditor::make('options.confirmation-message')
-                        ->label(__('Confirmation Message'))
-                        ->helperText(__('optional, show a massage whenever any one submit a new entry')),
+                        ->label(__('zeus-bolt::forms.options.tabs.details.confirmation_message'))
+                        ->belowContent(__('zeus-bolt::forms.options.tabs.details.confirmation_message_help'))
+                        ->dehydrateStateUsing(fn ($state) => filled(strip_tags($state)) ? $state : null),
                 ]),
 
-            Tabs\Tab::make('display-access-tab')
-                ->label(__('Display & Access'))
+            Tab::make('display-access-tab')
+                ->label(__('zeus-bolt::forms.options.tabs.display.label'))
                 ->columns()
                 ->schema([
                     Grid::make()
@@ -239,16 +201,16 @@ trait Schemata
                         ->columns(1)
                         ->schema([
                             Toggle::make('is_active')
-                                ->label(__('Is Active'))
+                                ->label(__('zeus-bolt::forms.options.tabs.display.is_active'))
                                 ->default(1)
-                                ->helperText(__('Activate the form and let users start submissions')),
+                                ->belowContent(__('zeus-bolt::forms.options.tabs.display.is_active_help')),
                             Toggle::make('options.require-login')
-                                ->label(__('require Login'))
-                                ->helperText(__('User must be logged in or create an account before can submit a new entry'))
+                                ->label(__('zeus-bolt::forms.options.tabs.display.require_login'))
+                                ->belowContent(__('zeus-bolt::forms.options.tabs.display.require_login_help'))
                                 ->live(),
                             Toggle::make('options.one-entry-per-user')
-                                ->label(__('One Entry Per User'))
-                                ->helperText(__('to check if the user already submitted an entry in this form'))
+                                ->label(__('zeus-bolt::forms.options.tabs.display.one_entry_per_user'))
+                                ->belowContent(__('zeus-bolt::forms.options.tabs.display.one_entry_per_user_help'))
                                 ->visible(function (Get $get) {
                                     return $get('options.require-login');
                                 }),
@@ -258,59 +220,61 @@ trait Schemata
                         ->columns(1)
                         ->schema([
                             Radio::make('options.show-as')
-                                ->label(__('Show the form as'))
+                                ->label(__('zeus-bolt::forms.options.tabs.display.show_as.label'))
                                 ->live()
                                 ->default('page')
                                 ->descriptions([
-                                    'page' => __('show all sections on one page'),
-                                    'wizard' => __('separate each section in steps'),
-                                    'tabs' => __('Show the Form as Tabs'),
+                                    'page' => __('zeus-bolt::forms.options.tabs.display.show_as.type_desc.page'),
+                                    'wizard' => __('zeus-bolt::forms.options.tabs.display.show_as.type_desc.wizard'),
+                                    'tabs' => __('zeus-bolt::forms.options.tabs.display.show_as.type_desc.tabs'),
                                 ])
                                 ->options([
-                                    'page' => __('Show on one page'),
-                                    'wizard' => __('Show As Wizard'),
-                                    'tabs' => __('Show As Tabs'),
+                                    'page' => __('zeus-bolt::forms.options.tabs.display.show_as.type.page'),
+                                    'wizard' => __('zeus-bolt::forms.options.tabs.display.show_as.type.wizard'),
+                                    'tabs' => __('zeus-bolt::forms.options.tabs.display.show_as.type.tabs'),
                                 ]),
                         ]),
 
                     TextInput::make('ordering')
                         ->numeric()
-                        ->label(__('ordering'))
+                        ->label(__('zeus-bolt::forms.options.tabs.display.ordering'))
                         ->default(1),
                 ]),
 
-            Tabs\Tab::make('advanced-tab')
-                ->label(__('Advanced'))
+            Tab::make('advanced-tab')
+                ->label(__('zeus-bolt::forms.options.tabs.advanced.label'))
                 ->schema([
                     Grid::make()
+                        ->columnSpanFull()
                         ->columns()
                         ->schema([
-                            Placeholder::make('form-dates')
-                                ->label(__('Form Dates'))
-                                ->content(__('optional, specify when the form will be active and receiving new entries'))
+                            TextEntry::make('form-dates')
+                                ->label(__('zeus-bolt::forms.options.tabs.advanced.dates'))
+                                ->state(__('zeus-bolt::forms.options.tabs.advanced.dates_help'))
                                 ->columnSpanFull(),
                             DateTimePicker::make('start_date')
                                 ->requiredWith('end_date')
-                                ->label(__('Start Date')),
+                                ->label(__('zeus-bolt::forms.options.tabs.advanced.start_date')),
                             DateTimePicker::make('end_date')
                                 ->requiredWith('start_date')
-                                ->label(__('End Date')),
+                                ->label(__('zeus-bolt::forms.options.tabs.advanced.end_date')),
                         ]),
                     Grid::make()
+                        ->columnSpanFull()
                         ->columns()
                         ->schema([
                             TextInput::make('options.emails-notification')
-                                ->label(__('Emails Notifications'))
-                                ->helperText(__('optional, enter the emails (comma separated) you want to receive notification when ever you got a new entry')),
+                                ->label(__('zeus-bolt::forms.options.tabs.advanced.emails_notifications'))
+                                ->belowContent(__('zeus-bolt::forms.options.tabs.advanced.emails_notifications_help')),
                         ]),
                 ]),
 
-            Tabs\Tab::make('extensions-tab')
-                ->label(__('Extensions'))
+            Tab::make('extensions-tab')
+                ->label(__('zeus-bolt::forms.options.tabs.extensions.label'))
                 ->visible(BoltPlugin::get()->getExtensions() !== null)
                 ->schema([
                     Select::make('extensions')
-                        ->label(__('Extensions'))
+                        ->label(__('zeus-bolt::forms.options.tabs.extensions.label'))
                         ->preload()
                         ->live()
                         ->options(function () {
@@ -326,12 +290,14 @@ trait Schemata
                         }),
                 ]),
 
-            Tabs\Tab::make('design')
-                ->label(__('Design'))
+            Tab::make('design')
+                ->columns()
+                ->label(__('zeus-bolt::forms.options.tabs.design.label'))
                 ->visible(Bolt::hasPro() && config('zeus-bolt.allow_design'))
                 ->schema([
                     ViewField::make('options.primary_color')
                         ->hiddenLabel()
+                        ->columnSpanFull()
                         ->view('zeus::filament.components.color-picker'),
                     FileUpload::make('options.logo')
                         ->disk(config('zeus-bolt.uploadDisk'))
@@ -339,14 +305,14 @@ trait Schemata
                         ->visibility(config('zeus-bolt.uploadVisibility'))
                         ->image()
                         ->imageEditor()
-                        ->label(__('Logo')),
+                        ->label(__('zeus-bolt::forms.options.tabs.design.logo')),
                     FileUpload::make('options.cover')
                         ->disk(config('zeus-bolt.uploadDisk'))
                         ->directory(config('zeus-bolt.uploadDirectory'))
                         ->visibility(config('zeus-bolt.uploadVisibility'))
                         ->image()
                         ->imageEditor()
-                        ->label(__('Cover')),
+                        ->label(__('zeus-bolt::forms.options.tabs.design.cover')),
                 ]),
         ];
 
@@ -357,159 +323,5 @@ trait Schemata
         }
 
         return $tabs;
-    }
-
-    public static function getSectionsSchema(): array
-    {
-        return array_filter([
-            TextInput::make('name')
-                ->columnSpanFull()
-                ->required()
-                ->lazy()
-                ->label(__('Section Name')),
-
-            Placeholder::make('section-fields-placeholder')
-                ->label(__('Section Fields')),
-
-            Repeater::make('fields')
-                ->relationship()
-                ->orderColumn('ordering')
-                ->cloneable()
-                ->minItems(1)
-
-                ->cloneAction(fn (Action $action) => $action->action(function (Component $component, $arguments) {
-                    $items = $component->getState();
-                    $originalItem = $items[$arguments['item']];
-                    $clonedItem = array_merge($originalItem, [
-                        'name' => $originalItem['name'] . ' new',
-                        'options' => array_merge($originalItem['options'], [
-                            'htmlId' => $originalItem['options']['htmlId'] . Str::random(2),
-                        ]),
-                    ]);
-
-                    $items[] = $clonedItem;
-                    $component->state($items);
-
-                    return $items;
-                }))
-                ->collapsible()
-                ->collapsed(fn (string $operation) => $operation === 'edit')
-                ->grid([
-                    'default' => 1,
-                    'md' => 2,
-                    'xl' => 3,
-                    '2xl' => 3,
-                ])
-                ->label('')
-                ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
-                ->addActionLabel(__('Add field'))
-                ->extraItemActions([
-                    // @phpstan-ignore-next-line
-                    Bolt::hasPro() ? \LaraZeus\BoltPro\Actions\FieldMarkAction::make('marks') : null,
-
-                    Action::make('fields options')
-                        ->slideOver()
-                        ->color('warning')
-                        ->tooltip('more field options')
-                        ->icon('heroicon-m-cog')
-                        ->modalIcon('heroicon-m-cog')
-                        ->modalDescription(__('advanced fields settings'))
-                        ->fillForm(
-                            fn (array $arguments, Repeater $component) => $component->getItemState($arguments['item'])
-                        )
-                        ->form(function (Get $get, array $arguments, Repeater $component) {
-                            $allSections = self::getVisibleFields($get('../../sections'), $arguments);
-
-                            return [
-                                Textarea::make('description')
-                                    ->label(__('Field Description')),
-                                Group::make()
-                                    ->label(__('Field Options'))
-                                    ->schema(function (Get $get) use ($allSections, $component, $arguments) {
-                                        $class = $get('type');
-                                        if (class_exists($class)) {
-                                            $newClass = (new $class);
-                                            if ($newClass->hasOptions()) {
-                                                return $newClass->getOptions($allSections, $component->getState()[$arguments['item']]);
-                                            }
-                                        }
-
-                                        return [];
-                                    }),
-                            ];
-                        })
-                        ->action(function (array $data, array $arguments, Repeater $component): void {
-                            $state = $component->getState();
-                            $state[$arguments['item']] = array_merge($state[$arguments['item']], $data);
-                            $component->state($state);
-                        }),
-                ])
-                ->schema(static::getFieldsSchema()),
-
-            Hidden::make('compact')->default(0)->nullable(),
-            Hidden::make('aside')->default(0)->nullable(),
-            Hidden::make('borderless')->default(0)->nullable(),
-            Hidden::make('icon')->nullable(),
-            Hidden::make('columns')->default(1)->nullable(),
-            Hidden::make('description')->nullable(),
-            Hidden::make('options.visibility.active')->default(0)->nullable(),
-            Hidden::make('options.visibility.fieldID')->nullable(),
-            Hidden::make('options.visibility.values')->nullable(),
-            ...Bolt::getHiddenCustomSchema('section') ?? [],
-        ]);
-    }
-
-    public static function getCleanOptionString(array $field): string
-    {
-        return
-            view('zeus::filament.fields.types')
-                ->with('field', $field)
-                ->render();
-    }
-
-    public static function getFieldsSchema(): array
-    {
-        return [
-            Hidden::make('description'),
-            TextInput::make('name')
-                ->required()
-                ->lazy()
-                ->label(__('Field Name')),
-            Select::make('type')
-                ->required()
-                ->searchable()
-                ->preload()
-                ->getSearchResultsUsing(function (string $search) {
-                    return Bolt::availableFields()
-                        ->filter(fn ($q) => str($q['title'])->contains($search))
-                        ->mapWithKeys(fn ($field) => [$field['class'] => static::getCleanOptionString($field)])
-                        ->toArray();
-                })
-                ->allowHtml()
-                ->extraAttributes(['class' => 'field-type'])
-                ->options(function (): array {
-                    return Bolt::availableFields()
-                        ->mapWithKeys(function ($field) {
-                            return [$field['class'] => static::getCleanOptionString($field)];
-                        })
-                        ->toArray();
-                })
-                ->live()
-                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
-                ->label(__('Field Type')),
-            Group::make()
-                ->schema(function (Get $get) {
-                    $class = $get('type');
-                    if (class_exists($class)) {
-                        $newClass = (new $class);
-                        if ($newClass->hasOptions()) {
-                            // @phpstan-ignore-next-line
-                            return collect($newClass->getOptionsHidden())->flatten()->toArray();
-                        }
-                    }
-
-                    return [];
-                }),
-        ];
     }
 }

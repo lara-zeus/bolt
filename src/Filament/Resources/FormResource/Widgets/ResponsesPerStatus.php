@@ -10,9 +10,9 @@ class ResponsesPerStatus extends ChartWidget
 {
     public Form $record;
 
-    protected static ?string $maxHeight = '300px';
+    protected ?string $maxHeight = '300px';
 
-    protected static ?array $options = [
+    protected ?array $options = [
         'scales' => [
             'y' => [
                 'grid' => [
@@ -40,36 +40,36 @@ class ResponsesPerStatus extends ChartWidget
 
     public function getHeading(): string
     {
-        return __('Responses Status');
+        return __('zeus-bolt::forms.widgets.responses_status');
     }
 
     protected function getData(): array
     {
         $dataset = [];
-        $statuses = BoltPlugin::getModel('FormsStatus')::get();
+        $statuses = BoltPlugin::getEnum('FormsStatus');
 
         $form = BoltPlugin::getModel('Form')::query()
             ->with(['responses'])
             ->where('id', $this->record->id)
             ->first();
 
-        foreach ($statuses as $status) {
+        foreach ($statuses::cases() as $status) {
             $dataset[] = $form->responses
-                ->where('status', $status->key)
+                ->where('status', $status->name)
                 ->count();
         }
 
         return [
             'datasets' => [
                 [
-                    'label' => __('entries per month'),
+                    'label' => __('zeus-bolt::forms.widgets.entries_per_month_desc'),
                     'data' => $dataset,
-                    'backgroundColor' => $statuses->pluck('chartColor'),
+                    'backgroundColor' => $statuses::getChartColors(),
                     'borderColor' => '#ffffff',
                 ],
             ],
 
-            'labels' => $statuses->pluck('label'),
+            'labels' => collect($statuses::cases())->map(fn ($item) => $item->getLabel())->toArray(),
         ];
     }
 

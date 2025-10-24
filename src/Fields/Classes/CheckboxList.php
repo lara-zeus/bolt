@@ -2,12 +2,14 @@
 
 namespace LaraZeus\Bolt\Fields\Classes;
 
+use JsonException;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
+use LaraZeus\BoltPro\Facades\GradeOptions;
 
 class CheckboxList extends FieldsContract
 {
@@ -15,19 +17,9 @@ class CheckboxList extends FieldsContract
 
     public int $sort = 3;
 
-    public function title(): string
-    {
-        return __('Checkbox List');
-    }
-
     public function icon(): string
     {
         return 'tabler-list-check';
-    }
-
-    public function description(): string
-    {
-        return __('checkbox items from data source');
     }
 
     public static function getOptions(?array $sections = null, ?array $field = null): array
@@ -38,9 +30,10 @@ class CheckboxList extends FieldsContract
             Accordions::make('check-list-options')
                 ->accordions([
                     Accordion::make('general-options')
-                        ->label(__('General Options'))
+                        ->label(__('zeus-bolt::forms.fields.options.general'))
                         ->icon('tabler-settings')
                         ->schema([
+                            self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
                             self::hiddenLabel(),
@@ -49,7 +42,7 @@ class CheckboxList extends FieldsContract
                     self::hintOptions(),
                     self::visibility($sections),
                     // @phpstan-ignore-next-line
-                    ...Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::schema($field) : [],
+                    ...Bolt::hasPro() ? GradeOptions::schema($field) : [],
                     Bolt::getCustomSchema('field', resolve(static::class)) ?? [],
                 ]),
         ];
@@ -58,8 +51,9 @@ class CheckboxList extends FieldsContract
     public static function getOptionsHidden(): array
     {
         return [
+            self::hiddenIsActive(),
             // @phpstan-ignore-next-line
-            Bolt::hasPro() ? \LaraZeus\BoltPro\Facades\GradeOptions::hidden() : [],
+            Bolt::hasPro() ? GradeOptions::hidden() : [],
             ...Bolt::getHiddenCustomSchema('field', resolve(static::class)) ?? [],
             self::hiddenDataSource(),
             self::hiddenVisibility(),
@@ -76,6 +70,9 @@ class CheckboxList extends FieldsContract
         return $this->getCollectionsValuesForResponse($field, $resp);
     }
 
+    /**
+     * @throws JsonException
+     */
     // @phpstan-ignore-next-line
     public function appendFilamentComponentsOptions($component, $zeusField, bool $hasVisibility = false)
     {

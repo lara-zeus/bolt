@@ -4,11 +4,12 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use JsonException;
 
 class BoltSeeder extends Seeder
 {
     /**
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function run(): void
     {

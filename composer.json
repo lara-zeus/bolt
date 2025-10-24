@@ -22,31 +22,32 @@
     "type": "library",
     "authors": [
         {
-            "name": "Lara Zeus (Ash)",
+            "name": "Lara Zeus",
             "email": "info@larazeus.com"
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
+        "guava/filament-icon-picker": "^3.1",
         "flowframe/laravel-trend": "^0.4",
-        "guava/filament-icon-picker": "^2.3",
-        "lara-zeus/accordion": "^1.1",
-        "lara-zeus/core": "^3.2",
-        "lara-zeus/filament-plugin-tools": "^1.0",
-        "lara-zeus/list-group": "^1.0",
-        "secondnetwork/blade-tabler-icons": "^3.30"
+        "lara-zeus/accordion": "^2.0",
+        "lara-zeus/core": "^4.0",
+        "lara-zeus/filament-plugin-tools": "^2.0",
+        "lara-zeus/list-group": "^2.0",
+        "lara-zeus/tabler-icons-enum": "^1.0",
+        "pxlrbt/filament-excel": "^3.1"
     },
     "require-dev": {
-        "phpstan/extension-installer": "^1.4",
         "larastan/larastan": "^3.0",
-        "laravel/pint": "^1.0",
+        "laravel/pint": "^1.24",
         "nunomaduro/collision": "^8.6",
         "nunomaduro/phpinsights": "^2.8",
         "orchestra/testbench": "^10.0",
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-arch": "^3.0",
         "pestphp/pest-plugin-laravel": "^3.0",
-        "pestphp/pest-plugin-livewire": "^3.0"
+        "pestphp/pest-plugin-livewire": "^3.0",
+        "phpstan/extension-installer": "^1.4"
     },
     "autoload": {
         "psr-4": {

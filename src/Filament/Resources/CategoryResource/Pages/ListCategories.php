@@ -2,21 +2,23 @@
 
 namespace LaraZeus\Bolt\Filament\Resources\CategoryResource\Pages;
 
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
+use LaraZeus\SpatieTranslatable\Actions\LocaleSwitcher;
+use LaraZeus\SpatieTranslatable\Resources\Pages\ListRecords\Concerns\Translatable;
 
 class ListCategories extends ListRecords
 {
-    use ListRecords\Concerns\Translatable;
+    use Translatable;
 
     protected static string $resource = CategoryResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\LocaleSwitcher::make(),
-            Actions\CreateAction::make(),
+            LocaleSwitcher::make(),
+            CreateAction::make(),
         ];
     }
 }

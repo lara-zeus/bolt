@@ -23,4 +23,6 @@ parameters:
         -
             identifier: return.type
         -
+            identifier: class.notFound
+        -
             identifier: notIdentical.alwaysTrue

@@ -3,6 +3,7 @@
 namespace LaraZeus\Bolt;
 
 use LaraZeus\Bolt\Commands\InstallCommand;
+use LaraZeus\Bolt\Commands\MakeAllFieldsActive;
 use LaraZeus\Bolt\Commands\PublishCommand;
 use LaraZeus\Bolt\Commands\ZeusDatasourceCommand;
 use LaraZeus\Bolt\Commands\ZeusFieldCommand;
@@ -49,6 +50,7 @@ class BoltServiceProvider extends PackageServiceProvider
             ZeusFieldCommand::class,
             ZeusDatasourceCommand::class,
             InstallCommand::class,
+            MakeAllFieldsActive::class,
         ];
     }
 
@@ -65,14 +67,7 @@ class BoltServiceProvider extends PackageServiceProvider
             'create_fields_table',
             'create_responses_table',
             'create_field_responses_table',
-            'add_extensions_to_forms',
-            'add_extension_item_responses',
             'alter_tables_constraints',
-            'add_compact_to_section',
-            'add_options_to_section',
-            'add_grade_to_response',
-            'add_grade_to_field_response',
-            'add_borderless_to_section',
         ];
     }
 }

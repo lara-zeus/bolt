@@ -3,6 +3,7 @@
 use LaraZeus\Bolt\Fields\Classes\TextInput;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\CreateForm;
 use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\EditForm;
 use LaraZeus\Bolt\Livewire\FillForms;
 use LaraZeus\Bolt\Livewire\ListForms;
@@ -116,7 +117,7 @@ it('can create', function () {
     $newData = Form::factory()->make();
     $htmlID = str()->random(6);
 
-    livewire(FormResource\Pages\CreateForm::class)
+    livewire(CreateForm::class)
         ->fillForm([
             'name' => $newData->name,
             'user_id' => $newData->user->getKey(),
@@ -251,7 +252,7 @@ it('can save', function () {
                     'fields' => [
                         [
                             'name' => 'sdf',
-                            'type' => TextInput::class,
+                            'type' => '\\' . TextInput::class,
                             'options' => [
                                 'dateType' => 'string',
                                 'htmlId' => $htmlID,

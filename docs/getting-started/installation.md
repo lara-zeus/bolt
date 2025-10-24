@@ -5,7 +5,7 @@ weight: 3
 
 ## Prerequisites
 
-Bolt is built on top of [laravel](https://laravel.com/docs/master) and uses [filament](https://filamentphp.com/docs/3.x/panels/installation) as an admin panel to manage everything.
+Bolt is built on top of [laravel](https://laravel.com/docs/master) and uses [filament](https://filamentphp.com/docs/4.x/introduction/overview) as an admin panel to manage everything.
 
 And for the frontend, it uses [Tall stack](https://tallstack.dev/).
 
@@ -35,7 +35,7 @@ To set up the plugin with filament, you need to add it to your panel provider; T
 
 ```php
 ->plugins([
-    SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
+    SpatieTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
     BoltPlugin::make()
 ])
 ```
@@ -60,4 +60,4 @@ to improve performance in the production environment, make sure to run these com
 php artisan icons:cache
 ```
 
-To learn more about performance in the production, check out [filament docs](https://filamentphp.com/docs/3.x/panels/installation#improving-filament-panel-performance).
+To learn more about performance in the production, check out [filament docs](https://filamentphp.com/docs/4.x/deployment).

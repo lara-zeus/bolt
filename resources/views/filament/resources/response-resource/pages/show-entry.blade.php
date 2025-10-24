@@ -44,7 +44,11 @@
                     @endif
                     <p class="flex flex-col my-1 gap-1">
                         <span class="text-base font-light">{{ __('created at') }}:</span>
-                        <span class="font-semibold">{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultDateDisplayFormat) }}-{{ $response->created_at->format(\Filament\Infolists\Infolist::$defaultTimeDisplayFormat) }}</span>
+                        <span class="font-semibold">
+                            {{ $response->created_at->format($this->form->getDefaultDateDisplayFormat()) }}
+                            -
+                            {{ $response->created_at->format($this->form->getDefaultDateDisplayFormat()) }}
+                        </span>
                     </p>
                 </x-filament::section>
                 <x-filament::section>
@@ -59,14 +63,15 @@
 
                     <div class="mb-4">
                         <span>{{ __('status') }}</span>
-                            @php $getStatues = $response->statusDetails() @endphp
-                            <span class="{{ $getStatues['class']}}"
-                                  x-tooltip="{
-                                    content: @js(__('status')),
-                                    theme: $store.theme,
-                                  }">
-                            @svg($getStatues['icon'],'w-4 h-4 inline')
-                                {{ $getStatues['label'] }}
+                        <span
+                            color="{{ $response->status->getColor() }}"
+                            x-tooltip="{
+                                content: @js(__('status')),
+                                theme: $store.theme,
+                            }"
+                        >
+                            @svg($response->status->getIcon(),'w-4 h-4 inline')
+                            {{ $response->status->getLabel() }}
                         </span>
                     </div>
 

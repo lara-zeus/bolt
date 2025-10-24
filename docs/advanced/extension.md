@@ -105,12 +105,13 @@ class Items implements Extension
 
 ## Enabling The Extension
 
-In your `zeus-bolt` config file, add your extension to the array:
+In your panel provider, for example `AdminPanelProvider`, add your extension to the array:
 
-```php 
-'extensions' => [
-    \App\Zeus\Extensions\Items::class,
-],
+```php
+BoltPlugin::make()
+  ->extensions([
+      \App\Zeus\Extensions\Items::class,
+  ])
 ```
 
 Now when creating or editing a form, you will see the tab Extensions, and you can select any extension per form.
