@@ -87,6 +87,11 @@ trait Schemata
                         ->color('warning')
                         ->tooltip(__('zeus-bolt::forms.section.options.more'))
                         ->icon('heroicon-m-cog')
+                        ->modalIcon('heroicon-m-cog')
+                        ->modalHeading(
+                            fn (array $arguments, Repeater $component) => optional(optional($component->getState())[optional($arguments)['item']])['name'] ?? ''
+                        )
+                        ->modalDescription(__('zeus-bolt::forms.section.options.title'))
                         ->fillForm(fn (
                             array $arguments,
                             Repeater $component
