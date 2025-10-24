@@ -16,13 +16,16 @@ use JsonException;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Concerns\HasHiddenOptions;
 use LaraZeus\Bolt\Concerns\HasOptions;
+use LaraZeus\Bolt\Contracts\DataSourceEnum;
 use LaraZeus\Bolt\Contracts\Fields;
+use LaraZeus\Bolt\DataSources\DataSourceContract;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Models\Field;
 use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\Bolt\Models\Response;
 use LaraZeus\BoltPro\Extensions\Grades;
 use LaraZeus\BoltPro\Models\Field as FieldPreset;
+use UnitEnum;
 
 /** @phpstan-return Arrayable<string,mixed> */
 abstract class FieldsContract implements Arrayable, Fields
@@ -187,6 +190,10 @@ abstract class FieldsContract implements Arrayable, Fields
         $dataSource = (int) $field->options['dataSource'];
         $cacheKey = 'dataSource_' . $dataSource . '_response_' . md5(serialize($response));
 
+        if (app()->isLocal()) {
+            Cache::forget($cacheKey);
+        }
+
         $response = Cache::remember($cacheKey, config('zeus-bolt.cache.collection_values'), function () use ($field, $response, $dataSource) {
 
             // Handle case when dataSource is from the default model: `Collection`
@@ -197,6 +204,18 @@ abstract class FieldsContract implements Arrayable, Fields
                     ->whereIn('itemKey', $response)
                     ->pluck('itemValue')
                     ->join(', ') ?? '';
+            }
+
+            if (
+                enum_exists($enum = $field->options['dataSource']) &&
+                is_a($enum, DataSourceEnum::class, allow_string: true)
+            ) {
+                return collect($enum::cases())
+                    ->mapWithKeys(fn (DataSourceEnum & UnitEnum $case): array => [
+                        $case->value ?? $case->name => $case->getDataSourceLabel() ?? $case->name,
+                    ])
+                    ->intersectByKeys(array_flip($response))
+                    ->join(', ');
             }
 
             // Handle case when dataSource is custom model class
@@ -243,14 +262,28 @@ abstract class FieldsContract implements Arrayable, Fields
             } else {
                 $getCollection = $getCollection->values->pluck('itemValue', 'itemKey');
             }
-        } else {
-            if (class_exists($zeusField->options['dataSource'])) {
-                $dataSourceClass = new $zeusField->options['dataSource'];
-                $getCollection = $dataSourceClass->getQuery()->pluck(
-                    $dataSourceClass->getValuesUsing(),
-                    $dataSourceClass->getKeysUsing()
-                );
-            }
+
+            return $getCollection;
+        }
+
+        if (is_a($zeusField->options['dataSource'], DataSourceContract::class, allow_string: true)) {
+            $dataSourceClass = new $zeusField->options['dataSource'];
+
+            return $dataSourceClass->getQuery()->pluck(
+                $dataSourceClass->getValuesUsing(),
+                $dataSourceClass->getKeysUsing()
+            );
+
+        }
+
+        if (
+            enum_exists($enum = $zeusField->options['dataSource']) &&
+            is_a($enum, DataSourceEnum::class, allow_string: true)
+        ) {
+            return collect($enum::cases())
+                ->mapWithKeys(fn (DataSourceEnum & UnitEnum $case): array => [
+                    $case->value ?? $case->name => $case->getDataSourceLabel() ?? $case->name,
+                ]);
         }
 
         return $getCollection;

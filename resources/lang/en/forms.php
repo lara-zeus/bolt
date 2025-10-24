@@ -158,7 +158,8 @@ return [
         'settings' => 'advanced fields settings',
         'description' => 'Field Description',
         'options' => [
-            'label' => 'Field Options',
+            'label' => 'Options For',
+            'in_section' => 'In Section',
             'general' => 'General Options',
             'color_type' => 'Color Type',
             'allow_multiple' => 'Allow Multiple',

@@ -78,7 +78,8 @@ trait Sections
                         ->tooltip('more field options')
                         ->icon('heroicon-m-cog')
                         ->modalIcon('heroicon-m-cog')
-                        ->modalDescription(__('zeus-bolt::forms.fields.settings'))
+                        ->modalHeading(fn (array $arguments, Repeater $component, Get $get) => __('zeus-bolt::forms.fields.options.label') . ': ' . optional(optional($component->getState())[optional($arguments)['item']])['name'] ?? '')
+                        ->modalDescription(fn (array $arguments, Repeater $component, Get $get) => __('zeus-bolt::forms.fields.options.in_section') . ': ' . $get('name'))
                         ->fillForm(
                             fn (array $arguments, Repeater $component) => $component->getItemState($arguments['item'])
                         )
@@ -87,6 +88,7 @@ trait Sections
 
                             return [
                                 Textarea::make('description')
+                                    ->nullable()
                                     ->label(__('zeus-bolt::forms.fields.description')),
                                 Group::make()
                                     ->schema(function (Get $get) use ($allSections, $component, $arguments) {
