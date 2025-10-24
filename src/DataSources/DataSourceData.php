@@ -17,9 +17,11 @@ class DataSourceData implements Arrayable
         $this->class($class);
     }
 
-    public static function make(): static
+    public static function make(string $title, DataSourceEnum | string $class): static
     {
-        return new self(...func_get_args());
+        $static = app(static::class, ['title' => $title, 'class' => $class]);
+
+        return $static;
     }
 
     public function title(string $title): DataSourceData
