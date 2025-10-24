@@ -26,6 +26,10 @@ class Collection extends Model
 
     public $translatable = ['name', 'values'];
 
+    protected $casts = [
+        'values' => 'array',
+    ];
+
     public function getTable(): string
     {
         return config('zeus-bolt.table-prefix') . 'collections';
@@ -47,10 +51,32 @@ class Collection extends Model
         return null;
     }
 
+    public function getNameAttribute($value)
+    {
+        if($this->hasTranslation('name')) {
+            return $value;
+        }
+
+        return $this->getRawOriginal('name');
+    }
+
     /**
-     * Returns the values as a collection. Translatable variables are always cast as an array. This function transforms
-     * it to a collection.
-     * Note: The newer Attribute approach does not seem to be compatible with laravel-translatable ;-(.
+     * @throws \JsonException
+     */
+    public function getValuesAttribute($value)
+    {
+        if($this->hasTranslation('values')) {
+            return $value;
+        }
+
+        if(filled($this->getRawOriginal('values'))){
+            return json_decode($this->getRawOriginal('values'), true, 512, JSON_THROW_ON_ERROR);
+        }
+
+        return $this->getRawOriginal('values');
+    }
+
+    /**
      * @param $value
      * @return \Illuminate\Support\Collection
      */
