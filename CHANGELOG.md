@@ -2,6 +2,17 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.6 - 2025-12-07
+
+### What's Changed
+
+* Fix order of field options validation by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/404
+* Feat: support enums as data source by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/399
+* improve UX adding the field name and section to the field options modal by @atmonshi in https://github.com/lara-zeus/bolt/pull/403
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/407
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.5...v4.0.6
+
 ## v4.0.5 - 2025-10-18
 
 ### What's Changed
@@ -102,6 +113,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -308,6 +320,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -916,7 +929,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.3...1.2.4
 ## 1.2.3 - 2023-06-30
 ### What's Changed
-
 - add docs on how to embed the form in any blade file by @atmonshi in https://github.com/lara-zeus/bolt/pull/86
 - more docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/87
 - update core by @atmonshi in https://github.com/lara-zeus/bolt/pull/88
