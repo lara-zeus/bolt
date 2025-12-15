@@ -127,6 +127,7 @@ class Toggle extends FieldsContract
         $toCssStylesFn = function ($hex) {
             $colorsPalette = Color::generateV3Palette($hex);
             $colors = FilamentColor::getComponentCustomStyles(ToggleComponent::class, $colorsPalette);
+
             return Arr::toCssStyles($colors);
         };
 
