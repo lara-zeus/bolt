@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.8 - 2025-12-16
+
+### What's Changed
+
+* Remove bg-primary-500 from color picker button by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/409
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.7...v4.0.8
+
 ## v4.0.7 - 2025-12-15
 
 ### What's Changed
@@ -121,6 +129,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -329,6 +338,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -943,7 +953,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - more docs by @atmonshi in https://github.com/lara-zeus/bolt/pull/87
 - update core by @atmonshi in https://github.com/lara-zeus/bolt/pull/88
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.2...1.2.3
-
 ## 1.2.2 - 2023-06-29
 
 ### What's Changed
