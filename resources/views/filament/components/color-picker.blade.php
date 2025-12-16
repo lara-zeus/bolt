@@ -27,7 +27,7 @@
                         content: 'default color',
                         theme: $store.theme,
                     }"
-                    class="hover:ring-gray-500 hover:ring-offset-2 hover:ring-2 transition-all ease-in-out duration-300 cursor-pointer size-6 px-2 py-2 rounded-full">
+                    class="hover:ring-gray-500 hover:ring-offset-2 hover:ring-2 transition-all ease-in-out duration-300 cursor-pointer size-6 bg-primary-500 px-2 py-2 rounded-full">
                 </a>
 
                 <span></span>
