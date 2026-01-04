@@ -75,7 +75,7 @@ trait Sections
                     Action::make('fields options')
                         ->slideOver()
                         ->color('warning')
-                        ->tooltip('more field options')
+                        ->tooltip(__('more field options'))
                         ->icon('heroicon-m-cog')
                         ->modalIcon('heroicon-m-cog')
                         ->modalHeading(fn (array $arguments, Repeater $component, Get $get) => __('zeus-bolt::forms.fields.options.label') . ': ' . optional(optional($component->getState())[optional($arguments)['item']])['name'])
