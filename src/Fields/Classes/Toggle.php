@@ -7,10 +7,13 @@ use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Hidden;
 use Filament\Schemas\Components\Grid;
 use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentColor;
+use Filament\Support\View\Components\ToggleComponent;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\IconColumn;
 use Guava\IconPicker\Forms\Components\IconPicker;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
@@ -61,7 +64,7 @@ class Toggle extends FieldsContract
                                         ->label(__('zeus-bolt::forms.fields.options.off_icon')),
 
                                     ColorPicker::make('options.on-color')
-                                        ->label(__('zeus-bolt::forms.fields.options.off_color'))
+                                        ->label(__('zeus-bolt::forms.fields.options.on_color'))
                                         ->hex(),
                                     ColorPicker::make('options.off-color')
                                         ->label(__('zeus-bolt::forms.fields.options.off_color'))
@@ -110,6 +113,9 @@ class Toggle extends FieldsContract
     {
         parent::appendFilamentComponentsOptions($component, $zeusField, $hasVisibility);
 
+        /**
+         * @var \Filament\Forms\Components\Toggle $component
+         */
         if (optional($zeusField->options)['on-icon']) {
             $component = $component->onIcon($zeusField->options['on-icon']);
         }
@@ -118,12 +124,27 @@ class Toggle extends FieldsContract
             $component = $component->offIcon($zeusField->options['off-icon']);
         }
 
+        $toCssStylesFn = function ($hex) {
+            $colorsPalette = Color::generateV3Palette($hex);
+            $colors = FilamentColor::getComponentCustomStyles(ToggleComponent::class, $colorsPalette);
+
+            return Arr::toCssStyles($colors);
+        };
+
+        $onColors = null;
         if (optional($zeusField->options)['on-color']) {
-            $component = $component->onColor(Color::generateV3Palette($zeusField->options['on-color']));
+            $onColors = $toCssStylesFn($zeusField->options['on-color']);
         }
 
+        $offColors = null;
         if (optional($zeusField->options)['off-color']) {
-            $component = $component->offColor(Color::generateV3Palette($zeusField->options['off-color']));
+            $offColors = $toCssStylesFn($zeusField->options['off-color']);
+
+            $component = $component->extraAttributes(['class' => 'fi-color']);
+        }
+
+        if (isset($onColors) || isset($offColors)) {
+            $component->extraAlpineAttributes(['x-bind:style' => "state ? '$onColors' : '$offColors'"]);
         }
 
         if (isset($zeusField->options['is-inline'])) {
