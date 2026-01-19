@@ -164,6 +164,7 @@ return [
             'color_type' => 'Color Type',
             'allow_multiple' => 'Allow Multiple',
             'is_inline' => 'Is inline',
+            'more' => 'more field options',
             'rows' => 'Rows',
             'cols' => 'Cols',
             'min_length' => 'Min Length',
