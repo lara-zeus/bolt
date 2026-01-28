@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Services;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
+use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Facades\Collectors;
 
 class BoltService 
@@ -29,7 +30,7 @@ class BoltService
                 $fields = $fields->merge($appFields);
             }
 
-            if (static::hasPro()) {
+            if (Bolt::hasPro()) {
                 $boltProFields = Collectors::collectClasses(
                     base_path('vendor/lara-zeus/bolt-pro/src/Fields'),
                     'LaraZeus\\BoltPro\\Fields\\'
