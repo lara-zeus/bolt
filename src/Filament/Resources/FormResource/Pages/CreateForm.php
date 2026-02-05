@@ -26,20 +26,4 @@ class CreateForm extends CreateRecord
             LocaleSwitcher::make(),
         ];
     }
-
-    /**
-     * @throws Throwable
-     */
-    protected function afterValidate(): void
-    {
-        $formSections = $this->form->getComponent('sections')->getState();
-
-        foreach ($formSections as $sectionId => $section) {
-            foreach ($section['fields'] as $fieldId => $field) {
-                $this->mountAction('fields options', ['item' => $fieldId], ['schemaComponent' => "form.sections.$sectionId.fields"]);
-                $this->callMountedAction();
-                $this->unmountAction();
-            }
-        }
-    }
 }

@@ -50,26 +50,4 @@ class EditForm extends EditRecord
                 ->openUrlInNewTab(),
         ];
     }
-
-    /**
-     * @throws Throwable
-     */
-    protected function afterValidate(): void
-    {
-        $formSections = $this->form->getComponent('sections')->getState();
-
-        foreach ($formSections as $sectionId => $section) {
-            foreach ($section['fields'] as $fieldId => $field) {
-                $context = ['schemaComponent' => "form.sections.$sectionId.fields"];
-
-                if (array_key_exists('id', $section)) {
-                    $context['recordKey'] = $section['id'];
-                }
-
-                $this->mountAction('fields options', ['item' => $fieldId], context: $context);
-                $this->callMountedAction();
-                $this->unmountAction();
-            }
-        }
-    }
 }
