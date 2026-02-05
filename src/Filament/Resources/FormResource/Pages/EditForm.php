@@ -10,7 +10,6 @@ use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\SpatieTranslatable\Actions\LocaleSwitcher;
 use LaraZeus\SpatieTranslatable\Resources\Pages\EditRecord\Concerns\Translatable;
-use Throwable;
 
 /**
  * @property Form $record.

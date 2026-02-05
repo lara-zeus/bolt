@@ -7,7 +7,6 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\SpatieTranslatable\Actions\LocaleSwitcher;
 use LaraZeus\SpatieTranslatable\Resources\Pages\CreateRecord\Concerns\Translatable;
-use Throwable;
 
 class CreateForm extends CreateRecord
 {
