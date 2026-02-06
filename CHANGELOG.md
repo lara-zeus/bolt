@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.11 - 2026-02-06
+
+### What's Changed
+
+* Remove afterValidate hooks from form pages by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/418
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.10...v4.0.11
+
 ## v4.0.10 - 2026-01-19
 
 ### What's Changed
@@ -146,6 +154,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -357,6 +366,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -977,7 +987,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ## 1.2.2 - 2023-06-29
 ### What's Changed
 - fix: pass ext data instead of depending on request by @atmonshi in https://github.com/lara-zeus/bolt/pull/85
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.1...1.2.2
 
 ## 1.2.0 - 2023-06-28
