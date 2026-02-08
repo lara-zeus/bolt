@@ -2813,16 +2813,16 @@
         },
         {
             "name": "lara-zeus/list-group",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lara-zeus/list-group.git",
-                "reference": "3d23f8726f1b66c1e191326ae14eda1c4bf21e72"
+                "reference": "c4fb7ca637556561d982231258d7cb20112ea17e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lara-zeus/list-group/zipball/3d23f8726f1b66c1e191326ae14eda1c4bf21e72",
-                "reference": "3d23f8726f1b66c1e191326ae14eda1c4bf21e72",
+                "url": "https://api.github.com/repos/lara-zeus/list-group/zipball/c4fb7ca637556561d982231258d7cb20112ea17e",
+                "reference": "c4fb7ca637556561d982231258d7cb20112ea17e",
                 "shasum": ""
             },
             "require": {
@@ -2831,11 +2831,11 @@
                 "spatie/laravel-package-tools": "^1.16"
             },
             "require-dev": {
-                "larastan/larastan": "^2.0",
                 "laravel/pint": "^1.0",
-                "nunomaduro/collision": "^7.0",
+                "nunomaduro/collision": "^8.0",
+                "nunomaduro/larastan": "^2.0.1",
                 "nunomaduro/phpinsights": "^2.8",
-                "orchestra/testbench": "^8.0",
+                "orchestra/testbench": "^9.0",
                 "phpstan/extension-installer": "^1.1"
             },
             "type": "library",
@@ -2895,7 +2895,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-11T19:19:30+00:00"
+            "time": "2025-10-22T17:55:07+00:00"
         },
         {
             "name": "lara-zeus/spatie-translatable",
@@ -3022,16 +3022,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.35.0",
+            "version": "v12.35.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9583ef9e405a71d5b8c04ff6efd05a7ef9a5baef"
+                "reference": "d6d6e3cb68238e2fb25b440f222442adef5a8a15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9583ef9e405a71d5b8c04ff6efd05a7ef9a5baef",
-                "reference": "9583ef9e405a71d5b8c04ff6efd05a7ef9a5baef",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d6d6e3cb68238e2fb25b440f222442adef5a8a15",
+                "reference": "d6d6e3cb68238e2fb25b440f222442adef5a8a15",
                 "shasum": ""
             },
             "require": {
@@ -3237,7 +3237,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-10-21T15:15:41+00:00"
+            "time": "2025-10-23T15:25:03+00:00"
         },
         {
             "name": "laravel/prompts",
@@ -10199,16 +10199,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v3.89.0",
+            "version": "v3.89.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer.git",
-                "reference": "4dd6768cb7558440d27d18f54909eee417317ce9"
+                "reference": "f34967da2866ace090a2b447de1f357356474573"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/4dd6768cb7558440d27d18f54909eee417317ce9",
-                "reference": "4dd6768cb7558440d27d18f54909eee417317ce9",
+                "url": "https://api.github.com/repos/PHP-CS-Fixer/PHP-CS-Fixer/zipball/f34967da2866ace090a2b447de1f357356474573",
+                "reference": "f34967da2866ace090a2b447de1f357356474573",
                 "shasum": ""
             },
             "require": {
@@ -10290,7 +10290,7 @@
             ],
             "support": {
                 "issues": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/issues",
-                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.89.0"
+                "source": "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/tree/v3.89.1"
             },
             "funding": [
                 {
@@ -10298,7 +10298,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-18T19:30:16+00:00"
+            "time": "2025-10-24T12:05:10+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
