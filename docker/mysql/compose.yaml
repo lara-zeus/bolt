@@ -2,30 +2,31 @@ services:
   bolt:
     build:
       context: ../..
-      dockerfile: docker/pgsql/Dockerfile
+      dockerfile: docker/mysql/Dockerfile
     volumes:
       - ./../..:/app
       - vendor_data:/app/vendor
     depends_on:
-      pgsql:
+      mysql:
         condition: service_healthy
     environment:
-      - DB_CONNECTION=pgsql
-      - DB_HOST=pgsql
-      - DB_PORT=5432
+      - DB_CONNECTION=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
       - DB_DATABASE=testing
       - DB_USERNAME=tester
       - DB_PASSWORD=password
     command: composer run test
-  pgsql:
-    image: postgres:18-alpine
-    container_name: bolt-pgsql
+  mysql:
+    image: mysql:8.4
+    container_name: bolt-mysql
     environment:
-      - POSTGRES_DB=testing
-      - POSTGRES_USER=tester
-      - POSTGRES_PASSWORD=password
+      - MYSQL_DATABASE=testing
+      - MYSQL_USER=tester
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tester -d testing"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "tester", "-ppassword"]
       interval: 5s
       timeout: 5s
       retries: 5

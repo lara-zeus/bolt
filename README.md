@@ -78,7 +78,9 @@ Tests can be run with:
 
 To test with a specific database,
 
+- sqlite - `docker compose -f docker/sqlite/compose.yaml up --abort-on-container-exit --exit-code-from bolt`
 - pgsql - `docker compose -f docker/pgsql/compose.yaml up --abort-on-container-exit --exit-code-from bolt`
+- mysql - `docker compose -f docker/mysql/compose.yaml up --abort-on-container-exit --exit-code-from bolt`
 
 ## Security
 

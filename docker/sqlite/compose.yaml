@@ -1,5 +1,6 @@
 services:
   bolt:
+    container_name: bolt-sqlite
     build:
       context: ../..
       dockerfile: docker/sqlite/Dockerfile
