@@ -5,5 +5,7 @@ services:
       dockerfile: docker/sqlite/Dockerfile
     volumes:
       - ../..:/app
-      - /app/vendor
+      - vendor_data:/app/vendor
     command: composer run test
+volumes:
+  vendor_data:
