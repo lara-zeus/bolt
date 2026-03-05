@@ -68,8 +68,17 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ### Testing
 
-Tests can be run with
-`docker compose up --abort-on-container-exit --exit-code-from app`
+First, build the test container with:
+
+`docker compose -f docker/sqlite/compose.yaml build`
+
+Tests can be run with:
+
+`docker compose -f docker/sqlite/compose.yaml up --abort-on-container-exit --exit-code-from bolt`
+
+To test with a specific database,
+
+- pgsql - `docker compose -f docker/pgsql/compose.yaml up --abort-on-container-exit --exit-code-from bolt`
 
 ## Security
 

@@ -1,6 +1,0 @@
-services:
-  app:
-    build: .
-    volumes:
-      - .:/app
-    command: composer run test

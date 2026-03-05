@@ -1,0 +1,9 @@
+services:
+  bolt:
+    build:
+      context: ../..
+      dockerfile: docker/sqlite/Dockerfile
+    volumes:
+      - ../..:/app
+      - /app/vendor
+    command: composer run test

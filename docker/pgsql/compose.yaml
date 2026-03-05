@@ -1,0 +1,30 @@
+services:
+  bolt:
+    build:
+      context: ../..
+      dockerfile: docker/pgsql/Dockerfile
+    volumes:
+      - ./../..:/app
+      - /app/vendor
+    depends_on:
+      pgsql:
+        condition: service_healthy
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=pgsql
+      - DB_PORT=5432
+      - DB_DATABASE=testing
+      - DB_USERNAME=tester
+      - DB_PASSWORD=password
+    command: composer run test
+  pgsql:
+    image: postgres:18-alpine
+    environment:
+      - POSTGRES_DB=testing
+      - POSTGRES_USER=tester
+      - POSTGRES_PASSWORD=password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tester -d testing"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
