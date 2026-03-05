@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'name' => 'name',
-    'status' => 'status',
-    'notes' => 'notes',
-    'created_at' => 'created at',
+    'name' => 'Name',
+    'status' => 'Status',
+    'notes' => 'Notes',
+    'created_at' => 'Created at',
     'guest' => 'guest',
     'export_responses' => 'Export Responses',
     'entries_report' => 'Entries Report',
@@ -14,4 +14,5 @@ return [
     'my_responses' => 'My Responses',
     'show_entry' => 'Show entry',
     'new_submission_in' => 'New Submission in',
+    'avatar' => 'Avatar'
 ];

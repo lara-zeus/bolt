@@ -495,7 +495,7 @@ if you need to change this to use another model, add the following in your confi
 
 * allow for custom entry for responses by @atmonshi in https://github.com/lara-zeus/bolt/pull/304
 * fix toggle table column and use custom entry by @atmonshi in https://github.com/lara-zeus/bolt/pull/305
-* add created at filter for responses  by @atmonshi in https://github.com/lara-zeus/bolt/pull/306
+* add Created at filter for responses  by @atmonshi in https://github.com/lara-zeus/bolt/pull/306
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.53...v3.0.54
 

@@ -139,7 +139,7 @@ trait HasOptions
                                     ->live(onBlur: true)
                                     ->required()
                                     ->label(__('zeus-bolt::forms.options.collections.key'))
-                                    ->hint(__('what store in the form')),
+                                    ->hint(__('What to store in the form')),
                                 Toggle::make('itemIsDefault')
                                     ->label(__('zeus-bolt::forms.options.collections.is_default')),
                             ]),

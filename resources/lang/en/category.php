@@ -11,5 +11,5 @@ return [
     'not_active' => 'Not Active',
     'description' => 'Description',
     'logo' => 'Logo',
-    'Forms' => 'forms',
+    'forms' => 'Forms',
 ];
