@@ -66,6 +66,11 @@ available support channels:
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
+### Testing
+
+Tests can be run with
+`docker compose up --abort-on-container-exit --exit-code-from app`
+
 ## Security
 
 If you find any security-related issues, please email info@larazeus.com instead of using the issue tracker.
