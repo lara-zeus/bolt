@@ -16,6 +16,8 @@ services:
       - DB_DATABASE=testing
       - DB_USERNAME=tester
       - DB_PASSWORD=password
+    networks:
+      - bolt
     command: composer run test
   mysql:
     image: mysql:8.4
@@ -25,6 +27,8 @@ services:
       - MYSQL_USER=tester
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=password
+    networks:
+      - bolt
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "tester", "-ppassword"]
       interval: 5s
@@ -32,3 +36,6 @@ services:
       retries: 5
 volumes:
   vendor_data:
+networks:
+  bolt:
+    driver: bridge

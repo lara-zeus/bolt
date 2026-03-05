@@ -82,6 +82,14 @@ To test with a specific database,
 - pgsql - `docker compose -f docker/pgsql/compose.yaml up --abort-on-container-exit --exit-code-from bolt`
 - mysql - `docker compose -f docker/mysql/compose.yaml up --abort-on-container-exit --exit-code-from bolt`
 
+### Debugging
+
+The Docker containers each include XDebug.
+
+- Use an IDE with XDebug support or use an extension to make your IDE compatible
+- Configure XDebug to use port 9003 (default)
+- Make sure to map your project workspace to `/app`
+
 ## Security
 
 If you find any security-related issues, please email info@larazeus.com instead of using the issue tracker.

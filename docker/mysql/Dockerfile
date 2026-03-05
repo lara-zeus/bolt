@@ -20,7 +20,13 @@ RUN docker-php-ext-install \
     zip \
     pdo_mysql
     
-WORKDIR /app
+RUN apk add --update linux-headers
+
+RUN apk add --no-cache $PHPIZE_DEPS \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+COPY docker/xdebug.ini /usr/local/etc/php/conf.d/99-xdebug.ini
 
 RUN composer install
 

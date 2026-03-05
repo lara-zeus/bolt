@@ -16,6 +16,8 @@ services:
       - DB_DATABASE=testing
       - DB_USERNAME=tester
       - DB_PASSWORD=password
+    networks:
+      - bolt
     command: composer run test
   pgsql:
     image: postgres:18-alpine
@@ -24,6 +26,8 @@ services:
       - POSTGRES_DB=testing
       - POSTGRES_USER=tester
       - POSTGRES_PASSWORD=password
+    networks:
+      - bolt
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U tester -d testing"]
       interval: 5s
@@ -31,3 +35,6 @@ services:
       retries: 5
 volumes:
   vendor_data:
+networks:
+  bolt:
+    driver: bridge
