@@ -14,5 +14,5 @@ return [
     'my_responses' => 'My Responses',
     'show_entry' => 'Show entry',
     'new_submission_in' => 'New Submission in',
-    'avatar' => 'Avatar'
+    'avatar' => 'Avatar',
 ];
