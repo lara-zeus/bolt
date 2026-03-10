@@ -122,7 +122,7 @@ class CategoryResource extends BoltResource
                     ->counts('forms')
                     ->label(__('zeus-bolt::category.forms'))
                     ->toggleable()
-                    ->searchable(),
+                    ->searchable(false),
                 IconColumn::make('is_active')
                     ->boolean()
                     ->sortable()

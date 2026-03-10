@@ -47,7 +47,7 @@ class Toggle extends FieldsContract
                                 ->columnSpanFull()
                                 ->columns()
                                 ->schema([
-                                    IconPicker::make('options.on-icon')
+                                    /*IconPicker::make('options.on-icon')
                                         ->columns([
                                             'default' => 1,
                                             'lg' => 3,
@@ -61,7 +61,7 @@ class Toggle extends FieldsContract
                                             'lg' => 3,
                                             '2xl' => 5,
                                         ])
-                                        ->label(__('zeus-bolt::forms.fields.options.off_icon')),
+                                        ->label(__('zeus-bolt::forms.fields.options.off_icon')),*/
 
                                     ColorPicker::make('options.on-color')
                                         ->label(__('zeus-bolt::forms.fields.options.on_color'))

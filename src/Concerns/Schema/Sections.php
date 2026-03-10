@@ -153,14 +153,14 @@ trait Sections
                                 ->default(1)
                                 ->hint(__('zeus-bolt::forms.section.options.columns_hint'))
                                 ->label(__('zeus-bolt::forms.section.options.columns_label')),
-                            IconPicker::make('icon')
+                            /*IconPicker::make('icon')
                                 ->columns([
                                     'default' => 1,
                                     'lg' => 3,
                                     '2xl' => 5,
                                 ])
                                 ->visible(fn (Get $get) => $formOptions['show-as'] === 'page' && $get('borderless') === false)
-                                ->label(__('zeus-bolt::forms.section.options.icon')),
+                                ->label(__('zeus-bolt::forms.section.options.icon')),*/
                             Toggle::make('aside')
                                 ->default(false)
                                 ->visible(fn (

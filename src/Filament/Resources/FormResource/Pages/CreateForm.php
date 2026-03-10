@@ -30,7 +30,7 @@ class CreateForm extends CreateRecord
     /**
      * @throws Throwable
      */
-    protected function afterValidate(): void
+    /*protected function afterValidate(): void
     {
         $formSections = $this->form->getComponent('sections')->getState();
 
@@ -41,5 +41,5 @@ class CreateForm extends CreateRecord
                 $this->unmountAction();
             }
         }
-    }
+    }*/
 }

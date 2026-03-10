@@ -149,6 +149,9 @@ class FormResource extends BoltResource
             ]);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function form(Schema $schema): Schema
     {
         return $schema->components(static::$boltFormSchema ?? static::getMainFormSchema());
