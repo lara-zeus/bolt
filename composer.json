@@ -31,11 +31,13 @@
         "flowframe/laravel-trend": "^0.4",
         "livewire/livewire": "^4.0@beta",
         "filament/filament": "^5.0",
-        "lara-zeus/accordion": "*",
-        "lara-zeus/core": "*",
-        "lara-zeus/filament-plugin-tools": "*",
-        "lara-zeus/list-group": "*",
-        "lara-zeus/tabler-icons-enum": "*"
+        "guava/filament-icon-picker": "^4.0",
+        "lara-zeus/accordion": "^3.0",
+        "lara-zeus/core": "^5.0",
+        "lara-zeus/filament-plugin-tools": "^3.0",
+        "lara-zeus/list-group": "^3.0",
+        "lara-zeus/tabler-icons-enum": "^2.0",
+        "pxlrbt/filament-excel": "^3.6"
     },
     "require-dev": {
         "larastan/larastan": "^3.0",
@@ -87,11 +89,5 @@
         }
     },
     "prefer-stable": true,
-    "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../*"
-        }
-    ]
+    "minimum-stability": "stable"
 }
