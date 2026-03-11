@@ -47,13 +47,13 @@ trait HasOptions
                     ->label(__('zeus-bolt::forms.options.hint.icon_tooltip')),
                 ColorPicker::make('options.hint.color')
                     ->label(__('zeus-bolt::forms.options.hint.color')),
-                /*IconPicker::make('options.hint.icon')
+                IconPicker::make('options.hint.icon')
                     ->columns([
                         'default' => 2,
                         'lg' => 3,
                         '2xl' => 5,
                     ])
-                    ->label(__('zeus-bolt::forms.options.hint.label')),*/
+                    ->label(__('zeus-bolt::forms.options.hint.label')),
             ]);
     }
 
