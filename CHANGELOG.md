@@ -2,6 +2,23 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v5.0.0 - 2026-03-11
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/411
+* added localization support for a tooltip in `Concerns/Schema/Sections.php` by @mnaderian in https://github.com/lara-zeus/bolt/pull/410
+* Remove afterValidate hooks from form pages by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/418
+* Correct en strings by @PerryRylance in https://github.com/lara-zeus/bolt/pull/420
+* support filament 5
+
+### New Contributors
+
+* @mnaderian made their first contribution in https://github.com/lara-zeus/bolt/pull/410
+* @PerryRylance made their first contribution in https://github.com/lara-zeus/bolt/pull/420
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.9...v5.0.0
+
 ## v4.0.11 - 2026-02-06
 
 ### What's Changed
@@ -154,6 +171,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -366,6 +384,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -988,7 +1007,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 - fix: pass ext data instead of depending on request by @atmonshi in https://github.com/lara-zeus/bolt/pull/85
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.1...1.2.2
-
 ## 1.2.0 - 2023-06-28
 
 ### What's Changed
