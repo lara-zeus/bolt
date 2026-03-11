@@ -39,9 +39,9 @@ class BoltServiceProvider extends PackageServiceProvider
             classNamespace: 'LaraZeus\\Bolt\\Livewire'
         );
 
-        Livewire::addComponent(name:'bolt.fill-form', class:FillForms::class);
-        Livewire::addComponent(name:'bolt.list-forms', class:ListForms::class);
-        Livewire::addComponent(name:'bolt.list-entries', class:ListEntries::class);
+        Livewire::addComponent(name: 'bolt.fill-form', class: FillForms::class);
+        Livewire::addComponent(name: 'bolt.list-forms', class: ListForms::class);
+        Livewire::addComponent(name: 'bolt.list-entries', class: ListEntries::class);
     }
 
     /**
