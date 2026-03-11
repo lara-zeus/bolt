@@ -47,7 +47,7 @@
                     </div>
                 @endif
                 <p class="flex flex-col my-1 gap-1">
-                    <span class="text-base font-light">{{ __('created at') }}:</span>
+                    <span class="text-base font-light">{{ __('Created at') }}:</span>
                     <span class="font-semibold">{{ $getRecord->created_at->format($this->form->getDefaultDateDisplayFormat()) }}-{{ $getRecord->created_at->format($this->form->getDefaultDateDisplayFormat()) }}</span>
                 </p>
             </x-filament::section>

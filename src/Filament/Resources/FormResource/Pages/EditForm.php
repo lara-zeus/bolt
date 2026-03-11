@@ -10,7 +10,6 @@ use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\Bolt\Models\Form;
 use LaraZeus\SpatieTranslatable\Actions\LocaleSwitcher;
 use LaraZeus\SpatieTranslatable\Resources\Pages\EditRecord\Concerns\Translatable;
-use Throwable;
 
 /**
  * @property Form $record.
@@ -50,26 +49,4 @@ class EditForm extends EditRecord
                 ->openUrlInNewTab(),
         ];
     }
-
-    /**
-     * @throws Throwable
-     */
-    /*protected function afterValidate(): void
-    {
-        $formSections = $this->form->getComponent('sections')->getState();
-
-        foreach ($formSections as $sectionId => $section) {
-            foreach ($section['fields'] as $fieldId => $field) {
-                $context = ['schemaComponent' => "form.sections.$sectionId.fields"];
-
-                if (array_key_exists('id', $section)) {
-                    $context['recordKey'] = $section['id'];
-                }
-
-                $this->mountAction('fields options', ['item' => $fieldId], context: $context);
-                $this->callMountedAction();
-                $this->unmountAction();
-            }
-        }
-    }*/
 }

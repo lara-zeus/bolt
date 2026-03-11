@@ -7,7 +7,6 @@ use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
 use LaraZeus\SpatieTranslatable\Actions\LocaleSwitcher;
 use LaraZeus\SpatieTranslatable\Resources\Pages\CreateRecord\Concerns\Translatable;
-use Throwable;
 
 class CreateForm extends CreateRecord
 {
@@ -26,20 +25,4 @@ class CreateForm extends CreateRecord
             LocaleSwitcher::make(),
         ];
     }
-
-    /**
-     * @throws Throwable
-     */
-    /*protected function afterValidate(): void
-    {
-        $formSections = $this->form->getComponent('sections')->getState();
-
-        foreach ($formSections as $sectionId => $section) {
-            foreach ($section['fields'] as $fieldId => $field) {
-                $this->mountAction('fields options', ['item' => $fieldId], ['schemaComponent' => "form.sections.$sectionId.fields"]);
-                $this->callMountedAction();
-                $this->unmountAction();
-            }
-        }
-    }*/
 }
