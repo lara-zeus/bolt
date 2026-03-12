@@ -109,6 +109,26 @@ To publish the configuration:
 php artisan vendor:publish --tag=zeus-bolt-config
 ```
 
+### Core Fields
+
+By default, Bolt auto-discovers all field classes from the `Fields/Classes` directory. You can override this by setting `coreFields` to an array of specific field classes:
+
+```php
+'coreFields' => [
+    \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+    \LaraZeus\Bolt\Fields\Classes\Select::class,
+    \LaraZeus\Bolt\Fields\Classes\Toggle::class,
+],
+```
+
+When set to `null` (default), all core fields are auto-discovered:
+
+```php
+'coreFields' => null,
+```
+
+You can also include your own [custom fields](../advanced/add-fields) alongside the core ones.
+
 ### Custom User Model
 
 By default Bolt will use the default Laravel user model to get the user info:
