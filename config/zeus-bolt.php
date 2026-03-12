@@ -33,7 +33,10 @@ return [
     'middleware' => ['web'],
 
     /**
-     * set the default fields
+     * Override the default core fields with a specific set of field classes.
+     * When set to an array, only the listed fields will be available as core fields.
+     * When set to null, all core fields will be auto-discovered from the
+     * 'collectors.fields' path and namespace configured below.
      */
     'coreFields' => null,
 
