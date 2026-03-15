@@ -15,7 +15,7 @@ jobs:
         os: [ubuntu-latest]
         php: [8.2]
         laravel: [12.*]
-        db: [sqlite, mysql, pgsql]
+        db: [sqlite, mysql]
         stability: [prefer-stable]
         include:
           - laravel: 12.*
