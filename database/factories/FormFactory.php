@@ -2,8 +2,8 @@
 
 namespace LaraZeus\Bolt\Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use LaraZeus\Bolt\Models\User;
 use LaraZeus\Bolt\Models\Category;
 use LaraZeus\Bolt\Models\Form;
 
