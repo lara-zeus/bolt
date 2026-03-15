@@ -33,7 +33,7 @@ class TestCase extends Orchestra
     protected function setUp(): void
     {
         parent::setUp();
-
+        dump('=======' . __FUNCTION__);
         $this->actingAs(
             User::create(['email' => 'admin@domain.com', 'name' => 'Admin', 'password' => 'password'])
         );
