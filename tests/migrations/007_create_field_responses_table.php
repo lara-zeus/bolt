@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignId('field_id')->constrained(config('zeus-bolt.table-prefix') . 'fields');
             $table->foreignId('response_id')->constrained(config('zeus-bolt.table-prefix') . 'responses');
             $table->longText('response');
-            $table->integer('grade')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
