@@ -10,12 +10,12 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         php: [8.2]
         laravel: [12.*]
-        db: [mysql]
+        db: [ sqlite, mysql, pgsql ]
         stability: [prefer-stable]
         include:
           - laravel: 12.*
