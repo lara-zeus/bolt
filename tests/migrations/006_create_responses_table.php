@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('status')->default('NEW');
             $table->text('notes')->nullable();
             $table->integer('extension_item_id')->nullable();
+            $table->integer('grades')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
