@@ -37,7 +37,7 @@ trait Fields
                     ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
                     ->toArray())
                 ->live()
-                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
+                ->default(config('zeus-bolt.defaultFieldType') ?? Bolt::availableFields()->first()['class'])
                 ->label(__('zeus-bolt::forms.fields.type')),
 
             Hidden::make('description'),
