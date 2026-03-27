@@ -57,6 +57,16 @@ BoltPlugin::make()
     ->extensions([
         \LaraZeus\Thunder\Extensions\Thunder::class,
     ])
+
+    // restrict which field types are available in the form builder
+    ->allowedFields([
+        \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+        \LaraZeus\Bolt\Fields\Classes\Select::class,
+        \LaraZeus\Bolt\Fields\Classes\Toggle::class,
+    ])
+
+    // set the default field type for new fields
+    ->defaultField(\LaraZeus\Bolt\Fields\Classes\Select::class)
 ,
 ```
 
@@ -98,6 +108,36 @@ available resources:
 - CategoryResource,
 - CollectionResource,
 - FormResource,
+
+## Allowed Fields
+
+You can restrict which field types are available in the form builder per panel using `allowedFields()`. This is useful when you want to limit the options for specific panels or user roles.
+
+```php
+BoltPlugin::make()
+    ->allowedFields([
+        \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+        \LaraZeus\Bolt\Fields\Classes\Textarea::class,
+        \LaraZeus\Bolt\Fields\Classes\Select::class,
+    ])
+```
+
+When `allowedFields()` is set, the default field type will automatically be the first field in the allowed list. You can override this with `defaultField()`:
+
+```php
+BoltPlugin::make()
+    ->allowedFields([
+        \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+        \LaraZeus\Bolt\Fields\Classes\Select::class,
+    ])
+    ->defaultField(\LaraZeus\Bolt\Fields\Classes\Select::class)
+```
+
+> **Note**\
+> Existing forms that use field types not in the allowed list will still display the field label correctly. The restriction only applies when creating or editing fields.
+
+> **Note**\
+> All classes passed to `allowedFields()` and `defaultField()` must extend `LaraZeus\Bolt\Fields\FieldsContract`.
 
 ## Frontend Configuration
 

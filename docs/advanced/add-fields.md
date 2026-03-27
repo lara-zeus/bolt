@@ -32,6 +32,10 @@ There is a cache for all fields, so remember to flush the key `bolt.fields`
 
 Check out the contract `LaraZeus\Bolt\Fields\FieldsContract` and see all the available methods.
 
+### Restricting Available Fields Per Panel
+
+You can restrict which fields are available in the form builder using the `allowedFields()` method on the plugin. See the [Configuration](/getting-started/configuration/#allowed-fields) page for details.
+
 ### Disabling
 
 You can turn off any field temporally by adding:
