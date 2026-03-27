@@ -33,7 +33,6 @@ trait HasAllowedFields
         return $this->allowedFields;
     }
 
-    /** @param  string  $field */
     public function defaultField(string $field): static
     {
         if (! is_a($field, FieldsContract::class, true)) {
