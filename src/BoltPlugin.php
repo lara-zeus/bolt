@@ -6,6 +6,7 @@ use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
+use LaraZeus\Bolt\Concerns\HasAllowedFields;
 use LaraZeus\Bolt\Filament\Resources\CategoryResource;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource;
 use LaraZeus\Bolt\Filament\Resources\FormResource;
@@ -26,6 +27,7 @@ final class BoltPlugin implements Plugin
     use CanStickyActions;
     use Configuration;
     use EvaluatesClosures;
+    use HasAllowedFields;
     use HasEnums;
     use HasModels;
     use HasNavigationGroupLabel;
