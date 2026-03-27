@@ -13,7 +13,7 @@ trait HasAllowedFields
     /** @var class-string<FieldsContract>|null */
     protected ?string $defaultField = null;
 
-    /** @param  array<class-string<FieldsContract>>  $fields */
+    /** @param  array<string>  $fields */
     public function allowedFields(array $fields): static
     {
         foreach ($fields as $field) {
@@ -33,7 +33,7 @@ trait HasAllowedFields
         return $this->allowedFields;
     }
 
-    /** @param  class-string<FieldsContract>  $field */
+    /** @param  string  $field */
     public function defaultField(string $field): static
     {
         if (! is_a($field, FieldsContract::class, true)) {
