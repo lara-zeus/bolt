@@ -82,6 +82,16 @@ it('resolves label for a field not in allowed list via getOptionLabelUsing', fun
         ->and($toggleField['title'])->not->toBeEmpty();
 });
 
+it('throws exception when allowedFields receives an invalid class', function () {
+    BoltPlugin::get()->allowedFields([
+        'App\\Models\\User',
+    ]);
+})->throws(InvalidArgumentException::class);
+
+it('throws exception when defaultField receives an invalid class', function () {
+    BoltPlugin::get()->defaultField('App\\Models\\User');
+})->throws(InvalidArgumentException::class);
+
 afterEach(function () {
     BoltPlugin::get()->allowedFields([]);
     $reflection = new ReflectionProperty(BoltPlugin::get(), 'allowedFields');
