@@ -28,9 +28,7 @@
     ],
     "require": {
         "php": "^8.4",
-        "flowframe/laravel-trend": "^0.4",
-        "livewire/livewire": "^4.0@beta",
-        "filament/filament": "^5.0",
+        "flowframe/laravel-trend": "^0.5",
         "guava/filament-icon-picker": "^4.0",
         "lara-zeus/accordion": "^3.0",
         "lara-zeus/core": "^5.0",
