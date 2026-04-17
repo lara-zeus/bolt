@@ -3,7 +3,7 @@ title: Upgrading
 weight: 90
 ---
 
-## Upgrade to v4
+## Upgrade to v5
 
 ### using an enum for the status:
 
