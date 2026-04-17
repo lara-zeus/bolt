@@ -46,6 +46,7 @@
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-arch": "^4.0",
         "pestphp/pest-plugin-laravel": "^4.0",
+        "pestphp/pest-plugin-livewire": "^4.1",
         "phpstan/extension-installer": "^1.4"
     },
     "autoload": {
