@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v5.0.2 - 2026-04-24
+
+### What's Changed
+
+* chore: align docs structure and cleanup by @atmonshi in https://github.com/lara-zeus/bolt/pull/432
+* Remove Stray `)`  by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/434
+* Upgrade php version for phpstan workflow by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/436
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v5.0.1...v5.0.2
+
 ## v5.0.1 - 2026-04-17
 
 ### What's Changed
@@ -162,6 +172,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -375,6 +386,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -999,7 +1011,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - fix: pass ext data instead of depending on request by @atmonshi in https://github.com/lara-zeus/bolt/pull/85
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.1...1.2.2
 ## 1.2.0 - 2023-06-28
-
 ### What's Changed
 
 - Allow Conditional Visibility for fields by @atmonshi in https://github.com/lara-zeus/bolt/pull/82
