@@ -66,7 +66,7 @@
 
             {!! Extensions::init($zeusForm, 'render',$extensionData) !!}
 
-            @if(!empty($zeusForm->details)))
+            @if(!empty($zeusForm->details))
                 <div class="my-4">
                     <x-filament::section :compact="true">
                         {!! nl2br($zeusForm->details) !!}
