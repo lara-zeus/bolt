@@ -20,7 +20,7 @@
         <x-slot name="breadcrumbs">
             @if($zeusForm->extensions === null)
                 <li class="flex items-center">
-                    <a href="{{ route('bolt.forms.list') }}">{{ __('Forms') }}</a>
+                    <a href="{{ route('bolt.forms.list') }}">{{ __('zeus-bolt::forms.forms') }}</a>
                     @svg('heroicon-s-arrow-small-right','fill-current w-4 h-4 mx-3 rtl:rotate-180')
                 </li>
             @else
@@ -42,9 +42,9 @@
                 @if($zeusForm->start_date !== null)
                     <div class="text-gray-400 text-sm">
                         @svg('heroicon-o-calendar','h-4 w-4 inline-flex')
-                        <span>{{ __('Available from') }}:</span>
+                        <span>{{ __('zeus-bolt::messages.available_from') }}:</span>
                         <span>{{ optional($zeusForm->start_date)->format($this->form->getDefaultDateDisplayFormat()) }}</span>,
-                        <span>{{ __('to') }}:</span>
+                        <span>{{ __('zeus-bolt::messages.to') }}:</span>
                         <span>{{ optional($zeusForm->end_date)->format($this->form->getDefaultDateDisplayFormat()) }}</span>
                     </div>
                 @endif
@@ -82,7 +82,7 @@
                     type="submit"
                     :color="$zeusForm->options['primary_color'] ?? 'primary'"
                 >
-                    {{ __('Save') }}
+                    {{ __('zeus-bolt::messages.save') }}
                 </x-filament::button>
             </div>
 

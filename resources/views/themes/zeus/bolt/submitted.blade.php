@@ -7,9 +7,9 @@
                 </span>
             @else
                 <span class="text-md text-gray-600">
-                    {{ __('the form') }}
+                    {{ __('zeus-bolt::messages.the_form') }}
                     <span class="font-semibold">{{ $zeusForm->name ?? '' }}</span>
-                    {{ __('submitted successfully') }}.
+                    {{ __('zeus-bolt::messages.submitted_successfully') }}.
                 </span>
             @endif
 

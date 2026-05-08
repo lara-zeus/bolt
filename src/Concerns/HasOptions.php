@@ -62,7 +62,7 @@ trait HasOptions
         return Grid::make()
             ->schema([
                 Toggle::make('options.column_span_full')
-                    ->belowContent(__('show this field in full width row'))
+                    ->belowContent(__('zeus-bolt::forms.options.column_span_full.help_text'))
                     ->label(__('zeus-bolt::forms.options.column_span_full.label')),
             ])
             ->columnSpanFull()
@@ -139,7 +139,7 @@ trait HasOptions
                                     ->live(onBlur: true)
                                     ->required()
                                     ->label(__('zeus-bolt::forms.options.collections.key'))
-                                    ->hint(__('What to store in the form')),
+                                    ->hint(__('zeus-bolt::forms.options.collections.key_hint')),
                                 Toggle::make('itemIsDefault')
                                     ->label(__('zeus-bolt::forms.options.collections.is_default')),
                             ]),

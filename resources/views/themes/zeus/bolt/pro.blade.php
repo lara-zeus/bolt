@@ -29,9 +29,9 @@
                 <div class="text-primary-800 flex items-center justify-start gap-2 text-sm">
                     @svg('heroicon-o-calendar','h-5 w-5 inline-flex')
                     <span class="flex items-center justify-center gap-1">
-                        <span>{{ __('Available from') }}:</span>
+                        <span>{{ __('zeus-bolt::messages.available_from') }}:</span>
                         <span>{{ optional($zeusForm->start_date)->format($this->form->getDefaultDateDisplayFormat()) }}</span>,
-                        <span>{{ __('to') }}:</span>
+                        <span>{{ __('zeus-bolt::messages.to') }}:</span>
                         <span>{{ optional($zeusForm->end_date)->format($this->form->getDefaultDateDisplayFormat()) }}</span>
                     </span>
                 </div>
