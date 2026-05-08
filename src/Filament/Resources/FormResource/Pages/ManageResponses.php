@@ -140,7 +140,7 @@ class ManageResponses extends ManageRelatedRecords
                         'export_form_id' => $this->getOwnerRecord()->id ?? 0,
                     ])
                     ->columnMappingColumns(2)
-                    ->label(__('Export Responses'))
+                    ->label(__('zeus-bolt::response.export_responses'))
                     ->exporter(ResponseExporter::class),
             ])
             ->recordUrl(
