@@ -1,11 +1,11 @@
 <div class="mx-4">
     <x-slot name="header">
-        <h2>{{ __('browse your Entries') }}</h2>
+        <h2>{{ __('zeus-bolt::forms.browse_entries') }}</h2>
     </x-slot>
 
     <x-slot name="breadcrumbs">
         <li class="flex items-center">
-            {{ __('browse your Entries') }}
+            {{ __('zeus-bolt::forms.browse_entries') }}
         </li>
     </x-slot>
 
