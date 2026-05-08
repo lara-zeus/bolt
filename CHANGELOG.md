@@ -2,6 +2,16 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v5.0.3 - 2026-05-08
+
+### What's Changed
+
+* Extract translations  by @atmonshi in https://github.com/lara-zeus/bolt/pull/439
+* Bump ramsey/composer-install from 3 to 4 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/438
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.1.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/437
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v5.0.2...v5.0.3
+
 ## v5.0.2 - 2026-04-24
 
 ### What's Changed
@@ -172,6 +182,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -386,6 +397,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1012,7 +1024,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.1...1.2.2
 ## 1.2.0 - 2023-06-28
 ### What's Changed
-
 - Allow Conditional Visibility for fields by @atmonshi in https://github.com/lara-zeus/bolt/pull/82
 - Add HasOptions to handle common fields options better
 - Refactor common fields options
