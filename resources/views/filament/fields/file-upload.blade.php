@@ -8,11 +8,11 @@
                         outlined
                         href="{{ $getUrl($file) }}"
                 >
-                        {{ __('view file') .': '. $loop->iteration }}
+                        {{ __('zeus-bolt::messages.view_file') .': '. $loop->iteration }}
                 </x-filament::link>
             @endforeach
         </div>
    @else
-        <span class="text-gray-500">{{ __('no file uploaded') }}</span>
+        <span class="text-gray-500">{{ __('zeus-bolt::messages.no_file_uploaded') }}</span>
    @endif
 </div>

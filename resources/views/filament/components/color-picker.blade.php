@@ -7,7 +7,7 @@
         <input type="hidden" x-model="state" />
 
         <div class="space-y-2 my-4" x-data="">
-            <p>{{ __('Color') }}</p>
+            <p>{{ __('zeus-bolt::messages.color') }}</p>
 
             <div class="flex gap-2 flex-wrap">
                 @php

@@ -1,12 +1,12 @@
 <div class="mx-4">
 
     <x-slot name="header">
-        <h2>{{ __('List All Forms') }}</h2>
+        <h2>{{ __('zeus-bolt::messages.list_all_forms') }}</h2>
     </x-slot>
 
     <x-slot name="breadcrumbs">
         <li class="flex items-center">
-            {{ __('Forms') }}
+            {{ __('zeus-bolt::forms.forms') }}
         </li>
     </x-slot>
 
@@ -16,7 +16,7 @@
         @foreach($categories as $category)
             <x-filament::section>
                 @if($category->logo !== null)
-                    <img alt="{{ $category->name }} {{ __('Logo') }}" class="w-full h-32 object-center object-cover mb-4" src="{{ $category->logo_url }}"/>
+                    <img alt="{{ $category->name }} {{ __('zeus-bolt::messages.logo') }}" class="w-full h-32 object-center object-cover mb-4" src="{{ $category->logo_url }}"/>
                 @endif
 
                 <p>
