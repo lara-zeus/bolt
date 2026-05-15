@@ -22,7 +22,6 @@ use LaraZeus\SpatieTranslatable\SpatieTranslatableServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\Attributes\WithMigration;
 use Orchestra\Testbench\TestCase as Orchestra;
-use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 use secondnetwork\TablerIcons\BladeTablerIconsServiceProvider;
 
 #[WithMigration]
@@ -64,7 +63,6 @@ class TestCase extends Orchestra
             SEOServiceProvider::class,
             SpatieTranslatableServiceProvider::class,
             LivewireServiceProvider::class,
-            BladeCaptureDirectiveServiceProvider::class,
             BladeTablerIconsServiceProvider::class,
         ];
     }
