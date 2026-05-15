@@ -5,6 +5,7 @@ namespace LaraZeus\Bolt\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use LaraZeus\Bolt\Models\Category;
 use LaraZeus\Bolt\Models\Form;
+use LaraZeus\Bolt\Tests\Models\User;
 
 class FormFactory extends Factory
 {
@@ -14,7 +15,7 @@ class FormFactory extends Factory
     {
         return [
             'name' => $this->faker->words(3, true),
-            'user_id' => 1,
+            'user_id' => User::factory(),
             'ordering' => $this->faker->numberBetween(1, 20),
             'description' => $this->faker->text(),
             'slug' => $this->faker->slug(),

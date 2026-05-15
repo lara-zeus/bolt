@@ -10,17 +10,38 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [ubuntu-latest]
         php: [8.4]
         laravel: [13.*]
+        db: [ sqlite, mysql, pgsql ]
         stability: [prefer-stable]
         include:
           - laravel: 13.*
             testbench: 11.*
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - DB:${{ matrix.db }}
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: testing
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: testing
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: --health-cmd=pg_isready --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout code
@@ -30,7 +51,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo, pdo_mysql, pdo_pgsql
           coverage: none
 
       - name: Setup problem matchers
@@ -43,5 +64,42 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
-      - name: Execute tests
-        run: vendor/bin/pest
+      - name: Wait for MySQL
+        if: matrix.db == 'mysql'
+        run: |
+          for i in {1..60}; do
+            nc -z 127.0.0.1 3306 && echo "MySQL is up" && exit 0
+            echo "Waiting for MySQL ($i) ..." && sleep 2
+          done
+          echo "MySQL did not become ready in time" && exit 1
+      - name: Wait for Postgres
+        if: matrix.db == 'pgsql'
+        run: |
+          for i in {1..60}; do
+            nc -z 127.0.0.1 5432 && echo "Postgres is up" && exit 0
+            echo "Waiting for Postgres ($i) ..." && sleep 2
+          done
+          echo "Postgres did not become ready in time" && exit 1
+      - name: Cache Blade views
+        run: ./vendor/bin/testbench view:cache
+      - name: Execute tests (parallel)
+        id: parallel-tests
+        continue-on-error: true
+        run: ./vendor/bin/pest --configuration=phpunit.${{ matrix.db }}.xml --parallel --exclude-group=commands
+        env:
+          DB_PASSWORD: password
+      - name: Execute tests (non-parallel fallback)
+        if: steps.parallel-tests.outcome == 'failure'
+        id: non-parallel-tests
+        run: ./vendor/bin/pest --configuration=phpunit.${{ matrix.db }}.xml --exclude-group=commands
+        env:
+          DB_PASSWORD: password
+      - name: Warn about parallel test failure
+        if: steps.parallel-tests.outcome == 'failure' && steps.non-parallel-tests.outcome == 'success'
+        run: |
+          echo "::warning::Parallel tests failed but non-parallel tests passed. This may indicate a race condition or test isolation issue."
+      - name: Execute command tests (serial)
+        run: ./vendor/bin/pest --configuration=phpunit.${{ matrix.db }}.xml --group=commands
+        env:
+          DB_PASSWORD: password
+
