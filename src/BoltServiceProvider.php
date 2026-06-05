@@ -35,9 +35,13 @@ class BoltServiceProvider extends PackageServiceProvider
     {
         CoreServiceProvider::setThemePath('bolt');
 
-        Livewire::component('bolt.fill-form', FillForms::class);
-        Livewire::component('bolt.list-forms', ListForms::class);
-        Livewire::component('bolt.list-entries', ListEntries::class);
+        Livewire::addLocation(
+            classNamespace: 'LaraZeus\\Bolt\\Livewire'
+        );
+
+        Livewire::addComponent(name: 'bolt.fill-form', class: FillForms::class);
+        Livewire::addComponent(name: 'bolt.list-forms', class: ListForms::class);
+        Livewire::addComponent(name: 'bolt.list-entries', class: ListEntries::class);
     }
 
     /**

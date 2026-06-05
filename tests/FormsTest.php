@@ -44,7 +44,7 @@ it('see ended form date', function () {
     ]);
 
     livewire(FillForms::class, ['slug' => $form->slug])
-        ->assertSee(__('Date Not Available'));
+        ->assertSee(__('zeus-bolt::messages.date_not_available'));
 });
 
 it('see form date is valid', function () {
@@ -56,7 +56,7 @@ it('see form date is valid', function () {
     ]);
 
     livewire(FillForms::class, ['slug' => $form->slug])
-        ->assertDontSee(__('Date Not Available'));
+        ->assertDontSee(__('zeus-bolt::messages.date_not_available'));
 });
 
 it('see form require login for logged in user', function () {
@@ -67,7 +67,7 @@ it('see form require login for logged in user', function () {
     ]);
 
     livewire(FillForms::class, ['slug' => $form->slug])
-        ->assertDontSee(__('Login Required'));
+        ->assertDontSee(__('zeus-bolt::messages.login_required'));
 });
 
 it('see form require login for guest user', function () {
@@ -79,7 +79,7 @@ it('see form require login for guest user', function () {
     ]);
 
     livewire(FillForms::class, ['slug' => $form->slug])
-        ->assertSee(__('Login Required'));
+        ->assertSee(__('zeus-bolt::messages.login_required'));
 });
 
 it('see form when not require login', function () {
@@ -90,7 +90,7 @@ it('see form when not require login', function () {
     ]);
 
     livewire(FillForms::class, ['slug' => $form->slug])
-        ->assertDontSee(__('Login Required'));
+        ->assertDontSee(__('zeus-bolt::messages.login_required'));
 });
 
 it('see form when not require login for guest', function () {
@@ -102,7 +102,7 @@ it('see form when not require login for guest', function () {
     ]);
 
     livewire(FillForms::class, ['slug' => $form->slug])
-        ->assertDontSee(__('Login Required'));
+        ->assertDontSee(__('zeus-bolt::messages.login_required'));
 });
 
 it('can list Form', function () {

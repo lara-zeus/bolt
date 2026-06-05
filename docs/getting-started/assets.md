@@ -5,31 +5,33 @@ weight: 6
 
 ## Compiling assets
 
-We use [tailwind Css](https://tailwindcss.com/) and custom themes by filament, make sure you are familiar with [tailwindcss configuration](https://tailwindcss.com/docs/configuration), and how to make a custom [filament theme](https://filamentphp.com/docs/2.x/admin/appearance#building-themes).
+We use [Tailwind CSS](https://tailwindcss.com/) and custom Filament themes.
+If you are using Tailwind CSS v4, class scanning is configured from your CSS entry file using `@source` (instead of the old `tailwind.config.js` `content` array).
 
 ### Custom Classes
 
-You need to add these files to your `tailwind.config.js` file in the `content` section.
+Add these source paths to your app stylesheet (for example `resources/css/app.css`):
 
 * frontend:
 
-```js
-content: [
-    //...
-  './vendor/lara-zeus/core/resources/views/**/*.blade.php',
-  './vendor/lara-zeus/bolt/resources/views/themes/**/*.blade.php',
-]
+```css
+@import "tailwindcss";
+
+@source "../../vendor/lara-zeus/core/resources/views/**/*.blade.php";
+@source "../../vendor/lara-zeus/bolt/resources/views/themes/**/*.blade.php";
 ```
 
 * filament:
 
-```js
-content: [
-    //...
-  './vendor/lara-zeus/bolt/resources/views/filament/**/*.blade.php',
-  './vendor/lara-zeus/accordion/resources/views/**/*.blade.php',
-]
+```css
+@import "tailwindcss";
+
+@source "../../vendor/lara-zeus/bolt/resources/views/filament/**/*.blade.php";
+@source "../../vendor/lara-zeus/accordion/resources/views/**/*.blade.php";
 ```
+
+> **Note**\
+> In Tailwind CSS v4, keep these `@source` rules in the CSS file(s) actually used by your Vite build.
 
 ### Customizing the Frontend Views
 

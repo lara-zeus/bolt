@@ -24,10 +24,10 @@
             <div class="space-y-4">
                 <x-filament::section>
                     <x-slot name="heading" class="text-primary-600">
-                        {{ __('User Details') }}
+                        {{ __('zeus-bolt::messages.user_details') }}
                     </x-slot>
                     @if($response->user_id === null)
-                        <span>{{ __('By') }} {{ __('Visitor') }}</span>
+                        <span>{{ __('zeus-bolt::messages.by') }} {{ __('zeus-bolt::messages.visitor') }}</span>
                     @else
                         <div class="flex gap-2 items-center">
                             <x-filament::avatar
@@ -43,7 +43,7 @@
                         </div>
                     @endif
                     <p class="flex flex-col my-1 gap-1">
-                        <span class="text-base font-light">{{ __('Created at') }}:</span>
+                        <span class="text-base font-light">{{ __('zeus-bolt::response.created_at') }}:</span>
                         <span class="font-semibold">
                             {{ $response->created_at->format($this->form->getDefaultDateDisplayFormat()) }}
                             -
@@ -53,20 +53,20 @@
                 </x-filament::section>
                 <x-filament::section>
                     <x-slot name="heading" class="text-primary-600">
-                        <p class="text-primary-600 font-semibold">{{ __('Entry Details') }}</p>
+                        <p class="text-primary-600 font-semibold">{{ __('zeus-bolt::messages.entry_details') }}</p>
                     </x-slot>
 
                     <div class="flex flex-col mb-4">
-                        <span class="text-gray-600">{{ __('Form') }}:</span>
+                        <span class="text-gray-600">{{ __('zeus-bolt::messages.form') }}:</span>
                         <span>{{ $response->form->name ?? '' }}</span>
                     </div>
 
                     <div class="mb-4">
-                        <span>{{ __('status') }}</span>
+                        <span>{{ __('zeus-bolt::forms.status') }}</span>
                         <span
                             color="{{ $response->status->getColor() }}"
                             x-tooltip="{
-                                content: @js(__('status')),
+                                content: @js(__('zeus-bolt::forms.status')),
                                 theme: $store.theme,
                             }"
                         >
@@ -76,7 +76,7 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <span>{{ __('Notes') }}:</span>
+                        <span>{{ __('zeus-bolt::forms.notes') }}:</span>
                         {!! nl2br($response->notes) !!}
                     </div>
                 </x-filament::section>
