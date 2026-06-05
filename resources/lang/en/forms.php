@@ -45,6 +45,7 @@ return [
             'display' => [
                 'label' => 'Display & Access',
                 'is_active' => 'Is Active',
+                'inactive' => 'Inactive',
                 'is_active_help' => 'Activate the form and let users start submissions',
                 'require_login' => 'Require login',
                 'require_login_help' => 'User must be logged in or create an account before can submit a new entry',
