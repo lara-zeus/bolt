@@ -250,6 +250,7 @@ class FormResource extends BoltResource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
+            ->with(['sections.fields'])
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
