@@ -31,6 +31,16 @@ _💖 if you think this has potential, star ⭐️ the project to let me know :)
 - 🔥 Categories.
 - 🔥 Entries report.
 
+
+## Versions
+
+| Plugin Version | Filament Version |
+| --- |------------------|
+| `v3.x` | `v3.x`           |
+| `v4.x` | `v4.x`           |
+| `v5.x` | `v5.x`           |
+
+
 ## Bolt Pro
 
 [![bolt-pro](https://larazeus.com/images/bolt-pro-ad.webp)](https://larazeus.com/bolt-pro)

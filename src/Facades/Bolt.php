@@ -24,13 +24,19 @@ class Bolt extends Facade
         return 'bolt';
     }
 
+    protected static ?Collection $availableFields = null;
+
     public static function availableFields(): Collection
     {
+        if (static::$availableFields !== null) {
+            return static::$availableFields;
+        }
+
         if (app()->isLocal()) {
             Cache::forget('bolt.fields');
         }
 
-        return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
+        return static::$availableFields = Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
             $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Collectors::collectClasses(base_path(config('zeus-bolt.collectors.fields.path')), config('zeus-bolt.collectors.fields.namespace'));
 
@@ -59,13 +65,19 @@ class Bolt extends Facade
         });
     }
 
+    protected static ?Collection $availableDataSources = null;
+
     public static function availableDataSource(): Collection
     {
+        if (static::$availableDataSources !== null) {
+            return static::$availableDataSources;
+        }
+
         if (app()->isLocal()) {
             Cache::forget('bolt.dataSources');
         }
 
-        return Cache::remember('bolt.dataSources', Carbon::parse('1 month'), function () {
+        return static::$availableDataSources = Cache::remember('bolt.dataSources', Carbon::parse('1 month'), function () {
             return Collectors::collectClasses(
                 base_path(config('zeus-bolt.collectors.dataSources.path')),
                 config('zeus-bolt.collectors.dataSources.namespace')

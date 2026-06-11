@@ -13,6 +13,8 @@ use Throwable;
 
 trait Fields
 {
+    protected static ?array $fieldsTypesOptions = null;
+
     /**
      * @throws Exception
      */
@@ -33,9 +35,15 @@ trait Fields
                     ->toArray())
                 ->allowHtml()
                 ->extraAttributes(['class' => 'field-type'])
-                ->options(fn (): array => Bolt::availableFields()
-                    ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
-                    ->toArray())
+                ->options(function (): array {
+                    if (static::$fieldsTypesOptions === null) {
+                        static::$fieldsTypesOptions = Bolt::availableFields()
+                            ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
+                            ->toArray();
+                    }
+
+                    return static::$fieldsTypesOptions;
+                })
                 ->live()
                 ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
                 ->label(__('zeus-bolt::forms.fields.type')),
