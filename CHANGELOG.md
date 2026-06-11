@@ -2,6 +2,17 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v5.0.4 - 2026-06-11
+
+### What's Changed
+
+* update tests by @atmonshi in https://github.com/lara-zeus/bolt/pull/441
+* Run tests across SQLite/MySQL/Postgres in CI by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/442
+* Add FieldsRenderTest for rendering fields (#422) by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/443
+* improve queries performance by @atmonshi in https://github.com/lara-zeus/bolt/pull/444
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v5.0.3...v5.0.4
+
 ## v5.0.3 - 2026-05-08
 
 ### What's Changed
@@ -182,6 +193,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -397,6 +409,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1029,7 +1042,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - Refactor common fields options
 - Fix options and store the Conditional Visibility in field options
 - Add collapsed to form sections and fields when editing forms
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.1...1.2.0
 
 ## 1.1.1 - 2023-06-27
