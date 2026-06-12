@@ -26,8 +26,8 @@ trait Visibility
             ->icon('tabler-eye-cog')
             ->visible(function (Livewire $livewire) {
                 return str($livewire->getName())
-                        ->explode( '\\')
-                        ->last() === 'EditForm';
+                    ->explode('\\')
+                    ->last() === 'EditForm';
             })
             ->schema([
                 Toggle::make('options.visibility.active')
