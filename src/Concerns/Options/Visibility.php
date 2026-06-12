@@ -25,9 +25,8 @@ trait Visibility
             ->label(__('zeus-bolt::forms.options.conditional_visibility.title'))
             ->icon('tabler-eye-cog')
             ->visible(fn (Livewire $livewire) => str($livewire->getName())
-                ->replace('-form', '')
-                ->explode('.')
-                ->last() === 'edit')
+                ->explode('\\')
+                ->last() === 'EditForm')
             ->schema([
                 Toggle::make('options.visibility.active')
                     ->live()
