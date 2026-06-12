@@ -66,7 +66,7 @@
 
             {!! Extensions::init($zeusForm, 'render',$extensionData) !!}
 
-            @if(filled(strip_tags(RichContentRenderer::make($zeusForm->details)->toHtml())))
+            @if(filled($zeusForm->details) && $zeusForm->details !== '' && filled(strip_tags(RichContentRenderer::make($zeusForm->details)->toHtml())))
                 <div class="my-4">
                     <x-filament::section :compact="true">
                         {{ RichContentRenderer::make($zeusForm->details)->toHtml() }}
