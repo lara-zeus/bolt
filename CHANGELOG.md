@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v5.0.6 - 2026-06-12
+
+### What's Changed
+
+* Fix render form details by @atmonshi in https://github.com/lara-zeus/bolt/pull/448
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v5.0.5...v5.0.6
+
 ## v5.0.5 - 2026-06-12
 
 ### What's Changed
@@ -230,6 +238,7 @@ this the change:
 
 
 
+
 ```
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.84...v3.0.85
 
@@ -427,6 +436,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1065,7 +1075,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.1...1.2.0
 ## 1.1.1 - 2023-06-27
 ### What's Changed
-
 - add french by @jvkassi in https://github.com/lara-zeus/bolt/pull/73
 - Add missing phrases by @atmonshi in https://github.com/lara-zeus/bolt/pull/74
 - Add missing phrases to fr by @atmonshi in https://github.com/lara-zeus/bolt/pull/78
