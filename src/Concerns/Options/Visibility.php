@@ -24,10 +24,11 @@ trait Visibility
         return Accordion::make('visibility-options')
             ->label(__('zeus-bolt::forms.options.conditional_visibility.title'))
             ->icon('tabler-eye-cog')
-            ->visible(fn (Livewire $livewire) => str($livewire->getName())
-                ->replace('-form', '')
-                ->explode('.')
-                ->last() === 'edit')
+            ->visible(function (Livewire $livewire) {
+                return str($livewire->getName())
+                        ->explode( '\\')
+                        ->last() === 'EditForm';
+            })
             ->schema([
                 Toggle::make('options.visibility.active')
                     ->live()
