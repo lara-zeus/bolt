@@ -31,7 +31,7 @@ class ReplicateFormAction extends ReplicateAction
                         $set('slug', Str::slug($state));
                     }),
                 TextInput::make('slug')
-                    ->formatStateUsing(fn ($record) => $record->slug . '-' . rand(1, 99))
+                    ->formatStateUsing(fn (?ZeusForm $record) => $record ? $record->slug . '-' . rand(1, 99) : null)
                     ->required()
                     ->maxLength(255)
                     ->rules(['alpha_dash'])
