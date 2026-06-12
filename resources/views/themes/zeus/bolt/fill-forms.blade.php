@@ -1,5 +1,5 @@
 @php
-    use LaraZeus\Bolt\Facades\Bolt;
+    use Filament\Forms\Components\RichEditor\RichContentRenderer;use LaraZeus\Bolt\Facades\Bolt;
     use LaraZeus\Bolt\Facades\Extensions;
     use \Illuminate\Support\Arr;
 
@@ -66,10 +66,10 @@
 
             {!! Extensions::init($zeusForm, 'render',$extensionData) !!}
 
-            @if(!empty($zeusForm->details))
+            @if(filled(strip_tags(RichContentRenderer::make($zeusForm->details)->toHtml())))
                 <div class="my-4">
                     <x-filament::section :compact="true">
-                        {!! nl2br($zeusForm->details) !!}
+                        {{ RichContentRenderer::make($zeusForm->details)->toHtml() }}
                     </x-filament::section>
                 </div>
             @endif
@@ -78,9 +78,9 @@
 
             <div class="px-4 py-2 text-center">
                 <x-filament::button
-                    form="store"
-                    type="submit"
-                    :color="$zeusForm->options['primary_color'] ?? 'primary'"
+                        form="store"
+                        type="submit"
+                        :color="$zeusForm->options['primary_color'] ?? 'primary'"
                 >
                     {{ __('zeus-bolt::messages.save') }}
                 </x-filament::button>
