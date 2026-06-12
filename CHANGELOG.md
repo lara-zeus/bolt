@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.15 - 2026-06-12
+
+### What's Changed
+
+* fix replicate forms by @atmonshi in https://github.com/lara-zeus/bolt/pull/445
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v5.0.4...v4.0.15
+
 ## v5.0.4 - 2026-06-11
 
 ### What's Changed
@@ -193,6 +201,7 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
 
 
 
@@ -409,6 +418,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1043,7 +1053,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - Fix options and store the Conditional Visibility in field options
 - Add collapsed to form sections and fields when editing forms
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.1...1.2.0
-
 ## 1.1.1 - 2023-06-27
 
 ### What's Changed
