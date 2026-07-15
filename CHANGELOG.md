@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v5.0.7 - 2026-07-15
+
+### What's Changed
+
+* chore: improve Plumb scores by updating GH actions and policies by @atmonshi in https://github.com/lara-zeus/bolt/pull/450
+* Bump stefanzweifel/git-auto-commit-action from 5.2.0 to 7.2.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/451
+* Bump ramsey/composer-install from 3.2.1 to 4.0.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/452
+* Bump actions/checkout from 4.3.1 to 7.0.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/453
+* cleaning up dist by @atmonshi in https://github.com/lara-zeus/bolt/pull/454
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v5.0.6...v5.0.7
+
 ## v5.0.6 - 2026-06-12
 
 ### What's Changed
@@ -239,6 +251,7 @@ this the change:
 
 
 
+
 ```
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.84...v3.0.85
 
@@ -436,6 +449,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1084,7 +1098,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - clean up show response blades and improve get status details by @atmonshi in https://github.com/lara-zeus/bolt/pull/79
 - add missing keys to status by @atmonshi in https://github.com/lara-zeus/bolt/pull/81
 - add extension label by @atmonshi in https://github.com/lara-zeus/bolt/pull/80
-
 ### New Contributors
 
 - @jvkassi made their first contribution in https://github.com/lara-zeus/bolt/pull/73
