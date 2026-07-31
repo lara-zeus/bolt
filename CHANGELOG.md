@@ -2,6 +2,56 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.14 - 2026-05-15
+
+### What's Changed
+
+* Run tests across SQLite/MySQL/Postgres in CI by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/423
+* Add FieldsRenderTest for rendering fields by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/422
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.13...v4.0.14
+
+## v4.0.13 - 2026-05-08
+
+### What's Changed
+
+* extract missing translations by @atmonshi in https://github.com/lara-zeus/bolt/pull/440
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.12...v4.0.13
+
+## v4.0.12 - 2026-04-24
+
+### What's Changed
+
+* Correct en strings by @PerryRylance in https://github.com/lara-zeus/bolt/pull/420
+* Bump ramsey/composer-install from 3 to 4 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/424
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/428
+* Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/430
+* Remove Stray `)` by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/435
+
+### New Contributors
+
+* @PerryRylance made their first contribution in https://github.com/lara-zeus/bolt/pull/420
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.11...v4.0.12
+
+## v5.0.0 - 2026-03-11
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/411
+* added localization support for a tooltip in `Concerns/Schema/Sections.php` by @mnaderian in https://github.com/lara-zeus/bolt/pull/410
+* Remove afterValidate hooks from form pages by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/418
+* Correct en strings by @PerryRylance in https://github.com/lara-zeus/bolt/pull/420
+* support filament 5
+
+### New Contributors
+
+* @mnaderian made their first contribution in https://github.com/lara-zeus/bolt/pull/410
+* @PerryRylance made their first contribution in https://github.com/lara-zeus/bolt/pull/420
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.9...v5.0.0
+
 ## v4.0.11 - 2026-02-06
 
 ### What's Changed
@@ -154,6 +204,10 @@ this the change:
     'extensionData' => $extensionData['extInfo']['itemId'] ?? 0,
     'response' => $extensionData['response'],
 ]) !!}
+
+
+
+
 
 
 
@@ -366,6 +420,10 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
+
+
+
 
 
 
@@ -988,17 +1046,13 @@ and you can remove the fork for `alperenersoy/filament-export`
 ### What's Changed
 - fix: pass ext data instead of depending on request by @atmonshi in https://github.com/lara-zeus/bolt/pull/85
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.2.1...1.2.2
-
 ## 1.2.0 - 2023-06-28
-
 ### What's Changed
-
 - Allow Conditional Visibility for fields by @atmonshi in https://github.com/lara-zeus/bolt/pull/82
 - Add HasOptions to handle common fields options better
 - Refactor common fields options
 - Fix options and store the Conditional Visibility in field options
 - Add collapsed to form sections and fields when editing forms
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.1...1.2.0
 
 ## 1.1.1 - 2023-06-27
