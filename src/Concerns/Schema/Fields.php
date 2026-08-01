@@ -27,17 +27,25 @@ trait Fields
                 ->required()
                 ->searchable()
                 ->preload()
-                ->getSearchResultsUsing(fn (string $search) => Bolt::availableFields()
-                    ->filter(fn ($q) => str($q['title'])->contains($search, ignoreCase: true))
-                    ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
-                    ->toArray())
+                ->getSearchResultsUsing(
+                    fn (string $search) => Bolt::availableFields()
+                        ->filter(fn ($q) => str($q['title'])->contains($search, ignoreCase: true))
+                        ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
+                        ->toArray()
+                )
+                ->getOptionLabelUsing(
+                    fn ($state): ?string => optional(Bolt::allFields()
+                        ->firstWhere('class', $state), fn ($field) => static::getFieldsTypesOptions($field))
+                )
                 ->allowHtml()
                 ->extraAttributes(['class' => 'field-type'])
-                ->options(fn (): array => Bolt::availableFields()
-                    ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
-                    ->toArray())
+                ->options(
+                    fn (): array => Bolt::availableFields()
+                        ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
+                        ->toArray()
+                )
                 ->live()
-                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
+                ->default(fn () => Bolt::availableFields()->pluck('class')->first())
                 ->label(__('zeus-bolt::forms.fields.type')),
 
             Hidden::make('description'),

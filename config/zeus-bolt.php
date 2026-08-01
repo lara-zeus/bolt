@@ -33,6 +33,15 @@ return [
     'middleware' => ['web'],
 
     /**
+     * by default Bolt uses all of its own fields, plus bolt-pro when installed,
+     * and your own fields from 'collectors' below.
+     * to use only some, list them here. anything not listed is dropped, pro and your own included.
+     * $sort sets the order, the first field is the default.
+     * flush 'bolt.fields' and 'bolt.allFields' after any change.
+     */
+    'coreFields' => null,
+
+    /**
      * you can overwrite any model and use your own
      * you can also configure the model per panel in your panel provider using:
      * ->models([ ... ])
