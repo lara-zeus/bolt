@@ -33,10 +33,11 @@ return [
     'middleware' => ['web'],
 
     /**
-     * Override the default core fields with a specific set of field classes.
-     * When set to an array, only the listed fields will be available as core fields.
-     * When set to null, all core fields will be auto-discovered from the
-     * 'collectors.fields' path and namespace configured below.
+     * by default Bolt uses all of its own fields, plus bolt-pro when installed,
+     * and your own fields from 'collectors' below.
+     * to use only some, list them here. anything not listed is dropped, pro and your own included.
+     * $sort sets the order, the first field is the default.
+     * flush 'bolt.fields' and 'bolt.allFields' after any change.
      */
     'coreFields' => null,
 

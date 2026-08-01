@@ -19,4 +19,23 @@ yarn-error.log
 /build
 .DS_Store
 /.phpunit.cache
+
+# AI assistants and agents
+/.ai
+/.agents
+/.amp
 /.claude
+/.codex
+/.cursor
+/.factory
+/.grok
+/.junie
+/.kiro
+/.opencode
+/.pi
+/.zed
+/.github/skills
+/.mcp.json
+/AGENTS.md
+/CLAUDE.md
+/opencode.jsonc

@@ -72,13 +72,13 @@ class Bolt extends Facade
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
             $configuredCoreFields = config('zeus-bolt.coreFields');
-            $hasConfiguredCoreFields = is_array($configuredCoreFields);
 
-            if ($hasConfiguredCoreFields) {
-                $coreFields = collect(Collectors::buildClasses($configuredCoreFields));
-            } else {
-                $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            // once configured, the list is the complete set of fields, nothing else is discovered
+            if (is_array($configuredCoreFields)) {
+                return collect(Collectors::buildClasses($configuredCoreFields))->sortBy('sort');
             }
+
+            $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Collectors::collectClasses(base_path(config('zeus-bolt.collectors.fields.path')), config('zeus-bolt.collectors.fields.namespace'));
 
             $fields = collect();
@@ -91,7 +91,7 @@ class Bolt extends Facade
                 $fields = $fields->merge($appFields);
             }
 
-            if (static::hasPro() && ! $hasConfiguredCoreFields) {
+            if (static::hasPro()) {
                 $boltProFields = Collectors::collectClasses(
                     base_path('vendor/lara-zeus/bolt-pro/src/Fields'),
                     'LaraZeus\\BoltPro\\Fields\\'

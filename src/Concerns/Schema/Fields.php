@@ -45,7 +45,7 @@ trait Fields
                         ->toArray()
                 )
                 ->live()
-                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
+                ->default(fn () => Bolt::availableFields()->pluck('class')->first())
                 ->label(__('zeus-bolt::forms.fields.type')),
 
             Hidden::make('description'),

@@ -111,7 +111,13 @@ php artisan vendor:publish --tag=zeus-bolt-config
 
 ### Core Fields
 
-By default, Bolt auto-discovers all field classes from the `Fields/Classes` directory. You can override this by setting `coreFields` to an array of specific field classes:
+By default Bolt discovers all of its own fields, your own [custom fields](../advanced/add-fields), and the [Bolt Pro](../bolt-pro/introduction) fields when the package is installed:
+
+```php
+'coreFields' => null,
+```
+
+To use only some of them, list the classes you want:
 
 ```php
 'coreFields' => [
@@ -121,13 +127,25 @@ By default, Bolt auto-discovers all field classes from the `Fields/Classes` dire
 ],
 ```
 
-When set to `null` (default), all core fields are auto-discovered:
+The array is the complete list, and nothing else is discovered. Add the Bolt Pro fields, or your own from the `collectors.fields` path, to keep them:
 
 ```php
-'coreFields' => null,
+'coreFields' => [
+    \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+    \LaraZeus\BoltPro\Fields\SomeProField::class,
+    \App\Zeus\Fields\MyField::class,
+],
 ```
 
-You can also include your own [custom fields](../advanced/add-fields) alongside the core ones.
+> **Note**\
+> The array sets which fields are offered, not their order. Fields are ordered by the `$sort` property on the field class, and the first one becomes the default type for new fields. A class you list is skipped if it sets `$disabled = true`.
+
+> **Important**\
+> The fields are cached, and only flushed for you on the `local` environment. Anywhere else, flush the keys before your changes show up:
+```bash
+php artisan cache:forget bolt.fields
+php artisan cache:forget bolt.allFields
+```
 
 ### Custom User Model
 
