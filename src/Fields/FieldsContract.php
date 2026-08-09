@@ -78,9 +78,16 @@ abstract class FieldsContract implements Arrayable, Fields
         return method_exists(static::class, 'getOptions');
     }
 
+    /**
+     * The rendered value of a response, safe to print unescaped.
+     *
+     * Every caller renders the return value as HTML, so responses are escaped
+     * here rather than at each view. Field types that store HTML on purpose must
+     * override this and sanitize with `Bolt::sanitizeHtml()` instead.
+     */
     public function getResponse(Field $field, FieldResponse $resp): string
     {
-        return $resp->response;
+        return e($resp->response);
     }
 
     // @phpstan-ignore-next-line
@@ -171,6 +178,11 @@ abstract class FieldsContract implements Arrayable, Fields
     }
 
     /**
+     * The selected collection items for a response, safe to print unescaped.
+     *
+     * Escaped at the single return point rather than inside the cache, so the
+     * cached entries stay usable by anything that needs the raw labels.
+     *
      * @throws JsonException
      */
     public function getCollectionsValuesForResponse(Field $field, FieldResponse $resp): string
@@ -231,7 +243,7 @@ abstract class FieldsContract implements Arrayable, Fields
             return '';
         });
 
-        return (is_array($response)) ? implode(', ', $response) : $response;
+        return e((is_array($response)) ? implode(', ', $response) : $response);
     }
 
     /**
