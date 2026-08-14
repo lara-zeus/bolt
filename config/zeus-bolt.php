@@ -66,11 +66,32 @@ return [
 
     'defaultMailable' => FormSubmission::class,
 
+    /*
+     * uploads on a `public` disk are readable by anyone holding the URL.
+     * point this at a private S3 disk if your forms collect anything sensitive.
+     */
     'uploadDisk' => env('BOLT_FILESYSTEM_DISK', 'public'),
 
     'uploadDirectory' => env('BOLT_FILESYSTEM_DIRECTORY', 'forms'),
 
     'uploadVisibility' => env('BOLT_FILESYSTEM_VISIBILITY', 'public'),
+
+    /*
+     * the extensions the `file upload` field accepts. anything else is rejected server side.
+     * adding to this list is a security decision: executables (`php`, `cgi`, `sh`, `exe`)
+     * risk code execution, and markup (`svg`, `html`, `js`) risks stored xss.
+     */
+    'uploadAcceptedFileTypes' => [
+        'jpg', 'jpeg', 'png', 'gif', 'webp',
+        'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx',
+        'txt', 'csv', 'zip',
+    ],
+
+    /*
+     * the maximum size, in kilobytes, for every `file upload` field that does not set
+     * its own. leave null to let livewire's own upload limit govern instead.
+     */
+    'uploadMaxSize' => null,
 
     /*
      * if you have installed Bolt Pro, you can enable the presets here
