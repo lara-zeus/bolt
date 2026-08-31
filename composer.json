@@ -29,7 +29,7 @@
     "require": {
         "php": "^8.4",
         "flowframe/laravel-trend": "^0.5",
-        "guava/filament-icon-picker": "^4.0 || ^5.0",
+        "guava/filament-icon-picker": "^5.0",
         "lara-zeus/accordion": "^3.0",
         "lara-zeus/core": "^5.0",
         "lara-zeus/filament-plugin-tools": "^3.0",
