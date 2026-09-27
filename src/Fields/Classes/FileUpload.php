@@ -48,9 +48,10 @@ class FileUpload extends FieldsContract
                                 ->multiple()
                                 ->inline()
                                 ->enum(FileUploadType::class)
-                                ->options(fn (): array => collect(FileUploadType::available())
-                                    ->mapWithKeys(fn (FileUploadType $fileType): array => [$fileType->value => $fileType->getLabel()])
-                                    ->all()
+                                ->options(
+                                    fn (): array => collect(FileUploadType::available())
+                                        ->mapWithKeys(fn (FileUploadType $fileType): array => [$fileType->value => $fileType->getLabel()])
+                                        ->all()
                                 ),
                             FusedGroup::make([
                                 TextInput::make('options.max_size')
