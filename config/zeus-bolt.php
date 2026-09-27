@@ -1,5 +1,6 @@
 <?php
 
+use LaraZeus\Bolt\Enums\FileUploadType;
 use LaraZeus\Bolt\Enums\FormsStatus;
 use LaraZeus\Bolt\Mail\FormSubmission;
 use LaraZeus\Bolt\Models\Category;
@@ -77,14 +78,16 @@ return [
     'uploadVisibility' => env('BOLT_FILESYSTEM_VISIBILITY', 'public'),
 
     /*
-     * the extensions the `file upload` field accepts. anything else is rejected server side.
-     * adding to this list is a security decision: executables (`php`, `cgi`, `sh`, `exe`)
+     * the extensions the `file upload` field accepts, grouped by the file types admins pick from.
+     * anything else is rejected server side. empty a group to hide it from the field editor.
+     * adding to these lists is a security decision: executables (`php`, `cgi`, `sh`, `exe`)
      * risk code execution, and markup (`svg`, `html`, `js`) risks stored xss.
      */
-    'uploadAcceptedFileTypes' => [
-        'jpg', 'jpeg', 'png', 'gif', 'webp',
-        'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx',
-        'txt', 'csv', 'zip',
+    'uploadFileTypes' => [
+        FileUploadType::Image->value => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+        FileUploadType::Video->value => ['mp4', 'webm', 'mov'],
+        FileUploadType::Audio->value => ['mp3', 'wav', 'ogg', 'm4a'],
+        FileUploadType::Document->value => ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'csv', 'zip'],
     ],
 
     /*

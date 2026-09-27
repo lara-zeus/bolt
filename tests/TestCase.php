@@ -13,7 +13,9 @@ use Filament\Schemas\SchemasServiceProvider;
 use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
+use Guava\IconPicker\IconPickerServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use LaraZeus\Accordion\AccordionServiceProvider;
 use LaraZeus\Bolt\BoltServiceProvider;
 use LaraZeus\Bolt\Tests\Models\User;
 use LaraZeus\Core\CoreServiceProvider;
@@ -64,6 +66,8 @@ class TestCase extends Orchestra
             SpatieTranslatableServiceProvider::class,
             LivewireServiceProvider::class,
             BladeTablerIconsServiceProvider::class,
+            AccordionServiceProvider::class,
+            IconPickerServiceProvider::class,
         ];
     }
 }

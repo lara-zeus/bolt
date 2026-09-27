@@ -165,6 +165,12 @@ return [
             'allow_multiple' => 'Allow Multiple',
             'accepted_file_types' => 'Accepted File Types',
             'accepted_file_types_helper' => 'Leave empty to accept every file type allowed by this site.',
+            'file_types' => [
+                'image' => 'Image',
+                'video' => 'Video',
+                'audio' => 'Audio',
+                'document' => 'Document',
+            ],
             'max_size' => 'Max File Size',
             'max_size_helper' => 'Optional. Leave empty to use this site\'s default upload limit.',
             'max_size_unit' => 'Size Unit',

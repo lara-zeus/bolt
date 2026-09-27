@@ -7,11 +7,13 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\ToggleButtons;
-use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\FusedGroup;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\Column;
 use Illuminate\Support\Facades\Storage;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
+use LaraZeus\Bolt\Enums\FileUploadType;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\Bolt\Models\Field;
@@ -40,27 +42,35 @@ class FileUpload extends FieldsContract
                         ->schema([
                             Toggle::make('options.allow_multiple')
                                 ->label(__('zeus-bolt::forms.fields.options.allow_multiple')),
-                            Select::make('options.accepted_file_types')
+                            ToggleButtons::make('options.accepted_file_types')
                                 ->label(__('zeus-bolt::forms.fields.options.accepted_file_types'))
                                 ->helperText(__('zeus-bolt::forms.fields.options.accepted_file_types_helper'))
                                 ->multiple()
-                                ->options(fn (): array => self::getAllowedExtensionOptions()),
-                            Grid::make()
-                                ->schema([
-                                    TextInput::make('options.max_size')
-                                        ->label(__('zeus-bolt::forms.fields.options.max_size'))
-                                        ->helperText(__('zeus-bolt::forms.fields.options.max_size_helper'))
-                                        ->numeric()
-                                        ->minValue(1),
-                                    ToggleButtons::make('options.max_size_unit')
-                                        ->label(__('zeus-bolt::forms.fields.options.max_size_unit'))
-                                        ->options([
-                                            'kb' => __('zeus-bolt::forms.fields.options.max_size_units.kb'),
-                                            'mb' => __('zeus-bolt::forms.fields.options.max_size_units.mb'),
-                                        ])
-                                        ->default('kb')
-                                        ->grouped(),
-                                ]),
+                                ->inline()
+                                ->enum(FileUploadType::class)
+                                ->options(fn (): array => collect(FileUploadType::available())
+                                    ->mapWithKeys(fn (FileUploadType $fileType): array => [$fileType->value => $fileType->getLabel()])
+                                    ->all()
+                                ),
+                            FusedGroup::make([
+                                TextInput::make('options.max_size')
+                                    ->label(__('zeus-bolt::forms.fields.options.max_size'))
+                                    ->numeric()
+                                    ->minValue(1)
+                                    ->maxValue(99999),
+                                Select::make('options.max_size_unit')
+                                    ->label(__('zeus-bolt::forms.fields.options.max_size_unit'))
+                                    ->options([
+                                        'kb' => __('zeus-bolt::forms.fields.options.max_size_units.kb'),
+                                        'mb' => __('zeus-bolt::forms.fields.options.max_size_units.mb'),
+                                    ])
+                                    ->default('kb')
+                                    ->selectablePlaceholder(false),
+                            ])
+                                ->label(__('zeus-bolt::forms.fields.options.max_size'))
+                                ->helperText(__('zeus-bolt::forms.fields.options.max_size_helper'))
+                                ->columns(2)
+                                ->maxWidth(Width::Medium),
                             self::isActive(),
                             self::required(),
                             self::columnSpanFull(),
@@ -90,38 +100,6 @@ class FileUpload extends FieldsContract
             Hidden::make('options.max_size')->default(null),
             Hidden::make('options.max_size_unit')->default('kb'),
         ];
-    }
-
-    /**
-     * The extensions this application allows to be uploaded.
-     *
-     * @return array<int, string>
-     */
-    protected static function defaultAllowedExtensions(): array
-    {
-        $extensions = config('zeus-bolt.uploadAcceptedFileTypes');
-
-        if (! is_array($extensions)) {
-            return [];
-        }
-
-        return array_values(array_unique(array_map(
-            fn (string $extension): string => strtolower(ltrim($extension, '.')),
-            $extensions
-        )));
-    }
-
-    /**
-     * The allow list as select options, keyed by extension so a field stores the
-     * extension itself rather than its position in the list.
-     *
-     * @return array<string, string>
-     */
-    public static function getAllowedExtensionOptions(): array
-    {
-        $allowedExtensions = self::defaultAllowedExtensions();
-
-        return array_combine($allowedExtensions, $allowedExtensions);
     }
 
     public function getResponse(Field $field, FieldResponse $resp): string
@@ -173,23 +151,23 @@ class FileUpload extends FieldsContract
     }
 
     /**
-     * The extensions picked for one field, intersected with the allow list so it can only narrow.
+     * The extensions of the file types picked for one field, or of every type when it
+     * picks none. Unknown picks are dropped, so a field can only narrow the config.
      *
      * @return array<int, string>
      */
     protected static function getFieldAllowedExtensions(Field $zeusField): array
     {
-        $configAllowedExtensions = self::defaultAllowedExtensions();
-        $fieldSelectedExtensions = $zeusField->options['accepted_file_types'] ?? [];
+        $fieldSelectedFileTypes = $zeusField->options['accepted_file_types'] ?? [];
 
-        if (! is_array($fieldSelectedExtensions) || blank($fieldSelectedExtensions)) {
-            return $configAllowedExtensions;
+        if (! is_array($fieldSelectedFileTypes) || blank($fieldSelectedFileTypes)) {
+            return FileUploadType::extensionsFor(FileUploadType::cases());
         }
 
-        return array_values(array_intersect($configAllowedExtensions, array_map(
-            fn (string $extension): string => strtolower(ltrim($extension, '.')),
-            $fieldSelectedExtensions
-        )));
+        return FileUploadType::extensionsFor(array_values(array_filter(array_map(
+            fn (mixed $fileType): ?FileUploadType => is_string($fileType) ? FileUploadType::tryFrom($fileType) : null,
+            $fieldSelectedFileTypes
+        ))));
     }
 
     /**

@@ -1,10 +1,18 @@
 <?php
 
+use Filament\Actions\Testing\TestAction;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\ToggleButtons;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use LaraZeus\Bolt\Enums\FileUploadType;
 use LaraZeus\Bolt\Fields\Classes\FileUpload;
-use LaraZeus\Bolt\Models\Field;
-use Livewire\Features\SupportFileUploads\FileUploadConfiguration;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use LaraZeus\Bolt\Filament\Resources\FormResource\Pages\CreateForm;
+use LaraZeus\Bolt\Livewire\FillForms;
+use LaraZeus\Bolt\Models\Form;
+use Livewire\Features\SupportTesting\Testable;
+
+use function Pest\Livewire\livewire;
 
 /**
  * Extensions no form should ever store: the web server may execute them,
@@ -17,128 +25,229 @@ const BOLT_DANGEROUS_EXTENSIONS = [
     'svg', 'svgz', 'html', 'htm', 'xhtml', 'shtml', 'xml', 'xsl', 'js', 'mjs', 'swf',
 ];
 
-/** The filament component bolt builds for a `file upload` field. */
-function boltFileUploadComponent(array $options = []): Filament\Forms\Components\FileUpload
+/** A real one pixel png. */
+const BOLT_PNG_CONTENTS = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
+
+const BOLT_PDF_CONTENTS = "%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF";
+
+beforeEach(fn () => Storage::fake(config('zeus-bolt.uploadDisk')));
+
+/** The admin's form builder with one section holding a single `file upload` field. */
+function uploadFormBuilder(): Testable
 {
-    return (new FileUpload)->appendFilamentComponentsOptions(
-        Filament\Forms\Components\FileUpload::make('test'),
-        new Field(['name' => 'Test Field', 'options' => $options]),
-    );
+    return livewire(CreateForm::class)->fillForm([
+        'name' => 'Upload form',
+        'slug' => 'upload-form',
+        'sections' => [[
+            'name' => 'Section',
+            'fields' => [['name' => 'Attachment', 'type' => '\\' . FileUpload::class]],
+        ]],
+    ]);
 }
 
-describe('the allow list bolt applies', function () {
-    it('ships with nothing executable or renderable on it', function () {
-        expect(array_intersect(BOLT_DANGEROUS_EXTENSIONS, config('zeus-bolt.uploadAcceptedFileTypes')))->toBeEmpty();
+/** The slide over an admin opens from the field's cog button. */
+function uploadFieldOptions(): TestAction
+{
+    return TestAction::make('fields options')->schemaComponent('sections.0.fields')->arguments(['item' => 0]);
+}
+
+/**
+ * Builds a form with a `file upload` field the way an admin does: filling the builder,
+ * setting the field's options in its slide over when there are any, then creating it.
+ */
+function createUploadFormViaAdmin(array $fieldOptions = []): Form
+{
+    $undoRepeaterFake = Repeater::fake();
+
+    $builder = uploadFormBuilder();
+
+    if (filled($fieldOptions)) {
+        $builder->callAction(uploadFieldOptions(), data: ['options' => $fieldOptions])->assertHasNoFormErrors();
+    }
+
+    $builder->call('create')->assertHasNoFormErrors();
+
+    $undoRepeaterFake();
+
+    return Form::query()->where('slug', 'upload-form')->firstOrFail();
+}
+
+/** A visitor attaching a file to the form and submitting it. */
+function submitUpload(Form $form, UploadedFile $file): Testable
+{
+    return livewire(FillForms::class, ['slug' => $form->slug])
+        ->fillForm(['zeusData.' . $form->fields->first()->id => $file])
+        ->call('store');
+}
+
+function assertUploadAccepted(Testable $submission): void
+{
+    $submission->assertHasNoErrors()->assertSet('sent', true);
+
+    expect(Storage::disk(config('zeus-bolt.uploadDisk'))->allFiles(config('zeus-bolt.uploadDirectory')))->toHaveCount(1);
+}
+
+function assertUploadRejected(Testable $submission): void
+{
+    $submission->assertHasErrors()->assertSet('sent', false);
+
+    expect(Storage::disk(config('zeus-bolt.uploadDisk'))->allFiles())->toBeEmpty();
+}
+
+function png(string $name = 'photo.png'): UploadedFile
+{
+    return UploadedFile::fake()->createWithContent($name, base64_decode(BOLT_PNG_CONTENTS));
+}
+
+function pdf(string $name = 'report.pdf'): UploadedFile
+{
+    return UploadedFile::fake()->createWithContent($name, BOLT_PDF_CONTENTS);
+}
+
+it('ships with nothing executable or renderable on the allow list', function () {
+    expect(array_intersect(BOLT_DANGEROUS_EXTENSIONS, FileUploadType::extensionsFor(FileUploadType::cases())))->toBeEmpty();
+});
+
+describe('an admin setting up the field', function () {
+    it('picks from the file types, shown with their labels and icons', function () {
+        $undoRepeaterFake = Repeater::fake();
+
+        uploadFormBuilder()
+            ->mountAction(uploadFieldOptions())
+            ->assertMountedActionModalSee(['Image', 'Video', 'Audio', 'Document'])
+            ->assertFormFieldExists('options.accepted_file_types', fn (ToggleButtons $field): bool => $field->isMultiple()
+                && $field->getIcon('image') === FileUploadType::Image->getIcon());
+
+        $undoRepeaterFake();
     });
 
-    it('normalises entries however they are written', function () {
-        config()->set('zeus-bolt.uploadAcceptedFileTypes', ['.PNG', 'Jpg']);
+    it('does not see a type a developer left without extensions', function () {
+        config()->set('zeus-bolt.uploadFileTypes.video', []);
+        $undoRepeaterFake = Repeater::fake();
 
-        expect(boltFileUploadComponent()->getAcceptedFileTypes())
-            ->toContain('image/png')
-            ->toContain('image/jpeg');
+        uploadFormBuilder()
+            ->mountAction(uploadFieldOptions())
+            ->assertMountedActionModalSee(['Image', 'Audio', 'Document'])
+            ->assertMountedActionModalDontSee('Video');
+
+        $undoRepeaterFake();
     });
 
-    it('accepts nothing when the allow list is empty or missing', function (mixed $configured) {
-        config()->set('zeus-bolt.uploadAcceptedFileTypes', $configured);
+    it('cannot save a hidden type by posting it anyway', function () {
+        config()->set('zeus-bolt.uploadFileTypes.video', []);
+        $undoRepeaterFake = Repeater::fake();
 
-        expect(boltFileUploadComponent()->getAcceptedFileTypes())->toBeEmpty()
-            ->and(FileUpload::getAllowedExtensionOptions())->toBeEmpty();
+        uploadFormBuilder()
+            ->callAction(uploadFieldOptions(), data: ['options' => ['accepted_file_types' => ['video']]])
+            ->assertHasFormErrors(['options.accepted_file_types.0']);
+
+        $undoRepeaterFake();
+    });
+
+    it('cannot set a max size over five digits', function () {
+        $undoRepeaterFake = Repeater::fake();
+
+        uploadFormBuilder()
+            ->callAction(uploadFieldOptions(), data: ['options' => ['max_size' => 100000]])
+            ->assertHasFormErrors(['options.max_size']);
+
+        $undoRepeaterFake();
+    });
+
+    it('saves the picked types and max size on the field', function () {
+        $form = createUploadFormViaAdmin(['accepted_file_types' => ['image', 'document'], 'max_size' => 2, 'max_size_unit' => 'mb']);
+
+        expect($form->fields->first()->options)
+            ->accepted_file_types->toBe(['image', 'document'])
+            ->max_size->toEqual(2)
+            ->max_size_unit->toBe('mb');
+    });
+});
+
+describe('a visitor uploading to the field', function () {
+    it('can upload a file of a picked type', function (array $picked, UploadedFile $file) {
+        assertUploadAccepted(submitUpload(createUploadFormViaAdmin(['accepted_file_types' => $picked]), $file));
     })->with([
-        'emptied deliberately' => [[]],
-        'missing entirely' => [null],
+        'image picked' => fn () => [['image'], png()],
+        'document picked' => fn () => [['document'], pdf()],
+        'image of several picked' => fn () => [['image', 'document'], png()],
+        'document of several picked' => fn () => [['image', 'document'], pdf()],
+    ]);
+
+    it('cannot upload a file of a type the admin did not pick', function () {
+        assertUploadRejected(submitUpload(createUploadFormViaAdmin(['accepted_file_types' => ['image']]), pdf()));
+    });
+
+    it('can upload any allowed type when the admin picked none', function (UploadedFile $file) {
+        assertUploadAccepted(submitUpload(createUploadFormViaAdmin(), $file));
+    })->with([
+        'an image' => fn () => png(),
+        'a document' => fn () => pdf(),
     ]);
 
     /**
-     * The field editor stores whatever these options are keyed by, and that key is what
-     * the per field allow list is intersected against. Keyed by position, a saved field
-     * would resolve to nothing.
+     * Livewire's test uploads report the mime type of the fake file instead of sniffing its
+     * content, so the pdf content's real type is set here as the server would detect it.
      */
-    it('offers each extension to the field editor keyed by itself', function () {
-        config()->set('zeus-bolt.uploadAcceptedFileTypes', ['.PNG', 'pdf']);
+    it('cannot upload a file renamed to look like a picked type', function () {
+        $form = createUploadFormViaAdmin(['accepted_file_types' => ['image']]);
 
-        expect(FileUpload::getAllowedExtensionOptions())->toBe(['png' => 'png', 'pdf' => 'pdf']);
+        assertUploadRejected(submitUpload($form, pdf('report.png')->mimeType('application/pdf')));
+    });
+
+    /** The regression test for the reported issue. */
+    it('cannot upload a web shell', function () {
+        assertUploadRejected(submitUpload(
+            createUploadFormViaAdmin(),
+            UploadedFile::fake()->createWithContent('shell.php', '<?php system($_GET["c"]); ?>'),
+        ));
+    });
+
+    /** Picks can only narrow the config, so a field left with no types accepts nothing. */
+    it('cannot upload anything once a developer empties the only picked type', function () {
+        $form = createUploadFormViaAdmin(['accepted_file_types' => ['image']]);
+
+        config()->set('zeus-bolt.uploadFileTypes.image', []);
+
+        assertUploadRejected(submitUpload($form, png()));
+    });
+
+    it('can upload extensions however a developer writes them', function () {
+        config()->set('zeus-bolt.uploadFileTypes.image', ['.PNG']);
+
+        assertUploadAccepted(submitUpload(createUploadFormViaAdmin(['accepted_file_types' => ['image']]), png()));
     });
 });
 
-describe('a single field', function () {
-    beforeEach(fn () => config()->set('zeus-bolt.uploadAcceptedFileTypes', ['jpg', 'png', 'pdf']));
+describe('the max size a visitor can upload', function () {
+    it('is the one the admin set, in either kilobytes or megabytes', function (int $maxSize, string $unit, int $fileKilobytes, bool $isAccepted) {
+        $form = createUploadFormViaAdmin(['max_size' => $maxSize, 'max_size_unit' => $unit]);
 
-    it('narrows the accepted types', function () {
-        expect(boltFileUploadComponent(['accepted_file_types' => ['pdf']])->getAcceptedFileTypes())
-            ->toContain('application/pdf')
-            ->not->toContain('image/jpeg');
-    });
+        $submission = submitUpload($form, UploadedFile::fake()->create('photo.png', $fileKilobytes));
 
-    it('cannot widen them, and picks outside the allow list are dropped', function () {
-        expect(boltFileUploadComponent(['accepted_file_types' => ['php', 'exe']])->getAcceptedFileTypes())->toBeEmpty();
-    });
-
-    /** What the field editor saves has to be what the allow list is intersected against. */
-    it('resolves a pick taken straight from the field editor options', function () {
-        $picked = array_key_first(FileUpload::getAllowedExtensionOptions());
-
-        expect(boltFileUploadComponent(['accepted_file_types' => [$picked]])->getAcceptedFileTypes())
-            ->not->toBeEmpty();
-    });
-
-    it('falls back to the whole allow list when it picks nothing', function () {
-        expect(boltFileUploadComponent()->getAcceptedFileTypes())->toContain('image/jpeg', 'application/pdf');
-    });
-
-    it('sets its own max size in either kilobytes or megabytes', function (int $size, ?string $unit, int $expected) {
-        expect(boltFileUploadComponent(['max_size' => $size, 'max_size_unit' => $unit])->getMaxSize())->toBe($expected);
+        $isAccepted ? assertUploadAccepted($submission) : assertUploadRejected($submission);
     })->with([
-        'kilobytes' => [500, 'kb', 500],
-        'megabytes' => [5, 'mb', 5120],
-        'no unit means kilobytes' => [500, null, 500],
+        'under kilobytes' => [100, 'kb', 50, true],
+        'over kilobytes' => [100, 'kb', 150, false],
+        'under megabytes' => [1, 'mb', 1000, true],
+        'over megabytes' => [1, 'mb', 1100, false],
     ]);
 
-    /** Setting a size is optional; livewire's own limit governs when nothing is set anywhere. */
-    it('leaves the size to livewire when neither it nor the config sets one', function (array $options) {
-        expect(config('zeus-bolt.uploadMaxSize'))->toBeNull()
-            ->and(boltFileUploadComponent($options)->getMaxSize())->toBeNull();
-    })->with([
-        'nothing set' => [[]],
-        'set to zero' => [['max_size' => 0]],
-        'left empty' => [['max_size' => null, 'max_size_unit' => 'mb']],
-    ]);
+    it('is the configured one when the admin set none', function () {
+        config()->set('zeus-bolt.uploadMaxSize', 100);
 
-    it('takes the configured size when it sets none of its own', function () {
-        config()->set('zeus-bolt.uploadMaxSize', 5000);
-
-        expect(boltFileUploadComponent()->getMaxSize())->toBe(5000)
-            ->and(boltFileUploadComponent(['max_size' => 0])->getMaxSize())->toBe(5000);
+        assertUploadRejected(submitUpload(createUploadFormViaAdmin(), UploadedFile::fake()->create('photo.png', 150)));
     });
 
-    it('overrides the configured size with its own', function (int $size, ?string $unit, int $expected) {
-        config()->set('zeus-bolt.uploadMaxSize', 5000);
+    it('is the admin one over the configured one', function () {
+        config()->set('zeus-bolt.uploadMaxSize', 100);
 
-        expect(boltFileUploadComponent(['max_size' => $size, 'max_size_unit' => $unit])->getMaxSize())->toBe($expected);
-    })->with([
-        'lower' => [1000, 'kb', 1000],
-        'higher' => [50, 'mb', 51200],
-    ]);
-});
+        $form = createUploadFormViaAdmin(['max_size' => 1, 'max_size_unit' => 'mb']);
 
-/** The regression test for the reported issue: a web shell must not survive our rules. */
-it('rejects an uploaded web shell', function () {
-    Storage::fake(FileUploadConfiguration::disk());
-    Storage::disk(FileUploadConfiguration::disk())->put(
-        FileUploadConfiguration::path('shell.php', withS3Root: false),
-        '<?php system($_GET["c"]); ?>',
-    );
+        assertUploadAccepted(submitUpload($form, UploadedFile::fake()->create('photo.png', 150)));
+    });
 
-    $error = null;
-    $fail = function (string $message) use (&$error): void {
-        $error ??= $message;
-    };
-
-    foreach (boltFileUploadComponent()->getValidationRules() as $rule) {
-        if ($rule instanceof Closure) {
-            $rule('test', [TemporaryUploadedFile::createFromLivewire('/shell.php')], $fail);
-        }
-    }
-
-    expect($error)->not->toBeNull();
+    it('is left to livewire when neither the admin nor the config set one', function () {
+        assertUploadAccepted(submitUpload(createUploadFormViaAdmin(), UploadedFile::fake()->create('photo.png', 5000)));
+    });
 });
