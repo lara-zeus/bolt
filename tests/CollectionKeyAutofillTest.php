@@ -54,7 +54,7 @@ it('refills the key after the user clears it', function () {
         ->assertSet("data.values.{$row}.itemKey", 'Blue');
 });
 
-it('does not store the helper flag', function () {
+it('saves the auto-filled key', function () {
     $component = livewire(CreateCollection::class);
     $row = firstValueRow($component);
 
@@ -82,7 +82,7 @@ it('never changes the key of a saved row', function () {
         ->assertSet("data.values.{$row}.itemKey", 'Red');
 });
 
-it('fills the key on a row added to a saved collection', function () {
+it('fills an empty key on a row added to a saved collection', function () {
     $collection = Collection::create([
         'name' => 'Colors',
         'values' => [['itemValue' => 'Red', 'itemKey' => 'Red', 'itemIsDefault' => false]],
@@ -102,5 +102,5 @@ it('fills the key on a row added to a saved collection', function () {
         ->set("data.values.{$row}.itemValue", 'Blue')
         ->assertSet("data.values.{$row}.itemKey", 'Blue')
         ->set("data.values.{$row}.itemValue", 'Navy')
-        ->assertSet("data.values.{$row}.itemKey", 'Navy');
+        ->assertSet("data.values.{$row}.itemKey", 'Blue');
 });
