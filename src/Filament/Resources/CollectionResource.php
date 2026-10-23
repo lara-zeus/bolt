@@ -6,7 +6,6 @@ use BackedEnum;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -78,17 +77,13 @@ class CollectionResource extends BoltResource
                     ->columnSpan(2)
                     ->columns(1)
                     ->schema([
-                        // only rows added in this session; saved keys are referenced by responses
-                        Hidden::make('keyFollowsValue')
-                            ->default(true)
-                            ->dehydrated(false),
-
                         TextInput::make('itemValue')
                             ->live(onBlur: true)
-                            ->afterStateUpdated(function (Set $set, Get $get, ?string $old, ?string $state) {
+                            ->afterStateUpdated(function (Set $set, Get $get, ?string $old, ?string $state, string $operation) {
                                 $key = $get('itemKey');
 
-                                if ($get('keyFollowsValue') && (blank($key) || $key === $old)) {
+                                // saved keys are referenced by responses, so only keep them in sync while creating
+                                if (blank($key) || ($operation === 'create' && $key === $old)) {
                                     $set('itemKey', $state);
                                 }
                             })

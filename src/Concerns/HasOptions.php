@@ -4,7 +4,6 @@ namespace LaraZeus\Bolt\Concerns;
 
 use Filament\Actions\Action;
 use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -127,15 +126,12 @@ trait HasOptions
                             ->columnSpan(2)
                             ->columns(1)
                             ->schema([
-                                Hidden::make('keyFollowsValue')
-                                    ->default(true)
-                                    ->dehydrated(false),
                                 TextInput::make('itemValue')
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function (Set $set, Get $get, ?string $old, ?string $state) {
                                         $key = $get('itemKey');
 
-                                        if ($get('keyFollowsValue') && (blank($key) || $key === $old)) {
+                                        if (blank($key) || $key === $old) {
                                             $set('itemKey', $state);
                                         }
                                     })
