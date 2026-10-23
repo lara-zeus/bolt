@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+composer.lock
 /vendor/.idea
 /bootstrap/cache
 .env
