@@ -2,6 +2,18 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v5.0.8 - 2026-10-24
+
+### What's Changed
+
+* Bump actions/checkout from 7.0.0 to 7.0.1 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/456
+* Update pxlrbt/filament-excel requirement from ^3.6 to ^3.6 || ^4.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/460
+* Update orchestra/testbench requirement from ^10.0 to ^11.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/455
+* Bump shivammathur/setup-php from 2.37.2 to 2.40.0 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/462
+* [5.x] Stop collection key auto-fill from overwriting user input by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/465
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v5.0.7...v5.0.8
+
 ## v5.0.7 - 2026-07-15
 
 ### What's Changed
@@ -252,6 +264,7 @@ this the change:
 
 
 
+
 ```
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.84...v3.0.85
 
@@ -449,6 +462,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1099,7 +1113,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - add missing keys to status by @atmonshi in https://github.com/lara-zeus/bolt/pull/81
 - add extension label by @atmonshi in https://github.com/lara-zeus/bolt/pull/80
 ### New Contributors
-
 - @jvkassi made their first contribution in https://github.com/lara-zeus/bolt/pull/73
 
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.0...1.1.1
