@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.16 - 2026-10-24
+
+### What's Changed
+
+* fix replicate forms by @atmonshi in https://github.com/lara-zeus/bolt/pull/446
+* [4.x] Stop collection key auto-fill from overwriting user input by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/466
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.14...v4.0.16
+
 ## v4.0.14 - 2026-05-15
 
 ### What's Changed
@@ -223,6 +232,7 @@ this the change:
 
 
 
+
 ```
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.84...v3.0.85
 
@@ -420,6 +430,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1054,7 +1065,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - Fix options and store the Conditional Visibility in field options
 - Add collapsed to form sections and fields when editing forms
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.1...1.2.0
-
 ## 1.1.1 - 2023-06-27
 
 ### What's Changed
