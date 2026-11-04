@@ -97,6 +97,7 @@ class CategoryResource extends BoltResource
                             ->disk(config('zeus-bolt.uploadDisk'))
                             ->directory(config('zeus-bolt.uploadDirectory'))
                             ->visibility(config('zeus-bolt.uploadVisibility'))
+                            ->image()
                             ->columnSpan(['sm' => 2])
                             ->label(__('zeus-bolt::category.logo')),
                     ]),

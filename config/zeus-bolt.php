@@ -1,5 +1,6 @@
 <?php
 
+use LaraZeus\Bolt\Enums\FileUploadType;
 use LaraZeus\Bolt\Enums\FormsStatus;
 use LaraZeus\Bolt\Mail\FormSubmission;
 use LaraZeus\Bolt\Models\Category;
@@ -66,11 +67,34 @@ return [
 
     'defaultMailable' => FormSubmission::class,
 
+    /*
+     * uploads on a `public` disk are readable by anyone holding the URL.
+     * point this at a private S3 disk if your forms collect anything sensitive.
+     */
     'uploadDisk' => env('BOLT_FILESYSTEM_DISK', 'public'),
 
     'uploadDirectory' => env('BOLT_FILESYSTEM_DIRECTORY', 'forms'),
 
     'uploadVisibility' => env('BOLT_FILESYSTEM_VISIBILITY', 'public'),
+
+    /*
+     * the extensions the `file upload` field accepts, grouped by the file types admins pick from.
+     * anything else is rejected server side. empty a group to hide it from the field editor.
+     * adding to these lists is a security decision: executables (`php`, `cgi`, `sh`, `exe`)
+     * risk code execution, and markup (`svg`, `html`, `js`) risks stored xss.
+     */
+    'uploadFileTypes' => [
+        FileUploadType::Image->value => ['jpg', 'jpeg', 'png', 'gif', 'webp'],
+        FileUploadType::Video->value => ['mp4', 'webm', 'mov'],
+        FileUploadType::Audio->value => ['mp3', 'wav', 'ogg', 'm4a'],
+        FileUploadType::Document->value => ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt', 'csv', 'zip'],
+    ],
+
+    /*
+     * the maximum size, in kilobytes, for every `file upload` field that does not set
+     * its own. leave null to let livewire's own upload limit govern instead.
+     */
+    'uploadMaxSize' => null,
 
     /*
      * if you have installed Bolt Pro, you can enable the presets here
