@@ -108,7 +108,7 @@ class Textarea extends FieldsContract
 
     public function getResponse(Field $field, FieldResponse $resp): string
     {
-        return nl2br(strip_tags($resp->response));
+        return nl2br(e($resp->response));
     }
 
     public function TableColumn(Field $field): ?Column

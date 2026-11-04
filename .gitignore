@@ -19,4 +19,17 @@ yarn-error.log
 /build
 .DS_Store
 /.phpunit.cache
+
+# ai assistants
 /.claude
+/.codex
+/.cursor
+/.gemini
+/.junie
+/.windsurf
+/.aider*
+/.github/copilot-instructions.md
+/.mcp.json
+/AGENTS.md
+/CLAUDE.md
+/GEMINI.md

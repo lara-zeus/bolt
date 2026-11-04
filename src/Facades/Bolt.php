@@ -14,6 +14,7 @@ use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Bolt\BoltPlugin;
 use LaraZeus\Bolt\Contracts\CustomFormSchema;
 use LaraZeus\Bolt\Contracts\CustomSchema;
+use LaraZeus\Bolt\Fields\AntiXssSanitizer;
 use LaraZeus\Bolt\Fields\FieldsContract;
 use LaraZeus\BoltPro\BoltProServiceProvider;
 
@@ -113,6 +114,19 @@ class Bolt extends Facade
     public static function hasPro(): bool
     {
         return class_exists(BoltProServiceProvider::class);
+    }
+
+    /**
+     * Sanitize a value that is rendered as HTML on purpose, using the sanitizer
+     * configured in `zeus-bolt.html_sanitizer`.
+     */
+    public static function sanitizeHtml(string $value): string
+    {
+        if ($value === '') {
+            return $value;
+        }
+
+        return app(config('zeus-bolt.html_sanitizer', AntiXssSanitizer::class))->sanitize($value);
     }
 
     public static function getCustomSchema(string $hook, ?FieldsContract $field = null): Tab | Accordion | null
