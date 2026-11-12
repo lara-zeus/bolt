@@ -69,7 +69,7 @@
             @if(filled($zeusForm->details) && $zeusForm->details !== '' && filled(strip_tags(RichContentRenderer::make($zeusForm->details)->toHtml())))
                 <div class="my-4">
                     <x-filament::section :compact="true">
-                        {{ RichContentRenderer::make($zeusForm->details)->toHtml() }}
+                        {{ RichContentRenderer::make($zeusForm->details) }}
                     </x-filament::section>
                 </div>
             @endif
