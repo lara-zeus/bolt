@@ -2,6 +2,15 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v5.0.9 - 2026-11-12
+
+### What's Changed
+
+* Bump stefanzweifel/git-auto-commit-action from 7.2.0 to 7.2.1 by @dependabot[bot] in https://github.com/lara-zeus/bolt/pull/467
+* Fix form details rendered as escaped HTML by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/469
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v5.0.8...v5.0.9
+
 ## v5.0.8 - 2026-10-24
 
 ### What's Changed
@@ -265,6 +274,7 @@ this the change:
 
 
 
+
 ```
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.84...v3.0.85
 
@@ -462,6 +472,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1114,7 +1125,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - add extension label by @atmonshi in https://github.com/lara-zeus/bolt/pull/80
 ### New Contributors
 - @jvkassi made their first contribution in https://github.com/lara-zeus/bolt/pull/73
-
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.0...1.1.1
 
 ## 1.1.0 - 2023-06-24
