@@ -109,6 +109,44 @@ To publish the configuration:
 php artisan vendor:publish --tag=zeus-bolt-config
 ```
 
+### Core Fields
+
+By default Bolt discovers all of its own fields, your own [custom fields](../advanced/add-fields), and the [Bolt Pro](../bolt-pro/introduction) fields when the package is installed:
+
+```php
+'coreFields' => null,
+```
+
+To use only some of them, list the classes you want:
+
+```php
+'coreFields' => [
+    \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+    \LaraZeus\Bolt\Fields\Classes\Select::class,
+    \LaraZeus\Bolt\Fields\Classes\Toggle::class,
+],
+```
+
+The array is the complete list, and nothing else is discovered. Add the Bolt Pro fields, or your own from the `collectors.fields` path, to keep them:
+
+```php
+'coreFields' => [
+    \LaraZeus\Bolt\Fields\Classes\TextInput::class,
+    \LaraZeus\BoltPro\Fields\SomeProField::class,
+    \App\Zeus\Fields\MyField::class,
+],
+```
+
+> **Note**\
+> The array sets which fields are offered, not their order. Fields are ordered by the `$sort` property on the field class, and the first one becomes the default type for new fields. A class you list is skipped if it sets `$disabled = true`.
+
+> **Important**\
+> The fields are cached, and only flushed for you on the `local` environment. Anywhere else, flush the keys before your changes show up:
+```bash
+php artisan cache:forget bolt.fields
+php artisan cache:forget bolt.allFields
+```
+
 ### Custom User Model
 
 By default Bolt will use the default Laravel user model to get the user info:

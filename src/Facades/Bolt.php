@@ -24,6 +24,46 @@ class Bolt extends Facade
         return 'bolt';
     }
 
+    public static function allFields(): Collection
+    {
+        if (app()->isLocal()) {
+            Cache::forget('bolt.allFields');
+        }
+
+        return Cache::remember('bolt.allFields', Carbon::parse('1 month'), function () {
+            $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
+            $appFields = Collectors::collectClasses(base_path(config('zeus-bolt.collectors.fields.path')), config('zeus-bolt.collectors.fields.namespace'));
+
+            $fields = collect();
+
+            if ($coreFields->isNotEmpty()) {
+                $fields = $fields->merge($coreFields);
+            }
+
+            if ($appFields->isNotEmpty()) {
+                $fields = $fields->merge($appFields);
+            }
+
+            $configuredCoreFields = config('zeus-bolt.coreFields');
+            if (is_array($configuredCoreFields)) {
+                $fields = $fields->merge(collect(Collectors::buildClasses($configuredCoreFields)));
+            }
+
+            if (static::hasPro()) {
+                $boltProFields = Collectors::collectClasses(
+                    base_path('vendor/lara-zeus/bolt-pro/src/Fields'),
+                    'LaraZeus\\BoltPro\\Fields\\'
+                );
+
+                if ($boltProFields->isNotEmpty()) {
+                    $fields = $fields->merge($boltProFields);
+                }
+            }
+
+            return $fields->sortBy('sort');
+        });
+    }
+
     public static function availableFields(): Collection
     {
         if (app()->isLocal()) {
@@ -31,6 +71,13 @@ class Bolt extends Facade
         }
 
         return Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
+            $configuredCoreFields = config('zeus-bolt.coreFields');
+
+            // once configured, the list is the complete set of fields, nothing else is discovered
+            if (is_array($configuredCoreFields)) {
+                return collect(Collectors::buildClasses($configuredCoreFields))->sortBy('sort');
+            }
+
             $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Collectors::collectClasses(base_path(config('zeus-bolt.collectors.fields.path')), config('zeus-bolt.collectors.fields.namespace'));
 
