@@ -9,6 +9,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Utilities\Get;
 use LaraZeus\Bolt\Facades\Bolt;
+use LaraZeus\Bolt\Fields\FieldsContract;
 use Throwable;
 
 trait Fields
@@ -27,17 +28,30 @@ trait Fields
                 ->required()
                 ->searchable()
                 ->preload()
-                ->getSearchResultsUsing(fn (string $search) => Bolt::availableFields()
-                    ->filter(fn ($q) => str($q['title'])->contains($search, ignoreCase: true))
-                    ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
-                    ->toArray())
+                ->getSearchResultsUsing(
+                    fn (string $search) => Bolt::availableFields()
+                        ->filter(fn ($q) => str($q['title'])->contains($search, ignoreCase: true))
+                        ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
+                        ->toArray()
+                )
+                ->getOptionLabelUsing(function ($state): ?string {
+                    $field = Bolt::availableFields()->firstWhere('class', $state);
+
+                    if ($field === null && is_string($state) && class_exists($state) && is_subclass_of($state, FieldsContract::class)) {
+                        $field = (new $state)->toArray();
+                    }
+
+                    return $field !== null ? static::getFieldsTypesOptions($field) : null;
+                })
                 ->allowHtml()
                 ->extraAttributes(['class' => 'field-type'])
-                ->options(fn (): array => Bolt::availableFields()
-                    ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
-                    ->toArray())
+                ->options(
+                    fn (): array => Bolt::availableFields()
+                        ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
+                        ->toArray()
+                )
                 ->live()
-                ->default('\LaraZeus\Bolt\Fields\Classes\TextInput')
+                ->default(fn () => Bolt::availableFields()->pluck('class')->first())
                 ->label(__('zeus-bolt::forms.fields.type')),
 
             Hidden::make('description'),

@@ -21,16 +21,27 @@ yarn-error.log
 .DS_Store
 /.phpunit.cache
 
-# ai assistants
+# AI assistants and agents
+/.ai
+/.agents
+/.aider*
+/.amp
 /.claude
 /.codex
 /.cursor
+/.factory
 /.gemini
+/.grok
 /.junie
+/.kiro
+/.opencode
+/.pi
 /.windsurf
-/.aider*
+/.zed
 /.github/copilot-instructions.md
+/.github/skills
 /.mcp.json
 /AGENTS.md
 /CLAUDE.md
 /GEMINI.md
+/opencode.jsonc
