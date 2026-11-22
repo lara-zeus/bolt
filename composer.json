@@ -34,7 +34,8 @@
         "lara-zeus/core": "^5.0",
         "lara-zeus/filament-plugin-tools": "^3.0",
         "lara-zeus/list-group": "^3.0",
-        "lara-zeus/tabler-icons-enum": "^2.0"
+        "lara-zeus/tabler-icons-enum": "^2.0",
+        "voku/anti-xss": "^4.1"
     },
     "require-dev": {
         "larastan/larastan": "^3.0",
