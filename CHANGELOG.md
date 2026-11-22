@@ -2,6 +2,54 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.17 - 2026-11-22
+
+### What's Changed
+
+* [4.x] Remove unused pxlrbt/filament-excel dependency by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/464
+* Fix render issue by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/457
+* Fix file upload by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/458
+* Support custom core fields via config by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/419
+
+### v4.1.0 (or v4.0.17)
+
+#### 🔒 Security
+
+- **Prevent XSS in form responses, notes, and HTML content** (#457):
+  - Plain-text field responses (`FieldsContract::getResponse()`, `Textarea`, collection-backed fields) and response `notes` are now HTML-escaped before rendering.
+  - Intentional HTML content (`RichEditor` responses, `Paragraph` descriptions, form `details`, and `confirmation-message`) is now sanitized via `Bolt::sanitizeHtml()` using `voku/anti-xss`.
+  - Added the `zeus-bolt.html_sanitizer` config option (implementing `LaraZeus\Bolt\Contracts\HtmlSanitizer`) to allow swapping the default sanitizer.
+  
+- **Restrict file uploads by file type, MIME type, and size** (#458):
+  - `FileUpload` fields now enforce both server-side MIME type and extension validation, blocking executable and active markup files (e.g. `php`, `sh`, `svg`, `html`, `js`).
+  - Added per-field **Accepted File Types** (`image`, `video`, `audio`, `document`) and **Max File Size** (`KB`/`MB`) options in the form builder.
+  - Added `zeus-bolt.uploadFileTypes` and `zeus-bolt.uploadMaxSize` config options.
+  - Restricted `CategoryResource` logo uploads with `->image()`.
+  
+
+#### ✨ Features
+
+- **Configure allowed form builder fields via `coreFields`** (#419):
+  - Added `zeus-bolt.coreFields` (default `null`) to explicitly whitelist which field classes appear in the form builder (sorted by `$sort`, with the first offered field used as the default).
+  - Previously saved fields whose type is later removed from `coreFields` continue to display their proper label when editing forms.
+  - Updated configuration and custom fields documentation.
+  
+
+#### 🐛 Fixes & Maintenance
+
+- **Queued response exports & dependency cleanup** (#464):
+  - Removed the unused `pxlrbt/filament-excel` dependency.
+  - Fixed `ResponseExporter` for queued exports by caching the `Form` lookup once per exporter instance (`withoutGlobalScopes()->with('fields')`) and making `getColumns()` null-safe outside Livewire requests.
+  - Stopped tracking `composer.lock`.
+  
+
+#### ⚠️ Upgrade Notes
+
+- **File Uploads**: Existing `FileUpload` fields with no specific types selected now accept all extensions configured in `zeus-bolt.uploadFileTypes`. If your forms require additional extensions (e.g. `heic`, `rar`), add them to `config/zeus-bolt.php`.
+- **Field Cache**: After changing `zeus-bolt.coreFields` outside `local`, run `php artisan cache:forget bolt.fields`.
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.16...v4.0.17
+
 ## v4.0.16 - 2026-10-24
 
 ### What's Changed
@@ -233,6 +281,7 @@ this the change:
 
 
 
+
 ```
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.84...v3.0.85
 
@@ -430,6 +479,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1066,7 +1116,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 - Add collapsed to form sections and fields when editing forms
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.1...1.2.0
 ## 1.1.1 - 2023-06-27
-
 ### What's Changed
 
 - add french by @jvkassi in https://github.com/lara-zeus/bolt/pull/73
