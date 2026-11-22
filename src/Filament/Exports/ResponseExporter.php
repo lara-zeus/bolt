@@ -20,10 +20,19 @@ class ResponseExporter extends Exporter
 
     public function getCachedColumns(): array
     {
-        $id = $this->getOptions()['export_form_id'] ?? 0;
-        $record = BoltPlugin::getModel('Form')::find($id);
+        if (isset($this->cachedColumns)) {
+            return $this->cachedColumns;
+        }
 
-        return $this->cachedColumns ??= array_reduce(static::getFormColumns($record), function (array $carry, ExportColumn $column): array {
+        $id = $this->getOptions()['export_form_id'] ?? 0;
+
+        /** @var ?Form $record */
+        $record = BoltPlugin::getModel('Form')::query()
+            ->withoutGlobalScopes()
+            ->with('fields')
+            ->find($id);
+
+        return $this->cachedColumns = array_reduce(static::getFormColumns($record), function (array $carry, ExportColumn $column): array {
             $carry[$column->getName()] = $column->exporter($this);
 
             return $carry;
@@ -32,7 +41,15 @@ class ResponseExporter extends Exporter
 
     public static function getColumns(): array
     {
-        return static::getFormColumns(Livewire::current()->getRecord());
+        $livewire = Livewire::current();
+
+        if (! is_object($livewire) || ! method_exists($livewire, 'getRecord')) {
+            return [];
+        }
+
+        $record = $livewire->getRecord();
+
+        return static::getFormColumns($record instanceof Form ? $record : null);
     }
 
     public static function getFormColumns(?Form $record = null): array
