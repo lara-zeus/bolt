@@ -112,7 +112,6 @@ trait HasOptions
                     ->required()
                     ->createOptionForm([
                         TextInput::make('name')
-                            ->live(onBlur: true)
                             ->label(__('zeus-bolt::forms.options.collections.label'))
                             ->required()
                             ->maxLength(255)
@@ -129,14 +128,17 @@ trait HasOptions
                             ->schema([
                                 TextInput::make('itemValue')
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(function (Set $set, Get $get, string $operation) {
-                                        $set('itemKey', $get('itemValue'));
+                                    ->afterStateUpdated(function (Set $set, Get $get, ?string $old, ?string $state) {
+                                        $key = $get('itemKey');
+
+                                        if (blank($key) || $key === $old) {
+                                            $set('itemKey', $state);
+                                        }
                                     })
                                     ->required()
                                     ->label(__('zeus-bolt::forms.options.collections.values'))
                                     ->hint(__('zeus-bolt::forms.options.collections.value_hint')),
                                 TextInput::make('itemKey')
-                                    ->live(onBlur: true)
                                     ->required()
                                     ->label(__('zeus-bolt::forms.options.collections.key'))
                                     ->hint(__('zeus-bolt::forms.options.collections.key_hint')),
