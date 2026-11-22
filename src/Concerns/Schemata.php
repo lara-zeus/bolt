@@ -128,8 +128,8 @@ trait Schemata
                         ->maxLength(255)
                         ->live(onBlur: true)
                         ->label(__('zeus-bolt::forms.options.tabs.title.name'))
-                        ->afterStateUpdated(function (Set $set, $state, $context) {
-                            if ($context === 'edit') {
+                        ->afterStateUpdated(function (Set $set, Get $get, $state, $context) {
+                            if ($context === 'edit' || filled($get('slug'))) {
                                 return;
                             }
                             $set('slug', Str::slug($state));
@@ -163,8 +163,8 @@ trait Schemata
                                 ->maxLength(255)
                                 ->live(onBlur: true)
                                 ->label(__('zeus-bolt::forms.options.tabs.title.category.name'))
-                                ->afterStateUpdated(function (Set $set, $state, $context) {
-                                    if ($context === 'edit') {
+                                ->afterStateUpdated(function (Set $set, Get $get, $state, $context) {
+                                    if ($context === 'edit' || filled($get('slug'))) {
                                         return;
                                     }
                                     $set('slug', Str::slug($state));
