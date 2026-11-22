@@ -77,7 +77,7 @@
 
                 <div class="flex flex-col">
                     <span>{{ __('zeus-bolt::forms.notes') }}:</span>
-                    {!! nl2br($getRecord->notes) !!}
+                    {!! nl2br(e($getRecord->notes)) !!}
                 </div>
             </x-filament::section>
         </div>
