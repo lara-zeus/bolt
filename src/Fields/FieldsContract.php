@@ -200,7 +200,7 @@ abstract class FieldsContract implements Arrayable, Fields
         $response = Arr::wrap($response);
 
         $dataSource = (int) $field->options['dataSource'];
-        $cacheKey = 'dataSource_' . $dataSource . '_response_' . md5(serialize($response));
+        $cacheKey = 'dataSource_' . $dataSource . '_locale_' . app()->getLocale() . '_response_' . md5(serialize($response));
 
         if (app()->isLocal()) {
             Cache::forget($cacheKey);

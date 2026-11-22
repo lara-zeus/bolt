@@ -64,7 +64,7 @@ it('saves the auto-filled key', function () {
         ->call('create')
         ->assertHasNoFormErrors();
 
-    expect(Collection::query()->where('name', 'Colors')->first()->values->all())
+    expect(Collection::query()->where('name->en', 'Colors')->first()->values->all())
         ->toBe([['itemValue' => 'Red', 'itemKey' => 'Red', 'itemIsDefault' => false]]);
 });
 
