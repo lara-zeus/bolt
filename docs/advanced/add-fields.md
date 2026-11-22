@@ -28,6 +28,13 @@ php artisan make:zeus-field \\Guava\\FilamentIconPicker\\Forms\\IconPicker
 Bolt will automatically list the field in the form builder.
 There is a cache for all fields, so remember to flush the key `bolt.fields`
 
+```bash
+php artisan cache:forget bolt.fields
+```
+
+> **Note**\
+> It is only flushed for you on the `local` environment.
+
 ## Customization
 
 Check out the contract `LaraZeus\Bolt\Fields\FieldsContract` and see all the available methods.
