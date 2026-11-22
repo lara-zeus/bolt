@@ -114,16 +114,26 @@ class Collection extends Model
 
     public function setTranslation(string $key, string $locale, mixed $value): self
     {
-        if ($key === 'values' && $value instanceof SupportCollection) {
-            $value = $value->all();
+        if ($key === 'values') {
+            if ($value instanceof SupportCollection) {
+                $value = $value->all();
+            }
+
+            if (is_array($value) && ! array_is_list($value)) {
+                $value = array_values($value);
+            }
         }
 
         return $this->setTranslatableTranslation($key, $locale, $value);
     }
 
-    public function getValuesListAttribute(): ?string
+    public function getValuesList(?string $locale = null): ?string
     {
-        $allValues = collect($this->values);
+        $allValues = collect(
+            $locale !== null
+                ? $this->getTranslation('values', $locale)
+                : $this->values
+        );
 
         if ($allValues->isNotEmpty()) {
             return $allValues
@@ -131,10 +141,16 @@ class Collection extends Model
                 ->map(function ($item) {
                     return $item['itemValue'] ?? null;
                 })
+                ->filter()
                 ->join(',');
         }
 
         return null;
+    }
+
+    public function getValuesListAttribute(): ?string
+    {
+        return $this->getValuesList();
     }
 
     protected static function newFactory(): Factory

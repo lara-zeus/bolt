@@ -355,7 +355,8 @@ describe('new translatable collections', function () {
             ->assertSee('Small')
             ->set('activeLocale', 'ar')
             ->assertSee('المقاسات')
-            ->assertSee('صغير');
+            ->assertSee('صغير')
+            ->assertDontSee('Small');
     });
 
     it('renders FillForms in en vs ar with translated itemValue while storing itemKey', function () {
