@@ -7,6 +7,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use LaraZeus\Bolt\Database\Factories\UserFactory;
+use LaraZeus\Bolt\Models\Concerns\BelongToBolt;
 
 /**
  * @property string $email
@@ -15,6 +16,7 @@ use LaraZeus\Bolt\Database\Factories\UserFactory;
  */
 class User extends Authenticatable implements FilamentUser
 {
+    use BelongToBolt;
     use HasFactory;
 
     protected $guarded = [];
