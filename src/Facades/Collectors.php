@@ -22,7 +22,7 @@ class Collectors
         );
     }
 
-    protected static function buildClasses(array $classes): array
+    public static function buildClasses(array $classes): array
     {
         $allClasses = [];
         foreach ($classes as $class) {

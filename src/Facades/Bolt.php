@@ -37,6 +37,13 @@ class Bolt extends Facade
         }
 
         return static::$availableFields = Cache::remember('bolt.fields', Carbon::parse('1 month'), function () {
+            $configuredCoreFields = config('zeus-bolt.coreFields');
+
+            // once configured, the list is the complete set of fields, nothing else is discovered
+            if (is_array($configuredCoreFields)) {
+                return collect(Collectors::buildClasses($configuredCoreFields))->sortBy('sort');
+            }
+
             $coreFields = Collectors::collectClasses(__DIR__ . '/../Fields/Classes', 'LaraZeus\\Bolt\\Fields\\Classes\\');
             $appFields = Collectors::collectClasses(base_path(config('zeus-bolt.collectors.fields.path')), config('zeus-bolt.collectors.fields.namespace'));
 
