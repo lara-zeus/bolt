@@ -24,25 +24,24 @@ yarn-error.log
 # AI assistants and agents
 /.ai
 /.agents
+/.aider*
 /.amp
 /.claude
 /.codex
 /.cursor
 /.factory
+/.gemini
 /.grok
 /.junie
 /.kiro
 /.opencode
 /.pi
+/.windsurf
 /.zed
+/.github/copilot-instructions.md
 /.github/skills
 /.mcp.json
 /AGENTS.md
 /CLAUDE.md
-/opencode.jsonc
-# ai assistants
-/.gemini
-/.windsurf
-/.aider*
-/.github/copilot-instructions.md
 /GEMINI.md
+/opencode.jsonc

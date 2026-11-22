@@ -38,7 +38,7 @@ return [
      * and your own fields from 'collectors' below.
      * to use only some, list them here. anything not listed is dropped, pro and your own included.
      * $sort sets the order, the first field is the default.
-     * flush 'bolt.fields' and 'bolt.allFields' after any change.
+     * flush 'bolt.fields' after any change.
      */
     'coreFields' => null,
 

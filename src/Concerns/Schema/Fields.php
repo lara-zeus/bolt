@@ -9,6 +9,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Utilities\Get;
 use LaraZeus\Bolt\Facades\Bolt;
+use LaraZeus\Bolt\Fields\FieldsContract;
 use Throwable;
 
 trait Fields
@@ -33,10 +34,15 @@ trait Fields
                         ->mapWithKeys(fn ($field) => [$field['class'] => static::getFieldsTypesOptions($field)])
                         ->toArray()
                 )
-                ->getOptionLabelUsing(
-                    fn ($state): ?string => optional(Bolt::allFields()
-                        ->firstWhere('class', $state), fn ($field) => static::getFieldsTypesOptions($field))
-                )
+                ->getOptionLabelUsing(function ($state): ?string {
+                    $field = Bolt::availableFields()->firstWhere('class', $state);
+
+                    if ($field === null && is_string($state) && class_exists($state) && is_subclass_of($state, FieldsContract::class)) {
+                        $field = (new $state)->toArray();
+                    }
+
+                    return $field !== null ? static::getFieldsTypesOptions($field) : null;
+                })
                 ->allowHtml()
                 ->extraAttributes(['class' => 'field-type'])
                 ->options(
