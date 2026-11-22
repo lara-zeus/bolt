@@ -34,6 +34,7 @@
         "lara-zeus/core": "^4.0",
         "lara-zeus/filament-plugin-tools": "^2.0",
         "lara-zeus/list-group": "^2.0",
+        "voku/anti-xss": "^4.1",
         "lara-zeus/tabler-icons-enum": "^1.0"
     },
     "require-dev": {
