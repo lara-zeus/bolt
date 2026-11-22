@@ -19,6 +19,7 @@ use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages\CreateCollection;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages\EditCollection;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Pages\ListCollections;
 use LaraZeus\Bolt\Filament\Resources\CollectionResource\Widgets\EditCollectionWarning;
+use LaraZeus\Bolt\Models\Collection;
 
 class CollectionResource extends BoltResource
 {
@@ -113,6 +114,13 @@ class CollectionResource extends BoltResource
                     ->sortable()
                     ->toggleable(),
                 TextColumn::make('values-list')
+                    ->state(function (Collection $record, object $livewire): ?string {
+                        $locale = method_exists($livewire, 'getActiveTableLocale')
+                            ? $livewire->getActiveTableLocale()
+                            : null;
+
+                        return $record->getValuesList($locale);
+                    })
                     ->badge()
                     ->separator(',')
                     ->label(__('zeus-bolt::collection.values'))
