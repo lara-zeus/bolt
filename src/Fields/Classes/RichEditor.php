@@ -6,6 +6,8 @@ use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
 use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
+use LaraZeus\Bolt\Models\Field;
+use LaraZeus\Bolt\Models\FieldResponse;
 use LaraZeus\BoltPro\Facades\GradeOptions;
 
 class RichEditor extends FieldsContract
@@ -17,6 +19,15 @@ class RichEditor extends FieldsContract
     public function icon(): string
     {
         return 'tabler-cursor-text';
+    }
+
+    /**
+     * This field stores HTML on purpose, so the response is sanitized rather than
+     * escaped, which would render the markup as literal text.
+     */
+    public function getResponse(Field $field, FieldResponse $resp): string
+    {
+        return Bolt::sanitizeHtml($resp->response);
     }
 
     public static function getOptions(?array $sections = null, ?array $field = null): array

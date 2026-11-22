@@ -69,7 +69,7 @@
             @if(!empty($zeusForm->details))
                 <div class="my-4">
                     <x-filament::section :compact="true">
-                        {!! nl2br($zeusForm->details) !!}
+                        {!! nl2br(Bolt::sanitizeHtml($zeusForm->details ?? '')) !!}
                     </x-filament::section>
                 </div>
             @endif
