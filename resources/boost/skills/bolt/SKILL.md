@@ -8,7 +8,7 @@ description: Use when installing, configuring, embedding, or extending the lara-
 ## Overview & Requirements
 `lara-zeus/bolt` is a full-featured form builder for Filament v5 and Livewire with forms, sections, conditional fields, collections, data sources, extensions, and response tracking.
 - **PHP**: `^8.4`
-- **Core dependencies**: `lara-zeus/core` (`^5.0`), `lara-zeus/filament-plugin-tools` (`^3.0`), `lara-zeus/accordion` (`^3.0`), `lara-zeus/list-group` (`^3.0`), `lara-zeus/tabler-icons-enum` (`^2.0`), `guava/filament-icon-picker` (`^5.0`), `flowframe/laravel-trend` (`^0.5`), `voku/anti-xss` (`^4.1`)
+- **Core dependencies**: `lara-zeus/core` (`^5.0`), `lara-zeus/filament-plugin-tools` (`^3.0`), `lara-zeus/accordion` (`^3.0`), `lara-zeus/list-group` (`^3.0`), `lara-zeus/tabler-icons-enum` (`^2.0`), `guava/filament-icon-picker` (`^5.0`), `flowframe/laravel-trend` (`^0.5`)
 
 ## Installation
 ```bash
@@ -30,7 +30,6 @@ Key options in `config/zeus-bolt.php`:
 - `models`, `enums.FormsStatus`, `collectors.fields`, `collectors.dataSources`
 - `uploadDisk` (`BOLT_FILESYSTEM_DISK`, `'public'`), `uploadDirectory` (`'forms'`), `uploadVisibility` (`'public'`), `uploadFileTypes`, `uploadMaxSize`
 - `defaultMailable` (`LaraZeus\Bolt\Mail\FormSubmission::class`)
-- `html_sanitizer` (`LaraZeus\Bolt\Fields\AntiXssSanitizer::class`, implements `LaraZeus\Bolt\Contracts\HtmlSanitizer`)
 
 ## Filament Panel Registration
 Register both `SpatieTranslatablePlugin` and `BoltPlugin` in your PanelProvider:
@@ -62,5 +61,5 @@ use LaraZeus\SpatieTranslatable\SpatieTranslatablePlugin;
 ## Common Pitfalls
 - **Fields not appearing after deploy**: `bolt.fields` and `bolt.dataSources` are cached for 1 month outside `local`; run `php artisan cache:forget bolt.fields` and `php artisan cache:forget bolt.dataSources`.
 - **Using `coreFields` drops Pro/custom fields**: When `zeus-bolt.coreFields` is an array instead of `null`, Bolt disables auto-discovery — list every custom and Bolt Pro field class explicitly.
-- **Unescaped HTML in custom fields**: Always escape user values with `e()` or sanitize HTML via `Bolt::sanitizeHtml()` in `getResponse()`.
+- **Unescaped HTML in custom fields**: Always escape user values with `e()` or sanitize HTML via `str(...)->sanitizeHtml()` in `getResponse()`.
 - **Production icon performance**: Run `php artisan icons:cache` during deployment.

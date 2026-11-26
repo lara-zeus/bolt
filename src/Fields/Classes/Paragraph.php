@@ -6,7 +6,6 @@ use Filament\Infolists\Components\TextEntry;
 use Illuminate\Support\HtmlString;
 use LaraZeus\Accordion\Forms\Accordion;
 use LaraZeus\Accordion\Forms\Accordions;
-use LaraZeus\Bolt\Facades\Bolt;
 use LaraZeus\Bolt\Fields\FieldsContract;
 
 class Paragraph extends FieldsContract
@@ -57,6 +56,6 @@ class Paragraph extends FieldsContract
 
         return $component
             ->belowContent('')
-            ->state(new HtmlString(Bolt::sanitizeHtml($zeusField->description ?? '')));
+            ->state(new HtmlString(str($zeusField->description ?? '')->sanitizeHtml()->toString()));
     }
 }

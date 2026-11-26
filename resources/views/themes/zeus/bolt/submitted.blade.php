@@ -3,7 +3,7 @@
         <x-filament::section>
             @if(!empty($zeusForm->options['confirmation-message']))
                 <span class="text-md text-gray-600">
-                    {!! \LaraZeus\Bolt\Facades\Bolt::sanitizeHtml($zeusForm->options['confirmation-message']) !!}
+                    {!! str($zeusForm->options['confirmation-message'])->sanitizeHtml() !!}
                 </span>
             @else
                 <span class="text-md text-gray-600">

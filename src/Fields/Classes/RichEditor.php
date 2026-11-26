@@ -27,7 +27,7 @@ class RichEditor extends FieldsContract
      */
     public function getResponse(Field $field, FieldResponse $resp): string
     {
-        return Bolt::sanitizeHtml($resp->response ?? '');
+        return str($resp->response ?? '')->sanitizeHtml()->toString();
     }
 
     public static function getOptions(?array $sections = null, ?array $field = null): array
