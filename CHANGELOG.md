@@ -2,6 +2,14 @@
 
 All notable changes to `Bolt` will be documented in this file
 
+## v4.0.18 - 2026-11-27
+
+### What's Changed
+
+* [4.x] Export formula-like answers as plain text by @Abdulmajeed-Jamaan in https://github.com/lara-zeus/bolt/pull/475
+
+**Full Changelog**: https://github.com/lara-zeus/bolt/compare/v4.0.17...v4.0.18
+
 ## v4.0.17 - 2026-11-22
 
 ### What's Changed
@@ -16,11 +24,13 @@ All notable changes to `Bolt` will be documented in this file
 #### 🔒 Security
 
 - **Prevent XSS in form responses, notes, and HTML content** (#457):
+  
   - Plain-text field responses (`FieldsContract::getResponse()`, `Textarea`, collection-backed fields) and response `notes` are now HTML-escaped before rendering.
   - Intentional HTML content (`RichEditor` responses, `Paragraph` descriptions, form `details`, and `confirmation-message`) is now sanitized via `Bolt::sanitizeHtml()` using `voku/anti-xss`.
   - Added the `zeus-bolt.html_sanitizer` config option (implementing `LaraZeus\Bolt\Contracts\HtmlSanitizer`) to allow swapping the default sanitizer.
   
 - **Restrict file uploads by file type, MIME type, and size** (#458):
+  
   - `FileUpload` fields now enforce both server-side MIME type and extension validation, blocking executable and active markup files (e.g. `php`, `sh`, `svg`, `html`, `js`).
   - Added per-field **Accepted File Types** (`image`, `video`, `audio`, `document`) and **Max File Size** (`KB`/`MB`) options in the form builder.
   - Added `zeus-bolt.uploadFileTypes` and `zeus-bolt.uploadMaxSize` config options.
@@ -282,6 +292,7 @@ this the change:
 
 
 
+
 ```
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/v3.0.84...v3.0.85
 
@@ -479,6 +490,7 @@ if you need to change this to use another model, add the following in your confi
     //...
     'User' => AnotherUserModel::class,
 ],
+
 
 
 
@@ -1117,7 +1129,6 @@ and you can remove the fork for `alperenersoy/filament-export`
 **Full Changelog**: https://github.com/lara-zeus/bolt/compare/1.1.1...1.2.0
 ## 1.1.1 - 2023-06-27
 ### What's Changed
-
 - add french by @jvkassi in https://github.com/lara-zeus/bolt/pull/73
 - Add missing phrases by @atmonshi in https://github.com/lara-zeus/bolt/pull/74
 - Add missing phrases to fr by @atmonshi in https://github.com/lara-zeus/bolt/pull/78
