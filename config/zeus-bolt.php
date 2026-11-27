@@ -2,7 +2,6 @@
 
 use LaraZeus\Bolt\Enums\FileUploadType;
 use LaraZeus\Bolt\Enums\FormsStatus;
-use LaraZeus\Bolt\Fields\AntiXssSanitizer;
 use LaraZeus\Bolt\Mail\FormSubmission;
 use LaraZeus\Bolt\Models\Category;
 use LaraZeus\Bolt\Models\Collection;
@@ -139,13 +138,4 @@ return [
     'cache' => [
         'collection_values' => 30, // on seconds
     ],
-
-    /**
-     * responses are escaped before they are rendered, so a respondent cannot inject
-     * markup into the admin panel. field types that store HTML on purpose, like the
-     * rich editor, are sanitized with this class instead.
-     *
-     * it must implement `LaraZeus\Bolt\Contracts\HtmlSanitizer`.
-     */
-    'html_sanitizer' => AntiXssSanitizer::class,
 ];

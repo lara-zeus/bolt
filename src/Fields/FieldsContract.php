@@ -83,7 +83,7 @@ abstract class FieldsContract implements Arrayable, Fields
      *
      * Every caller renders the return value as HTML, so responses are escaped
      * here rather than at each view. Field types that store HTML on purpose must
-     * override this and sanitize with `Bolt::sanitizeHtml()` instead.
+     * override this and sanitize with `str(...)->sanitizeHtml()` instead.
      */
     public function getResponse(Field $field, FieldResponse $resp): string
     {

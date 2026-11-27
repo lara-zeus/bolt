@@ -1,9 +1,11 @@
 <?php
 
-use LaraZeus\Bolt\Facades\Bolt;
+use Filament\Infolists\Components\TextEntry;
+use Illuminate\Support\HtmlString;
 use LaraZeus\Bolt\Fields\Classes\CheckboxList;
 use LaraZeus\Bolt\Fields\Classes\DatePicker;
 use LaraZeus\Bolt\Fields\Classes\FileUpload;
+use LaraZeus\Bolt\Fields\Classes\Paragraph;
 use LaraZeus\Bolt\Fields\Classes\Radio;
 use LaraZeus\Bolt\Fields\Classes\RichEditor;
 use LaraZeus\Bolt\Fields\Classes\Select;
@@ -140,8 +142,45 @@ it('escapes every core field type that does not deliberately render html', funct
     expect($unescaped)->toBeEmpty();
 });
 
-it('leaves an empty value untouched when sanitizing html', function () {
-    expect(Bolt::sanitizeHtml(''))->toBe('');
+it('leaves an empty rich editor response untouched when sanitizing html', function () {
+    expect((new RichEditor)->getResponse(fieldWith(), responseOf('')))->toBe('');
+});
+
+it('sanitizes html in the paragraph field description', function () {
+    $entry = (new Paragraph)->appendFilamentComponentsOptions(
+        TextEntry::make('paragraph'),
+        new Field([
+            'name' => 'Notice',
+            'description' => '<p>Read <em>carefully</em></p><script>alert(1)</script><img src=x onerror=alert(1)>',
+            'options' => [],
+        ])
+    );
+
+    $state = $entry->getState();
+
+    expect($state)->toBeInstanceOf(HtmlString::class)
+        ->and($state->toHtml())
+        ->toContain('<em>carefully</em>')
+        ->not->toContain('<script')
+        ->not->toContain('onerror');
+});
+
+it('sanitizes html in the form confirmation message view', function () {
+    $form = Form::factory()->make([
+        'options' => [
+            'confirmation-message' => '<p>Thank <strong>you</strong>!</p><script>alert(1)</script><a href="javascript:alert(1)">link</a>',
+        ],
+    ]);
+
+    $rendered = view('zeus::themes.zeus.bolt.submitted', [
+        'zeusForm' => $form,
+        'extensionData' => ['response' => new Response],
+    ])->render();
+
+    expect($rendered)
+        ->toContain('<strong>you</strong>')
+        ->not->toContain('<script')
+        ->not->toContain('javascript:');
 });
 
 function entryWithResponseValue(string $value, string $notes = ''): Response
