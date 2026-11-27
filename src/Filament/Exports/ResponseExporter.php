@@ -64,17 +64,25 @@ class ResponseExporter extends Exporter
         $mainColumns = [
             ExportColumn::make('user.' . $getUserModel)
                 ->label(__('zeus-bolt::response.name'))
-                ->default(__('zeus-bolt::response.guest')),
+                ->default(__('zeus-bolt::response.guest'))
+                ->preventFormulaInjection(),
 
             ExportColumn::make('status')
                 ->formatStateUsing(function ($state): string {
                     return $state->getLabel();
                 })
-                ->label(__('zeus-bolt::response.status')),
+                ->label(__('zeus-bolt::response.status'))
+                ->preventFormulaInjection(),
 
             ExportColumn::make('notes')
-                ->label(__('zeus-bolt::response.notes')),
+                ->label(__('zeus-bolt::response.notes'))
+                ->preventFormulaInjection(),
         ];
+
+        // Spreadsheet apps read a cell starting with `=`, `+`, `-`, `@`, a tab or a
+        // carriage return as a formula, so an answer like `=1+1` would show up as
+        // `2`. Every column, including ones from custom fields, prefixes such values
+        // with a single quote so the export shows exactly what was entered.
 
         /**
          * @var Field $field.
@@ -83,20 +91,13 @@ class ResponseExporter extends Exporter
             $getFieldTableColumn = (new $field->type)->ExportColumn($field);
 
             if ($getFieldTableColumn !== null) {
-                $mainColumns[] = $getFieldTableColumn;
+                $mainColumns[] = $getFieldTableColumn->preventFormulaInjection();
             }
         }
 
         $mainColumns[] = ExportColumn::make('created_at')
-            ->label(__('zeus-bolt::response.created_at'));
-
-        // Spreadsheet apps read a cell starting with `=`, `+`, `-`, `@`, a tab or a
-        // carriage return as a formula, so an answer like `=1+1` would show up as
-        // `2`. Prefix such values with a single quote so every column, including
-        // ones from custom fields, exports exactly what was entered.
-        foreach ($mainColumns as $column) {
-            $column->preventFormulaInjection();
-        }
+            ->label(__('zeus-bolt::response.created_at'))
+            ->preventFormulaInjection();
 
         return $mainColumns;
     }
