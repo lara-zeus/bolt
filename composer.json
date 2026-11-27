@@ -28,6 +28,7 @@
     ],
     "require": {
         "php": "^8.2",
+        "filament/actions": "^4.12",
         "flowframe/laravel-trend": "^0.4",
         "guava/filament-icon-picker": "^3.1",
         "lara-zeus/accordion": "^2.0",

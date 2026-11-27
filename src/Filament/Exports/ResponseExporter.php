@@ -90,6 +90,14 @@ class ResponseExporter extends Exporter
         $mainColumns[] = ExportColumn::make('created_at')
             ->label(__('zeus-bolt::response.created_at'));
 
+        // Spreadsheet apps read a cell starting with `=`, `+`, `-`, `@`, a tab or a
+        // carriage return as a formula, so an answer like `=1+1` would show up as
+        // `2`. Prefix such values with a single quote so every column, including
+        // ones from custom fields, exports exactly what was entered.
+        foreach ($mainColumns as $column) {
+            $column->preventFormulaInjection();
+        }
+
         return $mainColumns;
     }
 
